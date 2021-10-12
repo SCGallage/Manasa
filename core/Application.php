@@ -15,7 +15,7 @@ class Application
     public Controller $controller;
     public Database $database;
     public DatabaseService $databaseService;
-    public AuthenticatorModule $auth;
+    //public AuthenticatorModule $auth;
     public SessionManagement $management;
     public static Application $app;
 
@@ -29,7 +29,7 @@ class Application
         $this->database = new Database($config);
         $this->management = new SessionManagement($this->database->getConnection());
         $this->databaseService = new DatabaseService($this->database);
-        $this->auth = new AuthenticatorModule($this->database);
+        //$this->auth = new AuthenticatorModule($this->database);
     }
 
     /**

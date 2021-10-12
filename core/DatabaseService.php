@@ -10,6 +10,7 @@ class DatabaseService
     protected PDO $pdo;
     const FETCH_COUNT = 0;
     const FETCH_ALL = 1;
+    const RETURN_LAST_ID = 2;
 
     /**
      * DatabaseService constructor.
@@ -59,7 +60,7 @@ class DatabaseService
         return $refactoredData;
     }
 
-    public function insert($tableName, $columnsAndValues): bool|int
+    public function insert($tableName, $columnsAndValues, $returnLastIdFlag = null): bool|int
     {
         $columnNames = array_keys($columnsAndValues);
         $separatedColumnNames = implode(', ', $columnNames);
@@ -69,6 +70,12 @@ class DatabaseService
         $sqlStatement = "INSERT INTO $tableName($separatedColumnNames) 
                 VALUES($valuesForColumns)";
 
+        echo $sqlStatement;
+
+        if ($returnLastIdFlag === DatabaseService::RETURN_LAST_ID) {
+            $this->pdo->exec($sqlStatement);
+            return $this->pdo->lastInsertId();
+        }
         return $this->pdo->exec($sqlStatement);
     }
 

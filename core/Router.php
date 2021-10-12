@@ -57,7 +57,8 @@ class Router
             return $this->renderOnlyView("_404");
         }
         if (is_string($callback)) { //if callback is just a static page render view only
-            return $this->renderView($callback, title: "Hello World");
+            return $this->renderStaticView($callback, title: "Hello World");
+            //return $this->renderView($callback, title: "Hello World");
         }
         if (is_array($callback)) {
             Application::$app->controller = new $callback[0]();
@@ -70,12 +71,29 @@ class Router
     /**
      * render the completed view with the layout and the view content
      * @param $view
+     * @param $title
      * @param array $params
-     * @return array|false|string|string[]
+     * @return array|string|string[]
      */
     public function renderView($view, $title, array $params = [])
     {
         $layoutContent = $this->layoutContent();
+        $layoutContent = str_replace('{{title}}', $title, $layoutContent);
+        $viewContent = $this->renderOnlyView($view, $params);
+        include_once Application::$ROOT_DIR . "/views/$view.php";
+        return str_replace('{{content}}', $viewContent, $layoutContent);
+    }
+
+    /**
+     * render the completed view with the layout and the view content
+     * @param $view
+     * @param $title
+     * @param array $params
+     * @return array|string|string[]
+     */
+    public function renderStaticView($view, $title, array $params = [])
+    {
+        $layoutContent = $this->loadlayoutContent('reset');
         $layoutContent = str_replace('{{title}}', $title, $layoutContent);
         $viewContent = $this->renderOnlyView($view, $params);
         include_once Application::$ROOT_DIR . "/views/$view.php";
@@ -95,6 +113,17 @@ class Router
     protected function layoutContent()
     {
         $layout = Application::$app->controller->layout;
+        ob_start();
+        include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
+        return ob_get_clean();
+    }
+
+    /**
+     * select the main layout of the page
+     * @return false|string
+     */
+    protected function loadlayoutContent($layout)
+    {
         ob_start();
         include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
         return ob_get_clean();

@@ -6,7 +6,7 @@ class FileHandler
 {
 
     private static string $_BASE_PATH = __DIR__."\uploads";
-    private static string $fieldName = "file";
+    private static string $fieldName = "cv";
     private static string $file_type = "application/pdf";
     private static int $file_size = 2000000000000000;
     private static string $extension = ".pdf";
@@ -29,6 +29,7 @@ class FileHandler
         if ($_FILES[self::$fieldName]["size"] > self::$file_size)
             return false;
 
+        $this->setFileName();
         $this->setFullSavePath();
         return move_uploaded_file($_FILES[self::$fieldName]["tmp_name"], $this->getFullSavePath());
 
