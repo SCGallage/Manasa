@@ -1,0 +1,14 @@
+{
+    "name": "sanka/core",
+    "authors": [
+        {
+            "name": "SCGallage",
+            "email": "gallagesanka03@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.5",
+        "google/apiclient": "^2.7",
+        "firebase/php-jwt": "^5.4"
+    }
+}

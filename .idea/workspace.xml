@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="24e5fd8c-49d2-491f-8925-edc98d328f4d" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" notifyAboutMissingVendor="false" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/core/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 8">
+    <include_path>
+      <path value="$PROJECT_DIR$/../../php/PEAR" />
+      <path value="$PROJECT_DIR$/core/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/core/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/core/vendor/google/apiclient" />
+      <path value="$PROJECT_DIR$/core/vendor/google/apiclient-services" />
+      <path value="$PROJECT_DIR$/core/vendor/google/auth" />
+      <path value="$PROJECT_DIR$/core/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/core/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/core/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/core/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/core/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/core/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/core/vendor/paragonie/constant_time_encoding" />
+      <path value="$PROJECT_DIR$/core/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/core/vendor/phpmailer/phpmailer" />
+      <path value="$PROJECT_DIR$/core/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/core/vendor/phpseclib/phpseclib" />
+      <path value="$PROJECT_DIR$/core/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/core/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/core/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/core/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/core/vendor/graham-campbell/result-type" />
+      <path value="$PROJECT_DIR$/core/vendor/composer" />
+      <path value="$PROJECT_DIR$/core/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/core/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/core/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/core/vendor/psr/http-factory" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1zMl4ZEvjaiZbtfRzM6UeTdOOe4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/views/Moderator" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Manasa-v1\views\Moderator" />
+      <recent name="C:\xampp\htdocs\Manasa\views" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server" nameIsGenerated="true" document_root="$PROJECT_DIR$/public">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="24e5fd8c-49d2-491f-8925-edc98d328f4d" name="Changes" comment="" />
+      <created>1633965674244</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1633965674244</updated>
+      <workItem from="1633965680176" duration="4640000" />
+      <workItem from="1633970609355" duration="13000" />
+      <workItem from="1634036704520" duration="1989000" />
+      <workItem from="1634203639129" duration="11879000" />
+      <workItem from="1634223627050" duration="110000" />
+      <workItem from="1634223752989" duration="6000" />
+      <workItem from="1634223900488" duration="53000" />
+      <workItem from="1634223955582" duration="75000" />
+      <workItem from="1634224113489" duration="299000" />
+      <workItem from="1634224505459" duration="770000" />
+      <workItem from="1634225308580" duration="9909000" />
+      <workItem from="1634290735014" duration="20991000" />
+      <workItem from="1634391945853" duration="3874000" />
+      <workItem from="1634460429480" duration="10022000" />
+      <workItem from="1634534442438" duration="9143000" />
+      <workItem from="1634636948289" duration="3502000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/core/Model.php</url>
+          <line>43</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

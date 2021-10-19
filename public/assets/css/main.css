@@ -1,0 +1,19 @@
+/*Elements Package*/
+@import url("./Elements/grid.css");
+@import url("./admin.css");
+@import url("./text-style.css");
+@import url("./table.css");
+@import url("./searchbar.css");
+@import url("./scrollbar.css");
+@import url("./modal.css");
+@import url("./calendar.css");
+@import url("./button-style.css");
+@import url("./form.css");
+@import url("./tool_tip.css");
+
+  [class*="col-"] {
+    float: center;
+    /* padding: 15px; */
+    /*border: 1px solid red;*/
+  }
+

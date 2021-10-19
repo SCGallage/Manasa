@@ -1,0 +1,264 @@
+
+  body {
+    color: black;
+    background-color: #ececec;
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  main {
+    margin-left: 5rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  button{
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+/* Admin page top row */
+  .upper-box{
+    background:#ffff;
+    border-radius: 0.3rem;
+    align-items: center;
+    align-content: center;
+  }
+  
+  .upper-box svg{
+    width: 2rem;
+    height: 2rem;
+    fill: #147C83;
+  }
+
+  .upper-box-row{
+    padding: 0.5rem;
+    align-items: center;
+  }
+
+  .upper-box-row1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  /* Card styles */
+  .primary-card{
+      background:#ffff;
+      border-radius: 0.3rem;
+      align-items: center;
+      align-content: center;
+  }
+
+  .card1{
+    width: 100%;
+    background-color: #ececec;
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+  }
+
+  .card2{
+    width: 100%;
+    background-color: #ececec;
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+    margin: 2.1rem;
+  }
+
+  .card3{
+    width: 100%;
+    background-color: #ececec;
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+    margin: 1rem;
+  }
+
+  .event-card{
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .event-card:nth-of-type(3n + 1){
+    background-color: rgba(55, 178, 141, 0.3);
+  }
+
+  .event-card:nth-of-type(3n + 2){
+    background-color: rgba(55, 112, 178, 0.3);
+  }
+
+  .event-card:nth-of-type(3n + 3){
+    background-color: rgba(146, 146, 146, 0.3);
+  }
+
+  /* Flex boxes */
+
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .flex-container2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .flex-container3{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .upper-box-details{
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.5rem;
+  }
+
+  .card-content{
+    padding: 1rem;
+    display: flex;
+    flex-direction:column;
+  }
+  
+ /* Borders */
+  .flex-gap {
+    margin: 2rem;
+    justify-self: center;
+    margin-left: 0 !important;
+  }
+
+  /* Div gaps without margin top */
+  .flex-gap1 {
+    margin: 2rem;
+    margin-top: 0rem !important;
+    margin-left: 0 !important;
+    justify-self: center;
+  }
+
+   /* Div gaps without margin bottom */
+  .flex-gap3 {
+    margin: 2rem;
+    margin-bottom: 0rem !important; 
+    justify-self: center;
+  }
+
+  .padding1{
+    padding: 1rem;
+  }
+
+  .padding-top{
+    padding-top: 1.5rem;
+  }
+
+  .padding-left{
+    padding-left: 2rem;
+  }
+
+  .padding-right{
+    padding-right: 2rem;
+  }
+
+  .padding5{
+    padding-top: 0.8rem;
+  }
+  .positionR{
+    float: right;
+  }
+
+
+  /* Overflow */
+  .scroll1{
+    height: 18rem;
+    overflow-y: scroll;
+  }
+ 
+ .material-icons{
+  cursor: pointer;
+ }
+
+ /* Charts */
+
+ .bar{
+  width: 450px;
+  height: 250px;
+}
+
+.line{
+  width: 450px;
+  height: 250px;
+}
+
+.doughnut{
+  width: 300px;
+  height: 300px;
+}
+
+  @media only screen and (max-width: 600px) {
+    .navbar {
+        bottom: 0;
+        width: 100vw;
+        height: 5rem;
+      }
+    
+      .logo {
+        display: none;
+      }
+    
+      .navbar-nav {
+        flex-direction: row;
+      }
+    
+      .nav-link {
+        justify-content: center;
+      }
+    
+      main {
+        margin: 0;
+      }
+
+      .flex-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .padding-left{
+        padding-left: 0rem;
+        padding-top: 1.5rem;
+      }
+    
+      .padding-right{
+        padding-right: 0rem;
+        /*padding-top: 1rem;*/
+      }
+
+      .flex-gap{
+        margin: 0rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .flex-gap1{
+        margin: 0rem;
+        margin-bottom: 2rem !important;
+      }
+
+      .flex-gap3 {
+        margin: 0rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+    }
+

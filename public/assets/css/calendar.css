@@ -1,0 +1,45 @@
+    /* Calendar */
+
+    .calendar-week-day {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        margin: 10px 0;
+        font-weight: 700;
+      }
+      
+      .calendar-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        column-gap: 10px;
+        row-gap: 10px;
+      }
+      
+      .calendar-day-hover {
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        cursor: pointer;
+        padding: 10px;
+        animation: to-top 1s forwards;
+        background-color: #00BFC9;
+        text-align: center;
+        color: white;
+        /* border-radius: 50%; */
+      }
+      
+      .calendar-day-hover:hover {
+        background-color:#23232e;
+        color: white;
+        /* border-radius: 50%; */
+      }
+      
+      .curr-date {
+        background-color: #494949;
+      }
+      
+      .year-change {
+        cursor: pointer;
+      }

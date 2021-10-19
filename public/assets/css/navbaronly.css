@@ -1,0 +1,266 @@
+:root {
+    font-size: 16px;
+    font-family: sans-serif;
+    --text-primary: #147C83;
+    --text-secondary: #ececec;
+    --bg-primary: #E3F2F3;
+    --bg-secondary: #141418;
+    --transition-speed: 600ms;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+
+main {
+    margin-left: 5rem;
+    /*padding: 1rem;*/
+}
+
+.navbar {
+    position: fixed;
+    background-color: #E3F2F3;
+    transition: width 600ms ease;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-item {
+    width: 100%;
+}
+
+.link-text {
+    display: none;
+    margin-left: 1rem;
+    font-weight: 700;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.occupation {
+    font-size: 0.8rem;
+}
+
+.username {
+    font-size: 0.9rem;
+}
+
+.logo {
+  width: 100%;
+}
+
+.icon-image {
+  display: inline;
+  position: absolute;
+  left: -999px;
+  height: 4rem;
+  width: 8rem;
+  transition: var(--transition-speed);
+}
+
+.logo svg {
+  transition: var(--transition-speed);
+}
+
+
+
+.profile-pic {
+    margin-left: 12px;
+    height: 40px;
+    width: 40px;
+    background-color: #E3F2F3;
+    /* border-radius: 50%; */
+    background: url('./img/propic.png');
+    background-size: cover;
+}
+
+.nav-link {
+    display: flex;
+    height: 3.8rem;
+    align-items: center;
+    color: #147C83;
+    text-decoration: none; 
+    transition: var(--transition-speed);
+}
+
+.icon-header {
+  display: flex;
+  height: 4.5rem;
+  align-items: center;
+  color:#147C83;
+  text-decoration: none;
+  transition: var(--transition-speed);
+  /* border-radius: 10px; */
+}
+
+.icon-header svg {
+  width: 1.5rem;
+  min-width: 2rem;
+  margin: 0 1.5rem;
+}
+
+.nav-link svg {
+    width: 1rem;
+    min-width: 2rem;
+    margin: 0 1.5rem;
+}
+
+.nav-link:hover {
+    background: #00A3AD;
+    color: white;
+}
+
+.last-item {
+    margin-top: ma;
+    
+}
+
+.last-link {
+    margin-top: 10px;
+    display: flex;
+    height: 3.5rem;
+    align-items: center;
+    color:#147C83;
+    text-decoration: none;
+    transition: var(--transition-speed);
+    background-color:#E3F2F3;
+    }
+
+.last-link svg {
+    width: 1rem;
+    min-width: 2rem;
+    margin: 1rem 1rem;
+  }
+
+.last-link:hover {
+    background: #147C83;
+    color: white;
+}
+
+.logo {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #ececec;
+    background: #E3F2F3;
+    font-size: 1rem;
+    letter-spacing: 0.3ch;
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:#555; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.sub-nav{
+    display: none;
+
+}
+
+.sub-nav a{
+    display: block;
+
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar {
+        bottom: 0;
+        width: 100vw;
+        height: 5rem;
+		  overflow-x: scroll;
+		  overflow-y: hidden; 
+  			
+      }
+    
+      .logo {
+        display: none;
+      }
+    
+      .navbar-nav {
+        flex-direction: row;
+      }
+    
+      .nav-link {
+        justify-content: center;
+      }
+    
+      main {
+        margin: 0;
+      }
+    
+}
+
+@media only screen and (min-width: 600px) {
+    .navbar {
+        top: 0;
+        width: 5rem;
+        height: 100vh;
+      }
+    
+      .navbar:hover {
+        width: 16rem;
+      }
+
+      /* .navbar:hover .nav-item {
+        width: 90%;
+      } */
+
+      .navbar:hover .last-item {
+        width: 100%;
+      }
+    
+      .navbar:hover .link-text {
+        display: inline;
+      }
+    
+      .navbar:hover .logo svg
+      {
+        margin-left: 11rem;
+      }
+
+      .navbar:hover .icon-image {
+        left: 20px;
+      }
+    
+      .navbar:hover .logo-text
+      {
+        left: 0px;
+      }
+      
+}
