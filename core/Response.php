@@ -17,4 +17,8 @@ class Response
     public function setContentTypeJson() {
         header('Content-Type: application/json; charset=utf-8');
     }
+
+    public function setRedirectUrl($url) {
+        header('Location: '.$url);
+    }
 }

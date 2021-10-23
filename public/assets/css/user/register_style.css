@@ -1,0 +1,285 @@
+:root {
+  --clr-neutral-900: hsl(207, 19%, 9%);
+  --clr-neutral-100: hsl(0, 0%, 100%);
+  --clr-accent-400: hsl(142, 90%, 61%);
+}
+/*
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+.card {
+    color: var(--clr-neutral-100);
+
+} */
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+body {
+  box-sizing: border-box;
+  background-color: #efefef;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+/* .container {
+    margin: 50px auto;
+    max-width: 70%;
+} */
+
+.card {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  transition: all 200ms linear;
+}
+
+.container {
+  width: 1200px;
+  transition: all 200ms linear;
+}
+
+/* .container-modified {
+    width: 500px;
+}
+
+.card-modified {
+    display: grid;
+    grid-template-columns: 100%;
+} */
+
+.card-left {
+  background-color: #ffffff;
+  padding: 2.5em 3.5em;
+  transition: all 200ms linear;
+}
+
+.card-title {
+  margin-bottom: 20px;
+  font-size: 2em;
+  font-weight: 500;
+  min-width: 17rem;
+  display: flex;
+  flex-direction: column;
+  /* text-align: center; */
+}
+
+.anonymous-text {
+  margin-top: 20px;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.main-heading {
+  font-weight: 700;
+}
+/* .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-column-gap: 10%;
+}
+
+/* .grid-container-modified {
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: 10px;
+} */
+
+.card-right {
+  background: url(../../img/user/login.jpg);
+  background-size: cover;
+}
+
+.btn {
+  border: none;
+  height: 2.5rem;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.5ch;
+}
+
+.btn:hover {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+}
+
+.login {
+  background-color: #003249;
+  /* border: 2px #003249; */
+  color: white;
+  border: 2px solid #003249;
+}
+
+.gsign-up {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gsign-up img {
+  top: 13px;
+  left: 20px;
+  height: 15px;
+  width: 15px;
+  position: absolute;
+}
+
+.google-signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f6f6;
+  text-decoration: none;
+  color: black;
+  /* border: 2px #F6F6F6; */
+}
+
+.create-account {
+  background-color: #0081bc;
+  border: 10px red;
+  color: white;
+}
+
+.text-field {
+  height: 2.2rem;
+  width: 95%;
+  padding-left: 3%;
+  border: 2px solid #004f53;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+.text-field:focus {
+  outline: none;
+  border: 2px solid #739b9d;
+}
+
+.input-field {
+  position: relative;
+  margin-bottom: 1rem;
+  /* width: 100%; */
+}
+
+.input-field svg {
+  position: absolute;
+  top: 27px;
+  right: -25px;
+}
+
+.input-field h5 {
+  font-size: 1.5ch;
+  font-weight: 300;
+  margin-top: 5px;
+}
+
+.input-check {
+  font-size: 1.5ch;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-text {
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.reset-link {
+  font-size: 1.5ch;
+  text-decoration: none;
+  color: black;
+}
+
+.input-check a {
+  font-weight: 700;
+  text-decoration: none;
+  color: black;
+}
+
+.input-check {
+  display: flex;
+}
+
+.checkbox-text {
+  margin-left: 5px;
+  margin-top: 2px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.select-type {
+  margin-bottom: 1rem;
+}
+
+.select-input {
+  padding: 5px 10px;
+  border: 2px solid #004f53;
+  border-radius: 0%;
+}
+
+.additional {
+  width: 100%;
+  /* height: 100%; */
+  height: 2.5rem;
+}
+
+.fake-btn {
+  width: 30%;
+}
+
+.file-upload {
+  margin-bottom: 1rem;
+}
+
+.file-upload h4 {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.file-name {
+  margin-left: 20px;
+  font-size: 1em;
+}
+
+.remove-btn {
+  margin-left: 20px;
+  width: 10%;
+  height: 1.5rem;
+  font-size: 12px;
+  background-color: #8f0500de;
+  color: white;
+}
+
+.disable {
+  display: none;
+}
+
+.danger {
+  border: 2px solid rgba(173, 5, 5, 0.88);
+}
+
+.success {
+  border: 2px solid rgba(8, 140, 21, 0.88);
+}

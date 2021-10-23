@@ -1,0 +1,166 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.main-heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #03929b;
+}
+
+.main-grid-container {
+  width: 1200px;
+  display: grid;
+  grid-template-columns: 60% 35%;
+  column-gap: 5%;
+  height: 75vh;
+}
+
+.grid-item-events {
+  background-color: #f1f1f1;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.grid-item-callers {
+  background-color: #f1f1f1;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.description-icon {
+  height: 30px;
+  width: 30px;
+}
+
+.event-heading {
+  margin: 1rem 1rem;
+}
+
+.event-main-heading {
+  font-size: 25px;
+  font-weight: 700;
+  color: #03929b;
+}
+
+.event-sub-heading {
+  float: right;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.event-details {
+  display: flex;
+  align-items: center;
+}
+
+.event-card {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  padding: 0.5rem;
+  height: 7.5rem;
+  background-color: #ffffff;
+  border-radius: 5px;
+  margin: 1rem 1rem;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.card-image {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  /* background-color: aquamarine; */
+}
+
+.event-image {
+  margin-left: 10px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  padding: 0 5px;
+  /* background-color: blue; */
+}
+
+.event-title {
+  font-size: 1.2rem;
+  margin-top: 0.7rem;
+}
+
+.details-text {
+  font-family: "Roboto", sans-serif;
+  margin-left: 0.3rem;
+  font-weight: 300;
+  font-size: 0.9rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.svg-image {
+  margin-left: 0.5rem;
+}
+
+.details-description {
+  display: flex;
+  margin-top: 0.3rem;
+}
+
+/* caller requests */
+
+.caller-card {
+  display: grid;
+  grid-template-columns: 0.3fr 1fr 0.4fr;
+  background-color: #ffffff;
+  height: 4rem;
+  margin: 0 1rem;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.caller-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.caller-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.caller-info {
+  display: flex;
+  align-items: center;
+}
+
+.caller-name {
+  font-weight: 400;
+}
+
+.button-set {
+  display: flex;
+  align-items: center;
+}
+
+.remove-btn {
+  border: none;
+  width: 70px;
+  height: 25px;
+  color: #b40000;
+  background: rgba(255, 3, 3, 0.44);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  margin-left: 10px;
+}
+
+/* popup */

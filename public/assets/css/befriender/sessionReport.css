@@ -1,0 +1,84 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.main-grid-container {
+    width: 950px;
+    height: 700px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 40px;
+}
+
+.grid-item {
+    background: #F7F7F7;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.grid-item-container {
+    width: 100%;
+}
+
+.report-add-card {
+    background: #E4E4E4;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    height: 60px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin: 20px 25px;
+}
+
+.report-card-header {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.report-card-body {
+    flex: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.report-card-footer {
+    flex: 20%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.report-date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 56, 255, 0.43);
+    border-radius: 3px;
+    width: 40px;
+    padding: 5px;
+}
+
+.report-add-btn {
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 3px;
+    margin-right: 20px;
+}
+
+.grid-item-heading {
+    margin-left: 25px;
+    margin-top: 20px;
+    font-size: 20px;
+    color: #03929B;
+}
+
+.add-btn-clr {
+    background-color: #000000;
+}
+
+.view-btn-clr {
+    background-color: #003249;
+}

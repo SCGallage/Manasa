@@ -87,7 +87,6 @@ class SessionManagement implements SessionHandlerInterface
     {
         // TODO: Implement read() method.
         $sql = "SELECT `data` FROM sessions WHERE id = '$id'";
-        echo $sql;
         $stmt = $this->pdo->query($sql);
         if ($stmt->rowCount() == 1) {
             $result =  $stmt->fetch(\PDO::FETCH_ASSOC);
