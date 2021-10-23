@@ -21,19 +21,21 @@
     </div>
 
     <div class="row row-style flex-container">
-        <div class="col-l-12 col-m-12 col-s-12 primary-card flex-gap">
+        <div class="col-l-12 col-m-12 col-s-12 primary-card flex-gap ">
             <div class="col-l-12 col-m-12 col-s-12 padding1">
-                <span class="head-text">Berinder</span>
+                <span class="head-text">User Requests</span>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12">
+            <div class="col-l-12 col-m-12 col-s-12 table-overflow">
                 <table>
                     <tr>
                         <th>User Name</th>
                         <th>Email</th>
                         <th>User Type</th>
-                        <th>start Date</th>
-                        <th>end Date</th>
+                        <th>Date of Birth</th>
+                        <th>UserName</th>
+                        <th>State</th>
+                        <th>CV</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -44,45 +46,26 @@
                         <td><?php echo $row['fname']." ".$row['lname']?></td>
                         <td><?php echo $row['email']?></td>
                         <td><?php echo $row['type']?></td>
-                        <td><?php echo $row['startDate']?></td>
-                        <td><?php echo $row['endDate']?></td>
-                        <td> <a href="#" class="button1">Accept</a></td>
-                        <td> <a href="#" class="button6">Reject</a></td>
+                        <td><?php echo $row['dob']?></td>
+                        <td><?php echo $row['username']?></td>
+                        <td><?php
+                            if ($row['state'] == 1) {
+                                echo 'Active';
+                            }
+                            elseif ($row['state'] == 0){
+                                echo 'Inactive';
+                            }
+                            ?></td>
+                        <td><a href="./uploads/<?php echo $row['cv']?>" download>Download CV</a></td>
+                        <td>
+                            <form method="post" action="/UserRequests">
+                                <input type="submit" class="button1" value="Accept" name="state">
+                                <input type="hidden" class="button1" value="<?php echo $row['id']?>" name="id">
+                            </form>
+                        </td>
+                        <td> <a href="/UserRequestsDelete?id=<?php echo $row['id'] ?>" class="button6">Reject</a></td>
                     </tr>
                     <?php } ?>
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Peter Griffin@gmail.com</td>-->
-<!--                        <td>Male</td>-->
-<!--                        <td>077229667</td>-->
-<!--                        <td>21</td>-->
-<!--                        <td>Male</td>-->
-<!--                        <td>Pending</td>-->
-<!--                        <td> <a href="#" class="button1">Accept</a></td>-->
-<!--                        <td> <a href="#" class="button6">Reject</a></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Peter Griffin@gmail.com</td>-->
-<!--                        <td>Male</td>-->
-<!--                        <td>077229667</td>-->
-<!--                        <td>21</td>-->
-<!--                        <td>Male</td>-->
-<!--                        <td>Pending</td>-->
-<!--                        <td> <a href="#" class="button1">Accept</a></td>-->
-<!--                        <td> <a href="#" class="button6">Reject</a></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Peter Griffin@gmail.com</td>-->
-<!--                        <td>Male</td>-->
-<!--                        <td>077229667</td>-->
-<!--                        <td>21</td>-->
-<!--                        <td>Male</td>-->
-<!--                        <td>Pending</td>-->
-<!--                        <td> <a href="#" class="button1">Accept</a></td>-->
-<!--                        <td> <a href="#" class="button6">Reject</a></td>-->
-<!--                    </tr>-->
                 </table>
             </div>
         </div>

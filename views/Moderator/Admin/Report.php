@@ -19,7 +19,7 @@
 
     <div class="row flex-gap">
         <div class="col-l-12">
-            <span class="head-text2">Reports</span>
+            <span class="head-text2">Generate Reports</span>
         </div>
     </div>
     <div class="row flex-container">
@@ -29,7 +29,7 @@
                 <span class="head-text">Generated Reports</span>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12 flex-gap">
+            <div class="col-l-12 col-m-12 col-s-12 flex-gap4">
                 <div class="upper-box-details card1">
                     <div class="col-l-12 col-m-12 col-s-12 text-style3">Expense Report</div>
                     <div class="col-l-12 col-m-12 col-s-12 ">

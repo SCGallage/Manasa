@@ -122,53 +122,72 @@
                 <span class="head-text">Active Befrienders</span>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12 ">
+            <div class="col-l-12 col-m-12 col-s-12 table-overflow">
                 <table>
                     <tr>
-                        <th>Support Group Name</th>
-                        <th>Facilitator</th>
+                        <th>Name</th>
+                        <th>Email</th>
                         <th>Contact</th>
-                        <th>Co-Facilitator</th>
-                        <th>Contact</th>
-                        <th>Participants</th>
+                        <th>Start Date</th>
                         <th>Type</th>
-                        <th></th>
+                        <th> </th>
+                        <th> </th>
                     </tr>
                     <tr>
-                        <td>Cancer support</td>
-                        <td>Peter Griffin</td>
-                        <td>077229667</td>
-                        <td>Peter Griffin</td>
-                        <td>077229667</td>
-                        <td>21</td>
-                        <td>Cancer</td>
+                        <td>Ben Affleck</td>
+                        <td>BenAffleck@gmail.com</td>
+                        <td>0771268920</td>
+                        <td>2017/09/10</td>
+                        <td>Befrinder</td>
                     </tr>
                     <tr>
-                        <td>Cancer support</td>
                         <td>Peter Griffin</td>
+                        <td>PeterGriffin@gmail.com</td>
                         <td>077229667</td>
-                        <td>Peter Griffin</td>
-                        <td>077229667</td>
-                        <td>21</td>
-                        <td>Cancer</td>
+                        <td>2017/09/10</td>
+                        <td>Befrinder</td>
                     </tr>
                     <tr>
-                        <td>Cancer support</td>
-                        <td>Peter Griffin</td>
-                        <td>077229667</td>
-                        <td>Peter Griffin</td>
-                        <td>077229667</td>
-                        <td>21</td>
-                        <td>Cancer</td>
+                        <td>Carla Bruni</td>
+                        <td>CarlaBruni@gmail.com</td>
+                        <td>077146278</td>
+                        <td>2017/09/10</td>
+                        <td>Befrinder</td>
                     </tr>
                     <tr>
-                        <td>Cancer support</td>
+                        <td>David Arquette</td>
+                        <td>DavidArquette@gmail.com</td>
+                        <td>0772678924</td>
+                        <td>2017/09/10</td>
+                        <td>Befrinder</td>
+                    </tr>
+                    <tr>
+                        <td>Ben Affleck</td>
+                        <td>BenAffleck@gmail.com</td>
+                        <td>0771268920</td>
+                        <td>2017/09/10</td>
+                        <td>Befrinder</td>
+                    </tr>
+                    <tr>
                         <td>Peter Griffin</td>
+                        <td>PeterGriffin@gmail.com</td>
                         <td>077229667</td>
-                        <td>Peter Griffin</td>
-                        <td>077229667</td>
-                        <td>21</td>
-                        <td>Cancer</td>
+                        <td>2017/09/10</td>
+                        <td>Befrinder</td>
+                    </tr>
+                    <tr>
+                        <td>Carla Bruni</td>
+                        <td>CarlaBruni@gmail.com</td>
+                        <td>077146278</td>
+                        <td>2017/09/10</td>
+                        <td>Befrinder</td>
+                    </tr>
+                    <tr>
+                        <td>David Arquette</td>
+                        <td>DavidArquette@gmail.com</td>
+                        <td>0772678924</td>
+                        <td>2017/09/10</td>
+                        <td>Befrinder</td>
                     </tr>
                 </table>
             </div>

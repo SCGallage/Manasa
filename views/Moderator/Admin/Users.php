@@ -12,7 +12,74 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
+    <style>
+        .file {
+            opacity: 0;
+            width: 0.1px;
+            height: 0.1px;
+            position: absolute;
+        }
+        .customLable{
+            display: block;
+            position: relative;
+            width: 200px;
+            height: 50px;
+            border-radius: 25px;
+            background: #6c6c6c;
+            box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform .2s ease-out;
+        }
+        <style>
+         .dropbutton {
+             background-color: #4CAF50;
+             color: white;
+             padding: 14px;
+             font-size: 14px;
+             border: none;
+             cursor: pointer;
+         }
 
+        .dropbutton:hover, .dropbutton:focus {
+            background-color: #3e8e41;
+        }
+
+        .dropdownmenu {
+            position: relative;
+            display: inline-block;
+            outline: none;
+        }
+
+        .dropdownmenu-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 140px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .dropdownmenu-content a {
+            color: black;
+            padding: 12px 14px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdownmenu a:hover {
+            background-color: #f1f1f1
+        }
+
+        .show {
+            display:block;
+        }
+    </style>
+    </style>
 </head>
 <body>
 <main>
@@ -31,7 +98,6 @@
                     <a href="#" class="button4">Moderator</a>
                 </div>
             </div>
-
             <div class="col-l-3 col-m-8 col-s-8 positionR">
                 <div class="search">
                     <input type="text" class="searchTerm" placeholder="Search">
@@ -45,19 +111,37 @@
     </div>
 
     <div class="row row-style flex-container">
+<!--        <div class="dropdownmenu">-->
+<!---->
+<!--            <button onclick="btnToggle()" class="dropbutton">-->
+<!--                Dropdown-->
+<!--            </button>-->
+<!---->
+<!--            <div id="Dropdown" class="dropdownmenu-content" >-->
+<!--                <a href="#Java">Java</a>-->
+<!--                <a href="#HTML">HTML</a>-->
+<!--                <a href="#CSS">CSS</a>-->
+<!--                <a href="#JS">JavaScript</a>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="col-l-12 col-m-12 col-s-12 primary-card flex-gap">
+
             <div class="col-l-12 col-m-12 col-s-12 padding1">
                 <div class="col-l-8 col-m-6 col-s-6"> <span class="head-text">Berinder</span> </div>
                 <div class="col-l-4 col-m-6 col-s-6">
-                    <span class="add-text" onclick="dropDownButtonUser()">+Add User</span>
+                    <div>
+                    <div onclick="dropDownButtonUser()">
+                    <span class="add-text" >+Add User</span>
                     <div class="sub-button3 padding-top" id="dropdownUser">
                         <a href="/UserRequests" class="button5">User Requests</a>
                         <a href="#" class="button5" id="createUser" onclick="createUser()">Add user</a>
                     </div>
+                    </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12">
+            <div class="col-l-12 col-m-12 col-s-12 table-overflow">
                 <table>
                     <tr>
                         <th>Name</th>
@@ -162,19 +246,18 @@
         </div>
 
         <div class="modal-body">
-            <div class="primary-card card-content">
-                <form action="" class="form1">
+            <div class="card-content">
+                <form name="createUserForm" action="/SearchUsers" class="form1" method="post" id="registerForm">
                     <div class="col-l-12 col-m-12 col-s-12 flex-container3 ">
                         <div class="col-l-4 col-m-4 col-s-4">
-                            <label for="reportType" class="text-style3">User Type</label>
+                            <label for="userType" class="text-style3">User Type</label>
                         </div>
                         <div class="col-l-8 col-m-8 col-s-8">
-                            <select name="reportType" id="reportType" class="select1">
-                                <option value="vol">Volunteer</option>
-                                <option value="don">Befriender</option>
-                                <option value="ov">Caller</option>
-                                <option value="don">Moderator</option>
-                                <option value="ov">Administrator</option>
+                            <select name="type" id="reportType" class="select1">
+                                <option value="Volunteer">Volunteer</option>
+                                <option value="Befriender">Befriender</option>
+                                <option value="Moderator">Moderator</option>
+                                <option value="Administrator">Administrator</option>
                             </select>
                         </div>
                     </div>
@@ -185,7 +268,7 @@
                                 <label for="email" class="text-style3">Username:</label>
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="email" name="email" value="">
+                                <input type="text" id="username" name="username" value="">
                             </div>
                         </div>
                         <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -193,7 +276,7 @@
                                 <label for="Date" class="text-style3">Email:</label>
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="date" name="date" value="">
+                                <input type="text" id="email" name="email" value="">
                             </div>
                         </div>
                     </div>
@@ -204,7 +287,7 @@
                                 <label for="email" class="text-style3">First Name:</label>
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="email" name="email" value="">
+                                <input type="text" id="fname" name="fname" value="">
                             </div>
                         </div>
                         <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -212,7 +295,7 @@
                                 <label for="Date" class="text-style3">Last Name:</label>
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="date" name="date" value="">
+                                <input type="text" id="lname" name="lname" value="">
                             </div>
                         </div>
                     </div>
@@ -223,7 +306,7 @@
                                 <label for="email" class="text-style3">Password:</label>
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="email" name="email" value="">
+                                <input type="password" id="password" name="password" value="">
                             </div>
                         </div>
                         <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -231,7 +314,7 @@
                                 <label for="Date" class="text-style3">Confirm Password:</label>
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="date" name="date" value="">
+                                <input type="password" id="password" name="con_password" value="">
                             </div>
                         </div>
                     </div>
@@ -242,7 +325,7 @@
                                 <label for="email" class="text-style3">Date of Birth:</label>
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="email" name="email" value="">
+                                <input type="date" id="dob" name="dob" value="">
                             </div>
                         </div>
                         <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -250,14 +333,35 @@
                                 <label for="Date" class="text-style3">Gender:</label>
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
-                                <select name="reportType" id="reportType" class="select2">
-                                    <option value="vol">Male</option>
-                                    <option value="don">Female</option>
+                                <select name="gender" id="gender" class="select2">
+                                    <option value="-------" selected disabled>--------</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="rather not say">Rather Not Say</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
+                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
+                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
+                            <div class="col-l-12 col-m-12 col-s-12">
+                                <label for="Date" class="text-style3">State:</label>
+                            </div>
+                            <div class="col-l-12 col-m-12 col-s-12">
+                                <select name="reportType" id="reportType" class="select2">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
+<!--                            <div class="col-l-12 col-m-12 col-s-12">-->
+<!--                                <input type="file" name="cv" id="file" class="file">-->
+<!--                                <label for="file" class="customLable">Attach Your CV:</label>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
                     <div class="col-l-12 col-m-12 col-s-12 padding-top">
                         <div class="col-l-8"></div>
                         <div class="col-l-4 col-m-12 col-s-12 positionR">
@@ -400,8 +504,41 @@
 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 <script src="./assets/JS/AdminBackEnd.js" ></script>
+<script src="./assets/JS/formValidation.js" ></script>
+<script src="./assets/JS/register_validate.js" ></script>
+<script>
 
+    // JavaScript code to avoid dropdown
+    // menu close
 
+    // Clicking dropdown button will toggle display
+    function btnToggle() {
+        document.getElementById("Dropdown").classList.toggle("show");
+    }
+
+    // // Prevents menu from closing when clicked inside
+    // document.getElementById("Dropdown").addEventListener('click', function (event) {
+    //     alert("click outside");
+    //     event.stopPropagation();
+    // });
+
+    // Closes the menu in the event of outside click
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbutton')) {
+
+            var dropdowns =
+                document.getElementsByClassName("dropdownmenu-content");
+
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
 
 </body>
 </html>

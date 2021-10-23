@@ -86,7 +86,7 @@
 
     <div class="row row-style flex-container">
         <div class="col-l-6 col-m-12 col-s-12 primary-card flex-gap card-content ">
-            <div class="col-l-12 col-m-12 col-s-12">
+            <div class="col-l-12 col-m-12 col-s-12 padding1">
                 <span class="head-text">Donations</span>
             </div>
             <div class="col-l-12 col-m-12 col-s-12 line">
@@ -95,7 +95,7 @@
         </div>
 
         <div class="col-l-6 col-m-12 col-s-12 primary-card flex-gap card-content">
-            <div class="col-l-12 col-m-12 col-s-12">
+            <div class="col-l-12 col-m-12 col-s-12 padding1">
                 <span class="head-text">Overview</span>
             </div>
             <div class="col-l-12 col-m-12 col-s-12 bar">
@@ -110,7 +110,7 @@
                 <span class="head-text">Active befrienders</span>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12">
+            <div class="col-l-12 col-m-12 col-s-12 table-overflow">
                 <table>
                     <tr>
                         <th>Name</th>

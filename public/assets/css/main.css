@@ -1,19 +1,18 @@
 /*Elements Package*/
 @import url("./Elements/grid.css");
-@import url("./admin.css");
-@import url("./text-style.css");
-@import url("./table.css");
-@import url("./searchbar.css");
-@import url("./scrollbar.css");
-@import url("./modal.css");
-@import url("./calendar.css");
-@import url("./button-style.css");
-@import url("./form.css");
-@import url("./tool_tip.css");
+@import url("./admin/admin.css");
+@import url("./admin/text-style.css");
+@import url("./admin/table.css");
+@import url("./admin/searchbar.css");
+@import url("./admin/scrollbar.css");
+@import url("./admin/modal.css");
+@import url("./admin/calendar.css");
+@import url("./admin/button-style.css");
+@import url("./admin/form.css");
+@import url("./admin/tool_tip.css");
 
   [class*="col-"] {
-    float: center;
+    /*float: left;*/
     /* padding: 15px; */
     /*border: 1px solid red;*/
   }
-

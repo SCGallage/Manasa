@@ -127,7 +127,7 @@
                 <span class="head-text">Appointments</span>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12">
+            <div class="col-l-12 col-m-12 col-s-12 table-overflow">
                 <table>
                     <tr>
                         <th>Name</th>

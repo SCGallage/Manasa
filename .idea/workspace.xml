@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="24e5fd8c-49d2-491f-8925-edc98d328f4d" name="Changes" comment="" />
+    <list default="true" id="24e5fd8c-49d2-491f-8925-edc98d328f4d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/Admin/AdminController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/supportgroup/sg_request.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/supportgroup/supportgroup.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/JS/register_validate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/css/admin/form.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/16339428366362.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/Moderator/SGUpdate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/AdminController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/core/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/DatabaseService.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/DatabaseService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/sg_request.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/staff.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/users/staff.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/supportgroup.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/JS/AdminBackEnd.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/JS/AdminBackEnd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/JS/formValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/JS/formValidation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/admin/admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/button-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/admin/button-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/calendar.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/admin/calendar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/form.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/img/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/img/info.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/info.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/admin/modal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/navbaronly.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/navbaronly.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/scrollbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/admin/scrollbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/searchbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/admin/searchbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/admin/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/table.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/admin/table.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/text-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/admin/text-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/tool_tip.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/admin/tool_tip.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/Admin/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/Moderator/Admin/Dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/Admin/Report.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/Moderator/Admin/Report.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/Admin/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/Moderator/Admin/Users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/ModDashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/Moderator/ModDashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/ModUsers.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/Moderator/ModUsers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/Schedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/Moderator/Schedule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/SessionReport.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/Moderator/SessionReport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/SupportGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/Moderator/SupportGroup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/UserRequests.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/Moderator/UserRequests.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/Volunteer.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/Moderator/Volunteer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Moderator/test.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/ModNav.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/ModNav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +64,17 @@
         <option value="JavaScript File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 8">
     <include_path>
@@ -50,6 +108,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1zMl4ZEvjaiZbtfRzM6UeTdOOe4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -67,6 +126,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\Manasa-v1\views\Moderator" />
       <recent name="C:\xampp\htdocs\Manasa\views" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Manasa-v1\uploads" />
     </key>
   </component>
   <component name="RunManager">
@@ -97,12 +159,30 @@
       <workItem from="1634391945853" duration="3874000" />
       <workItem from="1634460429480" duration="10022000" />
       <workItem from="1634534442438" duration="9143000" />
-      <workItem from="1634636948289" duration="3502000" />
+      <workItem from="1634636948289" duration="7565000" />
+      <workItem from="1634709487393" duration="26625000" />
+      <workItem from="1634789671596" duration="954000" />
+      <workItem from="1634829789547" duration="7460000" />
+      <workItem from="1634876662177" duration="28470000" />
+      <workItem from="1634964012448" duration="34278000" />
+      <workItem from="1635014123999" duration="1643000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

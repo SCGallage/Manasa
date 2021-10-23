@@ -3,9 +3,6 @@
     document.getElementById("dropdown").classList.toggle("show");
 }
 
-    function dropDownNav() {
-        document.getElementById("dropdownNav").classList.toggle("show");
-    }
     function dropDownButtonUser() {
         document.getElementById("dropdownUser").classList.toggle("show");
     }
@@ -31,9 +28,9 @@
     }
 
     function createUser(){
-        var modal = document.getElementById("createUser-modal")
+        var modal = document.getElementById("createUser-modal");
         var btn = document.getElementById("createUser");
-        var close = document.getElementById("close-user")
+        var close = document.getElementById("close-user");
 
         btn.onclick = function(){
             modal.style.display = "block";

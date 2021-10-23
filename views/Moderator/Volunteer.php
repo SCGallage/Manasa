@@ -39,8 +39,8 @@
     <div class="row flex-container">
         <div class="col-l-12 col-m-12 col-s-12 flex-gap1 primary-card card-content">
             <div class="col-l-12 col-m-12 col-s-12 padding1">
-                <div class="col-l-6 col-m-6 col-s-6 "> <span class="head-text">Upcoming events</span> </div>
-                <div class="col-l-6 col-m-6 col-s-6">
+                <div class="col-l-6 col-m-12 col-s-12 "> <span class="head-text">Upcoming events</span> </div>
+                <div class="col-l-6 col-m-12 col-s-12">
                     <button class="add-text" id="AddEvent" onclick="AddEvent()">+Add Event</button>
                 </div>
             </div>
@@ -192,7 +192,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="primary-card card-content">
+                        <div class=" card-content">
                             <form action="" class="form1">
                                 <div class="col-l-12 col-m-12 col-s-12 flex-container3 ">
                                     <div class="col-l-4 col-m-4 col-s-4">
@@ -207,22 +207,38 @@
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                                    <label for="name" class="text-style3">Event Name:</label>
+                                    <div class="col-l-10 col-m-10 col-s-10 ">
+                                        <label for="name" class="text-style3">Event Name:</label>
+                                    </div>
+                                    <div class="col-l-2 col-m-2 col-s-2">
+                                        <div class="tooltip-icon  positionR " data-tooltip="Enter event name. Ex: Annual General meeting"></div>
+                                    </div>
                                 </div>
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                                    <label for="name" class="text-style3">Date:</label>
+                                    <div class="col-l-10 col-m-10 col-s-10 ">
+                                        <label for="name" class="text-style3">Date:</label>
+                                    </div>
+                                    <div class="col-l-2 col-m-2 col-s-2">
+                                        <div class="tooltip-icon  positionR " data-tooltip="Date of the event"></div>
+                                    </div>
                                 </div>
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                                    <label for="name" class="text-style3">Place:</label>
+                                    <div class="col-l-10 col-m-10 col-s-10 ">
+                                        <label for="name" class="text-style3">Place:</label>
+                                    </div>
+                                    <div class="col-l-2 col-m-2 col-s-2">
+                                        <div class="tooltip-icon  positionR " data-tooltip="Place of the event"></div>
+                                    </div>
                                 </div>
+
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
                                 </div>
@@ -230,7 +246,12 @@
                                 <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
                                     <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
                                         <div class="col-l-12 col-m-12 col-s-12">
-                                            <label for="email" class="text-style3">To:</label>
+                                            <div class="col-l-10 col-m-10 col-s-10 ">
+                                                <label for="email" class="text-style3">To:</label>
+                                            </div>
+                                            <div class="col-l-2 col-m-2 col-s-2">
+                                                <div class="tooltip-icon  positionR " data-tooltip="Starting time of the event"></div>
+                                            </div>
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
                                             <input type="text" id="email" name="email" value="">
@@ -238,7 +259,12 @@
                                     </div>
                                     <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
                                         <div class="col-l-12 col-m-12 col-s-12">
-                                            <label for="Date" class="text-style3">From:</label>
+                                            <div class="col-l-10 col-m-10 col-s-10 ">
+                                                <label for="Date" class="text-style3">From:</label>
+                                            </div>
+                                            <div class="col-l-2 col-m-2 col-s-2">
+                                                <div class="tooltip-icon  positionR " data-tooltip="Ending time of the event"></div>
+                                            </div>
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
                                             <input type="text" id="date" name="date" value="">
@@ -280,7 +306,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="primary-card card-content">
+                        <div class="card-content">
                             <form action="" class="form1">
                                 <div class="col-l-12 col-m-12 col-s-12 flex-container3 ">
                                     <div class="col-l-4 col-m-4 col-s-4">
@@ -295,22 +321,38 @@
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                                    <label for="name" class="text-style3">Event Name:</label>
+                                    <div class="col-l-10 col-m-10 col-s-10 ">
+                                        <label for="name" class="text-style3">Event Name:</label>
+                                    </div>
+                                    <div class="col-l-2 col-m-2 col-s-2">
+                                        <div class="tooltip-icon  positionR " data-tooltip="Enter event name. Ex: Annual General meeting"></div>
+                                    </div>
                                 </div>
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                                    <label for="name" class="text-style3">Date:</label>
+                                    <div class="col-l-10 col-m-10 col-s-10 ">
+                                        <label for="name" class="text-style3">Date:</label>
+                                    </div>
+                                    <div class="col-l-2 col-m-2 col-s-2">
+                                        <div class="tooltip-icon  positionR " data-tooltip="Date of the event"></div>
+                                    </div>
                                 </div>
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                                    <label for="name" class="text-style3">Place:</label>
+                                    <div class="col-l-10 col-m-10 col-s-10 ">
+                                        <label for="name" class="text-style3">Place:</label>
+                                    </div>
+                                    <div class="col-l-2 col-m-2 col-s-2">
+                                        <div class="tooltip-icon  positionR " data-tooltip="Place of the event"></div>
+                                    </div>
                                 </div>
+
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
                                 </div>
@@ -318,7 +360,12 @@
                                 <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
                                     <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
                                         <div class="col-l-12 col-m-12 col-s-12">
-                                            <label for="email" class="text-style3">To:</label>
+                                            <div class="col-l-10 col-m-10 col-s-10 ">
+                                                <label for="email" class="text-style3">To:</label>
+                                            </div>
+                                            <div class="col-l-2 col-m-2 col-s-2">
+                                                <div class="tooltip-icon  positionR " data-tooltip="Starting time of the event"></div>
+                                            </div>
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
                                             <input type="text" id="email" name="email" value="">
@@ -326,7 +373,12 @@
                                     </div>
                                     <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
                                         <div class="col-l-12 col-m-12 col-s-12">
-                                            <label for="Date" class="text-style3">From:</label>
+                                            <div class="col-l-10 col-m-10 col-s-10 ">
+                                                <label for="Date" class="text-style3">From:</label>
+                                            </div>
+                                            <div class="col-l-2 col-m-2 col-s-2">
+                                                <div class="tooltip-icon  positionR " data-tooltip="Ending time of the event"></div>
+                                            </div>
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
                                             <input type="text" id="date" name="date" value="">
@@ -369,7 +421,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="primary-card card-content">
+                        <div class="card-content">
                             <table>
                                 <tr>
                                     <td>Peter Griffin</td>

@@ -50,7 +50,7 @@
                 <div class="col-l-12 col-m-12 col-s-12"> <span class="head-text">Berinder</span> </div>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12">
+            <div class="col-l-12 col-m-12 col-s-12 table-overflow">
                 <table>
                     <tr>
                         <th>Name</th>

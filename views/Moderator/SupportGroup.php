@@ -50,7 +50,7 @@
                     foreach ($viewSGRequest as $req) {
                     ?>
                     <tr>
-                        <td><?php echo $req['befrienderId']?></td>
+                        <td><?php echo $req['fname']." ".$req['lname']?></td>
                         <td><?php echo $req['type']?></td>
                         <td><?php echo $req['capacity']?></td>
                         <td> <a href="#" class="button1" id="accept-btn">Accept</a></td>
@@ -119,7 +119,8 @@
                 <span class="head-text">Support Groups</span>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12">
+            <div class="col-l-12 col-m-12 col-s-12 table-overflow">
+
                 <table>
                     <tr>
                         <th>Support Group Name</th>
@@ -136,12 +137,19 @@
 
                         <tr>
                             <td><?php echo $row['name'] ?></td>
-                            <td><?php echo $row['facilitator'] ?></td>
-                            <td><?php echo $row['co_facilitator'] ?></td>
+                            <td><?php echo $row['facilitatorfname']." ".$row['facilitatorlname'] ?></td>
+                            <td><?php echo $row['co_facilitatorfname']." ".$row['co_facilitatorlname'] ?></td>
                             <td><?php echo $row['participants'] ?></td>
                             <td><?php echo $row['type'] ?></td>
-                            <td><?php echo $row['state'] ?></td>
-                            <td><span class="material-icons" id="updateSG" onclick="updateSG()">edit</span></td>
+                            <td><?php
+                                    if ($row['state'] == 1) {
+                                        echo 'Active';
+                                    }
+                                    elseif ($row['state'] == 0){
+                                        echo 'Inactive';
+                                    }
+                                ?></td>
+                            <td><a href="/updateSG?SupportGroupId=<?php echo $row['id'] ?>"><span class="material-icons" id="updateSG">edit</span></a></td>
                             <td><span class="material-icons">delete</span></td>
                         </tr>
                         <?php
@@ -287,91 +295,6 @@
 </div>
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
-<!-- POP-UP Update Support group------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-<div class="modal" id="updateSG-modal">
-    <div class="modal-content">
-
-        <div class="modal-header padding1">
-            <div class="head-text3">
-                <span class="close" id="close-updateSG">&times;</span>
-            </div>
-
-            <div class="head-text3 padding-top">
-                <span>Update Support Group</span>
-            </div>
-        </div>
-
-        <div class="modal-body">
-            <div class="primary-card card-content">
-                <form action="" class="form1">
-                    <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <label for="name" class="text-style3">Support Group Name:</label>
-                    </div>
-                    <div class="col-l-12 col-m-12 col-s-12">
-                        <input type="text" id="fname" name="fname" value="">
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <label for="name" class="text-style3">Facilitator:</label>
-                    </div>
-                    <div class="col-l-12 col-m-12 col-s-12">
-                        <input type="text" id="fname" name="fname" value="">
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <label for="name" class="text-style3">Co-Facilitator:</label>
-                    </div>
-                    <div class="col-l-12 col-m-12 col-s-12 ">
-                        <input type="text" id="fname" name="fname" value="">
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <label for="name" class="text-style3">Maximum Participants:</label>
-                    </div>
-                    <div class="col-l-12 col-m-12 col-s-12 ">
-                        <input type="text" id="fname" name="fname" value="">
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">State:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <select name="reportType" id="reportType" class="select2">
-                                    <option value="vol">Active</option>
-                                    <option value="don">Inactive</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">Type:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="date" name="date" value="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <label for="name" class="text-style3">Information:</label>
-                    </div>
-                    <div class="col-l-12 col-m-12 col-s-12 ">
-                        <textarea id="" name="" rows="4" cols="50"></textarea>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <input type="submit" value="Submit">
-                    </div>
-
-                </form>
-            </div>
-        </div>
-        <div class="modal-footer"></div>
-    </div>
-</div>
-<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
 <script type="text/javascript">
     var modal = document.getElementById("modal-box");

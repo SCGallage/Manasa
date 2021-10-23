@@ -20,10 +20,10 @@
 
         <div class="col-l-12 col-m-12 col-s-12 flex-gap">
 
-            <div class="col-l-7 col-m-12 col-s-12">
+            <div class="col-l-8 col-m-12 col-s-12">
                 <span class="head-text2">Session Reports</span>
             </div>
-            <div class="col-l-2 col-m-4 col-s-4 positionR">
+            <div class="col-l-1 col-m-4 col-s-4 positionR">
                     <button class="button2" onclick="dropDownButton()">By Befrinder</button>
                     <div class="sub-button3" id="dropdown">
                         <a href="#" class="button4">By Date</a>
@@ -48,7 +48,7 @@
                 <span class="head-text">Session Reports</span>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12">
+            <div class="col-l-12 col-m-12 col-s-12 table-overflow">
                 <table>
                     <tr>
                         <th>Befriender Name</th>
@@ -135,48 +135,48 @@
         </div>
 
         <div class="modal-body">
-            <div class="primary-card card-content">
+            <div class="card-content">
                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                    <div class="col-l-4 col-m-4 col-s-4">
-                        <span class="text-style2">Caller Name:</span>
+                    <div class="col-l-3 col-m-3 col-s-3">
+                        <span class="text-style5">Caller Name:</span>
                     </div>
-                    <div class="col-l-8 col-m-8 col-s-8">
+                    <div class="col-l-9 col-m-9 col-s-9">
                         <span>Rober pattinson</span>
                     </div>
                 </div>
 
                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                    <div class="col-l-4 col-m-4 col-s-4">
-                        <span class="text-style2">Session Date:</span>
+                    <div class="col-l-3 col-m-3 col-s-3">
+                        <span class="text-style5">Session Date:</span>
                     </div>
-                    <div class="col-l-8 col-m-8 col-s-8">
+                    <div class="col-l-9 col-m-9 col-s-9">
                         <span>2020/11/10</span>
                     </div>
                 </div>
 
                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                    <div class="col-l-4 col-m-4 col-s-4">
-                        <span class="text-style2">Session Time:</span>
+                    <div class="col-l-3 col-m-3 col-s-3">
+                        <span class="text-style5">Session Time:</span>
                     </div>
-                    <div class="col-l-8 col-m-8 col-s-8">
+                    <div class="col-l-9 col-m-9 col-s-9">
                         <span>6.00 PM</span>
                     </div>
                 </div>
 
                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                    <div class="col-l-4 col-m-4 col-s-4">
-                        <span class="text-style2">Session Type:</span>
+                    <div class="col-l-3 col-m-3 col-s-3">
+                        <span class="text-style5">Session Type:</span>
                     </div>
-                    <div class="col-l-8 col-m-8 col-s-8">
+                    <div class="col-l-9 col-m-9 col-s-9">
                         <span>Virtual</span>
                     </div>
                 </div>
 
                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                    <span class="text-style2">Remark:</span>
+                    <span class="text-style5">Remark:</span>
                 </div>
                 <div class="col-l-12 col-m-12 col-s-12 ">
-                    <textarea id="" name="" rows="4" cols="50"></textarea>
+                    <span> </span>
                 </div>
 
             </div>

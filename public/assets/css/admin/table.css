@@ -5,15 +5,15 @@ table {
   }
   
   th{
-    padding: 0.5rem;
-    text-align: center;
+    padding: 12px 15px;
+    text-align: left;
     border-bottom: 1px solid #ddd; 
     background-color: #F1F1F1;
   }
   
   td {
-    padding: 0.5rem;
-    text-align: center;
+    padding: 12px 15px;
+    text-align: left;
     border-bottom: 1px solid #ddd;
   }
   

@@ -96,7 +96,7 @@ class DatabaseService
     {
         $conditionQueryString = implode(', ', $this->refactorDataForQuery($conditions, 0));
         $sqlStatement = "DELETE FROM $tableName WHERE $conditionQueryString";
-        echo $sqlStatement;
+//        echo $sqlStatement;
         return $this->pdo->exec($sqlStatement);
     }
 
