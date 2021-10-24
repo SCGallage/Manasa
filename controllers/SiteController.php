@@ -24,4 +24,9 @@ class SiteController extends Controller
 
     }
 
+    public function callerHome()
+    {
+        return $this->render('callerHome');
+    }
+
 }

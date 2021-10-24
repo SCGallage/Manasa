@@ -1,0 +1,83 @@
+/*Colors for text styling*/
+.color-1 {
+    color: #003249;
+}
+
+.color-2 {
+    color: #9ad1d4;
+}
+
+.color-3 {
+    color: #e3f2f3;
+}
+
+.color-4 {
+    color: white;
+}
+
+.color-5 {
+    color: #677EF8;
+}
+
+.color-6 {
+    color: #DF1A32;
+}
+
+/*Colors for background styling*/
+.bg-color-1 {
+    background-color: #003249;
+}
+
+.bg-color-2 {
+    background-color: #9ad1d4;
+}
+
+.bg-color-3 {
+    background-color: #e3f2f3;
+}
+
+.bg-color-4 {
+    background-color: white;
+}
+
+.bg-color-5 {
+    background-color: #677EF8;
+}
+
+.bg-color-6 {
+    background-color: #DF1A32;
+}
+
+/*Colors for border styling*/
+.border-color-1{
+    border: 2px solid #003249;
+}
+
+.border-color-2 {
+    border: 2px solid #9ad1d4;
+}
+
+.border-color-3 {
+    border: 2px solid #e3f2f3;
+}
+
+.border-color-4 {
+    border: 2px solid white;
+}
+
+.border-color-4 {
+    border: 2px solid #677EF8;
+}
+
+.border-color-tranparent {
+    border: 2px solid transparent;
+}
+
+.border-color-6 {
+    border: 2px solid #DF1A32;
+}
+
+.border-bottem-color-1 {
+    border: none;
+    border-bottom: 2px solid #003249;
+}

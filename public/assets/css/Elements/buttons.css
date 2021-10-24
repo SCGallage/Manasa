@@ -1,0 +1,53 @@
+.loginButtons{
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.bannerButton {
+    border: none;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    margin-top: 2vh;
+    margin-right: 5px;
+    margin-left: 5px;
+
+    transition: all 0.5s;
+    
+}
+
+.bannerButton:hover {
+    border:1px solid #003249;
+    background-color: white;
+    color: #003249;
+    text-shadow: 1px 1px 5px #003249;
+}
+
+.searchButton {
+    border: none;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    margin-top: 1vh;
+    transition: all 0.5s;
+}
+
+.searchButton:hover {
+    border:1px solid #003249;
+    background-color: white;
+    color: #003249;
+    text-shadow: 1px 1px 5px #003249;
+}
+
+.form-button {
+    border-radius: 5px;
+    margin-top: 2%;
+    padding: 1%;
+    transition: all 0.5s;
+}
+
+.form-button:hover {
+    padding: 2%;
+}
