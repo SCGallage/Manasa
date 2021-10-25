@@ -52,15 +52,6 @@ class AdminController extends Controller
 
     public function supportGroup(Request $request)
     {
-//        Create support group
-        if ($request->isPost()) {
-            $VolunteerCreateEvent = new SupportGroup();
-            $VolunteerCreateEvent->overrideTableName('supportgroup');
-            $data = $request->getBody();
-            $VolunteerCreateEvent->save($data);
-        }
-
-
 //        Support group table details
         $SGView = new SupportGroup();
         $sqlStatement = "SELECT staff1.fname AS facilitatorfname, 
@@ -74,10 +65,6 @@ class AdminController extends Controller
                         JOIN staff AS staff2 ON staff2.id = supportgroup.co_facilitator";
         $viewSG = $SGView->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
 
-//        Create support group form facilitator select
-        $befrienderView = new staff();
-        $viewBefriender = $befrienderView->select('staff','*',["type" => "befriender" , "state" => "1"],DatabaseService::FETCH_ALL);
-
 //        Support group requests
         $sgRequest = new sg_request();
 //        $viewSGRequest = $sgRequest->findAll();
@@ -89,7 +76,6 @@ class AdminController extends Controller
 
         $params = [
             'viewSG' => $viewSG,
-            'viewBefriender' => $viewBefriender,
             'viewSGRequest' => $viewSGRequest
         ];
 
@@ -128,6 +114,26 @@ class AdminController extends Controller
         ];
 
         return $this->render('Moderator/SGUpdate', 'Update Support Group',$params);
+    }
+
+    public function createSG(Request $request){
+
+        //        Create support group
+        if ($request->isPost()) {
+            $VolunteerCreateEvent = new SupportGroup();
+            $VolunteerCreateEvent->overrideTableName('supportgroup');
+            $data = $request->getBody();
+            $VolunteerCreateEvent->save($data);
+        }
+//        Create support group form facilitator select
+        $befrienderView = new staff();
+        $viewBefriender = $befrienderView->select('staff','*',["type" => "befriender" , "state" => "1"],DatabaseService::FETCH_ALL);
+
+        $params = [
+            'viewBefriender' => $viewBefriender
+        ];
+
+        return $this->render('Moderator/SGCreate', 'Create Support Group',$params);
     }
 
 

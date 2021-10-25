@@ -113,6 +113,9 @@ $app->router->get('/admin/AdminDash', [AdminController::class, 'home']);
 $app->router->post('/admin/SupportGroup', [AdminController::class, 'supportGroup']);
 $app->router->get('/admin/SupportGroup', [AdminController::class, 'supportGroup']);
 
+$app->router->get('/admin/createSG', [AdminController::class, 'createSG']);
+$app->router->post('/admin/createSG', [AdminController::class, 'createSG']);
+
 $app->router->get('/admin/updateSG', [AdminController::class, 'updateSG']);
 $app->router->post('/admin/updatedSGform', [AdminController::class, 'updateSG']);
 

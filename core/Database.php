@@ -11,7 +11,7 @@ class Database{
 
     public function __construct(array $config)
     {
-        $this->pdo = new \PDO($config['db']['dsn'], $config['db']['users'], $config['db']['password']);
+        $this->pdo = new \PDO($config['db']['dsn'], $config['db']['user'], $config['db']['password']);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
