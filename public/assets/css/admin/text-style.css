@@ -1,0 +1,53 @@
+/* text styles */
+.text-style1 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.text-style2 {
+    font-size: 1.1rem;
+    color: #406577;
+}
+
+.text-style3{
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.text-style4{
+  font-size: 1.5rem;
+  color: #ffff;
+}
+.text-style5 {
+  font-size: 1.2rem;
+  color: #406577;
+}
+
+/* Add user or Add event text */
+.add-text{
+  float: right;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+/* Title Text styles */
+.head-text{
+  font-size: 1.5rem;
+  color: #406577;
+  font-weight: 900;
+  padding: 1rem;
+}
+
+.head-text2{
+  font-size: 2rem;
+  color: #003249;
+  font-weight: 900;
+}
+
+.head-text3{
+  font-size: 2rem;
+  color: #003249;
+  text-align: center;
+}
