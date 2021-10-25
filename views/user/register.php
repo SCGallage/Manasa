@@ -27,12 +27,12 @@
                                         <path d="M10.5 20.9932C16.299 20.9932 21 16.2953 21 10.5001C21 4.70495 16.299 0.00702286 10.5 0.00702286C4.70101 0.00702286 0 4.70495 0 10.5001C0 16.2953 4.70101 20.9932 10.5 20.9932Z" fill="#088C15"/>
                                         <path d="M9.65803 16.0814L4.6935 12.2138L6.10509 10.4022L9.1537 12.7772L14.1852 5.51677L16.0732 6.82468L9.65803 16.0814Z" fill="white"/>
                                     </svg>
-                                    <h5>*Required</h5>
+                                    <h5 class="validation-msg" id="user-text">*Required</h5>
                                 </div>
                                 <div class="input-field" id="anon-field">
                                     <label for="email">Email</label><br>
                                     <input type="text" class="text-field" name="email" id="email" required><br>
-                                    <h5>*Required</h5>
+                                    <h5 class="validation-msg" id="email-text">*Required</h5>
                                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10.5 20.9932C16.299 20.9932 21 16.2953 21 10.5001C21 4.70495 16.299 0.00702286 10.5 0.00702286C4.70101 0.00702286 0 4.70495 0 10.5001C0 16.2953 4.70101 20.9932 10.5 20.9932Z" fill="#088C15"/>
                                         <path d="M9.65803 16.0814L4.6935 12.2138L6.10509 10.4022L9.1537 12.7772L14.1852 5.51677L16.0732 6.82468L9.65803 16.0814Z" fill="white"/>
@@ -45,12 +45,12 @@
                                         <path d="M10.5 20.9932C16.299 20.9932 21 16.2953 21 10.5001C21 4.70495 16.299 0.00702286 10.5 0.00702286C4.70101 0.00702286 0 4.70495 0 10.5001C0 16.2953 4.70101 20.9932 10.5 20.9932Z" fill="#088C15"/>
                                         <path d="M9.65803 16.0814L4.6935 12.2138L6.10509 10.4022L9.1537 12.7772L14.1852 5.51677L16.0732 6.82468L9.65803 16.0814Z" fill="white"/>
                                     </svg>
-                                    <h5>*Required</h5>
+                                    <h5 class="validation-msg" id="fname-text">*Required</h5>
                                 </div>
                                 <div class="input-field">
                                     <label for="password">Last Name</label><br>
                                     <input type="text" class="text-field" name="lname" id="lname"><br>
-                                    <h5>*Required</h5>
+                                    <h5 class="validation-msg" id="lname-text">*Required</h5>
                                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10.5 20.9932C16.299 20.9932 21 16.2953 21 10.5001C21 4.70495 16.299 0.00702286 10.5 0.00702286C4.70101 0.00702286 0 4.70495 0 10.5001C0 16.2953 4.70101 20.9932 10.5 20.9932Z" fill="#088C15"/>
                                         <path d="M9.65803 16.0814L4.6935 12.2138L6.10509 10.4022L9.1537 12.7772L14.1852 5.51677L16.0732 6.82468L9.65803 16.0814Z" fill="white"/>
@@ -63,12 +63,12 @@
                                         <path d="M10.5 20.9932C16.299 20.9932 21 16.2953 21 10.5001C21 4.70495 16.299 0.00702286 10.5 0.00702286C4.70101 0.00702286 0 4.70495 0 10.5001C0 16.2953 4.70101 20.9932 10.5 20.9932Z" fill="#088C15"/>
                                         <path d="M9.65803 16.0814L4.6935 12.2138L6.10509 10.4022L9.1537 12.7772L14.1852 5.51677L16.0732 6.82468L9.65803 16.0814Z" fill="white"/>
                                     </svg>
-                                    <h5>*Required</h5>
+                                    <h5 class="validation-msg" id="password-text" >*Required</h5>
                                 </div>
                                 <div class="input-field" id="anon-field">
                                     <label for="password">Confirm-Password</label><br>
                                     <input type="password" class="text-field" name="conpassword" id="conpassword"><br>
-                                    <h5>*Required</h5>
+                                    <h5 class="validation-msg" id="conpassword-text">*Required</h5>
                                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10.5 20.9932C16.299 20.9932 21 16.2953 21 10.5001C21 4.70495 16.299 0.00702286 10.5 0.00702286C4.70101 0.00702286 0 4.70495 0 10.5001C0 16.2953 4.70101 20.9932 10.5 20.9932Z" fill="#088C15"/>
                                         <path d="M9.65803 16.0814L4.6935 12.2138L6.10509 10.4022L9.1537 12.7772L14.1852 5.51677L16.0732 6.82468L9.65803 16.0814Z" fill="white"/>
@@ -81,7 +81,7 @@
                                         <path d="M10.5 20.9932C16.299 20.9932 21 16.2953 21 10.5001C21 4.70495 16.299 0.00702286 10.5 0.00702286C4.70101 0.00702286 0 4.70495 0 10.5001C0 16.2953 4.70101 20.9932 10.5 20.9932Z" fill="#088C15"/>
                                         <path d="M9.65803 16.0814L4.6935 12.2138L6.10509 10.4022L9.1537 12.7772L14.1852 5.51677L16.0732 6.82468L9.65803 16.0814Z" fill="white"/>
                                     </svg>
-                                    <h5>*Required</h5>
+                                    <h5 class="validation-msg" id="dob-text">*Required</h5>
                                 </div>
                                 <div class="input-field">
                                     <label for="gender">Gender</label><br>
@@ -91,12 +91,12 @@
                                         <option value="F">Female</option>
                                         <option value="N">Rather Not Say</option>
                                     </select>
-                                    <h5>*Required</h5>
+                                    <h5 class="validation-msg">*Required</h5>
                                 </div>
                             </div>
                             <div id="upload-div" class="file-upload disable">
-                                <h4>Attach Your CV</h4>
-                                <input type="file" name="cv" id="cv" hidden>
+                                <h4>Attach Your CV (*.pdf, max: 15MB)</h4>
+                                <input type="file" name="cv" id="cv" accept=".pdf" hidden>
                                 <button type="button" class="btn fake-btn" name="uploadBtn" id="uploadBtn">Choose File</button>
                                 <span class="file-name" id="fileName">
                             No File Chosen, yet.
@@ -130,6 +130,8 @@
     const fileRemoveBtn = document.getElementById('removeFile');
     const userType = document.getElementById('usertype');
     const uploadDiv = document.getElementById('upload-div');
+    const inputFields = document.querySelectorAll('.input-field');
+    const textFields = document.querySelectorAll('.text-field');
 
     var anonymousFlag = false;
 
@@ -138,8 +140,13 @@
     });
 
     fileUploader.addEventListener('change', (e) => {
-        console.log(fileUploader.files[0]["name"]);
-        fileName.innerHTML = fileUploader.files[0]["name"];
+        console.log(fileUploader.files[0]);
+        fileName.innerHTML = fileUploader.files[0]["name"]+" "+(fileUploader.files[0]["size"]/1024);
+        if ((fileUploader.files[0]["size"]/1048576) > 0.1){
+            console.log("exceeded");
+            fileName.style.color = "rgba(173, 5, 5)";
+            fileName.innerHTML = fileUploader.files[0]["name"]+" "+"(Size Exceeded)";
+        }
         fileRemoveBtn.classList.remove("display-btn");
         console.log(fileRemoveBtn.classList);
     });
@@ -150,10 +157,9 @@
                 document.querySelector('.container').style.width = "1200px";
                 document.querySelector('.gsign-up').style.display = "block";
                 document.querySelector('.main-heading').style.textAlign = "";
-                textFields = document.querySelectorAll('.input-field');
-                for (let i = 0; i < textFields.length; i++) {
-                    if (textFields[i].id !== 'anon-field' && textFields[i].id !== 'conpassword' && textFields[i].id !== 'username' && textFields[i].id !== 'email')
-                        textFields[i].classList.remove('disable');
+                for (let i = 0; i < inputFields.length; i++) {
+                    if (inputFields[i].id !== 'anon-field' && inputFields[i].id !== 'conpassword' && inputFields[i].id !== 'username' && inputFields[i].id !== 'email')
+                        inputFields[i].classList.remove('disable');
                 }
                 document.querySelectorAll('.grid-container').forEach(item => {
                     item.style.gridTemplateColumns = "45% 45%"
@@ -168,8 +174,6 @@
 
         if (userType.value === 'Anonymous') {
             anonymousFlag = true;
-            console.log('ayee');
-            textFields = document.querySelectorAll('.input-field');
             document.querySelectorAll('.grid-container').forEach(item => {
                 item.style.gridTemplateColumns = "100%"
             });
@@ -178,11 +182,14 @@
             document.querySelector('.container').style.width = "500px";
             document.querySelector('.gsign-up').style.display = "none";
             document.querySelector('.main-heading').style.textAlign = "center";
-            console.log(textFields.length);
-            for (let i = 0; i < textFields.length; i++) {
-                if (textFields[i].id !== 'anon-field')
-                    textFields[i].classList.add('disable');
-                console.log(textFields[i]);
+            console.log(inputFields.length);
+            for (let i = 0; i < inputFields.length; i++) {
+                if (inputFields[i].id !== 'anon-field'){
+                    inputFields[i].classList.add('disable');
+                    textFields[i].disabled = true;
+                    //console.log(textFields[i].disabled);
+                }
+                //console.log(inputFields[i]);
             }
             if (!uploadDiv.classList.contains('disable')){
                 uploadDiv.classList.add('disable');
