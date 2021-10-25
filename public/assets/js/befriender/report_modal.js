@@ -6,5 +6,3 @@ document.querySelector(".report-add-btn").addEventListener("click", () => {
 document.querySelector(".close-btn").addEventListener('click', () => {
   document.querySelector(".modal-bg").classList.remove("display");
 });
-
-console.log("Hello");

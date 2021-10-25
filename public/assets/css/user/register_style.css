@@ -63,7 +63,7 @@ main {
 .card-left {
   background-color: #ffffff;
   padding: 2.5em 3.5em;
-  transition: all 200ms linear;
+  transition: all 351.948ms ease-in-out 0ms;
 }
 
 .card-title {
@@ -197,6 +197,12 @@ main {
   font-size: 1.5ch;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
+}
+
+.validation-msg {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-size: 2rem;
 }
 
 .card-text {
