@@ -67,6 +67,11 @@ class Request
         return $body;
     }
 
+    public function getJsonBody()
+    {
+        return json_decode(file_get_contents('php://input'), true, JSON_NUMERIC_CHECK);
+    }
+
     public function get_file(): FileHandler
     {
         return new FileHandler();

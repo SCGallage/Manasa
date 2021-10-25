@@ -46,7 +46,7 @@ class DatabaseService
                 if (gettype($value) === "integer" || gettype($value) === "double")
                     array_push($refactoredData, "$columnName = $value");
                 else
-                    array_push($refactoredData, "$columnName = \"$value\"");
+                    array_push($refactoredData, "$columnName = '$value'");
             }
         } elseif ($queryType === 1) {
             foreach ($dataToBeRefactored as $columnName => $value) {
@@ -101,16 +101,15 @@ class DatabaseService
 
     function delete($tableName, $conditions): bool|int
     {
-        $conditionQueryString = implode(', ', $this->refactorDataForQuery($conditions, 0));
+        $conditionQueryString = implode(' AND ', $this->refactorDataForQuery($conditions, 0));
         $sqlStatement = "DELETE FROM $tableName WHERE $conditionQueryString";
-        echo $sqlStatement;
         return $this->pdo->exec($sqlStatement);
     }
 
     function update($tableName, $columns, $conditions): bool|int
     {
         $columnQueryString = implode(', ', $this->refactorDataForQuery($columns, 0));
-        $conditionQueryString = implode(', ', $this->refactorDataForQuery($conditions, 0));
+        $conditionQueryString = implode(' AND ', $this->refactorDataForQuery($conditions, 0));
         $sqlStatement = "UPDATE $tableName SET $columnQueryString  WHERE $conditionQueryString";
         return $this->pdo->exec($sqlStatement);
     }

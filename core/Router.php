@@ -2,6 +2,8 @@
 
 namespace core;
 
+use core\sessions\SessionManagement;
+
 class Router
 {
 
@@ -61,6 +63,20 @@ class Router
             //return $this->renderView($callback, title: "Hello World");
         }
         if (is_array($callback)) {
+            session_start();
+            if (isset($callback[2])) {
+                $userType = SessionManagement::get_session_data('user_data');
+                //print_r($_SESSION);
+                if (!$userType) {
+                    Application::$app->response->setStatusCode(401);
+                    return $this->renderOnlyView('_401');
+                }
+                if (!($userType === $callback[2])) {
+                    Application::$app->response->setStatusCode(403);
+                    return $this->renderOnlyView('_403');
+                }
+                unset($callback[2]);
+            }
             Application::$app->controller = new $callback[0]();
             $callback[0] = Application::$app->controller;
         }

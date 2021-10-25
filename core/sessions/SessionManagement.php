@@ -126,4 +126,9 @@ class SessionManagement implements SessionHandlerInterface
         unset($_SESSION[$key]);
     }
 
+    public static function check_variable_set(string $key)
+    {
+        return isset($_SESSION[$key]);
+    }
+
 }
