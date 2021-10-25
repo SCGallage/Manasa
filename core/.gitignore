@@ -1,1 +1,5 @@
 /vendor/
+/.env
+/.env.example
+/core
+/.idea

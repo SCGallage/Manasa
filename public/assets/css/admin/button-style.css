@@ -1,0 +1,97 @@
+/* Button types */
+ 
+.button1 {
+    background-color: #003249;
+    border: none;
+    color: white;
+    padding: 0.6rem 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 4px 2px;
+    cursor: pointer;
+    float: right;
+  }
+
+  .button2 {
+    background-color: #003249;
+    width:100%;
+    border: none;
+    color: white;
+    padding: 0.6rem;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 0.6rem;
+    list-style: none;
+  }
+
+  .button4{
+    background-color: #003249;
+    color: white;
+    text-align: center;
+    padding: 0.6rem;
+    text-decoration: none;
+    border-bottom: 1px #F1F1F1 dotted;
+  }
+
+  .button5{
+    background-color: #ececec;
+    color: black;
+    text-align: center;
+    padding: 0.6rem;
+    text-decoration: none;
+    border-bottom: 1px black dotted;
+  }
+
+  .button6 {
+    background-color: #d4a2a0;
+    border: none;
+    color: white;
+    padding: 0.6rem 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 4px 2px;
+    cursor: pointer;
+    float: right;
+  }
+
+  #button3 .sub-button3 a{
+    display: none;
+  }
+
+  #button3 .visible a{
+    display: block;
+  }
+
+  .select1{
+    font-size: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+
+  .sub-button3{
+    display: none;
+
+  }
+
+  .sub-button3 a{
+    display: block;
+
+  }
+
+  .show {display: block;}
+  
+  .select2{
+    width: 100%;
+    padding: 6px 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #003249;
+    border-radius: 4px;
+  }

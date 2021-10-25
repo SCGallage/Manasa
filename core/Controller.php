@@ -8,7 +8,7 @@ use core\Application;
 
 class Controller
 {
-    public string $layout = 'main';
+    public string $layout = 'adminNav';
 
     /**
      * override the layout
