@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="./assets/css/befriender/report_popup.css">
+<link rel="stylesheet" href="http://localhost/assets/css/befriender/report_popup.css">
 <div class="modal-bg">
 <div class="container">
     <svg

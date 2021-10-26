@@ -98,13 +98,14 @@ $app->router->post('/api/v1/auth/validate', [AuthController::class, 'checkExisti
 
 /* Befriender Views */
 
-$app->router->get('/dashboard', [BefrienderController::class, 'loadBefrienderDashboard', 'Befriender']);
-$app->router->get('/appointments', [BefrienderController::class, 'loadBefrienderAppointments']);
-$app->router->get('/reports', [BefrienderController::class, 'loadBefrienderReports']);
-$app->router->get('/supportgroup', [BefrienderController::class, 'loadBefrienderSupportGroup']);
+$app->router->get('/befriender/dashboard', [BefrienderController::class, 'loadBefrienderDashboard', 'Befriender']);
+$app->router->get('/befriender/appointments', [BefrienderController::class, 'loadBefrienderAppointments']);
+$app->router->get('/befriender/reports', [BefrienderController::class, 'loadBefrienderReports']);
+$app->router->get('/befriender/supportgroup', [BefrienderController::class, 'loadBefrienderSupportGroup']);
+$app->router->get('/befriender/schedule', [BefrienderController::class, 'befrienderSchedule']);
 
-$app->router->get('/bef/sg_request', [BefrienderController::class, 'addSupportGroupRequest']);
-$app->router->post('/bef/sg_request', [BefrienderController::class, 'addSupportGroupRequest']);
+$app->router->get('/befriender/sg_request', [BefrienderController::class, 'addSupportGroupRequest']);
+$app->router->post('/befriender/sg_request', [BefrienderController::class, 'addSupportGroupRequest']);
 
 //admin landing page
 $app->router->get('/admin/AdminDash', [AdminController::class, 'home']);
@@ -144,6 +145,8 @@ $app->router->get('/admin/deleteUser', [AdminController::class, 'deleteUser']);
 $app->router->get('/admin/UserRequests', [AdminController::class, 'UserRequests']);
 $app->router->post('/admin/UserRequests', [AdminController::class, 'UserRequestsUpdate']);
 $app->router->get('/admin/UserRequestsDelete', [AdminController::class, 'UserRequestsDelete']);
+
+$app->router->get('/cvdownload', [AdminController::class, 'cvDownload']);
 
 //moderator views
 //moderator landing page

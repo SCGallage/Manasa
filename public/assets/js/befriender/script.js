@@ -14,3 +14,9 @@ document.querySelector(".close-btn").addEventListener("click", () => {
   document.querySelector(".modal-bg").classList.remove("display");
   document.querySelector(".card-container").style.bottom = "999px";
 });
+
+document.getElementById("event-list").addEventListener("click", (e) => {
+  console.log("hello");
+  document.querySelector(".modal-background").classList.add("display");
+  //document.querySelector(".card-container").style.bottom = 0;
+});
