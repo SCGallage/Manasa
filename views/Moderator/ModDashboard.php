@@ -109,7 +109,7 @@
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 scroll1">
-                <div class="upper-box-details card1">
+                <div class="upper-box-details card1 margin-top">
                     <div class="col-l-12 col-m-12 col-s-12 text-style3">Annual Meeting</div>
                     <div class="col-l-12 col-m-12 col-s-12">
                         <span>Date: 2021/09/08</span><br>
@@ -118,7 +118,7 @@
                     </div>
                 </div>
 
-                <div class="upper-box-details card1">
+                <div class="upper-box-details card1 margin-top">
                     <div class="col-l-12 col-m-12 col-s-12 text-style3">Annual Meeting</div>
                     <div class="col-l-12 col-m-12 col-s-12">
                         <span>Date: 2021/09/08</span><br>
@@ -126,8 +126,15 @@
                         <span>Place: Virtual</span>
                     </div>
                 </div>
-
-                <div class="upper-box-details card1">
+                <div class="upper-box-details card1 margin-top">
+                    <div class="col-l-12 col-m-12 col-s-12 text-style3">Annual Meeting</div>
+                    <div class="col-l-12 col-m-12 col-s-12">
+                        <span>Date: 2021/09/08</span><br>
+                        <span>Time: 9.00 AM </span><br>
+                        <span>Place: Virtual</span>
+                    </div>
+                </div>
+                <div class="upper-box-details card1 margin-top">
                     <div class="col-l-12 col-m-12 col-s-12 text-style3">Annual Meeting</div>
                     <div class="col-l-12 col-m-12 col-s-12">
                         <span>Date: 2021/09/08</span><br>

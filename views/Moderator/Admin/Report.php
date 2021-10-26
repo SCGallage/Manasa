@@ -41,7 +41,7 @@
                     </div>
                 </div>
 
-                <div class="upper-box-details card1">
+                <div class="upper-box-details card1 margin-top" >
                     <div class="col-l-12 col-m-12 col-s-12 text-style3 padding-top-1">Events Conducted</div>
                     <div class="col-l-12 col-m-12 col-s-12 padding-top-1">
                         <span class="padding-top-1 custom-text">Date: 2021/09/08</span><br>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
 
-                <div class="upper-box-details card1">
+                <div class="upper-box-details card1 margin-top">
                     <div class="col-l-12 col-m-12 col-s-12 text-style3 padding-top-1">Volunteer events</div>
                     <div class="col-l-12 col-m-12 col-s-12 padding-top-1">
                         <span class="padding-top-1 custom-text">Date: 2021/12/11</span><br>

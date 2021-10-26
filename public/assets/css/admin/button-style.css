@@ -97,8 +97,28 @@
   }
 .accept-button {
   background-color: #98f69c;
+  border: none;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: 'Josefin Sans', sans-serif;
+  margin: 4px 2px;
+  cursor: pointer;
+  float: right;
 }
 
 .cancel-button {
   background-color: #d53f3f;
+  border: none;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: 'Josefin Sans', sans-serif;
+  margin: 4px 2px;
+  cursor: pointer;
+  float: right;
 }

@@ -77,6 +77,8 @@
     background-color: #ececec;
     padding: 0.6rem;
     border-radius: 0.3rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 2rem;
   }
 
   .card2{
@@ -99,19 +101,21 @@
     width: 100%;
     padding: 1rem;
     margin-top: 1rem;
-  }
-
-  .event-card:nth-of-type(3n + 1){
-    background-color: rgba(55, 178, 141, 0.3);
-  }
-
-  .event-card:nth-of-type(3n + 2){
     background-color: rgba(55, 112, 178, 0.3);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 
-  .event-card:nth-of-type(3n + 3){
-    background-color: rgba(146, 146, 146, 0.3);
-  }
+  /*.event-card:nth-of-type(3n + 1){*/
+  /*  background-color: rgba(55, 178, 141, 0.3);*/
+  /*}*/
+
+  /*.event-card:nth-of-type(3n + 2){*/
+  /*  background-color: rgba(55, 112, 178, 0.3);*/
+  /*}*/
+
+  /*.event-card:nth-of-type(3n + 3){*/
+  /*  background-color: rgba(146, 146, 146, 0.3);*/
+  /*}*/
 
   /* Flex boxes */
 
@@ -172,6 +176,9 @@
     justify-self: center;
   }
 
+  .margin-top{
+    margin-top: 1rem;
+  }
   .padding1{
     padding: 1rem;
   }

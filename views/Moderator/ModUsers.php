@@ -1,5 +1,5 @@
-<?php
-?>
+<?php $params ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +50,7 @@
     <div class="row row-style flex-container">
         <div class="col-l-12 col-m-12 col-s-12 primary-card flex-gap">
             <div class="col-l-12 col-m-12 col-s-12 padding1">
-                <div class="col-l-12 col-m-12 col-s-12"> <span class="head-text">Befriender</span> </div>
+                <div class="col-l-12 col-m-12 col-s-12"> <span class="head-text">Users</span> </div>
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 table-overflow">
@@ -58,84 +58,32 @@
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Contact</th>
-                        <th>Start Date</th>
-                        <th>Type</th>
-                        <th> </th>
-                        <th> </th>
+                        <th>User Type</th>
+                        <th>UserName</th>
+                        <th>State</th>
+                        <th>CV</th>
+                        <th></th>
+                        <th></th>
                     </tr>
-                    <tr>
-                        <td>Ben Affleck</td>
-                        <td>BenAffleck@gmail.com</td>
-                        <td>0771268920</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons" id="updateUser" onclick="updateUser()">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>Peter Griffin</td>
-                        <td>PeterGriffin@gmail.com</td>
-                        <td>077229667</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>Carla Bruni</td>
-                        <td>CarlaBruni@gmail.com</td>
-                        <td>077146278</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>David Arquette</td>
-                        <td>DavidArquette@gmail.com</td>
-                        <td>0772678924</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>Ben Affleck</td>
-                        <td>BenAffleck@gmail.com</td>
-                        <td>0771268920</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>Peter Griffin</td>
-                        <td>PeterGriffin@gmail.com</td>
-                        <td>077229667</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>Carla Bruni</td>
-                        <td>CarlaBruni@gmail.com</td>
-                        <td>077146278</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>David Arquette</td>
-                        <td>DavidArquette@gmail.com</td>
-                        <td>0772678924</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
+
+                    <?php
+                    foreach ($viewUser as $row) { ?>
+                        <tr>
+                            <td><?php echo $row['fname']." ".$row['lname']?></td>
+                            <td><?php echo $row['email']?></td>
+                            <td><?php echo $row['type']?></td>
+                            <td><?php echo $row['username']?></td>
+                            <td><?php
+                                if ($row['state'] == 1) {
+                                    echo 'Active';
+                                }
+                                elseif ($row['state'] == 0){
+                                    echo 'Inactive';
+                                }
+                                ?></td>
+                            <td><a href="/file_storage/cv/<?php echo $row['cv']?>" download>Download CV</a></td>
+                        </tr>
+                    <?php } ?>
                 </table>
             </div>
         </div>

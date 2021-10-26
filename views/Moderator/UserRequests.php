@@ -67,7 +67,7 @@
                                 <input type="hidden" class="button1" value="<?php echo $row['id']?>" name="id">
                             </form>
                         </td>
-                        <td> <a href="/admin/UserRequestsDelete?id=<?php echo $row['id'] ?>" class="button6">Reject</a></td>
+                        <td> <a href="/admin/UserRequestsDelete?id=<?php echo $row['id'] ?>" class="cancel-button">Reject</a></td>
                     </tr>
                     <?php } ?>
                 </table>

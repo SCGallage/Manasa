@@ -64,7 +64,7 @@
                         <td><?php echo $req['fname']." ".$req['lname']?></td>
                         <td><?php echo $req['type']?></td>
                         <td><?php echo $req['capacity']?></td>
-                        <td> <a href="/admin/SGRequestsUpdate?id=<?php echo $req['id'] ?>" class="accept-button">Accept</a></td>
+                        <td> <a href="/admin/SGRequestsUpdate?id=<?php echo $req['id'] ?>" class="button1">Accept</a></td>
                         <td> <a href="/admin/SGRequestsDelete?id=<?php echo $req['id'] ?>" class="cancel-button">Reject</a></td>
                     </tr>
 

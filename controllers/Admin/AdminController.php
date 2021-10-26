@@ -411,8 +411,13 @@ class AdminController extends Controller
 
     public function ModUsers()
     {
+        $userView = new staff();
+        $viewUser = $userView->select('staff','*',[ 'state' => 1 ], DatabaseService::FETCH_ALL);
 
-        return $this->render('Moderator/ModUsers', 'Users');
+        $params = [
+            'viewUser' => $viewUser
+        ];
+        return $this->render('Moderator/ModUsers', 'Users',$params);
 
     }
 }
