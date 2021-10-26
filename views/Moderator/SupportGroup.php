@@ -12,6 +12,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"/>
 </head>
 <body>
 <main>
@@ -60,8 +64,8 @@
                         <td><?php echo $req['fname']." ".$req['lname']?></td>
                         <td><?php echo $req['type']?></td>
                         <td><?php echo $req['capacity']?></td>
-                        <td> <a href="/admin/createSG" class="button1" id="accept-btn">Accept</a></td>
-                        <td> <a href="#" class="button6">Reject</a></td>
+                        <td> <a href="/admin/SGRequestsUpdate?id=<?php echo $req['id'] ?>" class="accept-button">Accept</a></td>
+                        <td> <a href="/admin/SGRequestsDelete?id=<?php echo $req['id'] ?>" class="cancel-button">Reject</a></td>
                     </tr>
 
                     <?php
@@ -157,7 +161,7 @@
                                     }
                                 ?></td>
                             <td><a href="/admin/updateSG?SupportGroupId=<?php echo $row['id'] ?>"><span class="material-icons" id="updateSG">edit</span></a></td>
-                            <td><span class="material-icons">delete</span></td>
+                            <td><a href="/admin/deleteSG?id=<?php echo $row['id'] ?>" ><span class="material-icons">delete</span></a></td>
                         </tr>
                         <?php
                     }

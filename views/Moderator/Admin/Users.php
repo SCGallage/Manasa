@@ -12,80 +12,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
-    <style>
-        .file {
-            opacity: 0;
-            width: 0.1px;
-            height: 0.1px;
-            position: absolute;
-        }
-        .customLable{
-            display: block;
-            position: relative;
-            width: 200px;
-            height: 50px;
-            border-radius: 25px;
-            background: #6c6c6c;
-            box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform .2s ease-out;
-        }
-         .dropbutton {
-             background-color: #4CAF50;
-             color: white;
-             padding: 14px;
-             font-size: 14px;
-             border: none;
-             cursor: pointer;
-         }
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"/>
 
-        .dropbutton:hover, .dropbutton:focus {
-            background-color: #3e8e41;
-        }
-
-        .dropdownmenu {
-            position: relative;
-            display: inline-block;
-            outline: none;
-        }
-
-        .dropdownmenu-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 140px;
-            overflow: auto;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
-        }
-
-        .dropdownmenu-content a {
-            color: black;
-            padding: 12px 14px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdownmenu a:hover {
-            background-color: #f1f1f1
-        }
-
-        .show {
-            display:block;
-        }
-
-    </style>
 </head>
 <body>
 <main>
     <div class="row flex-container">
 
         <div class="col-l-12 col-m-12 col-s-12 flex-gap">
-
             <div class="col-l-8 col-m-12 col-s-12">
                 <span class="head-text2">User Details</span>
             </div>
@@ -120,7 +57,7 @@
                     <span class="add-text" >+Add User</span>
                     <div class="sub-button3 padding-top" id="dropdownUser">
                         <a href="/admin/UserRequests" class="button5">User Requests</a>
-                        <a href="#" class="button5" id="createUser" onclick="createUser()">Add user</a>
+                        <a href="/admin/addUsers" class="button5">Add user</a>
                     </div>
                     </div>
                     </div>
@@ -133,7 +70,6 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>User Type</th>
-                        <th>Date of Birth</th>
                         <th>UserName</th>
                         <th>State</th>
                         <th>CV</th>
@@ -147,7 +83,6 @@
                             <td><?php echo $row['fname']." ".$row['lname']?></td>
                             <td><?php echo $row['email']?></td>
                             <td><?php echo $row['type']?></td>
-                            <td><?php echo $row['dob']?></td>
                             <td><?php echo $row['username']?></td>
                             <td><?php
                                 if ($row['state'] == 1) {
@@ -157,9 +92,9 @@
                                     echo 'Inactive';
                                 }
                                 ?></td>
-                            <td><a href="./uploads/<?php echo $row['cv']?>" download>Download CV</a></td>
+                            <td><a href="/file_storage/cv/<?php echo $row['cv']?>" download>Download CV</a></td>
                             <td><span class="material-icons" id="updateUser" onclick="updateUser()">edit</span></td>
-                            <td><span class="material-icons">delete</span></td>
+                            <td><a href="/admin/deleteUser?id=<?php echo $row['id'] ?>" ><span class="material-icons">delete</span></a></td>
                         </tr>
                     <?php } ?>
                 </table>
@@ -252,151 +187,6 @@
 
 </main>
 
-<!-- POP-UP Create User --------------------------------------------------------------------------------------------------------------------->
-<div class="modal" id="createUser-modal">
-    <div class="modal-content">
-
-        <div class="modal-header padding1">
-            <div class="head-text3">
-                <span class="close" id="close-user">&times;</span>
-            </div>
-
-            <div class="head-text3 padding-top">
-                <span>Create User</span>
-            </div>
-        </div>
-
-        <div class="modal-body">
-            <div class="card-content">
-                <form name="createUserForm" action="/admin/SearchUsers" class="form1" method="post" id="registerForm">
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container3 ">
-                        <div class="col-l-4 col-m-4 col-s-4">
-                            <label for="userType" class="text-style3">User Type</label>
-                        </div>
-                        <div class="col-l-8 col-m-8 col-s-8">
-                            <select name="type" id="reportType" class="select1">
-                                <option value="Volunteer">Volunteer</option>
-                                <option value="Befriender">Befriender</option>
-                                <option value="Moderator">Moderator</option>
-                                <option value="Administrator">Administrator</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="email" class="text-style3">Username:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="username" name="username" value="">
-                            </div>
-                        </div>
-                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">Email:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="email" name="email" value="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="email" class="text-style3">First Name:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="fname" name="fname" value="">
-                            </div>
-                        </div>
-                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">Last Name:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="lname" name="lname" value="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="email" class="text-style3">Password:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="password" id="password" name="password" value="">
-                            </div>
-                        </div>
-                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">Confirm Password:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="password" id="password" name="con_password" value="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="email" class="text-style3">Date of Birth:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="date" id="dob" name="dob" value="">
-                            </div>
-                        </div>
-                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">Gender:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <select name="gender" id="gender" class="select2">
-                                    <option value="-------" selected disabled>--------</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="rather not say">Rather Not Say</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">State:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <select name="reportType" id="reportType" class="select2">
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-<!--                            <div class="col-l-12 col-m-12 col-s-12">-->
-<!--                                <input type="file" name="cv" id="file" class="file">-->
-<!--                                <label for="file" class="customLable">Attach Your CV:</label>-->
-<!--                            </div>-->
-                        </div>
-                    </div>
-                    <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <div class="col-l-8"></div>
-                        <div class="col-l-4 col-m-12 col-s-12 positionR">
-                            <input type="submit" value="Submit">
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-        <div class="modal-footer"></div>
-    </div>
-</div>
-<!-- -------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 <!-- POP-UP Update User ----------------------------------------------------------------------------------------------------------------------------------->
 <div class="modal" id="modal-box">
