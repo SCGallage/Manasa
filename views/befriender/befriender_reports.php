@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="./assets/css/befriender/sessionReport.css">
+<link rel="stylesheet" href="http://localhost/assets/css/befriender/sessionReport.css">
 <?php require_once(__DIR__."\befriender_report_popup.php") ?>
 <main>
     <div class="main-grid-container">
@@ -48,4 +48,4 @@
         </div>
     </div>
 </main>
-<script src="./assets/js/befriender/report_modal.js"></script>
+<script src="http://localhost/assets/js/befriender/report_modal.js"></script>

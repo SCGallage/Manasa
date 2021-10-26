@@ -56,7 +56,7 @@
                                 echo 'Inactive';
                             }
                             ?></td>
-                        <td><a href="./uploads/<?php echo $row['cv']?>" download>Download CV</a></td>
+                        <td><a href="http://localhost/cvdownload?filename=<?php echo $row['cv']?>" download>Download CV</a></td>
                         <td>
                             <form method="post" action="/admin/UserRequests">
                                 <input type="submit" class="button1" value="Accept" name="state">
