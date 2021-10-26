@@ -115,10 +115,10 @@
 
         <li class="last-item">
             <a href="#" class="last-link">
-                <span class="profile-pic"></span>
+                <img src="http://localhost/assets/img/user/<?php echo $_SESSION['profile_pic'] ?>" class="profile-pic">
                 <div class="user-details">
-                    <span class="username">Yadeesha Weerasinghe</span>
-                    <span class="occupation">Administrator</span>
+                    <span class="username"><?php echo $_SESSION['user_name'] ?></span>
+                    <span class="occupation"><?php echo $_SESSION['user_data'] ?></span>
                 </div>
             </a>
         </li>

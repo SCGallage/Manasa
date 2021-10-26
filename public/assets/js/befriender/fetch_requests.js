@@ -22,8 +22,7 @@ const invokeSecondaryModal = (requestId, fullname, type) => {
 
 var cardcontainer = document.getElementById("card-container");
 var memberlist = document.querySelector(".caller-list");
-//console.log("member list", memberlist);// or window.location.href for current url
-//var captured = /myParam=([^&]+)/.exec(url)[1];
+
 console.log(window.location.href.searchParams);
 fetch(
   "http://localhost:80/api/v1/supportgroup/requests?" +
@@ -102,6 +101,7 @@ const getRequestId = (requestId, type) => {
       //   toast.classList.remove("toast-visible");
       // }, 5000);
       console.log(res);
+      if (res.result) document.getElementById(requestId).remove();
     });
 };
 

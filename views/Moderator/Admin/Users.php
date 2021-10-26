@@ -157,7 +157,7 @@
                                     echo 'Inactive';
                                 }
                                 ?></td>
-                            <td><a href="./uploads/<?php echo $row['cv']?>" download>Download CV</a></td>
+                            <td><a href="http://localhost/cvdownload?filename=<?php echo $row['cv']?>" download>Download CV</a></td>
                             <td><span class="material-icons" id="updateUser" onclick="updateUser()">edit</span></td>
                             <td><span class="material-icons">delete</span></td>
                         </tr>

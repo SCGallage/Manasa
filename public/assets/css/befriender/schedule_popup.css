@@ -1,0 +1,122 @@
+.modal-bg {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+}
+
+.display {
+    visibility: visible;
+}
+.card {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+    background-color: white;
+}
+
+.card-heading {
+    align-self: flex-start;
+}
+
+.card-body {
+    width: 100%;
+    height: 250px;
+    background-color: #fafafa;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.card-name {
+    margin-left: 1rem;
+    font-weight: 300;
+    font-size: 0.9rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.single-card {
+    display: grid;
+    grid-template-columns: 70px auto;
+    align-items: center;
+    /* background-color: bisque; */
+    /* padding: 0.8rem 1rem; */
+    margin: 1rem 0.6rem;
+}
+
+.card-heading {
+    position: relative;
+}
+
+.schedule-close-btn {
+    position: absolute;
+    top: -5px;
+    right: -20px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.main-heading {
+    margin: 1.5rem 0;
+    font-size: 1.2rem;
+    color: #004f53;
+}
+
+.secondary-heading {
+    margin: 1rem 0;
+    font-weight: 300;
+    text-align: justify;
+    text-justify: inter-word;
+    font-family: "Poppins", sans-serif;
+}
+
+.card-footer {
+    align-self: flex-end;
+    margin-top: 1.3rem;
+}
+
+.card-btn {
+    background: transparent;
+    border: none;
+    padding: 0.6rem 0.6rem;
+    transition: 0.5s;
+    font-weight: 700;
+    color: #0399a1;
+}
+
+.card-btn:hover {
+    color: white;
+    background-color: #004f53;
+}
+
+.remove-btn {
+    background: transparent;
+    border: none;
+    padding: 0.6rem 0.6rem;
+    transition: 0.5s;
+    font-weight: 700;
+    color: #ad0505;
+}
+
+.remove-btn:hover {
+    color: white;
+    background-color: #ad0505;
+}

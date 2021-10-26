@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="./assets/css/befriender/support_group.css">
-<link rel="stylesheet" href="./assets/css/befriender/popup_card.css">
-<link rel="stylesheet" href="./assets/css/user/popup_error_styles.css">
+<link rel="stylesheet" href="http://localhost/assets/css/befriender/support_group.css">
+<link rel="stylesheet" href="http://localhost/assets/css/befriender/popup_card.css">
+<link rel="stylesheet" href="http://localhost/assets/css/user/popup_error_styles.css">
 <div class="modal-bg">
     <div class="modal-secondary-bg">
         <div class="flash-card">
@@ -66,7 +66,7 @@
                 <div class="request-card">
                     <div class="card-icon">
                         <!-- <span class="picture"></span> -->
-                        <img class="picture" src="./F2KRf_QfCqw.png" alt="" />
+                        <img class="picture" src="http://localhost/assets/img/F2KRf_QfCqw.png" alt="" />
                     </div>
                     <span class="card-text">
                 <h4 class="request-name">Heather Chapman</h4>
@@ -90,6 +90,9 @@
         </div>
     </div>
 </div>
+<div class="modal-background">
+    <?php require_once(__DIR__."\befriender_eventpopup.php"); ?>
+</div>
 <main>
     <div>
         <h2 class="main-heading">Cancer Support Group</h2>
@@ -97,14 +100,15 @@
             <div class="grid-item-events">
                 <div class="event-heading">
                     <span class="event-main-heading">Events</span>
-                    <span class="event-sub-heading">Add Event</span>
+                    <span id="event-list" class="event-sub-heading">Add Event</span>
                 </div>
-                <div class="event-list">
+                <!-- <div class="event-list"> -->
+                <div> 
                     <div class="event-card">
                         <div class="card-image">
                             <img
                                 class="event-image"
-                                src="./assets/img/befriender/F2KRf_QfCqw.png"
+                                src="http://localhost/assets/img/befriender/F2KRf_QfCqw.png"
                                 height="100px"
                                 width="100px"
                                 alt=""
@@ -261,7 +265,7 @@
                         <div class="caller-image">
                             <img
                                 class="caller-icon"
-                                src="./assets/img/befriender/F2KRf_QfCqw.png"
+                                src="http://localhost/assets/img/befriender/F2KRf_QfCqw.png"
                                 alt=""
                                 srcset=""
                             />
@@ -278,5 +282,6 @@
         </div>
     </div>
 </main>
-<script src="./assets/js/befriender/script.js"></script>
-<script src="./assets/js/befriender/fetch_requests.js"></script>
+<script src="http://localhost/assets/js/befriender/script.js"></script>
+<script src="http://localhost/assets/js/befriender/fetch_requests.js"></script>
+<script src="http://localhost/assets/js/befriender/calendar.js"></script>

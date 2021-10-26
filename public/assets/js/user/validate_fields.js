@@ -45,7 +45,7 @@ password.addEventListener("keyup", () => {
     password.classList.add("danger");
     passwordText.innerText = "Invalid Password Pattern!";
     passwordText.style.color = "rgba(173, 5, 5)";
-    passwordState = true;
+    passwordState = false;
   }
 });
 
@@ -184,18 +184,20 @@ const registerForm = document.getElementById("registerForm");
 registerForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  console.log(emailState);
-  console.log(username);
+  // console.log(emailState);
+  // console.log(username);
 
   if (
     emailState &&
     usernameState &&
-    fname &&
-    lname &&
+    fnameState &&
+    lnameState &&
     passwordState &&
     conpasswordState
-  )
+  ) {
     console.log(true);
+    registerForm.submit();
+  }
   //registerForm.submit();
 });
 
