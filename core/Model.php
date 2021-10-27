@@ -51,10 +51,10 @@ class Model extends DatabaseService
     }
 
 
-    public function save($data)
+    public function save($data): bool|int
     {
-        $new_array = parent::mapDataToClassProperties(new ReflectionClass($this), $data);
-        echo parent::insert($this->_tablename, $new_array);
+        $new_array = $this->mapDataToClassProperties(new ReflectionClass($this), $data);
+        return parent::insert($this->_tablename, $new_array, DatabaseService::RETURN_LAST_ID);
         //return $new_array;
     }
 

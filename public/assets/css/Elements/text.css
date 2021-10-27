@@ -2,6 +2,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Open+Sans:wght@300&display=swap');
 
+[class*="margin-l"] {
+    margin-left: 1vw;
+}
+
+[class*="margin-r"] {
+    margin-right: 1vw;
+}
+
+[class*="margin"] {
+    margin: 1vw;
+}
+
 [class*="link-text"] {
     text-decoration: none;
 }

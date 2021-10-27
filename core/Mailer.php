@@ -25,7 +25,7 @@ class Mailer
      */
     public function init($host, $username, $password)
     {
-        $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        //$this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $this->mail->isSMTP();
         $this->mail->Host = $host;
         $this->mail->SMTPAuth   = true;
@@ -74,6 +74,15 @@ class Mailer
         if ($altbody != null)
             $this->mail->AltBody = $altbody;
 
+    }
+
+    public function loadTemplate(string $subject, string $template, $params = '')
+    {
+        $this->mail->isHTML(true);
+        $this->mail->Subject = $subject;
+        $mailBody = file_get_contents("D:\\PHP_Projects\\Manasa\\templates\\".$template.".html");
+        $mailBody = str_replace('{{resetLink}}', $params, $mailBody);
+        $this->mail->Body = $mailBody;
     }
 
 

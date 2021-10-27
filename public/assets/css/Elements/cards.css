@@ -2,6 +2,10 @@
     box-shadow: 0px 4px 2px gray;
 }
 
+[class*="shadow-2"] {
+    box-shadow: 4px 4px 10px gray;
+}
+
 .card-align-center {
     margin: auto;
 }
@@ -33,6 +37,9 @@
 }
 
 .sg-card-img-1{
+    margin-top: 2vh;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
     background-image: url("../../img/Manasa/quests/sg-2.jpg");
     background-size: cover;
     background-position: center;
@@ -67,4 +74,32 @@
 .footer-card{
     margin: 2vw;
     padding-bottom: 1vw;
+}
+
+.search-bar {
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    margin-top: 1vh;
+    background-color: transparent;
+    backdrop-filter: grayscale(95%);
+}
+
+.search-bar:hover {
+    background-color: white;
+}
+
+.list-card {
+    margin-bottom: 2vh;
+    border-radius: 20px;
+}
+
+.popup-card {
+    display: none;
+    position: fixed;
+    left: 25%;
+    right: 25%;
+    top: 25%;
+    bottom: auto;
 }

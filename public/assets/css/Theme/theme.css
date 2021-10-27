@@ -1,4 +1,7 @@
 /*Colors for text styling*/
+.color-0 {
+    color: transparent;
+}
 .color-1 {
     color: #003249;
 }

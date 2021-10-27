@@ -1,0 +1,206 @@
+:root {
+    --clr-neutral-900: hsl(207, 19%, 9%);
+    --clr-neutral-100: hsl(0, 0%, 100%);
+    --clr-accent-400: hsl(142, 90%, 61%);
+}
+/* 
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+.card {
+    color: var(--clr-neutral-100);
+    
+} */
+
+body {
+    background: var(--clr-neutral-900);
+    font-family: sans-serif;
+}
+
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+body {
+    background-color: #EFEFEF;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+
+.container {
+    width: 60%;
+    /*height: 100%;*/
+}
+
+/* .card {
+    margin: auto;
+    display: flex;
+} */
+
+.card {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 100%;
+}
+
+/* .card-left {
+    background-color: #FFFFFF;
+    flex: 1 1 30%;
+    padding: 3em;
+} */
+
+.card-left {
+    background-color: #FFFFFF;
+    padding: 3em;
+}
+
+.card-title {
+    margin-bottom: 35px;
+    font-size: 2.5em;
+    font-weight: 500;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .card-right {
+    background: url('img/login.jpg');
+    background-size: cover;
+    flex: 1 1 70%;
+} */
+
+.card-right {
+    background: url('../../img/user/login.jpg');
+    min-width:300px;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.btn {
+    font-size: 1.5ch;
+    height: 2.5rem;
+    width: 20rem;
+    cursor: pointer;
+}
+
+.login {
+    background-color: #003249;
+    border: 2px #003249;
+    color: white;
+}
+
+.gsign-up {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gsign-up img {
+    top: 13px;
+    left: 20px;
+    height: 15px;
+    width: 15px;
+    position: absolute;
+}
+
+.google-signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F6F6F6;
+    text-decoration: none;
+    color: black;
+    /* border: 2px #F6F6F6; */
+}
+
+.create-account {
+    background-color: #0081BC;
+    border: 10px red;
+    color: white;
+}
+
+.text-field {
+    height: 2.5rem;
+    width: 20rem;
+    border: 2px solid #004F53;
+    transition: border 300ms ease-out;
+}
+
+.text-field:focus {
+    outline: none;
+    border: 2px solid #739b9d;
+}
+
+.input-label {
+    font-size: 2ch;
+}
+
+.input-field {
+    position: relative;
+    margin-bottom: 1rem;
+} 
+
+.input-field svg {
+    position: absolute;
+    top: 27px;
+    right: 10px;
+}
+
+.input-field h5 {
+    font-size: 1.5ch;
+    font-weight: 300;
+    margin-top: 5px;
+}
+
+.input-check {
+    font-size: 1.3ch;
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.reset-link {
+    font-size: 2ch;
+    text-decoration: none;
+    color: black;
+}
+
+.remember-me-text {
+    font-size: 2ch;
+}
+
+.input-check a {
+    margin-left: 65px;
+}
+
+/* input validation */
+
+.danger {
+    border: 2px solid rgba(173, 5, 5, 0.88);
+}
+
+.success {
+    border: 2px solid rgba(8, 140, 21, 0.88);
+}

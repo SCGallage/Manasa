@@ -1,0 +1,109 @@
+.modal-bg {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+}
+
+.display {
+    visibility: visible;
+}
+
+.container {
+    position: relative;
+    padding: 3em 4em;
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+    align-items: center;
+    background-color: white;
+}
+
+.container-header {
+    width: 100%;
+    /* align-items: center; */
+}
+
+.title {
+    margin-bottom: 15px;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #03929b;
+}
+
+.container-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.input-field {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.report-item {
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.input {
+    width: 100%;
+    height: 2.5rem;
+    border: 2px solid #003249;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    padding-left: 0.5rem;
+    font-family: "Roboto", sans-serif;
+}
+
+.textarea {
+    width: 100%;
+    border: 2px solid #003249;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+}
+
+.send-request-btn {
+    margin-top: 20px;
+    padding: 15px 0px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    background-color: #003249;
+    border: 2px solid #003249;
+}
+
+.container-footer {
+    margin-top: 20px;
+}
+
+.signin-link {
+    color: #727272;
+}
+
+.field-label {
+    font-size: 1.2rem;
+}
+
+.required-text {
+    font-weight: 300;
+}
+
+.close-btn {
+    cursor: pointer;
+    position: absolute;
+    right: 60px;
+    top: 45px;
+}
+
+.info {
+    font-size: 1.2rem;
+}

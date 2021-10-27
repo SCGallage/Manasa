@@ -30,12 +30,12 @@ function changeClassListById(elementId, changeClass) {
     parameters:
         1. className: class of the elements that the function going to change the classlist
         2. change class: name of the class that going to append with the classlist
-    
+
     Note* : you can append only one class at a time
 */
 
 function changeClassListByClass(className, changeClass) {
-    
+
     var selectedElements = document.getElementsByClassName(className);
     //loop
     for(let i = 0; i < selectedElements.length; i++) {
@@ -48,10 +48,147 @@ function changeClassListByClass(className, changeClass) {
         }
     }
 
-    
+
+}
+
+
+
+/*
+    function name: changeClassListByID
+    parameters:
+        1. id: id of the element that the function going to change the classlist
+        2. change class: name of the class that going to append with the classlist
+
+    Note* : you can append only one class at a time
+*/
+
+function changeClassListByID(id, changeClass) {
+
+    let selectedElement = document.getElementById(id);
+
+    if (selectedElement.classList.contains(changeClass)) {
+        selectedElement.classList.remove(changeClass);
+    } else {
+        selectedElement.classList.add(changeClass);
+    }
+
 }
 //----------------------/changeClass function----------------------------------------------------------
 
+
+
+
+
+//-----------------------Caller, Volunteer profile form validation function----------------------------
+
+/*
+
+    * Function: validateProfileForm
+    * This function is used to validate profile form in caller, volunteer functions
+
+*/
+function validateProfileForm(){
+    var validationState = true;
+    //var age = document.getElementById('age');
+    var phone = document.getElementById('phone');
+    var phoneno = /^\d{10}$/;
+
+    /*
+    if(age.value < 10 || age.value > 100) {
+        validationState = false;
+        age.style.color = "red";
+    }
+     */
+
+    if (!phone.value.match(phoneno)) {
+        validationState = false;
+        phone.style.color = "red";
+    }
+
+
+}
+
+/*
+
+    * Function: isPositive
+    * This function is used to check weather the entered number is positive.
+
+*/
+function isPositive(id, message) {
+    let number = document.getElementById(id).value;
+    let msg = document.getElementById(message);
+    if (number > 0) {
+        msg.style.display = "none";
+    } else {
+        msg.style.display = "block";
+    }
+}
+//----------------------/Caller, Volunteer profile form validation function----------------------------
+
+
+
+
+//-----------------------Clear form function-----------------------------------------------------------
+/*
+
+    * Function: clearForm
+    * This function is used to clear form data.
+
+*/
+function clearForm(fromName) {
+    document.getElementById(fromName).reset();
+}
+//----------------------/Clear form function-----------------------------------------------------------
+
+
+
+//----------------------popup function-----------------------------------------------------------------
+/*
+
+    * Function: popup
+    * This function is used to show or hide popup messages.
+
+*/
+function popup(id, x) {
+    if (x === 1) {
+        document.getElementById(id).style.display = "block";
+    } else if (x === 0) {
+        document.getElementById(id).style.display = "none";
+    }
+}
+//----------------------/popup function----------------------------------------------------------------
+
+
+
+
+//----------------------Validate future date function--------------------------------------------------
+/*
+
+    * Function: isFutureDate
+    * This function is used to check weather the entered date is future date.
+
+*/
+function isFutureDate(id, message) {
+    let inputField = document.getElementById(id);
+    let inputDay = new Date(inputField.value);
+    let today = new Date();
+
+    if (inputDay.getFullYear() >= today.getFullYear()) {
+        if (inputDay.getMonth() >= today.getMonth()) {
+            if (inputDay.getDay() <= today.getDay()) {
+                document.getElementById(message).style.display = "block";
+            } else {
+                document.getElementById(message).style.display = "none";
+            }
+        } else {
+            document.getElementById(message).style.display = "block";
+        }
+    } else {
+        document.getElementById(message).style.display = "block";
+    }
+
+}
+//----------------------/Validate future date function-------------------------------------------------
 
 
 
