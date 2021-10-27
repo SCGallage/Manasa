@@ -11,9 +11,9 @@
   .searchTerm {
     width: 100%;
     border: none;
-    padding: 0.3rem;
+    padding: 0.5rem;
     height: 36px;
-    border-radius: 0.6rem 0 0 0.6rem;
+    border-radius: 0.3rem 0 0 0.3rem;
     outline: none;
     color: #003249;
   }
@@ -27,7 +27,7 @@
     background:white;
     text-align: center;
     color: #003249;
-    border-radius: 0 0.6rem 0.6rem 0;
+    border-radius: 0 0.3rem 0.3rem 0;
     cursor: pointer;
     font-size: 20px;
   }

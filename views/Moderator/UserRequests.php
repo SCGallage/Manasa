@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"/>
 
 </head>
 <body>
@@ -46,7 +50,7 @@
                         <td><?php echo $row['fname']." ".$row['lname']?></td>
                         <td><?php echo $row['email']?></td>
                         <td><?php echo $row['type']?></td>
-                        <td><?php echo $row['dob']?></td>
+                        <td><?php echo $row['dateOfBirth']?></td>
                         <td><?php echo $row['username']?></td>
                         <td><?php
                             if ($row['state'] == 1) {
@@ -56,14 +60,14 @@
                                 echo 'Inactive';
                             }
                             ?></td>
-                        <td><a href="http://localhost/cvdownload?filename=<?php echo $row['cv']?>" download>Download CV</a></td>
+                        <td><a href="/file_storage/cv/<?php echo $row['cv']?>" download>Download CV</a></td>
                         <td>
                             <form method="post" action="/admin/UserRequests">
                                 <input type="submit" class="button1" value="Accept" name="state">
                                 <input type="hidden" class="button1" value="<?php echo $row['id']?>" name="id">
                             </form>
                         </td>
-                        <td> <a href="/admin/UserRequestsDelete?id=<?php echo $row['id'] ?>" class="button6">Reject</a></td>
+                        <td> <a href="/admin/UserRequestsDelete?id=<?php echo $row['id'] ?>" class="cancel-button">Reject</a></td>
                     </tr>
                     <?php } ?>
                 </table>

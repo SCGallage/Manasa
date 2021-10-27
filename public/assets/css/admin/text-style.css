@@ -22,7 +22,9 @@
   font-size: 1.2rem;
   color: #406577;
 }
-
+.custom-text{
+  font-family: 'Poppins', sans-serif !important;
+}
 /* Add user or Add event text */
 .add-text{
   float: right;
