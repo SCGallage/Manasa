@@ -10,7 +10,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"/>
 </head>
 <body>
 <main>
@@ -77,7 +80,7 @@
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 scroll1">
-                <div class="upper-box-details card1">
+                <div class="upper-box-details card1 margin-top">
                     <div class="col-l-12 col-m-12 col-s-12">
                         <span>Date: 2021/09/08</span><br>
                         <span>Time: 9.00 AM </span><br>
@@ -85,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="upper-box-details card1">
+                <div class="upper-box-details card1 margin-top">
                     <div class="col-l-12 col-m-12 col-s-12">
                         <span>Date: 2021/09/08</span><br>
                         <span>Time: 9.00 AM </span><br>
@@ -93,7 +96,7 @@
                     </div>
                 </div>
 
-                <div class="upper-box-details card1">
+                <div class="upper-box-details card1 margin-top">
                     <div class="col-l-12 col-m-12 col-s-12">
                         <span>Date: 2021/09/08</span><br>
                         <span>Time: 9.00 AM </span><br>

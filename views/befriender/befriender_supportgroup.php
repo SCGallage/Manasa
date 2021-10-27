@@ -63,7 +63,6 @@
                     id="card-container"
                     class="request-card-container"
             >
-
             </div>
         </div>
     </div>

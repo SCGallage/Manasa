@@ -98,6 +98,7 @@ $app->router->post('/api/v1/auth/validate', [AuthController::class, 'checkExisti
 
 /* Befriender Views */
 
+
 $app->router->get('/befriender/dashboard', [BefrienderController::class, 'loadBefrienderDashboard']);
 $app->router->get('/befriender/appointments', [BefrienderController::class, 'loadBefrienderAppointments']);
 $app->router->get('/befriender/reports', [BefrienderController::class, 'loadBefrienderReports']);
@@ -111,14 +112,19 @@ $app->router->post('/befriender/sg_request', [BefrienderController::class, 'addS
 $app->router->get('/admin/AdminDash', [AdminController::class, 'home']);
 
 //Admin support group
-$app->router->post('/admin/SupportGroup', [AdminController::class, 'supportGroup']);
 $app->router->get('/admin/SupportGroup', [AdminController::class, 'supportGroup']);
 
 $app->router->get('/admin/createSG', [AdminController::class, 'createSG']);
-$app->router->post('/admin/createSG', [AdminController::class, 'createSG']);
+$app->router->post('/admin/createSG', [AdminController::class, 'createdSG']);
 
 $app->router->get('/admin/updateSG', [AdminController::class, 'updateSG']);
 $app->router->post('/admin/updatedSGform', [AdminController::class, 'updateSG']);
+
+$app->router->get('/admin/deleteSG', [AdminController::class, 'deleteSG']);
+
+//Support group request update
+$app->router->get('/admin/SGRequestsUpdate', [AdminController::class, 'SupportGroupRequestsUpdate']);
+$app->router->get('/admin/SGRequestsDelete', [AdminController::class, 'SupportGroupRequestsDelete']);
 
 //admin views
 $app->router->get('/admin/Volunteer', [AdminController::class, 'Volunteer']);
@@ -129,16 +135,21 @@ $app->router->get('/admin/SessionReport', [AdminController::class, 'SessionRepor
 
 //admin user function
 $app->router->get('/admin/SearchUsers', [AdminController::class, 'SearchUsers']);
-$app->router->post('/admin/SearchUsers', [AdminController::class, 'SearchUsers']);
 
+//add users
+$app->router->get('/admin/addUsers', [AdminController::class, 'createUser']);
+$app->router->post('/admin/addUsers', [AdminController::class, 'createUser']);
+
+$app->router->get('/admin/deleteUser', [AdminController::class, 'deleteUser']);
+
+//User requests
 $app->router->get('/admin/UserRequests', [AdminController::class, 'UserRequests']);
-$app->router->post('/admin/UserRequests', [AdminController::class, 'UserRequests']);
+$app->router->post('/admin/UserRequests', [AdminController::class, 'UserRequestsUpdate']);
 $app->router->get('/admin/UserRequestsDelete', [AdminController::class, 'UserRequestsDelete']);
 
 $app->router->get('/cvdownload', [AdminController::class, 'cvDownload']);
 
 //moderator views
-
 //moderator landing page
 $app->router->get('/mod/ModDash', [AdminController::class, 'Modhome']);
 $app->router->get('/mod/ModUsers', [AdminController::class, 'ModUsers']);
