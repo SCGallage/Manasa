@@ -7,6 +7,14 @@ use core\Model;
 
 class SupportGroup extends Model
 {
+    private string $id;
+    private string $name;
+    private string $type;
+    private string $description;
+    private string $facilitator;
+    private string $co_facilitator;
+    private string $state;
+    private string $participants;
 
     public function getSupportGroupRequests(int $supportGroupId)
     {
@@ -34,10 +42,15 @@ class SupportGroup extends Model
 
     public function getSupportGroupMembers(int $supportGroupId)
     {
-        $sqlStatement = "SELECT caller.id, caller.fname, caller.lname
-                    FROM caller, sg_enrollrequest
-                    WHERE sg_enrollrequest.supportGroupId = 1 AND sg_enrollrequest.state = 'approved' AND caller.id = sg_enrollrequest.callerId";
-        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+        $sqlStatement = "SELECT caller.id, caller.fname, caller.lname, user.profile_pic
+                    FROM caller, sg_enrollrequest, user
+                    WHERE sg_enrollrequest.supportGroupId = 1 AND sg_enrollrequest.state = 'approved' AND caller.id = sg_enrollrequest.callerId AND caller.id = user.id";
+        $result = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+        for ($i = 0; $i < count($result); $i++) {
+            $filePath = dirname(__DIR__, 2).$_ENV['PROFILE_LOCATION']."\\{$result[$i]['profile_pic']}";
+            $result[$i]['profile_pic'] = base64_encode(fread(fopen($filePath, 'r'), filesize($filePath)));
+        }
+        return $result;
     }
 
     public function removeMemberFromSupportGroup(array $memberDetails)
@@ -47,12 +60,19 @@ class SupportGroup extends Model
         return [ "result" => $result ];
     }
 
+
     public function finfAllSupportGroups()
     {
         $sqlStatement = "SELECT * FROM supportgroup sg 
                          LEFT JOIN sg_enrollrequest sgr
                          ON sg.id = sgr.supportGroupId
                          WHERE callerid != 7";
+    }
+
+
+    public function __construct()
+    {
+        parent::__construct();
     }
 
 }

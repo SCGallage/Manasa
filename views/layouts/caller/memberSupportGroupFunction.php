@@ -3,7 +3,7 @@
 <head>
     <title>Manasa.lk/SupportGroupHome</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/caller_visitor_volunteer_styles.css">
     <script src="../../assets/js/scripts.js"></script>
 </head>
 

@@ -25,6 +25,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
+        $this->setLayout('main');
         $this->user = new User();
         $this->validateInput = new ValidateInput();
     }
@@ -38,20 +39,26 @@ class AuthController extends Controller
             return $this->render('user\login', 'Manasa | Login', [ "auth_url" => $authenticationUrl ]);
         }
 
-        print_r($request->getBody());
+        //print_r($request->getBody());
         $userData = $this->user->login($request->getBody());
         print_r($userData);
+        if ($userData === false)
+            echo 'Failed';
         if ($userData != false) {
             SessionManagement::set_session_data('loggedIn', true);
-            //SessionManagement::set_session_data('user_data', $userData);
+            SessionManagement::set_session_data('user_name', $userData['username']);
+            SessionManagement::set_session_data('user_id', $userData['user_id']);
+            SessionManagement::set_session_data('profile_pic', $userData['profile_pic']);
             if ($userData['user_type'] == 'Befriender') {
-                SessionManagement::set_session_data('user_name', $userData['full_name']);
                 SessionManagement::set_session_data('user_data', 'Befriender');
-                Application::$app->response->setRedirectUrl('/dashboard');
+                Application::$app->response->setRedirectUrl('/befriender/dashboard?befid='.SessionManagement::get_session_data('user_id'));
             }
             if ($userData['user_type'] == 'Normal') {
                 SessionManagement::set_session_data('user_data', 'Caller');
-                //Application::$app->response->setRedirectUrl('/dashboard');
+            }
+            if ($userData['user_type'] == 'Administrator') {
+                SessionManagement::set_session_data('user_data', 'Administrator');
+                Application::$app->response->setRedirectUrl('/admin/AdminDash');
             }
         }
 
@@ -99,7 +106,7 @@ class AuthController extends Controller
             return $this->render('user\register', 'Manasa | Register', [ "auth_url" => $authenticationUrl ]);
         }
         $postData = $request->getBody();
-        //print_r($request->getBody());
+        print_r($request->getBody());
         if ($this->validateInput->validateEmail($postData['email']) && $this->validateInput->validateUsername($postData['username'])) {
             if ($postData['usertype'] === 'Befriender' || $postData['usertype'] === 'Volunteer') {
                 $postData['type'] = 'staff';
@@ -113,8 +120,6 @@ class AuthController extends Controller
             } elseif ($postData['usertype'] === 'Normal' || $postData['usertype'] === 'Anonymous') {
                 if ($postData['usertype'] === 'Anonymous') {
                     $postData['dateOfBirth'] = '2020-10-10';
-                    $postData['fname'] = null;
-                    $postData['lname'] = null;
                 }
                 $postData['type'] = 'caller';
                 $lastId = $this->user->register($postData);

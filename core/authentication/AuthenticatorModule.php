@@ -28,7 +28,7 @@ class AuthenticatorModule
     {
         $this->mailer->init('smtp.gmail.com', $_ENV["SEND_EMAIL"], $_ENV["PASSWORD"]);
         $this->mailer->configure_email($_ENV["SEND_EMAIL"], $email);
-        $this->mailer->loadTemplate("Forgot Password", "forgotPasswordTemplate", "\"http://localhost:80/resetpassword?token=$token\"");
+        $this->mailer->loadTemplate("Forgot Password", "forgotPasswordTemplate", "\"http://localhost:80/updatepassword?token=$token\"");
         $this->mailer->sendMail();
 
     }
@@ -50,10 +50,10 @@ class AuthenticatorModule
 
     public function update_password(string $password, string $email, string $token)
     {
-        $this->databaseService->update('registerModel',
+        $this->databaseService->update('user',
             [ 'password' => password_hash($password, PASSWORD_BCRYPT) ],
             [ 'email' => $email ]);
-        $this->databaseService->update('password_reset',
+        $this->databaseService->update('pr_token',
             [ 'used' => 1 ],
             [ 'token' => $token ]);
     }
@@ -62,7 +62,7 @@ class AuthenticatorModule
     {
 
         $result = $this->databaseService->select(
-            'password_reset',
+            'pr_token',
             [ 'used', 'email' ],
             [ 'token' => $token ]
         , DatabaseService::FETCH_ALL);
@@ -78,7 +78,7 @@ class AuthenticatorModule
             if ($this->date_difference($token) >= 1)
             {
                 $this->databaseService->update(
-                    'password_reset',
+                    'pr_token',
                     [ 'used' => true ],
                     [ 'token' => $token ]
                 );
@@ -94,14 +94,14 @@ class AuthenticatorModule
     public function date_difference($token) : int
     {
         $result = $this->databaseService->select(
-            'password_reset',
+            'pr_token',
             [ 'date_time' ],
             [ 'token' => $token ]
         ,DatabaseService::FETCH_ALL);
-        echo $result['date_time'];
+        print_r($result);
         try {
             $current_timestamp = new \DateTime(null, new \DateTimeZone('Asia/Colombo'));
-            $token_timestamp = new \DateTime($result['date_time'], new \DateTimeZone('Asia/Colombo'));
+            $token_timestamp = new \DateTime($result[0]['date_time'], new \DateTimeZone('Asia/Colombo'));
             $interval = $current_timestamp->diff($token_timestamp);
             return $interval->h + ($interval->days * 24);
         } catch (\Exception $e) {

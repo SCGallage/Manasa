@@ -14,6 +14,7 @@ use controllers\volunteer\VolunteerController;
 use core\Application;
 use controllers\SiteController;
 use core\DotEnv;
+use controllers\Admin\AdminController;
 
 $dotenv = new DotEnv(dirname(__DIR__).'\.env');
 $dotenv->load();
@@ -102,13 +103,50 @@ $app->router->post('/api/v1/auth/validate', [AuthController::class, 'checkExisti
 
 /* Befriender Views */
 
-$app->router->get('/dashboard', [BefrienderController::class, 'loadBefrienderDashboard', 'Befriender']);
-$app->router->get('/appointments', [BefrienderController::class, 'loadBefrienderAppointments']);
-$app->router->get('/reports', [BefrienderController::class, 'loadBefrienderReports']);
-$app->router->get('/supportgroup', [BefrienderController::class, 'loadBefrienderSupportGroup']);
+$app->router->get('/befriender/dashboard', [BefrienderController::class, 'loadBefrienderDashboard']);
+$app->router->get('/befriender/appointments', [BefrienderController::class, 'loadBefrienderAppointments']);
+$app->router->get('/befriender/reports', [BefrienderController::class, 'loadBefrienderReports']);
+$app->router->get('/befriender/supportgroup', [BefrienderController::class, 'loadBefrienderSupportGroup']);
+$app->router->get('/befriender/schedule', [BefrienderController::class, 'befrienderSchedule']);
 
-$app->router->get('/bef/sg_request', [BefrienderController::class, 'addSupportGroupRequest']);
-$app->router->post('/bef/sg_request', [BefrienderController::class, 'addSupportGroupRequest']);
+$app->router->get('/befriender/sg_request', [BefrienderController::class, 'addSupportGroupRequest']);
+$app->router->post('/befriender/sg_request', [BefrienderController::class, 'addSupportGroupRequest']);
+
+//admin landing page
+$app->router->get('/admin/AdminDash', [AdminController::class, 'home']);
+
+//Admin support group
+$app->router->post('/admin/SupportGroup', [AdminController::class, 'supportGroup']);
+$app->router->get('/admin/SupportGroup', [AdminController::class, 'supportGroup']);
+
+$app->router->get('/admin/createSG', [AdminController::class, 'createSG']);
+$app->router->post('/admin/createSG', [AdminController::class, 'createSG']);
+
+$app->router->get('/admin/updateSG', [AdminController::class, 'updateSG']);
+$app->router->post('/admin/updatedSGform', [AdminController::class, 'updateSG']);
+
+//admin views
+$app->router->get('/admin/Volunteer', [AdminController::class, 'Volunteer']);
+$app->router->get('/admin/Schedule', [AdminController::class, 'Schedule']);
+$app->router->get('/admin/FixSchedule', [AdminController::class, 'FixSchedule']);
+$app->router->get('/admin/GenReport', [AdminController::class, 'GenReport']);
+$app->router->get('/admin/SessionReport', [AdminController::class, 'SessionReport']);
+
+//admin user function
+$app->router->get('/admin/SearchUsers', [AdminController::class, 'SearchUsers']);
+$app->router->post('/admin/SearchUsers', [AdminController::class, 'SearchUsers']);
+
+$app->router->get('/admin/UserRequests', [AdminController::class, 'UserRequests']);
+$app->router->post('/admin/UserRequests', [AdminController::class, 'UserRequests']);
+$app->router->get('/admin/UserRequestsDelete', [AdminController::class, 'UserRequestsDelete']);
+
+$app->router->get('/cvdownload', [AdminController::class, 'cvDownload']);
+
+//moderator views
+
+//moderator landing page
+$app->router->get('/mod/ModDash', [AdminController::class, 'Modhome']);
+$app->router->get('/mod/ModUsers', [AdminController::class, 'ModUsers']);
 
 
 /* Caller Views */

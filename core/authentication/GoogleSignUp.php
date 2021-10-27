@@ -6,6 +6,7 @@ namespace core\authentication;
 
 use core\Application;
 use core\DatabaseService;
+use Google\Client;
 use Google\Service\Oauth2;
 use Google_Client;
 use Google_Service_Oauth2;
@@ -16,19 +17,31 @@ class GoogleSignUp
     private Google_Client $google_Client;
     private Google_Service_Oauth2 $google_Service_Oauth2;
 
-    public function __construct()
+    public function __construct($type)
     {
         $this->google_Client = new Google_Client();
         $this->google_Client->setAccessToken('client_secret.json');
         $this->google_Client->setClientId($_ENV["CLIENT_ID"]);
         $this->google_Client->setClientSecret($_ENV["CLIENT_SECRET"]);
-        $this->google_Client->setRedirectUri("http://localhost/validatelogin");
+        if ($type === 'login')
+            $this->google_Client->setRedirectUri("http://localhost/validatelogin");
+        else
+            $this->google_Client->setRedirectUri("http://localhost/details");
         $this->google_Client->addScope("profile");
         $this->google_Client->addScope("email");
     }
 
-    public function createAuthenticationUrl(): string
+    public function createAuthenticationUrl(string $type): string
     {
+//        $this->google_Client->setAccessToken('client_secret.json');
+//        $this->google_Client->setClientId($_ENV["CLIENT_ID"]);
+//        $this->google_Client->setClientSecret($_ENV["CLIENT_SECRET"]);
+//        if ($type === 'login')
+//            $this->google_Client->setRedirectUri("http://localhost/validatelogin");
+//        else
+//            $this->google_Client->setRedirectUri("http://localhost/details");
+//        $this->google_Client->addScope("profile");
+//        $this->google_Client->addScope("email");
         return $this->google_Client->createAuthUrl();
     }
 
@@ -43,7 +56,7 @@ class GoogleSignUp
 
     public function checkGoogleUserAlreadyExists(string $googleId)
     {
-        if (Application::$app->databaseService->select("user", "*", [ "google_id" => $googleId ],
+        if (Application::$app->databaseService->select("users", "*", [ "google_id" => $googleId ],
                 DatabaseService::FETCH_COUNT) === 0)
             return false;
 

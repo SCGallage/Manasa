@@ -1,0 +1,211 @@
+.modal-background {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+}
+
+.display {
+  visibility: visible;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  background: #f7f7f7;
+  column-gap: 10px;
+  padding: 2rem 3rem;
+  border-radius: 3px;
+  /* height: 70vh; */
+}
+
+/* Event Infotmation */
+.event-container {
+  background: #fafafa;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  height: fit-content;
+  padding-bottom: 1rem;
+  /* height: 350px; */
+}
+
+.event-list {
+  background: rgba(241, 241, 241, 0.45);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  /* height: 30%; */
+  padding: 0.8rem 0.5rem;
+  margin: 0 0.5rem;
+}
+
+.event-list-heading {
+  font-size: 1.5rem;
+  /* margin: 1rem 0 0.5rem 0; */
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  margin-left: 0.5rem;
+  color: #03929b;
+}
+
+.event-add-card {
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.event-form {
+  background: rgba(241, 241, 241, 0.45);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  margin: 0 0.5rem;
+  padding: 0.8rem 1.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.8rem;
+}
+
+.input-field {
+  height: 2rem;
+  width: 13.5rem;
+  border: 2px solid #004f53;
+  font-family: "Poppins", sans-serif;
+}
+
+.input-field-textarea {
+  width: 13.5rem;
+  border: 2px solid #004f53;
+}
+
+.time-fields {
+  display: flex;
+  flex-direction: row;
+}
+
+.time-input-field {
+  height: 2rem;
+  border: 2px solid #004f53;
+  width: 100px;
+}
+
+.event-options {
+  margin-bottom: 0.5rem;
+}
+
+.field-name {
+  font-weight: 500;
+}
+
+.checkbox-text {
+  margin-left: 0.5rem;
+}
+
+.addtional {
+  margin-left: auto;
+}
+
+.add-event-btn {
+  background-color: #004f53;
+  color: white;
+  border: none;
+  width: 13.7rem;
+  padding: 0.6rem;
+}
+
+.event-card-title {
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+  font-family: "Poppins", sans-serif;
+  color: #6e7074;
+}
+
+.event-detail {
+  font-weight: 400;
+  margin-bottom: 0.1rem;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Calendar */
+
+.calendar-title {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #03929b;
+}
+
+.calendar-week-day {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin: 10px 0 0.2rem 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  column-gap: 0.2rem;
+}
+
+.day {
+  background: rgba(86, 86, 86, 0.12);
+  padding: 0.4rem 1rem;
+  color: black;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  column-gap: 0.2rem;
+  row-gap: 0.2rem;
+}
+
+.calendar-day-hover {
+  /* width: 100%;
+  height: 100%; */
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  padding: 1.3rem 1rem;
+  animation: to-top 1s forwards;
+  background: rgba(0, 169, 149, 0.4);
+  text-align: center;
+  color: black;
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  /* border-radius: 50%; */
+}
+
+.calendar-day-hover:hover {
+  background-color: #23232e;
+  color: white;
+  /* border-radius: 50%; */
+}
+
+.curr-date {
+  background-color: #494949;
+  color: white;
+}
+
+.year-change {
+  color: white;
+  background-color: #23232e;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+}
+
+.calendar-controls {
+  display: flex;
+  justify-content: center;
+}
+
+.prev {
+  margin-right: auto;
+}
+
+.next {
+  margin-left: auto;
+}

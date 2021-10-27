@@ -1,7 +1,19 @@
 /*Elements Package*/
-@import url("./Elements/rootStyles.css");
 @import url("./Elements/grid.css");
-@import url("./Theme/theme.css");
-@import url("./Elements/text.css");
-@import url("./Elements/buttons.css");
-@import url("./Elements/cards.css");
+@import url("./admin/admin.css");
+@import url("./admin/text-style.css");
+@import url("./admin/table.css");
+@import url("./admin/searchbar.css");
+@import url("./admin/scrollbar.css");
+@import url("./admin/modal.css");
+@import url("./admin/calendar.css");
+@import url("./admin/button-style.css");
+@import url("./admin/form.css");
+@import url("./admin/tool_tip.css");
+
+  [class*="col-"] {
+    /*float: left;*/
+    /* padding: 15px; */
+    /*border: 1px solid red;*/
+  }
+
