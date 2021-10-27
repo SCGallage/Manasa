@@ -233,4 +233,36 @@ class AdminController extends Controller
         return $this->render('Moderator/ModUsers', 'Users');
 
     }
+
+    public function cvDownload(Request $request)
+    {
+        $filename = $request->getBody()['filename'];
+//        $filename = 'http://localhost/core/uploads/'.$filename;
+        echo $filename;
+        //Check the file exists or not
+        if(file_exists("../core/uploads/".$filename)) {
+
+            //Define header information
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header("Cache-Control: no-cache, must-revalidate");
+            header("Expires: 0");
+            header('Content-Disposition: attachment; filename="'.$filename.'"');
+            header('Content-Length: ' . filesize($filename));
+            header('Pragma: public');
+
+            //Clear system output buffer
+            flush();
+
+            //Read the size of the file
+            readfile("../core/uploads/".$filename);
+
+            //Terminate from the script
+            //die();
+            Application::$app->response->setRedirectUrl('/admin/SearchUsers');
+        }
+        else{
+            echo "File does not exist.";
+        }
+    }
 }
