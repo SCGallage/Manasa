@@ -126,6 +126,10 @@ $app->router->get('/admin/deleteSG', [AdminController::class, 'deleteSG']);
 $app->router->get('/admin/SGRequestsUpdate', [AdminController::class, 'SupportGroupRequestsUpdate']);
 $app->router->get('/admin/SGRequestsDelete', [AdminController::class, 'SupportGroupRequestsDelete']);
 
+//Support group page requests
+$app->router->get('/admin/SGRequests', [AdminController::class, 'SGRequests']);
+$app->router->get('/admin/SGRequestsPageDelete', [AdminController::class, 'SupportGroupRequestsPageDelete']);
+
 //admin views
 $app->router->get('/admin/Volunteer', [AdminController::class, 'Volunteer']);
 $app->router->get('/admin/Schedule', [AdminController::class, 'Schedule']);
@@ -153,5 +157,11 @@ $app->router->get('/cvdownload', [AdminController::class, 'cvDownload']);
 //moderator landing page
 $app->router->get('/mod/ModDash', [AdminController::class, 'Modhome']);
 $app->router->get('/mod/ModUsers', [AdminController::class, 'ModUsers']);
+$app->router->get('/mod/Volunteer', [AdminController::class, 'ModVolunteer']);
+$app->router->get('/mod/Schedule', [AdminController::class, 'ModSchedule']);
+$app->router->get('/mod/FixSchedule', [AdminController::class, 'ModFixSchedule']);
 
+$app->router->get('/mod/UserRequests', [AdminController::class, 'ModUserRequests']);
+$app->router->post('/mod/UserRequests', [AdminController::class, 'ModUserRequestsUpdate']);
+$app->router->get('/mod/UserRequestsDelete', [AdminController::class, 'ModUserRequestsDelete']);
 $app->run();

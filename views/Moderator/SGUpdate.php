@@ -45,8 +45,8 @@
                         <div class="col-l-12 col-m-12 col-s-12">
 
                             <input type="text" name="name" value="<?php echo $data['name'] ?>" required>
-                            <input type="text" name="SupportGroupId" id="SupportGroupId" value="<?php echo $data['id'] ?>">
-
+                            <input type="hidden" name="SupportGroupId" id="SupportGroupId" value="<?php echo $data['id'] ?>">
+                            <span class="required-text">*Required</span>
                         </div>
 
                         <div class="col-l-12 col-m-12 col-s-12 padding-top">
@@ -66,6 +66,7 @@
                                     <option  class="custom-font" value="<?php echo $select['id'] ?>" ><?php echo $select['fname']." ".$select['lname']?> </option>
                                 <?php } ?>
                             </select>
+                            <span class="required-text">*Required</span>
                         </div>
 
                         <div class="col-l-12 col-m-12 col-s-12 padding-top">
@@ -85,11 +86,12 @@
                                     <option class="custom-font" value="<?php echo $select['id'] ?>" ><?php echo $select['fname']." ".$select['lname'] ?></option>
                                 <?php } ?>
                             </select>
+                            <span class="required-text">*Required</span>
                         </div>
 
                         <div class="col-l-12 col-m-12 col-s-12 padding-top">
                             <div class="col-l-10 col-m-10 col-s-10 ">
-                                <label for="name" class="text-style3">Maximum Participants:</label>
+                                <label for="name" class="text-style3">Number of Participants:</label>
                             </div>
                             <div class="col-l-2 col-m-2 col-s-2">
                                 <div class="tooltip-icon  positionR " data-tooltip="Assign number of participants of the support group"></div>
@@ -98,6 +100,7 @@
 
                         <div class="col-l-12 col-m-12 col-s-12 ">
                             <input type="text" id="participants" name="participants" value="<?php echo $data['participants'] ?>" required>
+                            <span class="required-text">*Required</span>
                         </div>
 
                         <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
@@ -120,6 +123,7 @@
                                             ?>
                                         </option>
                                     </select>
+                                    <span class="required-text">*Required</span>
                                 </div>
                             </div>
                             <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -134,6 +138,7 @@
 
                                 <div class="col-l-12 col-m-12 col-s-12">
                                     <input type="text" name="type" value="<?php echo $data['type'] ?>" required>
+                                    <span class="required-text">*Required</span>
                                 </div>
                             </div>
                         </div>

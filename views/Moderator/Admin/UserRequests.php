@@ -21,7 +21,6 @@
     <div class="row flex-container">
         <div class="col-l-12 col-m-12 col-s-12 flex-gap">
             <span class="head-text2">User Requests</span>
-            <span class="head-text2">Hello</span>
         </div>
     </div>
 
@@ -73,12 +72,12 @@
                             ?></td>
                         <td><a href="/file_storage/cv/<?php echo $row['cv']?>" download>Download CV</a></td>
                         <td>
-                            <form method="post" action="/mod/UserRequests">
+                            <form method="post" action="/admin/UserRequests">
                                 <input type="submit" class="button1" value="Accept" name="state">
                                 <input type="hidden" class="button1" value="<?php echo $row['id']?>" name="id">
                             </form>
                         </td>
-                        <td> <a href="/mod/UserRequestsDelete?id=<?php echo $row['id'] ?>" class="cancel-button">Reject</a></td>
+                        <td> <a href="/admin/UserRequestsDelete?id=<?php echo $row['id'] ?>" class="cancel-button">Reject</a></td>
                     </tr>
                     <?php } ?>
                 </table>
