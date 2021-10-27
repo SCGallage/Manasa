@@ -61,12 +61,10 @@ class SupportGroup extends Model
     }
 
 
-    public function finfAllSupportGroups()
+    public function findAllSupportGroupsWithRequests()
     {
-        $sqlStatement = "SELECT * FROM supportgroup sg 
-                         LEFT JOIN sg_enrollrequest sgr
-                         ON sg.id = sgr.supportGroupId
-                         WHERE callerid != 7";
+        $sqlStatement = "SELECT * FROM supportgroup LEFT JOIN sg_enrollrequest se ON supportgroup.id = se.supportGroupId";
+        return $result = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
 

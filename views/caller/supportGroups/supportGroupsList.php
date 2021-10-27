@@ -1,4 +1,7 @@
-<?php use util\CommonConstants; ?>
+<?php
+    use core\sessions\SessionManagement;
+    use util\CommonConstants;
+    ?>
 <!--Search Support Groups-------------------------------------------------------------------------------->
 <div class="col-s-12 col-m-12 col-l-12 shadow-1 normal-card sg-card-img-1">
 
@@ -9,12 +12,12 @@
     </form>
 
     <div class="col-s-12 col-m-12 col-l-12">
-        <a href="#requested" class="col-s-12 col-m-3 col-l-2 link-text">
-            <input type="button" class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4" value="My Requests">
+        <a href="#requested" class="col-s-12 col-m-3 col-l-2 link-text ">
+            <input type="button" class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4 " value="My Requests">
         </a>
 
         <a href="#mySupportGroups" class="col-s-12 col-m-3 col-l-3 link-text">
-            <input type="button" class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4" value="My Support Groups">
+            <input type="button" class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4 " value="My Support Groups">
         </a>
     </div>
 </div>
@@ -26,11 +29,15 @@
 
     <div class="col-s-12 col-m-12 col-l-12">
 
+        <?php
+        if(count($availableSupportGroups) > 0){
+            foreach ($availableSupportGroups as $row) {
+            ?>
         <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-3 shadow-2">
 
             <div class="col-s-12 col-m-8 col-l-8 listInfoCard">
-                <p class="heading color-1 text-left">Support Group 01</p>
-                <p class="normal-text color-1 text-left">Cancer Support</p>
+                <p class="heading color-1 text-left"><?php echo $row["name"]?></p>
+                <p class="normal-text color-1 text-left"><?php echo $row["type"]?></p>
             </div>
 
             <div class="col-s-12 col-m-4 col-l-4">
@@ -39,55 +46,26 @@
                     <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
                            type="submit" value="View">
                 </form>
-                <form class="col-s-12 col-m-5 col-l-5" action="">
-                    <input type="hidden" value="1">
+                <form class="col-s-12 col-m-5 col-l-5"
+                      action="/joinSupportGroup"
+                      method="post">
+                    <input type="hidden" value="8" name="callerId">
+                    <input type="hidden" value="<?php echo $row['id']?>" name="supportGroupId">
+                    <input type="hidden" value="<?php echo CommonConstants::STATE_PENDING?>" name="state">
                     <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4 heading"
                            type="submit" value="Join">
                 </form>
             </div>
         </div>
-
-        <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-3 shadow-2">
-
-            <div class="col-s-12 col-m-8 col-l-8 listInfoCard">
-                <p class="heading color-1 text-left">Support Group 01</p>
-                <p class="normal-text color-1 text-left">Cancer Support</p>
+        <?php
+            }
+        } else{
+            ?>
+            <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-4 shadow-2">
+                <h1 class="col-s-12 col-m-12 col-l-12 color-1 normal-text text-center">No support groups available :(</h1>
             </div>
-
-            <div class="col-s-12 col-m-4 col-l-4">
-                <form class="col-s-12 col-m-6 col-l-6" action="callerSupportGroupHomeVisitor" method="get">
-                    <input type="hidden" value="1">
-                    <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
-                           type="submit" value="View">
-                </form>
-                <form class="col-s-12 col-m-5 col-l-5" action="">
-                    <input type="hidden" value="1">
-                    <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4 heading"
-                           type="submit" value="Join">
-                </form>
-            </div>
-        </div>
-
-        <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-3 shadow-2">
-
-            <div class="col-s-12 col-m-8 col-l-8 listInfoCard">
-                <p class="heading color-1 text-left">Support Group 01</p>
-                <p class="normal-text color-1 text-left">Cancer Support</p>
-            </div>
-
-            <div class="col-s-12 col-m-4 col-l-4">
-                <form class="col-s-12 col-m-6 col-l-6" action="callerSupportGroupHomeVisitor" method="get">
-                    <input type="hidden" value="1">
-                    <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
-                           type="submit" value="View">
-                </form>
-                <form class="col-s-12 col-m-5 col-l-5" action="">
-                    <input type="hidden" value="1">
-                    <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4 heading"
-                           type="submit" value="Join">
-                </form>
-            </div>
-        </div>
+            <?php
+        } ?>
 
     </div>
 </div>
@@ -98,29 +76,41 @@
     <h1 class="col-s-12 col-m-12 col-l-12 heading-text-center color-1 text-shadow">Requested Support Groups</h1>
 
     <div class="col-s-12 col-m-12 col-l-12">
+        <?php
+        if(count($requests) > 0){
+        foreach ($requests as $row) {
+            ?>
+            <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-3 shadow-2">
 
-        <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-3 shadow-2">
+                <div class="col-s-12 col-m-8 col-l-8 listInfoCard">
+                    <p class="heading color-1 text-left"><?php echo $row["name"]?></p>
+                    <p class="normal-text color-1 text-left"><?php echo $row["type"]?></p>
+                </div>
 
-            <div class="col-s-12 col-m-8 col-l-8 listInfoCard">
-                <p class="heading color-1 text-left">Support Group 01</p>
-                <p class="normal-text color-1 text-left">Cancer Support</p>
+                <div class="col-s-12 col-m-4 col-l-4">
+                    <form class="col-s-12 col-m-6 col-l-6" action="/callerSupportGroupHomeVisitor" method="get">
+                        <input type="hidden" value="1">
+                        <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
+                               type="submit" value="View">
+                    </form>
+                    <form class="col-s-12 col-m-5 col-l-5" action="#" method="get">
+                        <input type="hidden" value="1">
+                        <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-6 color-4 heading"
+                               type="button" value="Cancel"
+                               onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_SHOW; ?>)">
+                    </form>
+                </div>
             </div>
 
-            <div class="col-s-12 col-m-4 col-l-4">
-                <form class="col-s-12 col-m-6 col-l-6" action="/callerSupportGroupHomeVisitor" method="get">
-                    <input type="hidden" value="1">
-                    <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
-                           type="submit" value="View">
-                </form>
-                <form class="col-s-12 col-m-5 col-l-5" action="#" method="get">
-                    <input type="hidden" value="1">
-                    <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-6 color-4 heading"
-                           type="button" value="Cancel"
-                           onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_SHOW; ?>)">
-                </form>
+            <?php
+        }
+        } else{
+            ?>
+            <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-4 shadow-2">
+                <h1 class="col-s-12 col-m-12 col-l-12 color-1 normal-text text-center">No support groups requests available :(</h1>
             </div>
-        </div>
-
+            <?php
+        } ?>
     </div>
 </div>
 <!--/Requested Support Groups---------------------------------------------------------------------------->
@@ -130,12 +120,15 @@
     <h1 class="col-s-12 col-m-12 col-l-12 heading-text-center color-1 text-shadow">My Support Groups</h1>
 
     <div class="col-s-12 col-m-12 col-l-12">
-
+        <?php
+        if(count($mySupportGroups) > 0){
+            foreach ($mySupportGroups as $row) {
+                ?>
         <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-3 shadow-2">
 
             <div class="col-s-12 col-m-8 col-l-8 listInfoCard">
-                <p class="heading color-1 text-left">Support Group 01</p>
-                <p class="normal-text color-1 text-left">Cancer Support</p>
+                <p class="heading color-1 text-left"><?php echo $row["name"]?></p>
+                <p class="normal-text color-1 text-left"><?php echo $row["type"]?></p>
             </div>
 
             <div class="col-s-12 col-m-4 col-l-4">
@@ -146,22 +139,15 @@
                 </form>
             </div>
         </div>
-
-        <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-3 shadow-2">
-
-            <div class="col-s-12 col-m-8 col-l-8 listInfoCard">
-                <p class="heading color-1 text-left">Support Group 01</p>
-                <p class="normal-text color-1 text-left">Cancer Support</p>
-            </div>
-
-            <div class="col-s-12 col-m-4 col-l-4">
-                <form class="col-s-12 col-m-6 col-l-6 card-align-right normal-card" action="/callerSupportGroupHomeMember" method="get">
-                    <input type="hidden" value="1">
-                    <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
-                           type="submit" value="View">
-                </form>
-            </div>
+        <?php
+            }
+        } else{
+            ?>
+        <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-4 shadow-2">
+            <h1 class="col-s-12 col-m-12 col-l-12 color-1 normal-text text-center">No support groups available :(</h1>
         </div>
+        <?php
+        } ?>
 
     </div>
 </div>
