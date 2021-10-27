@@ -39,12 +39,13 @@ class User extends Model
     public function login(array $login)
     {
         $data = $this->select('user', '*', [ "email" => $login['email'] ], DatabaseService::FETCH_ALL);
+
         if (($data[0]['email'] === $login['email'])  && password_verify($login['password'], $data[0]['password'])) {
             $user = $this->select($data[0]['type'], "*", [ 'id' => $data[0]['id'] ], DatabaseService::FETCH_ALL);
             //print_r($user);
             //return $user[0]['type'];
-            echo 'hello';
-            return ["full_name" => $user[0]['fname'] . " " . $user[0]['lname'], "user_type" => $user[0]['type']];
+            //echo 'hello';
+            return ["user_id" => $data[0]['id'], "username" => $data[0]['username'], "user_type" => $user[0]['type'], "profile_pic" => $data[0]['profile_pic']];
         }
 
         return false;

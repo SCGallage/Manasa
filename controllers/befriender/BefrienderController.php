@@ -2,8 +2,10 @@
 
 namespace controllers\befriender;
 
+use core\Application;
 use core\Model;
 use core\Request;
+use core\sessions\SessionManagement;
 use models\users\Befriender;
 
 class BefrienderController extends \core\Controller
@@ -39,6 +41,11 @@ class BefrienderController extends \core\Controller
         return $this->render('befriender\befriender_supportgroup', 'Befriender | Support Group');
     }
 
+    public function befrienderSchedule(Request $request)
+    {
+        return $this->render('befriender\befriender_schedule', 'Befriender | Schedule');
+    }
+
     public function addSupportGroupRequest(Request $request)
     {
         if ($request->isPost()) {
@@ -48,6 +55,7 @@ class BefrienderController extends \core\Controller
             }
         }
         $this->setLayout('reset');
-        return $this->render('befriender\befriender_supportgroup_request', 'Befriender | Support Group');
+        Application::$app->response->setRedirectUrl('/befriender/dashboard?befid='.SessionManagement::get_session_data('user_id'));
+        //return $this->render('befriender\befriender_supportgroup_request', 'Befriender | Support Group');
     }
 }
