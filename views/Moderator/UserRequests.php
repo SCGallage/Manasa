@@ -50,7 +50,7 @@
                         <td><?php echo $row['fname']." ".$row['lname']?></td>
                         <td><?php echo $row['email']?></td>
                         <td><?php echo $row['type']?></td>
-                        <td><?php echo $row['dob']?></td>
+                        <td><?php echo $row['dateOfBirth']?></td>
                         <td><?php echo $row['username']?></td>
                         <td><?php
                             if ($row['state'] == 1) {
@@ -60,11 +60,10 @@
                                 echo 'Inactive';
                             }
                             ?></td>
-<<<<<<< HEAD
+
                         <td><a href="/file_storage/cv/<?php echo $row['cv']?>" download>Download CV</a></td>
-=======
-                        <td><a href="http://localhost/cvdownload?filename=<?php echo $row['cv']?>" download>Download CV</a></td>
->>>>>>> d8cb1fb8a31e8bffefac0b0d8ab7c4a73fb3799a
+
+<!--                        <td><a href="http://localhost/cvdownload?filename=--><?php //echo $row['cv']?><!--" download>Download CV</a></td>-->
                         <td>
                             <form method="post" action="/admin/UserRequests">
                                 <input type="submit" class="button1" value="Accept" name="state">

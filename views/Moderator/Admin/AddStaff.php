@@ -39,7 +39,7 @@
                                     <label for="userType" class="text-style3">User Type</label>
                                 </div>
                                 <div class="col-l-8 col-m-8 col-s-8">
-                                    <select name="type" id="reportType" class="select1">
+                                    <select name="usertype" id="reportType" class="select1">
                                         <option value="Moderator">Moderator</option>
                                         <option value="Administrator">Administrator</option>
                                     </select>
@@ -109,9 +109,9 @@
                                         <label for="Date" class="text-style3">State:</label>
                                     </div>
                                     <div class="col-l-12 col-m-12 col-s-12">
-                                        <select name="reportType" id="reportType" class="select2 custom-font">
+                                        <select name="state" id="reportType" class="select2 custom-font">
                                             <option value="1" class="custom-font">Active</option>
-                                            <option value="0" class="custom-font" selected>Inactive</option>
+                                            <option value="0" class="custom-font">Inactive</option>
                                         </select>
                                     </div>
                                 </div>
@@ -122,26 +122,26 @@
                                     <div class="col-l-12 col-m-12 col-s-12">
                                         <select name="gender" id="gender" class="select2 custom-font" required>
                                             <option class="custom-font" value="-------" selected disabled>--------</option>
-                                            <option value="male" class="custom-font">Male</option>
-                                            <option value="female" class="custom-font">Female</option>
-                                            <option value="rather not say" class="custom-font">Rather Not Say</option>
+                                            <option value="m" class="custom-font">Male</option>
+                                            <option value="f" class="custom-font">Female</option>
+                                            <option value="r" class="custom-font">Rather Not Say</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                                <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                                    <div class="col-l-12 col-m-12 col-s-12">
-                                        <label for="Date" class="text-style3">Date of Birth:</label>
-                                    </div>
-                                    <div class="col-l-12 col-m-12 col-s-12">
-                                        <input type="date" name="dob" id="dob" value="" required>
-                                    </div>
-                                </div>
-                                <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-                                </div>
-                            </div>
+<!--                            <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">-->
+<!--                                <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">-->
+<!--                                    <div class="col-l-12 col-m-12 col-s-12">-->
+<!--                                        <label for="Date" class="text-style3">Date of Birth:</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-l-12 col-m-12 col-s-12">-->
+<!--                                        <input type="date" name="dob" id="dob" value="" required>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <div class="col-l-12 col-m-12 col-s-12 padding-top">
                                 <div class="col-l-8"></div>

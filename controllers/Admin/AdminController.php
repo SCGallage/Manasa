@@ -10,6 +10,7 @@ use core\Model;
 use models\supportgroup\sg_request;
 use models\users\staff;
 use models\supportgroup\supportGroup;
+use models\users\User;
 
 
 class AdminController extends Controller
@@ -271,7 +272,14 @@ class AdminController extends Controller
     public function SearchUsers(Request $request)
     {
         $userView = new staff();
-        $viewUser = $userView->select('staff','*',[ 'state' => 1 ], DatabaseService::FETCH_ALL);
+//        $viewUser = $userView->select('staff','*',[ 'state' => 1 ], DatabaseService::FETCH_ALL);
+        $sqlStatement = "SELECT *
+                        FROM staff
+                        JOIN user u on staff.id = u.id
+                        WHERE
+                        staff.state='1'";
+//        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
+        $viewUser = $userView->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
 
         $params = [
             'viewUser' => $viewUser
@@ -286,13 +294,15 @@ class AdminController extends Controller
     public function createUser(Request $request){
 
         if ($request->isPost()) {
-            $staffAccount = new staff();
+            $userAccount = new User();
+            $staffAccount = new Staff();
             $staffAccount->overrideTableName('staff');
             $data = $request->getBody();
+            $data['type'] = 'staff';
 
 //            Validate Username and email
-            $viewSGRequest = $staffAccount->select('staff','*', ["username" => $data["username"]],DatabaseService::FETCH_COUNT);
-            $viewRequest = $staffAccount->select('staff','*', ["email" => $data["email"]],DatabaseService::FETCH_COUNT);
+            $viewSGRequest = $staffAccount->select('user','*', ["username" => $data["username"]],DatabaseService::FETCH_COUNT);
+            $viewRequest = $staffAccount->select('user','*', ["email" => $data["email"]],DatabaseService::FETCH_COUNT);
 
             if ($viewSGRequest > 0) {
                 echo '<script>';
@@ -305,7 +315,9 @@ class AdminController extends Controller
                 echo '</script>';
             }
             else{
-                $staffAccount->save($data);
+//                $staffAccount->save($data);
+                $data['lastId'] =  $userAccount ->save($data);
+                $staffAccount ->saveAdmin($data);
             }
         }
 
@@ -338,7 +350,12 @@ class AdminController extends Controller
     public function UserRequests(Request $request)
     {
         $userRequest = new staff();
-        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='befriender' OR type='volunteer')";
+        $sqlStatement = "SELECT *
+                        FROM staff
+                        JOIN user u on staff.id = u.id
+                        WHERE
+                        staff.state='0' AND (staff.type='Befriender' OR staff.type='Volunteer')";
+//        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
         $viewUserRequests = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
 
         $params = [
@@ -405,6 +422,7 @@ class AdminController extends Controller
             'viewUserRequestsCount' => $viewUserRequestsCount
         ];
 
+        $this->setLayout('modNav');
         return $this->render('Moderator/ModDashboard', 'Moderator Dashboard',$params);
 
     }
@@ -412,11 +430,20 @@ class AdminController extends Controller
     public function ModUsers()
     {
         $userView = new staff();
-        $viewUser = $userView->select('staff','*',[ 'state' => 1 ], DatabaseService::FETCH_ALL);
+//        $viewUser = $userView->select('staff','*',[ 'state' => 1 ], DatabaseService::FETCH_ALL);
+        $sqlStatement = "SELECT *
+                        FROM staff
+                        JOIN user u on staff.id = u.id
+                        WHERE
+                        staff.state='1'";
+//        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
+        $viewUser = $userView->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
 
         $params = [
             'viewUser' => $viewUser
         ];
+
+        $this->setLayout('modNav');
         return $this->render('Moderator/ModUsers', 'Users',$params);
 
     }

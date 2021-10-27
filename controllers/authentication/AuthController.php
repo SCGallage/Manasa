@@ -46,10 +46,12 @@ class AuthController extends Controller
             echo 'Failed';
         if ($userData != false) {
             SessionManagement::set_session_data('loggedIn', true);
-            SessionManagement::set_session_data('user_name', $userData['full_name']);
+            SessionManagement::set_session_data('user_name', $userData['username']);
+            SessionManagement::set_session_data('user_id', $userData['user_id']);
+            SessionManagement::set_session_data('profile_pic', $userData['profile_pic']);
             if ($userData['user_type'] == 'Befriender') {
                 SessionManagement::set_session_data('user_data', 'Befriender');
-                Application::$app->response->setRedirectUrl('/dashboard');
+                Application::$app->response->setRedirectUrl('/befriender/dashboard?befid='.SessionManagement::get_session_data('user_id'));
             }
             if ($userData['user_type'] == 'Normal') {
                 SessionManagement::set_session_data('user_data', 'Caller');

@@ -44,7 +44,7 @@ class User extends Model
             //print_r($user);
             //return $user[0]['type'];
             echo 'hello';
-            return ["full_name" => $user[0]['fname'] . " " . $user[0]['lname'], "user_type" => $user[0]['type']];
+            return ["user_id" => $data[0]['id'], "username" => $data[0]['username'], "user_type" => $user[0]['type'], "profile_pic" => $data[0]['profile_pic']];
         }
 
         return false;
