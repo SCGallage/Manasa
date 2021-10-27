@@ -92,10 +92,7 @@
                                     echo 'Inactive';
                                 }
                                 ?></td>
-
                             <td><a href="/file_storage/cv/<?php echo $row['cv']?>" download>Download CV</a></td>
-<!--=======-->
-<!--                            <td><a href="http://localhost/cvdownload?filename=--><?php //echo $row['cv']?><!--" download>Download CV</a></td>-->
                             <td><span class="material-icons" id="updateUser" onclick="updateUser()">edit</span></td>
                             <td><a href="/admin/deleteUser?id=<?php echo $row['id'] ?>" ><span class="material-icons">delete</span></a></td>
                         </tr>

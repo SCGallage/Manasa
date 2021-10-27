@@ -106,7 +106,7 @@ class AuthController extends Controller
             return $this->render('user\register', 'Manasa | Register', [ "auth_url" => $authenticationUrl ]);
         }
         $postData = $request->getBody();
-        //print_r($request->getBody());
+        print_r($request->getBody());
         if ($this->validateInput->validateEmail($postData['email']) && $this->validateInput->validateUsername($postData['username'])) {
             if ($postData['usertype'] === 'Befriender' || $postData['usertype'] === 'Volunteer') {
                 $postData['type'] = 'staff';
@@ -120,8 +120,6 @@ class AuthController extends Controller
             } elseif ($postData['usertype'] === 'Normal' || $postData['usertype'] === 'Anonymous') {
                 if ($postData['usertype'] === 'Anonymous') {
                     $postData['dateOfBirth'] = '2020-10-10';
-                    $postData['fname'] = null;
-                    $postData['lname'] = null;
                 }
                 $postData['type'] = 'caller';
                 $lastId = $this->user->register($postData);

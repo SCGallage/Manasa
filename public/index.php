@@ -98,7 +98,8 @@ $app->router->post('/api/v1/auth/validate', [AuthController::class, 'checkExisti
 
 /* Befriender Views */
 
-$app->router->get('/befriender/dashboard', [BefrienderController::class, 'loadBefrienderDashboard', 'Befriender']);
+
+$app->router->get('/befriender/dashboard', [BefrienderController::class, 'loadBefrienderDashboard']);
 $app->router->get('/befriender/appointments', [BefrienderController::class, 'loadBefrienderAppointments']);
 $app->router->get('/befriender/reports', [BefrienderController::class, 'loadBefrienderReports']);
 $app->router->get('/befriender/supportgroup', [BefrienderController::class, 'loadBefrienderSupportGroup']);

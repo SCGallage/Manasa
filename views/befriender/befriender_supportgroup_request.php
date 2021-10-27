@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="http://localhost/assets/css/navbaronly.css">
 <link rel="stylesheet" href="http://localhost/assets/css/befriender/sg_requests.css">
-<main>
+<link rel="stylesheet" href="http://localhost/assets/css/befriender/popup_card.css">
+<div class="modal-bg">
     <div class="container">
         <svg
             class="close-btn"
@@ -33,7 +34,7 @@
             </p>
         </div>
         <div class="container-body">
-            <form action="" method="post">
+            <form action="/befriender/sg_request" method="post">
                 <input
                         type="hidden"
                         name="befrienderId"
@@ -72,7 +73,7 @@
                 </div>
                 <div class="input-field">
                     <label class="field-label" for="">Reason</label>
-                    <textarea class="textarea" rows="10" name="reason" id="reason"></textarea>
+                    <textarea class="textarea" rows="5" name="reason" id="reason"></textarea>
                 </div>
                 <button type="submit" class="send-request-btn">
                     SEND REQUEST
@@ -86,4 +87,4 @@
                 </span>
             </div> -->
     </div>
-</main>
+</div>
