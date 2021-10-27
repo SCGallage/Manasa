@@ -38,6 +38,24 @@
                                     <h6 class="sg-info">Time: 2.00pm - 3.00pm</h6>
                                 </div>
                             </div>
+                            <div class="sg-card">
+                                <div class="sg-card-head">
+                                    <h5 class="sg-name">CoreyTaylor</h5>
+                                </div>
+                                <div class="sg-card-body">
+                                    <h6 class="sg-info">Date: 24.05.2021</h6>
+                                    <h6 class="sg-info">Time: 2.00pm - 3.00pm</h6>
+                                </div>
+                            </div>
+                            <div class="sg-card">
+                                <div class="sg-card-head">
+                                    <h5 class="sg-name">CoreyTaylor</h5>
+                                </div>
+                                <div class="sg-card-body">
+                                    <h6 class="sg-info">Date: 24.05.2021</h6>
+                                    <h6 class="sg-info">Time: 2.00pm - 3.00pm</h6>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="support-groups">
@@ -99,6 +117,30 @@
                                 <td>2021.08.29</td>
                                 <td>8.00 - 12.00</td>
                             </tr>
+                            <tr>
+                                <td>#101</td>
+                                <td>ColinPo43</td>
+                                <td>2021.08.29</td>
+                                <td>8.00 - 12.00</td>
+                            </tr>
+                            <tr>
+                                <td>#101</td>
+                                <td>ColinPo43</td>
+                                <td>2021.08.29</td>
+                                <td>8.00 - 12.00</td>
+                            </tr>
+                            <tr>
+                                <td>#101</td>
+                                <td>ColinPo43</td>
+                                <td>2021.08.29</td>
+                                <td>8.00 - 12.00</td>
+                            </tr>
+                            <tr>
+                                <td>#101</td>
+                                <td>ColinPo43</td>
+                                <td>2021.08.29</td>
+                                <td>8.00 - 12.00</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -139,6 +181,21 @@
                                 <div class="calendar-days"></div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="sg-requests-card">
+                    <h4 class="card-title">Support Group Requests</h4>
+                    <div class="sg-request-list">
+                    <div class="sg-card">
+                                <div class="sg-card-head">
+                                    <h5 class="sg-name">Colon Cancer</h5>
+                                    <a class="sg-request-pending">PENDING</a>
+                                </div>
+                                <div class="sg-card-body">
+                                    <h6 class="sg-info">Type: Cancer</h6>
+                                    <h6 class="sg-info">Participants: 70</h6>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>

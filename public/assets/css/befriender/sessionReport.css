@@ -3,6 +3,7 @@ main {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background: #f9f9f9;
 }
 
 .main-grid-container {
@@ -14,7 +15,7 @@ main {
 }
 
 .grid-item {
-    background: #F7F7F7;
+    background: white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -66,6 +67,13 @@ main {
     padding: 10px 15px;
     border-radius: 3px;
     margin-right: 20px;
+}
+
+.main-item-heading {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    color: #03929B;
 }
 
 .grid-item-heading {
