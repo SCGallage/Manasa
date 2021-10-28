@@ -60,6 +60,10 @@ class AuthController extends Controller
                 SessionManagement::set_session_data('user_data', 'Administrator');
                 Application::$app->response->setRedirectUrl('/admin/AdminDash');
             }
+            if ($userData['user_type'] == 'Moderator') {
+                SessionManagement::set_session_data('user_data', 'Moderator');
+                Application::$app->response->setRedirectUrl('/mod/ModDash');
+            }
         }
 
         SessionManagement::set_session_data('failed', true);

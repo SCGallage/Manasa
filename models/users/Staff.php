@@ -1,6 +1,7 @@
 <?php
 
 namespace models\users;
+use core\Mailer;
 use core\Model;
 
 class Staff extends Model
@@ -39,6 +40,16 @@ class Staff extends Model
             "state" => $befriender['state']
         ]);
     }
+
+    public function sendApprovedMail($username, $email)
+    {
+        $mailer = new Mailer();
+        $mailer->init('smtp.gmail.com', $_ENV['send_email'], $_ENV['password']);
+        $mailer->configure_email($_ENV['send_email'], $email);
+        $mailer->loadTemplate("Welcome To Manasa!", "registerTemplate", $username);
+        $mailer->sendMail();
+    }
+
     public function __construct()
     {
         parent::__construct();

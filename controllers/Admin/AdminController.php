@@ -431,9 +431,11 @@ class AdminController extends Controller
     {
         //        update request state
         if ($request->isPost()) {
-            $updateUserReq = new staff();
+            $updateUserReq = new Staff();
             $data = $request->getBody();
             $updateReq = $updateUserReq->update("staff", ["state" => '1'], [ 'id' => $data['id'] ]);
+            $data = $updateUserReq->select('user', [ 'email','username' ], [ 'id' => $data['id'] ], DatabaseService::FETCH_ALL);
+            $updateUserReq->sendApprovedMail($data[0]['username'], $data[0]['email']);
         }
 
         if($updateReq)
@@ -475,7 +477,7 @@ class AdminController extends Controller
     public function Modhome()
     {
         $userRequest = new staff();
-        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='befriender' OR type='volunteer')";
+        $sqlStatement = "SELECT * FROM staff WHERE state=0 AND (type='Befriender' OR type='Volunteer')";
         $viewUserRequests = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
         $viewUserRequestsCount = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_COUNT);
         $params = [

@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://localhost/assets/css/navbaronly.css">
     <title>{{title}}</title>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
@@ -124,8 +125,77 @@
         </li>
     </ul>
 </nav>
+<div class="vertical-panel">
+    <div class="notifications-container">
+        <button class="icon-button notifications">
+            <span class="material-icons">notifications</span>
+            <span class="notification-count">2</span>
+        </button>
+        <ul class="notifications-list">
+            <li class="single-notification">
+            <span class="material-icons">
+              error
+            </span>
+                <span class="notification-text">
+              This is a notification!
+            </span>
+            </li>
+            <li class="single-notification">
+            <span class="material-icons">
+              error
+            </span>
+                <span class="notification-text">
+              This is a notification!
+            </span>
+            </li>
+            <li class="single-notification">
+            <span class="material-icons">
+              error
+            </span>
+                <span class="notification-text">
+              This is a notification!
+            </span>
+            </li>
+            <li class="single-notification">
+            <span class="material-icons">
+              error
+            </span>
+                <span class="notification-text">
+              This is a notification!
+            </span>
+            </li>
+        </ul>
+    </div>
+    <div class="settings-container">
+        <button class="icon-button settings">
+            <span class="material-icons">settings</span>
+        </button>
+        <ul class="settings-list">
+            <li class="single-setting"><a class="top-nav-link" href="#">
+            <span class="material-icons">
+              manage_accounts
+            </span>
+                    <span class="setting-text">
+              Profile Settings
+            </span>
+                </a>
+            </li>
+            <li class="single-setting">
+                <a class="top-nav-link" href="/logout">
+            <span class="material-icons">
+              logout
+            </span>
+                    <span class="setting-text">
+              Logout
+            </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 <main>
     {{content}}
 </main>
+<script src="http://localhost/assets/js/vertical_nav.js"></script>
 </body>
 </html>

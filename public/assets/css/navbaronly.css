@@ -330,8 +330,8 @@ main {
 
 .icon-button {
   position: relative;
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   border: none;
   border-radius: 50%;
   display: flex;
