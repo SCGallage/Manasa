@@ -60,6 +60,10 @@ class AuthController extends Controller
                 SessionManagement::set_session_data('user_data', 'Administrator');
                 Application::$app->response->setRedirectUrl('/admin/AdminDash');
             }
+            if ($userData['user_type'] == 'Moderator') {
+                SessionManagement::set_session_data('user_data', 'Moderator');
+                Application::$app->response->setRedirectUrl('/mod/ModDash');
+            }
         }
 
         SessionManagement::set_session_data('failed', true);
@@ -197,7 +201,7 @@ class AuthController extends Controller
     public function logout()
     {
         $this->user->logout();
-        return $this->render('user\login', 'Manasa | Login');
+        Application::$app->response->setRedirectUrl('/login');
     }
 
     public function resetPassword(Request $request)

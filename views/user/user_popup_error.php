@@ -34,6 +34,6 @@
             The login credentials submitted are not valid! You can try logging
             in again.
         </h4>
-        <button class="flash-button">TRY AGAIN</button>
+        <button class="common-button cancel-button">TRY AGAIN</button>
     </div>
 </div>

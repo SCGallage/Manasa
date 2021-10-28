@@ -1,4 +1,4 @@
-.modal-secondary-bg {
+.modal-bg {
   position: fixed;
   height: 100vh;
   width: 100%;
@@ -6,7 +6,6 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  visibility: hidden;
   z-index: 999;
 }
 
@@ -16,10 +15,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3.5rem 1.5rem;
+  padding: 3rem 1.5rem;
   border-radius: 5px;
-  transform: scale(0);
-  transition: 300ms transform;
+  /*transform: scale(0);*/
+  /*transition: 300ms transform;*/
 }
 
 .flash-icon {
@@ -33,7 +32,8 @@
 }
 
 .flash-description {
-  font-size: 1.2rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
   text-align: center;
   font-weight: 300;
 }
@@ -51,8 +51,8 @@
   font-weight: 700;
   border-radius: 5px;
   color: white;
-  /* margin-top: 1.5rem; */
-  width: 90px;
+   margin-top: 1.5rem;
+  /*width: 90px;*/
   cursor: pointer;
   /* transition: all 200ms linear; */
 }

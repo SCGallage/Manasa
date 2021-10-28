@@ -23,10 +23,6 @@
                             <label class="input-label" for="password">Password</label><br>
                             <input type="password" class="text-field" name="password" id="password"><br>
                             <h5>*Required</h5>
-                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10.5 20.9932C16.299 20.9932 21 16.2953 21 10.5001C21 4.70495 16.299 0.00702286 10.5 0.00702286C4.70101 0.00702286 0 4.70495 0 10.5001C0 16.2953 4.70101 20.9932 10.5 20.9932Z" fill="#088C15"/>
-                                <path d="M9.65803 16.0814L4.6935 12.2138L6.10509 10.4022L9.1537 12.7772L14.1852 5.51677L16.0732 6.82468L9.65803 16.0814Z" fill="white"/>
-                            </svg>
                         </div>
                         <div class="input-check">
                             <input type="checkbox" name="Remember Me" id="">

@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="http://localhost/assets/css/befriender/befriender_dashboard.css">
 <?php require_once(__DIR__."\befriender_supportgroup_request.php") ?>
 <main>
+
     <div class="content">
         <!-- <h1>Welcome, Ethan</h1>
         <div class="secondary-title">
@@ -186,17 +187,26 @@
                 <div class="sg-requests-card">
                     <h4 class="card-title">Support Group Requests</h4>
                     <div class="sg-request-list">
-                    <div class="sg-card">
-                                <div class="sg-card-head">
-                                    <h5 class="sg-name">Colon Cancer</h5>
-                                    <a class="sg-request-pending">PENDING</a>
-                                </div>
-                                <div class="sg-card-body">
-                                    <h6 class="sg-info">Type: Cancer</h6>
-                                    <h6 class="sg-info">Participants: 70</h6>
-                                </div>
-                            </div>
+
                     </div>
+                    <?php
+                        if (count($requests) === 0) {
+                            echo '<h5 class="no-request">No Support Group Requests</h5>';
+                        } else {
+                            foreach ($requests as $request) {
+                                echo "<div class=\"sg-card\">
+                                <div class=\"sg-card-head\">
+                                    <h5 class=\"sg-name\">{$request['name']}</h5>
+                                    <a class=\"sg-request-pending\">PENDING</a>
+                                </div>
+                                <div class=\"sg-card-body\">
+                                    <h6 class=\"sg-info\">Type: {$request['type']}</h6>
+                                    <h6 class=\"sg-info\">Participants: {$request['capacity']}</h6>
+                                </div>
+                            </div>";
+                            }
+                        }
+                    ?>
                 </div>
             </div>
         </div>

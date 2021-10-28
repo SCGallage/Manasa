@@ -160,10 +160,14 @@ email.addEventListener("keyup", () => {
       if (data.valid) {
         validateInput(email);
         emailState = true;
+        emailText.innerText = "Success!";
+        emailText.style.color = "rgba(8, 140, 21, 0.88)";
       } else {
         if (email.classList.contains("success"))
           email.classList.remove("success");
         email.classList.add("danger");
+        emailText.innerText = "Email already registered!";
+        emailText.style.color = "rgba(173, 5, 5)";
         emailState = false;
       }
     });

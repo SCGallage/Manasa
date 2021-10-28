@@ -23,7 +23,8 @@ class BefrienderController extends \core\Controller
 
     public function loadBefrienderDashboard(Request $request)
     {
-        return $this->render('befriender\befriender_dashboard', 'Befriender | Dashboard');
+        $requests = $this->befriender->getSupportGroupRequests($request->getBody()['befid']);
+        return $this->render('befriender\befriender_dashboard', 'Befriender | Dashboard', [ "requests" => $requests ]);
     }
 
     public function loadBefrienderAppointments(Request $request)
@@ -51,7 +52,7 @@ class BefrienderController extends \core\Controller
         if ($request->isPost()) {
             print_r($request->getBody());
             if ($this->befriender->addSupportGroupRequest($request->getBody())) {
-                return $this->render('befriender\befriender_supportgroup_request', 'Befriender | Support Group');
+                Application::$app->response->setRedirectUrl('/befriender/dashboard?befid='.SessionManagement::get_session_data('user_id'));
             }
         }
         $this->setLayout('reset');

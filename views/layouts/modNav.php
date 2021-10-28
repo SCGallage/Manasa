@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://localhost/assets/css/navbaronly.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <title>{{title}}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,8 +81,77 @@
         </li>
     </ul>
 </nav>
+<div class="vertical-panel">
+    <div class="notifications-container">
+        <button class="icon-button notifications">
+            <span class="material-icons">notifications</span>
+            <span class="notification-count">2</span>
+        </button>
+        <ul class="notifications-list">
+            <li class="single-notification">
+            <span class="material-icons">
+              error
+            </span>
+                <span class="notification-text">
+              This is a notification!
+            </span>
+            </li>
+            <li class="single-notification">
+            <span class="material-icons">
+              error
+            </span>
+                <span class="notification-text">
+              This is a notification!
+            </span>
+            </li>
+            <li class="single-notification">
+            <span class="material-icons">
+              error
+            </span>
+                <span class="notification-text">
+              This is a notification!
+            </span>
+            </li>
+            <li class="single-notification">
+            <span class="material-icons">
+              error
+            </span>
+                <span class="notification-text">
+              This is a notification!
+            </span>
+            </li>
+        </ul>
+    </div>
+    <div class="settings-container">
+        <button class="icon-button settings">
+            <span class="material-icons">settings</span>
+        </button>
+        <ul class="settings-list">
+            <li class="single-setting"><a class="top-nav-link" href="#">
+            <span class="material-icons">
+              manage_accounts
+            </span>
+                    <span class="setting-text">
+              Profile Settings
+            </span>
+                </a>
+            </li>
+            <li class="single-setting">
+                <a class="top-nav-link" href="/logout">
+            <span class="material-icons">
+              logout
+            </span>
+                    <span class="setting-text">
+              Logout
+            </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 <main>
     {{content}}
 </main>
+<script src="http://localhost/assets/js/vertical_nav.js"></script>
 </body>
 </html>
