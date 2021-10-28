@@ -2,6 +2,7 @@
 <head>
     <title>manasa.lk/volunteer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./assets/img/favicon-16x16.png" sizes="16x16" />
     <link rel="stylesheet" href="assets/css/caller_visitor_volunteer_styles.css">
 </head>
 

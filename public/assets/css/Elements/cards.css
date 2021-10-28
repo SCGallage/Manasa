@@ -14,14 +14,21 @@
     float: right;
 }
 
-
-.banner-card{
-    background-image: url("../../img/Manasa/banner-visitor.png");
-    background-size: cover;
+[class*="banner-"] {
     padding-top: 10vh;
     padding-bottom: 5vh;
     padding-left: 5vw;
     padding-right: 5vw;
+}
+
+.banner-card{
+    background-image: url("../../img/Manasa/banner-visitor.png");
+    background-size: cover;
+}
+
+.banner-volunteer {
+    background-image: url("../../img/Manasa/banner_volunteer.jpg");
+    background-size: cover;
 }
 
 .normal-card{
