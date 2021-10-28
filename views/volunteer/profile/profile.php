@@ -54,7 +54,7 @@
     <table class="col-s-12 col-m-12 col-l-12 card-align-center">
         <tr>
             <td class="col-s-6 col-m-6 col-l-6 margin-l">
-                <a href="/updateProfile">
+                <a href="/updateVolunteerProfile">
                     <input class="bannerButton color-4 bg-color-1 card-align-right" type="button" value="Update Profile">
                 </a>
 

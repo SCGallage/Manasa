@@ -10,6 +10,10 @@
     <?php
     include 'components/header_volunteer_function.php';
     ?>
+    {{content}}
+    <?php
+    include 'components/footer_client.php';
+    ?>
 </div>
 </body>
 

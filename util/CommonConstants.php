@@ -11,6 +11,15 @@ class CommonConstants
     const STATE_ACCEPTED = "A";
     const STATE_REJECTED = "R";
 
+    //User types---------------------------------------
+    const USER_TYPE_BEFRIENDER = "Befriender";
+    const USER_TYPE_NORMAL_CALLER = "Normal";
+    const USER_TYPE_ANONYMOUS_CALLER = "Anonymous";
+    const USER_TYPE_VOLUNTEER = "Volunteer";
+    const USER_TYPE_VISITOR = "";
+    const USER_TYPE_MODERATOR = "";
+    const USER_TYPE_ADMIN = "Administrator";
+
     //Form names---------------------------------------
     const USER_USERNAME = "username";
     const USER_USERID = "user_id";

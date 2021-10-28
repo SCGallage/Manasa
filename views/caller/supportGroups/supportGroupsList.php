@@ -49,7 +49,7 @@
                 <form class="col-s-12 col-m-5 col-l-5"
                       action="/joinSupportGroup"
                       method="post">
-                    <input type="hidden" value="8" name="callerId">
+                    <input type="hidden" value="<?php echo $_SESSION[CommonConstants::USER_ID];?>" name="callerId">
                     <input type="hidden" value="<?php echo $row['id']?>" name="supportGroupId">
                     <input type="hidden" value="<?php echo CommonConstants::STATE_PENDING?>" name="state">
                     <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4 heading"
@@ -93,11 +93,47 @@
                         <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
                                type="submit" value="View">
                     </form>
-                    <form class="col-s-12 col-m-5 col-l-5" action="#" method="get">
-                        <input type="hidden" value="1">
+                    <form class="col-s-12 col-m-5 col-l-5" action="/cancelSupportGroupJoinRequest" method="post">
+                        <input type="hidden"
+                               name="supportGroupId"
+                               value="<?php echo $row['supportGroupId']?>">
+
+                        <input type="hidden"
+                               name="callerId"
+                               value="<?php echo $row['callerId']?>">
+
                         <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-6 color-4 heading"
-                               type="button" value="Cancel"
+                               type="button"  value="Cancel"
                                onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_SHOW; ?>)">
+
+                        <!--Cancel Request message popup--------------------------------------------------------------------->
+                        <div id="requestPopup" class="col-s-7 col-m-8 col-l-6 popup-card list-card shadow-2 border-color-1 bg-color-4">
+                            <h2 class="col-s-12 col-m-12 col-l-12 text-center heading color-6">
+                                Your Appointment will be canceled!!
+                            </h2>
+                            <h4 class="col-s-12 col-m-12 col-l-12 text-center heading color-1">
+                                Do you really want to continue?<br>
+                                Your appointment will be deleted once you click "Confirm" button.<br>
+                                You can cancel this process by clicking "Cancel" button.
+                            </h4>
+
+                            <div class="col-s-0 col-m-1 col-l-2 color-0">.</div>
+                            <input class="col-s-12 col-m-5 col-l-4 bannerButton color-4 normal-text bg-color-5"
+                                   type="button"
+                                   onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_HIDE; ?>)"
+                                   value="Cancel">
+
+                            <a href="">
+                                <input class="col-s-12 col-m-5 col-l-4 bannerButton color-4 normal-text bg-color-6"
+                                       type="submit"
+                                       onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_HIDE; ?>)"
+                                       value="Confirm">
+                            </a>
+                            <div class="col-s-0 col-m-1 col-l-2 color-0">.</div>
+
+                        </div>
+                        <!--/Cancel Request message popup-------------------------------------------------------------------->
+
                     </form>
                 </div>
             </div>
@@ -153,8 +189,8 @@
 </div>
 <!--/My Support Groups----------------------------------------------------------------------------------->
 
-<!--/Upcoming Appointments------------------------------------------------------------------------------->
 
+<!--Popups------------------------------------------------------------------------------------------------>
 <!--Cancel Request message popup--------------------------------------------------------------------->
 <div id="requestPopup" class="col-s-7 col-m-8 col-l-6 popup-card list-card shadow-2 border-color-1 bg-color-4">
     <h2 class="col-s-12 col-m-12 col-l-12 text-center heading color-6">

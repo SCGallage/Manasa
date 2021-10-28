@@ -51,6 +51,10 @@
     background-color: #DF1A32;
 }
 
+.bg-color-7 {
+    background-color: rgba(55, 112, 178, 0.1);
+}
+
 /*Colors for border styling*/
 .border-color-1{
     border: 2px solid #003249;

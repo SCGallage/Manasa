@@ -14,6 +14,7 @@ use core\sessions\SessionManagement;
 use models\users\Caller;
 use models\users\Staff;
 use models\users\User;
+use util\CommonConstants;
 
 class AuthController extends Controller
 {
@@ -55,11 +56,18 @@ class AuthController extends Controller
             }
             if ($userData['user_type'] == 'Normal') {
                 SessionManagement::set_session_data('user_data', 'Caller');
+                Application::$app->response->setRedirectUrl('/callerHome');
             }
             if ($userData['user_type'] == 'Administrator') {
                 SessionManagement::set_session_data('user_data', 'Administrator');
                 Application::$app->response->setRedirectUrl('/admin/AdminDash');
             }
+
+            if ($userData['user_type'] == CommonConstants::USER_TYPE_VOLUNTEER) {
+                SessionManagement::set_session_data('user_data', CommonConstants::USER_TYPE_VOLUNTEER);
+                Application::$app->response->setRedirectUrl('/volunteerHome');
+            }
+
         }
 
         SessionManagement::set_session_data('failed', true);
@@ -129,7 +137,7 @@ class AuthController extends Controller
             }
             //$this->users->sendRegistrationEmail($postData['username'], $postData['email']);
         }
- /*       Application::$app->response->setRedirectUrl('/login');*/
+        Application::$app->response->setRedirectUrl('/login');
     }
 
     public function registerGoogleUser(Request $request)

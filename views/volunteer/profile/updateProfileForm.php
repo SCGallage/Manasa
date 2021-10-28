@@ -7,7 +7,7 @@ use util\CommonConstants;
 
 <form action="" id="profileFrom">
     <div class="col-s-12 col-m-12 col-l-12 list-card bg-color-3 shadow-2">
-        <a class="col-s-12 col-m-12 col-l-12 normal-card" href="/profile">
+        <a class="col-s-12 col-m-12 col-l-12 normal-card" href="/volunteerProfile">
             <input class="bannerButton card-align-right bg-color-5 color-4" type="button" value="Back">
         </a>
         <h1 class="col-s-12 col-m-12 col-l-12 heading text-center color-1">

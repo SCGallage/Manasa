@@ -150,12 +150,14 @@ function clearForm(fromName) {
 
 */
 function popup(id, x) {
+
     if (x === 1) {
         document.getElementById(id).style.display = "block";
     } else if (x === 0) {
         document.getElementById(id).style.display = "none";
     }
 }
+
 //----------------------/popup function----------------------------------------------------------------
 
 

@@ -31,7 +31,7 @@
             </a>
         </div>
         <div class="loginButtons card-align-right col-s-12 col-m-4 col-l-3">
-            <a href="/profileVolunteer">
+            <a href="/volunteerProfile">
                 <p
                     class="link-text-center-heading col-s-12 col-m-12 col-l-12 color-4 bg-color-1 border-color-1 loginButtons">
                     Profile</p>

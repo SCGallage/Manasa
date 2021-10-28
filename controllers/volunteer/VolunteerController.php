@@ -15,4 +15,10 @@ class VolunteerController extends \core\Controller
         $this->setLayout('volunteer/volunteerFunction');
         return $this->render('volunteer/profile/profile');
     }
+
+    public function loadVolunteerProfileUpdateForm()
+    {
+        $this->setLayout('volunteer/volunteerFunction');
+        return $this->render('volunteer/profile/updateProfileForm');
+    }
 }

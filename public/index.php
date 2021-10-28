@@ -104,7 +104,7 @@ $app->router->post('/api/v1/auth/validate', [AuthController::class, 'checkExisti
 /* Befriender Views */
 
 
-$app->router->get('/befriender/dashboard', [BefrienderController::class, 'loadBefrienderDashboard']);
+$app->router->get('/befriender/dashboard', [BefrienderController::class, 'loadBefrienderDashboard', 'Befriender']);
 $app->router->get('/befriender/appointments', [BefrienderController::class, 'loadBefrienderAppointments']);
 $app->router->get('/befriender/reports', [BefrienderController::class, 'loadBefrienderReports']);
 $app->router->get('/befriender/supportgroup', [BefrienderController::class, 'loadBefrienderSupportGroup']);
@@ -161,7 +161,7 @@ $app->router->get('/mod/ModUsers', [AdminController::class, 'ModUsers']);
 
 
 /* Caller Views */
-$app->router->get('/callerHome', [CallerController::class, 'loadCallerHome']);
+$app->router->get('/callerHome', [CallerController::class, 'loadCallerHome', 'Caller']);
 $app->router->get('/callerSupportGroupsList', [SupportGroupController::class, 'callerLoadSupportGroupsList']);
 $app->router->get('/callerSupportGroupHomeMember', [SupportGroupController::class, 'callerLoadSupportGroupHomeMember']);
 $app->router->get('/callerSupportGroupHomeVisitor', [SupportGroupController::class, 'callerSupportGroupHomeVisitor']);
@@ -176,11 +176,13 @@ $app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow'
 $app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
 $app->router->post('/joinSupportGroup', [SupportGroupController::class, 'callerJoinSupportGroup']);
 $app->router->post('/cancelSupportGroupJointRequest', [SupportGroupController::class, 'cancelSupportGroupJointRequest']);
+$app->router->post('/cancelSupportGroupJoinRequest', [SupportGroupController::class, 'cancelSupportGroupJoinRequest']);
+
 
 /* Volunteer views */
 $app->router->get('/volunteerHome', [VolunteerController::class, 'loadVolunteerHome']);
 $app->router->get('/volunteerProfile', [VolunteerController::class, 'loadVolunteerProfile']);
-
+$app->router->get('/updateVolunteerProfile', [VolunteerController::class, 'loadVolunteerProfileUpdateForm']);
 
 
 $app->run();
