@@ -33,21 +33,21 @@ class AdminController extends Controller
     public function Volunteer()
     {
 
-        return $this->render('Moderator/Volunteer', 'Volunteer Events');
+        return $this->render('Moderator/Admin/Volunteer', 'Volunteer Events');
 
     }
 
     public function Schedule()
     {
 
-        return $this->render('Moderator/Schedule', 'Schedule');
+        return $this->render('Moderator/Admin/Schedule', 'Schedule');
 
     }
 
     public function FixSchedule()
     {
 
-        return $this->render('Moderator/FixSchedule', 'Fix Schedule');
+        return $this->render('Moderator/Admin/FixSchedule', 'Fix Schedule');
 
     }
 
@@ -252,6 +252,47 @@ class AdminController extends Controller
         }
 
     }
+
+//    SG request Page ------------------------------------------------------------------------------
+    public function SGRequests(Request $request)
+    {
+        $sgRequest = new sg_request();
+        $sqlStatement2 = "SELECT sg_request.*,
+                            staff.fname, 
+                            staff.lname
+                        FROM sg_request
+                        JOIN staff
+                        ON staff.id = sg_request.befrienderId";
+        $viewSGRequest = $sgRequest->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
+
+
+        $params = [
+            'viewSGRequest' => $viewSGRequest
+        ];
+        return $this->render('Moderator/SGRequest', 'Support Group Requests',$params);
+
+    }
+
+    public function SupportGroupRequestsPageDelete(Request $request)
+    {
+        if ($request->isGet()) {
+            $deleteReq = new sg_request();
+            $data = $request->getBody();
+            $del = $deleteReq->delete('sg_request',[ 'id' => $data['id'] ]);
+        }
+
+        if($del)
+        {
+            header("location:/admin/SGRequests");
+        }
+        else
+        {
+            echo '<script>';
+            echo 'alert("Error Deleting Record")';
+            echo '</script>';
+        }
+
+    }
 //    ---------------------------------------------------------------------------------------------------------
     public function GenReport()
     {
@@ -273,11 +314,17 @@ class AdminController extends Controller
     {
         $userView = new staff();
 //        $viewUser = $userView->select('staff','*',[ 'state' => 1 ], DatabaseService::FETCH_ALL);
-        $sqlStatement = "SELECT *
-                        FROM staff
-                        JOIN user u on staff.id = u.id
-                        WHERE
-                        staff.state='1'";
+        $sqlStatement = "SELECT staff.fname,
+                                staff.lname,
+                                staff.cv,
+                                staff.type AS 'role',
+                                staff.state,
+                                u.email,
+                                u.gender,
+                                u.username,
+                                u.id
+                                FROM staff
+                                JOIN user u on staff.id = u.id WHERE staff.state='1'";
 //        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
         $viewUser = $userView->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
 
@@ -350,19 +397,33 @@ class AdminController extends Controller
     public function UserRequests(Request $request)
     {
         $userRequest = new staff();
-        $sqlStatement = "SELECT *
-                        FROM staff
-                        JOIN user u on staff.id = u.id
-                        WHERE
-                        staff.state='0' AND (staff.type='Befriender' OR staff.type='Volunteer')";
+//        $sqlStatement2 = "SELECT sg_request.*,
+//                            staff.fname,
+//                            staff.lname
+//                        FROM sg_request
+//                        JOIN staff
+//                        ON staff.id = sg_request.befrienderId";
+//        $viewSGRequest = $sgRequest->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
+
+        $sqlStatement = "SELECT staff.fname,
+                                staff.lname,
+                                staff.cv,
+                                staff.type AS 'role',
+                                staff.state,
+                                u.email,
+                                u.gender,
+                                u.username,
+                                u.id
+                                FROM staff
+                                JOIN user u on staff.id = u.id WHERE
+                                staff.state='0' AND (staff.type='Befriender' OR staff.type='Volunteer')";
 //        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
         $viewUserRequests = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
-
         $params = [
             'viewUserRequests' => $viewUserRequests
         ];
 
-        return $this->render('Moderator/UserRequests', 'User Requests',$params);
+        return $this->render('Moderator/Admin/UserRequests', 'User Requests',$params);
 
     }
 
@@ -370,9 +431,11 @@ class AdminController extends Controller
     {
         //        update request state
         if ($request->isPost()) {
-            $updateUserReq = new staff();
+            $updateUserReq = new Staff();
             $data = $request->getBody();
             $updateReq = $updateUserReq->update("staff", ["state" => '1'], [ 'id' => $data['id'] ]);
+            $data = $updateUserReq->select('user', [ 'email','username' ], [ 'id' => $data['id'] ], DatabaseService::FETCH_ALL);
+            $updateUserReq->sendApprovedMail($data[0]['username'], $data[0]['email']);
         }
 
         if($updateReq)
@@ -414,7 +477,7 @@ class AdminController extends Controller
     public function Modhome()
     {
         $userRequest = new staff();
-        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='befriender' OR type='volunteer')";
+        $sqlStatement = "SELECT * FROM staff WHERE state=0 AND (type='Befriender' OR type='Volunteer')";
         $viewUserRequests = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
         $viewUserRequestsCount = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_COUNT);
         $params = [
@@ -431,11 +494,17 @@ class AdminController extends Controller
     {
         $userView = new staff();
 //        $viewUser = $userView->select('staff','*',[ 'state' => 1 ], DatabaseService::FETCH_ALL);
-        $sqlStatement = "SELECT *
-                        FROM staff
-                        JOIN user u on staff.id = u.id
-                        WHERE
-                        staff.state='1'";
+        $sqlStatement = "SELECT staff.fname,
+                                staff.lname,
+                                staff.cv,
+                                staff.type AS 'role',
+                                staff.state,
+                                u.email,
+                                u.gender,
+                                u.username,
+                                u.id
+                                FROM staff
+                                JOIN user u on staff.id = u.id WHERE staff.state='1'";
 //        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
         $viewUser = $userView->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
 
@@ -445,6 +514,102 @@ class AdminController extends Controller
 
         $this->setLayout('modNav');
         return $this->render('Moderator/ModUsers', 'Users',$params);
+
+    }
+
+
+    public function ModVolunteer()
+    {
+
+        $this->setLayout('modNav');
+        return $this->render('Moderator/Volunteer', 'Volunteer Events');
+
+    }
+
+    public function ModSchedule()
+    {
+
+        $this->setLayout('modNav');
+        return $this->render('Moderator/Schedule', 'Schedule');
+
+    }
+
+    public function ModFixSchedule()
+    {
+        $this->setLayout('modNav');
+        return $this->render('Moderator/FixSchedule', 'Fix Schedule');
+
+    }
+
+    //  Verify Registration -------------------------------------------------------------------------------------------------------------------------------
+
+    public function ModUserRequests(Request $request)
+    {
+        $userRequest = new staff();
+        $sqlStatement = "SELECT staff.fname,
+                                staff.lname,
+                                staff.cv,
+                                staff.type AS 'role',
+                                staff.state,
+                                u.email,
+                                u.gender,
+                                u.username,
+                                u.id
+                                FROM staff
+                                JOIN user u on staff.id = u.id WHERE
+                                staff.state='0' AND (staff.type='Befriender' OR staff.type='Volunteer')";
+//        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
+        $viewUserRequests = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
+
+        $params = [
+            'viewUserRequests' => $viewUserRequests
+        ];
+
+        $this->setLayout('modNav');
+        return $this->render('Moderator/UserRequests', 'User Requests',$params);
+
+    }
+
+    public function ModUserRequestsUpdate(Request $request)
+    {
+        //        update request state
+        if ($request->isPost()) {
+            $updateUserReq = new staff();
+            $data = $request->getBody();
+            $updateReq = $updateUserReq->update("staff", ["state" => '1'], [ 'id' => $data['id'] ]);
+        }
+
+        if($updateReq)
+        {
+            header("location:/mod/UserRequests"); // redirects to user requests page
+        }
+        else
+        {
+            echo '<script>';
+            echo 'alert("Error Updating Record")';
+            echo '</script>';
+        }
+
+    }
+
+    public function ModUserRequestsDelete(Request $request)
+    {
+        if ($request->isGet()) {
+            $deleteReq = new staff();
+            $data = $request->getBody();
+            $del = $deleteReq->delete('staff',[ 'id' => $data['id'] ]);
+        }
+
+        if($del)
+        {
+            header("location:/mod/UserRequests"); // redirects to all records page
+        }
+        else
+        {
+            echo '<script>';
+            echo 'alert("Error Deleting Record")';
+            echo '</script>';
+        }
 
     }
 

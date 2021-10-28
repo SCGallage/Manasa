@@ -63,9 +63,16 @@ class AuthController extends Controller
                 Application::$app->response->setRedirectUrl('/admin/AdminDash');
             }
 
+
             if ($userData['user_type'] == CommonConstants::USER_TYPE_VOLUNTEER) {
                 SessionManagement::set_session_data('user_data', CommonConstants::USER_TYPE_VOLUNTEER);
                 Application::$app->response->setRedirectUrl('/volunteerHome');
+            }
+
+
+            if ($userData['user_type'] == 'Moderator') {
+                SessionManagement::set_session_data('user_data', 'Moderator');
+                Application::$app->response->setRedirectUrl('/mod/ModDash');
             }
 
         }
@@ -205,7 +212,7 @@ class AuthController extends Controller
     public function logout()
     {
         $this->user->logout();
-        return $this->render('user\login', 'Manasa | Login');
+        Application::$app->response->setRedirectUrl('/login');
     }
 
     public function resetPassword(Request $request)

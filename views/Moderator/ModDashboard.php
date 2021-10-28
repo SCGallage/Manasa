@@ -28,7 +28,7 @@
                     <div class="col-l-12 text-style3 padding1"><span>Count: <?php echo $viewUserRequestsCount?></span></div>
                 </div>
                 <div class="col-l-4">
-                    <a href="/admin/UserRequests" class="button1">Review</a>
+                    <a href="/mod/UserRequests" class="button1">Review</a>
                 </div>
             </div>
 

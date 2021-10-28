@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="http://localhost/assets/css/befriender/support_group.css">
 <link rel="stylesheet" href="http://localhost/assets/css/befriender/popup_card.css">
-<link rel="stylesheet" href="http://localhost/assets/css/user/popup_error_styles.css">
+<link rel="stylesheet" href="http://localhost/assets/css/befriender/popup_error.css">
 <div class="modal-bg">
     <div class="modal-secondary-bg">
         <div class="flash-card">

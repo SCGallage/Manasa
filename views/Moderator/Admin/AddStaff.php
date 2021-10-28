@@ -40,8 +40,8 @@
                                 </div>
                                 <div class="col-l-8 col-m-8 col-s-8">
                                     <select name="usertype" id="reportType" class="select1">
-                                        <option value="Moderator">Moderator</option>
-                                        <option value="Administrator">Administrator</option>
+                                        <option value="Moderator" class="custom-font">Moderator</option>
+                                        <option value="Administrator" class="custom-font">Administrator</option>
                                     </select>
                                 </div>
                             </div>
@@ -53,6 +53,7 @@
                                     </div>
                                     <div class="col-l-12 col-m-12 col-s-12">
                                         <input type="text" id="username" name="username" value="" required>
+                                        <span class="required-text">*Required</span>
                                     </div>
                                 </div>
                                 <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -61,6 +62,7 @@
                                     </div>
                                     <div class="col-l-12 col-m-12 col-s-12">
                                         <input type="email" id="email" name="email" value="" required>
+                                        <span class="required-text">*Required</span>
                                     </div>
                                 </div>
                             </div>
@@ -72,6 +74,7 @@
                                     </div>
                                     <div class="col-l-12 col-m-12 col-s-12">
                                         <input type="text" id="fname" name="fname" value="" required>
+                                        <span class="required-text">*Required</span>
                                     </div>
                                 </div>
                                 <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -80,6 +83,7 @@
                                     </div>
                                     <div class="col-l-12 col-m-12 col-s-12">
                                         <input type="text" id="lname" name="lname" value="" required>
+                                        <span class="required-text">*Required</span>
                                     </div>
                                 </div>
                             </div>
@@ -91,6 +95,7 @@
                                     </div>
                                     <div class="col-l-12 col-m-12 col-s-12">
                                         <input type="password" name="password" value="" required>
+                                        <span class="required-text">*Required</span>
                                     </div>
                                 </div>
                                 <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -99,6 +104,7 @@
                                     </div>
                                     <div class="col-l-12 col-m-12 col-s-12">
                                         <input type="password" name="con_password" value="" required>
+                                        <span class="required-text">*Required</span>
                                     </div>
                                 </div>
                             </div>
@@ -113,6 +119,7 @@
                                             <option value="1" class="custom-font">Active</option>
                                             <option value="0" class="custom-font">Inactive</option>
                                         </select>
+                                        <span class="required-text">*Required</span>
                                     </div>
                                 </div>
                                 <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -122,10 +129,11 @@
                                     <div class="col-l-12 col-m-12 col-s-12">
                                         <select name="gender" id="gender" class="select2 custom-font" required>
                                             <option class="custom-font" value="-------" selected disabled>--------</option>
-                                            <option value="m" class="custom-font">Male</option>
-                                            <option value="f" class="custom-font">Female</option>
-                                            <option value="r" class="custom-font">Rather Not Say</option>
+                                            <option value="M" class="custom-font">Male</option>
+                                            <option value="F" class="custom-font">Female</option>
+                                            <option value="R" class="custom-font">Rather Not Say</option>
                                         </select>
+                                        <span class="required-text">*Required</span>
                                     </div>
                                 </div>
                             </div>

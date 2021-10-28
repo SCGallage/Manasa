@@ -205,8 +205,8 @@
                                     </div>
                                     <div class="col-l-8 col-m-8 col-s-8">
                                         <select name="reportType" id="reportType" class="select1">
-                                            <option value="vol">Open</option>
-                                            <option value="don">Exclusive</option>
+                                            <option value="vol" class="custom-font">Open</option>
+                                            <option value="don" class="custom-font">Exclusive</option>
                                         </select>
                                     </div>
                                 </div>
@@ -221,6 +221,7 @@
                                 </div>
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
+                                    <span class="required-text">*Required</span>
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
@@ -233,6 +234,7 @@
                                 </div>
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
+                                    <span class="required-text">*Required</span>
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
@@ -246,6 +248,7 @@
 
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
+                                    <span class="required-text">*Required</span>
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
@@ -260,6 +263,7 @@
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
                                             <input type="text" id="email" name="email" value="">
+                                            <span class="required-text">*Required</span>
                                         </div>
                                     </div>
                                     <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -273,6 +277,7 @@
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
                                             <input type="text" id="date" name="date" value="">
+                                            <span class="required-text">*Required</span>
                                         </div>
                                     </div>
                                 </div>
@@ -335,6 +340,7 @@
                                 </div>
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
+                                    <span class="required-text">*Required</span>
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
@@ -347,6 +353,7 @@
                                 </div>
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
+                                    <span class="required-text">*Required</span>
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 padding-top">
@@ -360,6 +367,7 @@
 
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <input type="text" id="fname" name="fname" value="">
+                                    <span class="required-text">*Required</span>
                                 </div>
 
                                 <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
@@ -374,6 +382,7 @@
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
                                             <input type="text" id="email" name="email" value="">
+                                            <span class="required-text">*Required</span>
                                         </div>
                                     </div>
                                     <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -387,6 +396,7 @@
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
                                             <input type="text" id="date" name="date" value="">
+                                            <span class="required-text">*Required</span>
                                         </div>
                                     </div>
                                 </div>

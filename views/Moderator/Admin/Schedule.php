@@ -75,7 +75,7 @@
 
             <div class="col-l-12 col-m-12 col-s-12 padding1">
                 <span class="button1">
-                    <a href="/mod/FixSchedule">
+                    <a href="/admin/FixSchedule">
                         Fix Schedule
                     </a>
                 </span>

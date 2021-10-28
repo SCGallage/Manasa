@@ -170,11 +170,19 @@ main {
 }
 
 /* SG Requests */
+.no-request {
+  font-family: "Poppins", sans-serif;
+  margin: auto 0;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 400;
+}
 
 .sg-requests-card {
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
+  margin-top: 3rem;
+  height: 100%;
 }
 
 .sg-request-list {
@@ -267,7 +275,7 @@ h4 {
 }
 
 .calendar-card {
-  padding-top: 1rem;
+  padding-top: 1.5rem;
 }
 
 /* Calendar */

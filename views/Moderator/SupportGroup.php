@@ -45,7 +45,12 @@
 
         <div class="col-l-6 col-m-12 col-s-12 flex-gap1 primary-card card-content">
             <div class="col-l-12 col-m-12 col-s-12">
-                <span class="head-text">Support Group Requests</span>
+            <div class="col-l-8 flex-container2">
+                <div class="col-l-12"><span class="head-text">Support Group Requests</span></div>
+            </div>
+            <div class="col-l-4">
+                <a href="/admin/SGRequests" class="button1">Review</a>
+            </div>
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 scroll1 padding-top">

@@ -53,3 +53,7 @@
   color: #003249;
   text-align: center;
 }
+
+.required-text {
+  font-weight: 300;
+}

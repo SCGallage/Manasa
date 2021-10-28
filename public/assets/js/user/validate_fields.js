@@ -154,6 +154,7 @@ email.addEventListener("keyup", () => {
       type: "email",
     }),
   })
+
       .then((reponse) => reponse.json())
       .then((data) => {
         //console.log(data.valid);
@@ -171,6 +172,7 @@ email.addEventListener("keyup", () => {
           emailState = false;
         }
       });
+
 });
 
 dateOfBirth.addEventListener("change", () => {

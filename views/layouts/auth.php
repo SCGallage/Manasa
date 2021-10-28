@@ -137,13 +137,13 @@
         </li>
     </ul>
 </nav>
-<!--<div class="vertical-panel">
+<div class="vertical-panel">
     <div class="notifications-container">
         <button class="icon-button notifications">
             <span class="material-icons">notifications</span>
-            <span class="notification-count">22</span>
+            <span class="notification-count">2</span>
         </button>
-        <ul class="notifications-list">
+         <ul class="notifications-list">
             <li class="single-notification">
             <span class="material-icons">
               error
@@ -183,27 +183,30 @@
             <span class="material-icons">settings</span>
         </button>
         <ul class="settings-list">
-            <li class="single-setting">
+            <li class="single-setting"><a class="top-nav-link" href="#">
             <span class="material-icons">
               manage_accounts
             </span>
                 <span class="setting-text">
               Profile Settings
             </span>
+            </a>
             </li>
             <li class="single-setting">
+            <a class="top-nav-link" href="/logout">
             <span class="material-icons">
               logout
             </span>
                 <span class="setting-text">
               Logout
             </span>
-            </li>
+            </a>
             </li>
         </ul>
     </div>
-</div>-->
+</div>
 {{content}}
 </body>
+<script src="http://localhost/assets/js/vertical_nav.js"></script>
 </html>
 
