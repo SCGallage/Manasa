@@ -574,9 +574,11 @@ class AdminController extends Controller
     {
         //        update request state
         if ($request->isPost()) {
-            $updateUserReq = new staff();
+            $updateUserReq = new Staff();
             $data = $request->getBody();
             $updateReq = $updateUserReq->update("staff", ["state" => '1'], [ 'id' => $data['id'] ]);
+            $data = $updateUserReq->select('user', [ 'email','username' ], [ 'id' => $data['id'] ], DatabaseService::FETCH_ALL);
+            $updateUserReq->sendApprovedMail($data[0]['username'], $data[0]['email']);
         }
 
         if($updateReq)

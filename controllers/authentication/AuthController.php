@@ -105,7 +105,7 @@ class AuthController extends Controller
                 SessionManagement::set_session_data('loggedIn', true);
                 //SessionManagement::set_session_data('user_data', $userData);
                 //if ($userData['user_type'] == 'Befriender')
-                Application::$app->response->setRedirectUrl('/dashboard');
+                Application::$app->response->setRedirectUrl('/befriender/dashboard');
             }
 
             //return $this->render('users\googleSignUp', 'Manasa | Register', $profileDetails);
@@ -178,10 +178,10 @@ class AuthController extends Controller
                 $lastId = $this->user->save($data);
                 $caller = new Caller();
                 $caller->saveCaller([
-                    "id" => $lastId,
+                    "lastId" => $lastId,
                     "fname" => $data["firstname"],
                     "lname" => $data["lastname"],
-                    "type" => $requestData["usertype"]
+                    "usertype" => $requestData["usertype"]
                 ]);
             }
             /*$lastId = $this->user->save($data);
