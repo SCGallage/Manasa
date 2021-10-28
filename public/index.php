@@ -164,4 +164,7 @@ $app->router->get('/mod/FixSchedule', [AdminController::class, 'ModFixSchedule']
 $app->router->get('/mod/UserRequests', [AdminController::class, 'ModUserRequests']);
 $app->router->post('/mod/UserRequests', [AdminController::class, 'ModUserRequestsUpdate']);
 $app->router->get('/mod/UserRequestsDelete', [AdminController::class, 'ModUserRequestsDelete']);
+
+//terms and conditions
+$app->router->get('/TermsandConditions', '/TermsandConditions');
 $app->run();
