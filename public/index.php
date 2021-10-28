@@ -189,6 +189,8 @@ $app->router->post('/joinSupportGroup', [SupportGroupController::class, 'callerJ
 $app->router->post('/cancelSupportGroupJointRequest', [SupportGroupController::class, 'cancelSupportGroupJointRequest']);
 $app->router->post('/cancelSupportGroupJoinRequest', [SupportGroupController::class, 'cancelSupportGroupJoinRequest']);
 
+/* Visitor views*/
+$app->router->get('/callNowVisitor', [CallerAppointmentController::class, 'loadCallNow']);
 
 /* Volunteer views */
 $app->router->get('/volunteerHome', [VolunteerController::class, 'loadVolunteerHome']);

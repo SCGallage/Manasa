@@ -2,6 +2,9 @@
 
 namespace controllers\caller;
 
+use core\sessions\SessionManagement;
+use util\CommonConstants;
+
 class CallerAppointmentController extends \core\Controller
 {
     public function loadAppointmentsPage()
@@ -24,8 +27,16 @@ class CallerAppointmentController extends \core\Controller
 
     public function loadCallNow()
     {
-        $this->setLayout('caller/callerFunction');
-        return $this->render('caller/appointments/callNow');
+        if(isset($_SESSION[CommonConstants::SESSION_LOGGED_IN]) && !empty($_SESSION[CommonConstants::SESSION_LOGGED_IN])) {
+            //load Call now function for Caller
+            $this->setLayout('caller/callerFunction');
+            return $this->render('caller/appointments/callNow');
+        } else {
+            //load Call now function for Visitor
+            $this->setLayout('user/visitorFunction');
+            return $this->render('user/callNow/callNow');
+        }
+
     }
 
     public function loadTimeslots()

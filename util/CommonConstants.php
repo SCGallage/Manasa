@@ -5,7 +5,8 @@ namespace util;
 class CommonConstants
 {
     //Session keys
-    const USER_ID = "user_id";
+    const SESSION_USER_ID = "user_id";
+    const SESSION_LOGGED_IN = "loggedIn";
     //States-------------------------------------------
     const STATE_PENDING = "P";
     const STATE_ACCEPTED = "A";

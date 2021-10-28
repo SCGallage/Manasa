@@ -49,7 +49,7 @@
                 <form class="col-s-12 col-m-5 col-l-5"
                       action="/joinSupportGroup"
                       method="post">
-                    <input type="hidden" value="<?php echo $_SESSION[CommonConstants::USER_ID];?>" name="callerId">
+                    <input type="hidden" value="<?php echo $_SESSION[CommonConstants::SESSION_USER_ID];?>" name="callerId">
                     <input type="hidden" value="<?php echo $row['id']?>" name="supportGroupId">
                     <input type="hidden" value="<?php echo CommonConstants::STATE_PENDING?>" name="state">
                     <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4 heading"

@@ -50,7 +50,7 @@ class SupportGroupController extends Controller
     {
 
         $supportGroup = new SupportGroup();
-        $userId = intval(SessionManagement::get_session_data(CommonConstants::USER_ID));
+        $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $results = $supportGroup->findAllSupportGroupsWithRequestsByUserId($userId);
         $supportGroups = $supportGroup->findAllSupportGroups();
         $requests = array();
