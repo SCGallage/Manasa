@@ -12,12 +12,12 @@
     </form>
 
     <div class="col-s-12 col-m-12 col-l-12">
-        <a href="#requested" class="col-s-12 col-m-3 col-l-2 link-text ">
-            <input type="button" class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4 " value="My Requests">
+        <a href="#requested" >
+            <input type="button" class="col-s-12 col-m-3 col-l-2 bannerButton bg-color-1 color-4 " value="My Requests">
         </a>
 
-        <a href="#mySupportGroups" class="col-s-12 col-m-3 col-l-3 link-text">
-            <input type="button" class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-1 color-4 " value="My Support Groups">
+        <a href="#mySupportGroups">
+            <input type="button" class="col-s-12 col-m-3 col-l-3 bannerButton bg-color-1 color-4 " value="My Support Groups">
         </a>
     </div>
 </div>

@@ -196,6 +196,8 @@ $app->router->get('/callNowVisitor', [CallerAppointmentController::class, 'loadC
 $app->router->get('/volunteerHome', [VolunteerController::class, 'loadVolunteerHome']);
 $app->router->get('/volunteerProfile', [VolunteerController::class, 'loadVolunteerProfile']);
 $app->router->get('/updateVolunteerProfile', [VolunteerController::class, 'loadVolunteerProfileUpdateForm']);
+$app->router->get('/volunteerEvents', [VolunteerController::class, 'loadVolunteerEvents']);
+
 
 
 

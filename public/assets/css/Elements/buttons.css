@@ -54,7 +54,7 @@
 
 .absolute_button {
     position: fixed;
-    bottom: 0.5rem;
+    bottom: 20px;
     right: 0.5rem;
     padding: 10px;
     border-radius: 100%;
@@ -64,4 +64,33 @@
 
 .absolute_button:hover {
     border-radius: 0%;
+}
+
+.absolute_call_now {
+    position: fixed;
+    bottom: 80px;
+    right: 0.5rem;
+    border: none;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    transition: all 0.5s;
+    animation-name: callNowAnimation;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes callNowAnimation {
+    from {
+        background-color: red;
+        padding: 1px;
+    }
+    to {
+        background-color: #677EF8;
+        padding: 3px;
+    }
+}
+
+.absolute_call_now:hover {
+    border-radius: 0%;
+    padding: 10px;
 }
