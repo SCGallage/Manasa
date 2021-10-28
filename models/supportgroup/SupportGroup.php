@@ -18,7 +18,7 @@ class SupportGroup extends Model
 
     public function getSupportGroupRequests(int $supportGroupId)
     {
-        $sqlStatement = "SELECT caller.id, caller.fname, caller.lname, user.profile_pic, user.username
+        $sqlStatement = "SELECT caller.id, caller.fname, caller.lname, user.profile_pic
                     FROM caller, sg_enrollrequest, user
                     WHERE sg_enrollrequest.supportGroupId = 1 AND sg_enrollrequest.state = 'pending' AND caller.id = sg_enrollrequest.callerId AND caller.id = user.id";
         $result = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
@@ -42,7 +42,7 @@ class SupportGroup extends Model
 
     public function getSupportGroupMembers(int $supportGroupId)
     {
-        $sqlStatement = "SELECT caller.id, caller.fname, caller.lname, user.profile_pic, user.username
+        $sqlStatement = "SELECT caller.id, caller.fname, caller.lname, user.profile_pic
                     FROM caller, sg_enrollrequest, user
                     WHERE sg_enrollrequest.supportGroupId = 1 AND sg_enrollrequest.state = 'approved' AND caller.id = sg_enrollrequest.callerId AND caller.id = user.id";
         $result = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);

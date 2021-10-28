@@ -70,7 +70,7 @@ class DatabaseService
         $sqlStatement = "INSERT INTO $tableName($separatedColumnNames) 
                 VALUES($valuesForColumns)";
 
-        //echo $sqlStatement;
+        echo $sqlStatement;
 
         if ($returnLastIdFlag === DatabaseService::RETURN_LAST_ID) {
             $this->pdo->exec($sqlStatement);
