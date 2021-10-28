@@ -1,0 +1,58 @@
+/*All text Web fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Open+Sans:wght@300&display=swap');
+
+[class*="margin-l"] {
+    margin-left: 1vw;
+}
+
+[class*="margin-r"] {
+    margin-right: 1vw;
+}
+
+[class*="margin"] {
+    margin: 1vw;
+}
+
+[class*="link-text"] {
+    text-decoration: none;
+}
+
+[class*= "normal-text"] {
+    font-family: 'Open Sans', sans-serif;
+}
+
+[class*= "heading"] {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: bolder;
+}
+
+[class*= "text-center"] {
+    text-align: center;
+}
+
+[class*= "text-right"] {
+    text-align: right;
+}
+
+[class*= "text-left"] {
+    text-align: left;
+}
+
+.text-hidden{
+    color: transparent;
+}
+
+.text-shadow{
+    text-shadow: 3px 3px 5px gray;
+}
+
+
+/*
+
+References......................
+
+1. Text align center:- https://www.w3.org/Style/Examples/007/center.en.html
+
+
+*/

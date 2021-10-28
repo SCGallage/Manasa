@@ -17,7 +17,7 @@ const conpasswordText = document.getElementById("conpassword-text");
 const nameRegex = /^[aA-zZ][a-z]{1,}$/;
 const usernameRegex = /^[aA-zZ0-9]{6,30}$/;
 const passwordRegex =
-  /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.{7,})(?=.*[!@#$%^&*]).*$/;
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.{7,})(?=.*[!@#$%^&*]).*$/;
 
 let usernameState = false;
 let emailState = false;
@@ -113,23 +113,23 @@ userName.addEventListener("keyup", () => {
         type: "username",
       }),
     })
-      .then((reponse) => reponse.json())
-      .then((data) => {
-        //console.log(data.valid);
-        if (data.valid) {
-          validateInput(userName);
-          userText.innerText = "Success!";
-          userText.style.color = "rgba(8, 140, 21, 0.88)";
-          usernameState = true;
-        } else {
-          if (userName.classList.contains("success"))
-            userName.classList.remove("success");
-          userName.classList.add("danger");
-          userText.innerText = "Username already taken!";
-          userText.style.color = "rgba(173, 5, 5)";
-          usernameState = false;
-        }
-      });
+        .then((reponse) => reponse.json())
+        .then((data) => {
+          //console.log(data.valid);
+          if (data.valid) {
+            validateInput(userName);
+            userText.innerText = "Success!";
+            userText.style.color = "rgba(8, 140, 21, 0.88)";
+            usernameState = true;
+          } else {
+            if (userName.classList.contains("success"))
+              userName.classList.remove("success");
+            userName.classList.add("danger");
+            userText.innerText = "Username already taken!";
+            userText.style.color = "rgba(173, 5, 5)";
+            usernameState = false;
+          }
+        });
     //console.log("valid");
     validateInput(userName);
   } else {
@@ -154,23 +154,25 @@ email.addEventListener("keyup", () => {
       type: "email",
     }),
   })
-    .then((reponse) => reponse.json())
-    .then((data) => {
-      //console.log(data.valid);
-      if (data.valid) {
-        validateInput(email);
-        emailState = true;
-        emailText.innerText = "Success!";
-        emailText.style.color = "rgba(8, 140, 21, 0.88)";
-      } else {
-        if (email.classList.contains("success"))
-          email.classList.remove("success");
-        email.classList.add("danger");
-        emailText.innerText = "Email already registered!";
-        emailText.style.color = "rgba(173, 5, 5)";
-        emailState = false;
-      }
-    });
+
+      .then((reponse) => reponse.json())
+      .then((data) => {
+        //console.log(data.valid);
+        if (data.valid) {
+          validateInput(email);
+          emailState = true;
+          emailText.innerText = "Success!";
+          emailText.style.color = "rgba(8, 140, 21, 0.88)";
+        } else {
+          if (email.classList.contains("success"))
+            email.classList.remove("success");
+          email.classList.add("danger");
+          emailText.innerText = "Email already registered!";
+          emailText.style.color = "rgba(173, 5, 5)";
+          emailState = false;
+        }
+      });
+
 });
 
 dateOfBirth.addEventListener("change", () => {
@@ -192,12 +194,12 @@ registerForm.addEventListener("submit", (e) => {
   // console.log(username);
 
   if (
-    emailState &&
-    usernameState &&
-    fnameState &&
-    lnameState &&
-    passwordState &&
-    conpasswordState
+      emailState &&
+      usernameState &&
+      fnameState &&
+      lnameState &&
+      passwordState &&
+      conpasswordState
   ) {
     console.log(true);
     registerForm.submit();

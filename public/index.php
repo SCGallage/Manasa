@@ -3,9 +3,14 @@ header('Access-Control-Allow-Origin: *');
 require_once __DIR__.'/../core/vendor/autoload.php';
 require_once './autoload.php';
 
+
 use controllers\authentication\AuthController;
 use controllers\befriender\BefrienderController;
+use controllers\caller\CallerAppointmentController;
+use controllers\caller\CallerController;
+use controllers\DonateController;
 use controllers\supportgroup\SupportGroupController;
+use controllers\volunteer\VolunteerController;
 use core\Application;
 use controllers\SiteController;
 use core\DotEnv;
@@ -99,7 +104,7 @@ $app->router->post('/api/v1/auth/validate', [AuthController::class, 'checkExisti
 /* Befriender Views */
 
 
-$app->router->get('/befriender/dashboard', [BefrienderController::class, 'loadBefrienderDashboard']);
+$app->router->get('/befriender/dashboard', [BefrienderController::class, 'loadBefrienderDashboard', 'Befriender']);
 $app->router->get('/befriender/appointments', [BefrienderController::class, 'loadBefrienderAppointments']);
 $app->router->get('/befriender/reports', [BefrienderController::class, 'loadBefrienderReports']);
 $app->router->get('/befriender/supportgroup', [BefrienderController::class, 'loadBefrienderSupportGroup']);
@@ -165,6 +170,36 @@ $app->router->get('/mod/UserRequests', [AdminController::class, 'ModUserRequests
 $app->router->post('/mod/UserRequests', [AdminController::class, 'ModUserRequestsUpdate']);
 $app->router->get('/mod/UserRequestsDelete', [AdminController::class, 'ModUserRequestsDelete']);
 
+
+/* Caller Views */
+$app->router->get('/callerHome', [CallerController::class, 'loadCallerHome', 'Caller']);
+$app->router->get('/callerSupportGroupsList', [SupportGroupController::class, 'callerLoadSupportGroupsList']);
+$app->router->get('/callerSupportGroupHomeMember', [SupportGroupController::class, 'callerLoadSupportGroupHomeMember']);
+$app->router->get('/callerSupportGroupHomeVisitor', [SupportGroupController::class, 'callerSupportGroupHomeVisitor']);
+$app->router->get('/viewSupportGroupEvent', [SupportGroupController::class, 'viewSupportGroupEvent']);
+$app->router->get('/profile', [CallerController::class, 'loadCallerProfile']);
+$app->router->get('/updateProfile', [CallerController::class, 'loadUpdateCallerProfileForm']);
+$app->router->get('/appointments', [CallerAppointmentController::class, 'loadAppointmentsPage']);
+$app->router->post('/appointmentLink', [CallerAppointmentController::class, 'loadAppointmentLink']);
+$app->router->post('/appointmentInfo', [CallerAppointmentController::class, 'loadAppointmentInfo']);
+$app->router->get('/loadDonateForm', [DonateController::class, 'loadDonateForm']);
+$app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow']);
+$app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
+$app->router->post('/joinSupportGroup', [SupportGroupController::class, 'callerJoinSupportGroup']);
+$app->router->post('/cancelSupportGroupJointRequest', [SupportGroupController::class, 'cancelSupportGroupJointRequest']);
+$app->router->post('/cancelSupportGroupJoinRequest', [SupportGroupController::class, 'cancelSupportGroupJoinRequest']);
+
+/* Visitor views*/
+$app->router->get('/callNowVisitor', [CallerAppointmentController::class, 'loadCallNow']);
+
+/* Volunteer views */
+$app->router->get('/volunteerHome', [VolunteerController::class, 'loadVolunteerHome']);
+$app->router->get('/volunteerProfile', [VolunteerController::class, 'loadVolunteerProfile']);
+$app->router->get('/updateVolunteerProfile', [VolunteerController::class, 'loadVolunteerProfileUpdateForm']);
+
+
+
 //terms and conditions
 $app->router->get('/TermsandConditions', '/TermsandConditions');
+
 $app->run();

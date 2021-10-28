@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/top_nav.css">
     <link rel="icon" type="image/png" href="./assets/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" href="assets/css/caller_visitor_volunteer_styles.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +42,7 @@
             <a href="/login" class="common-btn login-btn">Login</a>
         </div>
     </nav>
+
     {{content}}
 </body>
 </html>

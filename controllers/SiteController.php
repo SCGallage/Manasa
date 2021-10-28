@@ -10,10 +10,8 @@ class SiteController extends Controller
 
     public function home()
     {
-        $params = [
-            'name' => "John Doe"
-        ];
-        return $this->render("home", params: $params);
+        $this->setLayout('main');
+        return $this->render("user/landigPage");
 
     }
 
@@ -23,5 +21,12 @@ class SiteController extends Controller
         return $this->render('contact');
 
     }
+
+    public function callerHome()
+    {
+        return $this->render('callerHome');
+    }
+
+
 
 }
