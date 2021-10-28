@@ -149,7 +149,7 @@ class AuthController extends Controller
 
     public function registerGoogleUser(Request $request)
     {
-        session_start();
+        //session_start();
         $requestData = $request->getBody();
         if ($request->isPost()) {
             $data = SessionManagement::get_session_data('googleAccountInfo');
@@ -233,12 +233,12 @@ class AuthController extends Controller
 
     public function updatePassword(Request $request)
     {
-        session_start();
+        //session_start();
         $this->authenticatorModule = new AuthenticatorModule(Application::$app->database);
         if ($request->isPost()){
             //Application::$app->auth->update_password($data['password'], $email);
             $data = $request->getBody();
-            print_r($data);
+            //print_r($data);
             $email = Application::$app->databaseService->select('pr_token',
                 ['email'],
                 ['token' => SessionManagement::get_session_data('token')],
@@ -250,7 +250,7 @@ class AuthController extends Controller
         }
         $data = $request->getBody();
         $email = $this->authenticatorModule->check_token($data['token']);
-        print_r($data);
+        //print_r($data);
         $this->setLayout('reset');
         if (gettype($email) === 'string') {
             SessionManagement::set_session_data('token', $data['token']);
