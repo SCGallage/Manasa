@@ -1,6 +1,5 @@
 <?php
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +9,6 @@
     <link rel="stylesheet" href="http://localhost/assets/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,16 +20,16 @@
 
     <div class="row flex-gap">
         <div class="col-l-12">
-            <span class="head-text2">Schedule</span>
+            <span class="head-text2">Update Schedule</span>
         </div>
     </div>
 
     <div class="row row-style flex-container">
-        <div class="col-l-8 col-m-12 col-s-12 upper-box flex-gap1 card-content ">
-            <div class="col-l-12 col-m-12 col-s-12 padding1">
+        <div class="col-l-8 col-m-12 col-s-12 primary-card flex-gap1 card-content ">
+            <div class="col-l-12 col-m-12 col-s-12">
                 <span class="head-text">Calendar</span>
             </div>
-            <div class="col-l-12 col-m-12 col-s-12 card2">
+            <div class="col-l-12 col-m-12 col-s-12 card3">
                 <div class="calendar-card">
                     <div class="calendar">
                         <div class="calendar-header">
@@ -73,112 +71,71 @@
                 </div>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12 padding1">
-                <span class="button1">
-                    <a href="/mod/FixSchedule">
-                        Fix Schedule
-                    </a>
-                </span>
-            </div>
-
         </div>
 
         <div class="col-l-4 col-m-12 col-s-12 primary-card flex-gap1 card-content">
-            <div class="col-l-12 col-m-12 col-s-12 padding1">
-                <span class="head-text">Timeslot Details</span>
+
+            <div class="col-l-12 col-m-12 col-s-12">
+                <span class="head-text">Empty Timeslots</span>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12 card2">
-                <form action="" class="form1">
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container3 ">
-                        <div class="col-l-6 col-m-6 col-s-6">
-                            <span class="text-style3">Date:</span>
-                        </div>
-                        <div class="col-l-6 col-m-6 col-s-6">
-                            <sapn class="text-style3"> 11/10/2021</sapn>
-                        </div>
+            <div class="col-l-12 col-m-12 col-s-12 scroll1">
+                <div class="upper-box-details card1 margin-top">
+                    <div class="col-l-12 col-m-12 col-s-12">
+                        <span>Date: 2021/09/08</span><br>
+                        <span>Time: 9.00 AM </span><br>
+                        <span>No. of slots: 7</span>
                     </div>
+                </div>
 
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container3 padding-top">
-                        <div class="col-l-6 col-m-6 col-s-6">
-                            <span class="text-style3">Timeslot ID:</span>
-                        </div>
-                        <div class="col-l-6 col-m-6 col-s-6">
-                            <sapn class="text-style3"> 1121</sapn>
-                        </div>
+                <div class="upper-box-details card1 margin-top">
+                    <div class="col-l-12 col-m-12 col-s-12">
+                        <span>Date: 2021/09/08</span><br>
+                        <span>Time: 9.00 AM </span><br>
+                        <span>No. of slots: 7</span>
                     </div>
+                </div>
 
-                    <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <label for="name" class="text-style3">Number of slots:</label>
+                <div class="upper-box-details card1 margin-top">
+                    <div class="col-l-12 col-m-12 col-s-12">
+                        <span>Date: 2021/09/08</span><br>
+                        <span>Time: 9.00 AM </span><br>
+                        <span>No. of slots: 7</span>
                     </div>
-                    <div class="col-l-12 col-m-12 col-s-12 ">
-                        <input type="text" id="fname" name="fname" value="">
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <input type="submit" value="Update" class="button2">
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <div class="row row-style flex-container">
-        <div class="col-l-12 col-m-12 col-s-12 primary-card flex-gap1">
-            <div class="col-l-12 col-m-12 col-s-12 flex-container2 padding1">
-                <span class="head-text">Appointments</span>
+                </div>
             </div>
 
-            <div class="col-l-12 col-m-12 col-s-12 table-overflow">
+            <div class="col-l-12 col-m-12 col-s-12 flex-gap3">
+                <span class="head-text">Befrienders</span>
+            </div>
+
+            <div class="col-l-12 col-m-12 col-s-12 scroll1">
                 <table>
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Contact</th>
-                        <th>Date</th>
-                        <th>Timeslot</th>
-                        <th>State</th>
-                    </tr>
-                    <tr>
                         <td>Peter Griffin</td>
-                        <td>Griffin@gmail.com</td>
-                        <td>077229667</td>
-                        <td>07/09/2021</td>
-                        <td>9.00 AM - 10.00 AM </td>
-                        <td>Active</td>
+                        <td> <a href="#" class="button1">Assign</a></td>
                     </tr>
 
                     <tr>
                         <td>Peter Griffin</td>
-                        <td>Griffin@gmail.com</td>
-                        <td>077229667</td>
-                        <td>07/09/2021</td>
-                        <td>9.00 AM - 10.00 AM </td>
-                        <td>Active</td>
+                        <td> <a href="#" class="button1">Assign</a></td>
                     </tr>
+
                     <tr>
                         <td>Peter Griffin</td>
-                        <td>Griffin@gmail.com</td>
-                        <td>077229667</td>
-                        <td>07/09/2021</td>
-                        <td>9.00 AM - 10.00 AM </td>
-                        <td>Active</td>
+                        <td> <a href="#" class="button1">Assign</a></td>
                     </tr>
+
                     <tr>
                         <td>Peter Griffin</td>
-                        <td>Griffin@gmail.com</td>
-                        <td>077229667</td>
-                        <td>07/09/2021</td>
-                        <td>9.00 AM - 10.00 AM </td>
-                        <td>Active</td>
+                        <td> <a href="#" class="button1">Assign</a></td>
                     </tr>
+
                 </table>
             </div>
         </div>
     </div>
-    </div>
+
 
 </main>
 

@@ -71,7 +71,7 @@
                             <label for="reportType" class="text-style3">Report Type</label>
                         </div>
                         <div class="col-l-6 col-m-6 col-s-6">
-                            <select name="reportType" id="reportType" class="select1">
+                            <select name="reportType" id="reportType" class="select3">
                                 <option value="vol">Volunteers</option>
                                 <option value="don">Donations</option>
                                 <option value="ov">Overview</option>
@@ -83,6 +83,7 @@
                     </div>
                     <div class="col-l-12 col-m-12 col-s-12 ">
                         <input type="text" id="fname" name="fname" value="">
+                        <span class="required-text">*Required</span>
                     </div>
 
                     <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
@@ -92,6 +93,7 @@
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
                                 <input type="text" id="email" name="email" value="">
+                                <span class="required-text">*Required</span>
                             </div>
                         </div>
                         <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -100,6 +102,7 @@
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
                                 <input type="text" id="date" name="date" value="">
+                                <span class="required-text">*Required</span>
                             </div>
                         </div>
                     </div>

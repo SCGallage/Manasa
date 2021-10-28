@@ -71,7 +71,7 @@
                         <tr>
                             <td><?php echo $row['fname']." ".$row['lname']?></td>
                             <td><?php echo $row['email']?></td>
-                            <td><?php echo $row['type']?></td>
+                            <td><?php echo $row['role']?></td>
                             <td><?php echo $row['username']?></td>
                             <td><?php
                                 if ($row['state'] == 1) {
