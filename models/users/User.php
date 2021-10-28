@@ -39,8 +39,13 @@ class User extends Model
     public function login(array $login)
     {
         $data = $this->select('user', '*', [ "email" => $login['email'] ], DatabaseService::FETCH_ALL);
-
-        if (($data[0]['email'] === $login['email'])  && password_verify($login['password'], $data[0]['password']) && $data[0]['state'] !== 'pending') {
+        if ($data[0]['type'] === 'staff') {
+            $state = $this->select('staff', ["state"], ["id" => $data[0]['id']], DatabaseService::FETCH_ALL);
+            if ($state[0]['state'] == 0)
+                return false;
+        }
+        //SessionManagement::set_session_data('state', $state[0]['state']);
+        if (($data[0]['email'] === $login['email'])  && password_verify($login['password'], $data[0]['password'])) {
             $user = $this->select($data[0]['type'], "*", [ 'id' => $data[0]['id'] ], DatabaseService::FETCH_ALL);
             //print_r($user);
             //return $user[0]['type'];

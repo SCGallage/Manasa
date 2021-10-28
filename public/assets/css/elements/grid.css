@@ -6,8 +6,8 @@
     box-sizing: border-box;
 }
 
-/*Clear flow*/ 
-.row::after {   /*selector inserts something after the content of each selected element*/
+/*Clear flow*/
+.row::after {
     content: "";
     clear: both;
     display: block;
@@ -16,11 +16,13 @@
 /*Set all columns float to left */  
 [class*="col-"] {
     float: left;
+    overflow: hidden;
 }
+
 
 /*Mobile view*/
 @media only screen and (max-width: 600px) {
-    .col-s-0 {width: 0px;}
+    .col-s-0 {display: none;}
     .col-s-1 {width: 8.33%;}
     .col-s-2 {width: 16.66%;}
     .col-s-3 {width: 25%;}
@@ -37,6 +39,7 @@
 
 /*Tablet view*/
 @media only screen and (min-width: 600px) {
+    .col-m-0 {display: none;}
     .col-m-1 {width: 8.33%;}
     .col-m-2 {width: 16.66%;}
     .col-m-3 {width: 25%;}
@@ -53,6 +56,7 @@
 
 /*Desktop view*/
 @media only screen and (min-width: 768px) {
+    .col-l-0 {display: none;}
     .col-l-1 {width: 8.33%;}
     .col-l-2 {width: 16.66%;}
     .col-l-3 {width: 25%;}

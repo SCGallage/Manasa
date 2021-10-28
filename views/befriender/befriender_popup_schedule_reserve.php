@@ -32,19 +32,19 @@
             <div class="icon">
                 <img class="card-icon" src="./15-M.jpg" alt="" srcset="" />
             </div>
-            <h4 class="card-name">Heather Chapman</h4>
+            <h4 class="card-name">Pamudu Rathnayake</h4>
         </div>
         <div class="single-card">
             <div class="icon">
                 <img class="card-icon" src="./15-M.jpg" alt="" srcset="" />
             </div>
-            <h4 class="card-name">Heather Chapman</h4>
+            <h4 class="card-name">Ashinshana Wijethunga</h4>
         </div>
         <div class="single-card">
             <div class="icon">
                 <img class="card-icon" src="./15-M.jpg" alt="" srcset="" />
             </div>
-            <h4 class="card-name">Heather Chapman</h4>
+            <h4 class="card-name">Sankha Gunathunga</h4>
         </div>
     </div>
     <div class="card-footer">
