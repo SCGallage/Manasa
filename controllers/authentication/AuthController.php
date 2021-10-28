@@ -197,7 +197,7 @@ class AuthController extends Controller
     public function logout()
     {
         $this->user->logout();
-        return $this->render('user\login', 'Manasa | Login');
+        Application::$app->response->setRedirectUrl('/login');
     }
 
     public function resetPassword(Request $request)
