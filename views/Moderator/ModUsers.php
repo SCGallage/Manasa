@@ -1,5 +1,5 @@
-<?php
-?>
+<?php $params ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"/>
 </head>
 <body>
 <main>
@@ -47,7 +50,7 @@
     <div class="row row-style flex-container">
         <div class="col-l-12 col-m-12 col-s-12 primary-card flex-gap">
             <div class="col-l-12 col-m-12 col-s-12 padding1">
-                <div class="col-l-12 col-m-12 col-s-12"> <span class="head-text">Berinder</span> </div>
+                <div class="col-l-12 col-m-12 col-s-12"> <span class="head-text">Users</span> </div>
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 table-overflow">
@@ -55,251 +58,38 @@
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Contact</th>
-                        <th>Start Date</th>
-                        <th>Type</th>
-                        <th> </th>
-                        <th> </th>
+                        <th>User Type</th>
+                        <th>UserName</th>
+                        <th>State</th>
+                        <th>CV</th>
+                        <th></th>
+                        <th></th>
                     </tr>
-                    <tr>
-                        <td>Ben Affleck</td>
-                        <td>BenAffleck@gmail.com</td>
-                        <td>0771268920</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons" id="updateUser" onclick="updateUser()">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>Peter Griffin</td>
-                        <td>PeterGriffin@gmail.com</td>
-                        <td>077229667</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>Carla Bruni</td>
-                        <td>CarlaBruni@gmail.com</td>
-                        <td>077146278</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>David Arquette</td>
-                        <td>DavidArquette@gmail.com</td>
-                        <td>0772678924</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>Ben Affleck</td>
-                        <td>BenAffleck@gmail.com</td>
-                        <td>0771268920</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>Peter Griffin</td>
-                        <td>PeterGriffin@gmail.com</td>
-                        <td>077229667</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>Carla Bruni</td>
-                        <td>CarlaBruni@gmail.com</td>
-                        <td>077146278</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
-                    <tr>
-                        <td>David Arquette</td>
-                        <td>DavidArquette@gmail.com</td>
-                        <td>0772678924</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                        <td><span class="material-icons">edit</span></td>
-                        <td><span class="material-icons">delete</span></td>
-                    </tr>
+
+                    <?php
+                    foreach ($viewUser as $row) { ?>
+                        <tr>
+                            <td><?php echo $row['fname']." ".$row['lname']?></td>
+                            <td><?php echo $row['email']?></td>
+                            <td><?php echo $row['role']?></td>
+                            <td><?php echo $row['username']?></td>
+                            <td><?php
+                                if ($row['state'] == 1) {
+                                    echo 'Active';
+                                }
+                                elseif ($row['state'] == 0){
+                                    echo 'Inactive';
+                                }
+                                ?></td>
+                            <td><a href="/file_storage/cv/<?php echo $row['cv']?>" download>Download CV</a></td>
+                        </tr>
+                    <?php } ?>
                 </table>
             </div>
         </div>
     </div>
 
 </main>
-
-<!-- POP-UP Update User ----------------------------------------------------------------------------------------------------------------------------------->
-<div class="modal" id="modal-box">
-    <div class="modal-content">
-
-        <div class="modal-header padding1">
-            <div class="head-text3">
-                <span class="close" id="close">&times;</span>
-            </div>
-
-            <div class="head-text3 padding-top">
-                <span>Update User</span>
-            </div>
-        </div>
-
-        <div class="modal-body">
-            <div class="primary-card card-content">
-                <form action="" class="form1">
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container3 ">
-                        <div class="col-l-4 col-m-4 col-s-4">
-                            <label for="reportType" class="text-style3">User Type</label>
-                        </div>
-                        <div class="col-l-8 col-m-8 col-s-8">
-                            <select name="reportType" id="reportType" class="select1">
-                                <option value="vol">Volunteer</option>
-                                <option value="don">Befriender</option>
-                                <option value="ov">Caller</option>
-                                <option value="don">Moderator</option>
-                                <option value="ov">Administrator</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="email" class="text-style3">Username:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="email" name="email" value="">
-                            </div>
-                        </div>
-                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">Email:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="date" name="date" value="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="email" class="text-style3">First Name:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="email" name="email" value="">
-                            </div>
-                        </div>
-                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">Last Name:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="date" name="date" value="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="email" class="text-style3">Password:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="email" name="email" value="">
-                            </div>
-                        </div>
-                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">Confirm Password:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="date" name="date" value="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
-                        <div class="col-l-6 col-m-12 col-s-12 padding-right flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="email" class="text-style3">Date of Birth:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <input type="text" id="email" name="email" value="">
-                            </div>
-                        </div>
-                        <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <label for="Date" class="text-style3">Gender:</label>
-                            </div>
-                            <div class="col-l-12 col-m-12 col-s-12">
-                                <select name="reportType" id="reportType" class="select2">
-                                    <option value="vol">Male</option>
-                                    <option value="don">Female</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <div class="col-l-8"></div>
-                        <div class="col-l-4 col-m-12 col-s-12 positionR">
-                            <input type="submit" value="Submit">
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-        <div class="modal-footer"></div>
-    </div>
-</div>
-<!-- -------------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-<!--<script>-->
-<!--    function dropDownButton() {-->
-<!--        document.getElementById("dropdown").classList.toggle("show");-->
-<!--    }-->
-<!--</script>-->
-<!---->
-<!--<script>-->
-<!--    function dropDownButtonUser() {-->
-<!--        document.getElementById("dropdownUser").classList.toggle("show");-->
-<!--    }-->
-<!--</script>-->
-<!---->
-<!---->
-<!--<script type="text/javascript">-->
-<!--    function updateUser(){-->
-<!--        var modal = document.getElementById("modal-box")-->
-<!--        var btn = document.getElementById("updateUser");-->
-<!--        var close = document.getElementById("close")-->
-<!---->
-<!--        btn.onclick = function(){-->
-<!--            modal.style.display = "block";-->
-<!--        }-->
-<!---->
-<!--        close.onclick = function(){-->
-<!--            modal.style.display = "none";-->
-<!--        }-->
-<!---->
-<!--        window.onclick = function(event){-->
-<!--            if (event.target == modal){-->
-<!--                modal.style.display = "none";-->
-<!--            }-->
-<!--        }-->
-<!--    }-->
-<!--</script>-->
 
 
 </body>

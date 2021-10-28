@@ -10,7 +10,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"/>
 
 
 </head>
@@ -30,27 +33,27 @@
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 flex-gap4">
-                <div class="upper-box-details card1">
-                    <div class="col-l-12 col-m-12 col-s-12 text-style3">Expense Report</div>
-                    <div class="col-l-12 col-m-12 col-s-12 ">
-                        <span>Date: 2021/09/08</span><br>
-                        <span>Type: Overview report </span><br>
+                <div class="upper-box-details card1 ">
+                    <div class="col-l-12 col-m-12 col-s-12 text-style3 padding-top-1">Expense Report</div>
+                    <div class="col-l-12 col-m-12 col-s-12 padding-top-1">
+                        <span class="padding-top-1 custom-text">Date: 2021/10/18</span><br>
+                        <span class="padding-top-1 custom-text">Type: Overview report </span><br>
                     </div>
                 </div>
 
-                <div class="upper-box-details card1">
-                    <div class="col-l-12 col-m-12 col-s-12 text-style3">Events Conducted</div>
-                    <div class="col-l-12 col-m-12 col-s-12">
-                        <span>Date: 2021/09/08</span><br>
-                        <span>Type: Overview report </span><br>
+                <div class="upper-box-details card1 margin-top" >
+                    <div class="col-l-12 col-m-12 col-s-12 text-style3 padding-top-1">Events Conducted</div>
+                    <div class="col-l-12 col-m-12 col-s-12 padding-top-1">
+                        <span class="padding-top-1 custom-text">Date: 2021/09/08</span><br>
+                        <span class="padding-top-1 custom-text">Type: Overview report </span><br>
                     </div>
                 </div>
 
-                <div class="upper-box-details card1">
-                    <div class="col-l-12 col-m-12 col-s-12 text-style3">Volunteer events</div>
-                    <div class="col-l-12 col-m-12 col-s-12">
-                        <span>Date: 2021/09/08</span><br>
-                        <span>Type: Overview report </span><br>
+                <div class="upper-box-details card1 margin-top">
+                    <div class="col-l-12 col-m-12 col-s-12 text-style3 padding-top-1">Volunteer events</div>
+                    <div class="col-l-12 col-m-12 col-s-12 padding-top-1">
+                        <span class="padding-top-1 custom-text">Date: 2021/12/11</span><br>
+                        <span class="padding-top-1 custom-text">Type: Overview report </span><br>
                     </div>
                 </div>
             </div>
@@ -68,7 +71,7 @@
                             <label for="reportType" class="text-style3">Report Type</label>
                         </div>
                         <div class="col-l-6 col-m-6 col-s-6">
-                            <select name="reportType" id="reportType" class="select1">
+                            <select name="reportType" id="reportType" class="select3">
                                 <option value="vol">Volunteers</option>
                                 <option value="don">Donations</option>
                                 <option value="ov">Overview</option>
@@ -80,6 +83,7 @@
                     </div>
                     <div class="col-l-12 col-m-12 col-s-12 ">
                         <input type="text" id="fname" name="fname" value="">
+                        <span class="required-text">*Required</span>
                     </div>
 
                     <div class="col-l-12 col-m-12 col-s-12 flex-container padding-top">
@@ -89,6 +93,7 @@
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
                                 <input type="text" id="email" name="email" value="">
+                                <span class="required-text">*Required</span>
                             </div>
                         </div>
                         <div class="col-l-6 col-m-12 col-s-12 padding-left flex-container2">
@@ -97,6 +102,7 @@
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12">
                                 <input type="text" id="date" name="date" value="">
+                                <span class="required-text">*Required</span>
                             </div>
                         </div>
                     </div>

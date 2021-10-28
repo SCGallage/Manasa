@@ -7,19 +7,26 @@ table {
   th{
     padding: 12px 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd; 
-    background-color: #F1F1F1;
+    border-bottom: 1px solid #ddd;
+    background-color: #003249;
+    color: #ececec;
+    font-size: 1rem;
   }
   
   td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  tr:last-of-type {
+    border-bottom: 2px solid #003249;
   }
   
   tr:hover {background-color: #F1F1F1;}
 
   .custom-table th{
-    background-color: #003249;
-    color: #ececec;
+    background-color: #F1F1F1;
+    color: #0f191d;
   }

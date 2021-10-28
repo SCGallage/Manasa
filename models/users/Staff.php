@@ -29,6 +29,16 @@ class Staff extends Model
         ]);
     }
 
+    public function saveAdmin($befriender)
+    {
+        $this->insert( "staff",[
+            "id" => $befriender['lastId'],
+            "fname" => $befriender['fname'],
+            "lname" => $befriender['lname'],
+            "type" => $befriender['usertype'],
+            "state" => $befriender['state']
+        ]);
+    }
     public function __construct()
     {
         parent::__construct();
