@@ -34,7 +34,7 @@ fetch(
   .then((data) => {
     console.log(data);
     for (let i = 0; i < data.length; i++)
-      cardcontainer.innerHTML += `<div id="${data[i].id}" class="request-card"><div class="card-icon"><img class="picture" src="data:image/jpg;base64, ${data[i].profile_pic}" alt="" /></div><span class="card-text"><h4 class="request-name">${data[i].fname} ${data[i].lname}</h4></span><div data-requestid="${data[i].id}" class="button-set"><button class="approve-btn" onclick="invokeSecondaryModal(${data[i].id}, '${data[i].fname} ${data[i].lname}', 'approved')">Approve</button><button class="reject-btn" onclick="invokeSecondaryModal(${data[i].id}, '${data[i].fname} ${data[i].lname}', 'rejected')" >Remove</button></div></div>`;
+      cardcontainer.innerHTML += `<div id="${data[i].id}" class="request-card"><div class="card-icon"><img class="picture" src="data:image/jpg;base64, ${data[i].profile_pic}" alt="" /></div><span class="card-text"><h4 class="request-name">${data[i].username}</h4></span><div data-requestid="${data[i].id}" class="button-set"><button class="approve-btn" onclick="invokeSecondaryModal(${data[i].id}, '${data[i].fname} ${data[i].lname}', 'approved')">Approve</button><button class="reject-btn" onclick="invokeSecondaryModal(${data[i].id}, '${data[i].fname} ${data[i].lname}', 'rejected')" >Remove</button></div></div>`;
   });
 
 fetch(
@@ -56,7 +56,7 @@ fetch(
         />
       </div>
       <div class="caller-info">
-        <h4 class="caller-name">${element.fname + " " + element.lname}</h4>
+        <h4 class="caller-name">${element.username}</h4>
       </div>
       <div class="button-set">
         <button class="remove-btn" onclick="invokeRemoveCallerModal(${
