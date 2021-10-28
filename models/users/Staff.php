@@ -44,8 +44,8 @@ class Staff extends Model
     public function sendApprovedMail($username, $email)
     {
         $mailer = new Mailer();
-        $mailer->init('smtp.gmail.com', $_ENV['send_email'], $_ENV['password']);
-        $mailer->configure_email($_ENV['send_email'], $email);
+        $mailer->init('smtp.gmail.com', $_ENV['SEND_EMAIL'], $_ENV['PASSWORD']);
+        $mailer->configure_email($_ENV['SEND_EMAIL'], $email);
         $mailer->loadTemplate("Welcome To Manasa!", "registerTemplate", $username);
         $mailer->sendMail();
     }

@@ -20,15 +20,14 @@
 
     <div class="row flex-container">
         <div class="col-l-12 col-m-12 col-s-12 flex-gap">
-            <span class="head-text2">User Requests</span>
-            <span class="head-text2">Hello</span>
+            <span class="head-text2">Support Group Requests</span>
         </div>
     </div>
 
     <div class="row row-style flex-container">
         <div class="col-l-12 col-m-12 col-s-12 primary-card flex-gap ">
             <div class="col-l-12 col-m-12 col-s-12 padding1">
-                <span class="head-text">User Requests</span>
+                <span class="head-text">Support Group Requests</span>
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 table-overflow">

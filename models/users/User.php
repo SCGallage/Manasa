@@ -85,6 +85,7 @@ class User extends Model
         $queryData = $this->select("user", [ "id","type" ], [ "google_id" => $google_id ], DatabaseService::FETCH_ALL);
         if (count($queryData) === 1) {
             $userType = $this->select($queryData[0]["type"], [ "type" ], [ "id" => $queryData[0]["id"] ], DatabaseService::FETCH_ALL);
+            print_r($userType);
             return $userType[0]["type"];
         }
 

@@ -25,6 +25,15 @@ class sg_request extends Model
 //        $result = $this->update("sg_enrollrequest",["state" => $sgRequestDetails["type"]],["supportGroupId" => $sgRequestDetails["supportGroupId"], "callerId" => $sgRequestDetails["callerId"] ]);
 //        return["result" => $result];
 //    }
+
+    public function sendApprovedMail($username, $email)
+    {
+        $mailer = new Mailer();
+        $mailer->init('smtp.gmail.com', $_ENV['SEND_EMAIL'], $_ENV['PASSWORD']);
+        $mailer->configure_email($_ENV['SEND_EMAIL'], $email);
+        $mailer->loadTemplate("Welcome To Manasa!", "registerTemplate", $username);
+        $mailer->sendMail();
+    }
     public function __construct()
     {
         parent::__construct();
