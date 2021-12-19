@@ -1,6 +1,6 @@
 <!--About------------------------------------------------------------------------------------------------>
 <div id="about" class="col-l-12 col-m-12 col-s-12 normal-card shadow-1 bg-color-3">
-    <h1 class="heading-text-center color-1">About Sri Lanka Sumithrayo</h1>
+    <h1 class="heading-text-center color-1 normal-card">About Sri Lanka Sumithrayo</h1>
     <p class="normal-text-center color-1">Sri Lanka Sumithrayo is a government approved charity founded in 1974,
         by late Mrs. Joan De Mel and was incorporated by Act of Parliament No.10 of 1986. Srilanka Sumithrayo
         are registered members of Befrienders Worldwide and function as a non-political, non-religious

@@ -10,6 +10,10 @@
             <input class="col-s-12 col-m-2 col-l-2 bannerButton bg-color-1 color-4 border-color-4 heading  card-align-right"
                    type="button" value="Back">
         </a>
+        <a class="link-text" href="#">
+            <input class="col-s-12 col-m-2 col-l-2 bannerButton bg-color-6 color-4 border-color-4 heading  card-align-right"
+                   type="button" value="Leave Group">
+        </a>
         <a class="link-text" href="#about">
             <input class="col-s-12 col-m-2 col-l-2 bannerButton bg-color-1 color-4 border-color-4 heading  card-align-right"
                    type="button" value="About">
@@ -22,10 +26,6 @@
         <a class="link-text" href="#events">
             <input class="col-s-12 col-m-2 col-l-2 bannerButton bg-color-1 color-4 border-color-4 heading  card-align-right"
                    type="button" value="Events">
-        </a>
-        <a class="link-text" href="/loadDonateForm">
-            <input class="col-s-12 col-m-2 col-l-2 bannerButton bg-color-1 color-4 border-color-4 heading  card-align-right"
-                   type="button" value="Donate">
         </a>
 
     </div>

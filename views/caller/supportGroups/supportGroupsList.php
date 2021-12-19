@@ -13,7 +13,7 @@
 
     <div class="col-s-12 col-m-12 col-l-12">
         <a href="#requested" >
-            <input type="button" class="col-s-12 col-m-3 col-l-2 bannerButton bg-color-1 color-4 " value="My Requests">
+            <input type="button" class="col-s-12 col-m-3 col-l-2 bannerButton bg-color-1 color-4" value="My Requests">
         </a>
 
         <a href="#mySupportGroups">
@@ -40,13 +40,13 @@
                 <p class="normal-text color-1 text-left"><?php echo $row["type"]?></p>
             </div>
 
-            <div class="col-s-12 col-m-4 col-l-4">
-                <form class="col-s-12 col-m-6 col-l-6" action="/callerSupportGroupHomeVisitor" method="get">
+            <div class="col-s-12 col-m-4 col-l-4 normal-card">
+                <form class="col-s-12 col-m-6 col-l-6 normal-card" action="/callerSupportGroupHomeVisitor" method="get">
                     <input type="hidden" value="1">
                     <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
                            type="submit" value="View">
                 </form>
-                <form class="col-s-12 col-m-5 col-l-5"
+                <form class="col-s-12 col-m-5 col-l-5 normal-card"
                       action="/joinSupportGroup"
                       method="post">
                     <input type="hidden" value="<?php echo $_SESSION[CommonConstants::SESSION_USER_ID];?>" name="callerId">
@@ -87,13 +87,13 @@
                     <p class="normal-text color-1 text-left"><?php echo $row["type"]?></p>
                 </div>
 
-                <div class="col-s-12 col-m-4 col-l-4">
-                    <form class="col-s-12 col-m-6 col-l-6" action="/callerSupportGroupHomeVisitor" method="get">
+                <div class="col-s-12 col-m-4 col-l-4 normal-card">
+                    <form class="col-s-12 col-m-6 col-l-6 normal-card" action="/callerSupportGroupHomeVisitor" method="get">
                         <input type="hidden" value="1">
                         <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
                                type="submit" value="View">
                     </form>
-                    <form class="col-s-12 col-m-5 col-l-5" action="/cancelSupportGroupJoinRequest" method="post">
+                    <form class="col-s-12 col-m-5 col-l-5 normal-card" action="/cancelSupportGroupJoinRequest" method="post">
                         <input type="hidden"
                                name="supportGroupId"
                                value="<?php echo $row['supportGroupId']?>">
@@ -102,33 +102,38 @@
                                name="callerId"
                                value="<?php echo $row['callerId']?>">
 
+                        <input type="hidden"
+                               name="state"
+                               value="<?php echo $row['state']?>">
+
                         <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-6 color-4 heading"
                                type="button"  value="Cancel"
-                               onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_SHOW; ?>)">
+                               onclick="popup('requestPopup<?php echo $row['supportGroupId']?>',
+                               <?php echo CommonConstants::POPUP_SHOW; ?>)">
 
                         <!--Cancel Request message popup--------------------------------------------------------------------->
-                        <div id="requestPopup" class="col-s-7 col-m-8 col-l-6 popup-card list-card shadow-2 border-color-1 bg-color-4">
+                        <div id="requestPopup<?php echo $row['supportGroupId']?>" class="col-s-7 col-m-8 col-l-6 popup-card list-card shadow-2 border-color-1 bg-color-4">
                             <h2 class="col-s-12 col-m-12 col-l-12 text-center heading color-6">
-                                Your Appointment will be canceled!!
+                                Your Support Group Join Request will be canceled!!
                             </h2>
                             <h4 class="col-s-12 col-m-12 col-l-12 text-center heading color-1">
                                 Do you really want to continue?<br>
-                                Your appointment will be deleted once you click "Confirm" button.<br>
+                                Your request will be deleted once you click "Confirm" button.<br>
                                 You can cancel this process by clicking "Cancel" button.
                             </h4>
 
                             <div class="col-s-0 col-m-1 col-l-2 color-0">.</div>
                             <input class="col-s-12 col-m-5 col-l-4 bannerButton color-4 normal-text bg-color-5"
                                    type="button"
-                                   onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_HIDE; ?>)"
+                                   onclick="popup('requestPopup<?php echo $row['supportGroupId']?>',
+                                   <?php echo CommonConstants::POPUP_HIDE; ?>)"
                                    value="Cancel">
 
-                            <a href="">
-                                <input class="col-s-12 col-m-5 col-l-4 bannerButton color-4 normal-text bg-color-6"
-                                       type="submit"
-                                       onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_HIDE; ?>)"
-                                       value="Confirm">
-                            </a>
+                            <input class="col-s-12 col-m-5 col-l-4 bannerButton color-4 normal-text bg-color-6"
+                                   type="submit"
+                                   onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_HIDE; ?>)"
+                                   value="Confirm">
+
                             <div class="col-s-0 col-m-1 col-l-2 color-0">.</div>
 
                         </div>
@@ -167,7 +172,7 @@
                 <p class="normal-text color-1 text-left"><?php echo $row["type"]?></p>
             </div>
 
-            <div class="col-s-12 col-m-4 col-l-4">
+            <div class="col-s-12 col-m-4 col-l-4 normal-card">
                 <form class="col-s-12 col-m-6 col-l-6 card-align-right normal-card" action="/callerSupportGroupHomeMember" method="get">
                     <input type="hidden" value="1">
                     <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"

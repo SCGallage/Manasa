@@ -186,7 +186,6 @@ $app->router->get('/loadDonateForm', [DonateController::class, 'loadDonateForm']
 $app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow']);
 $app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
 $app->router->post('/joinSupportGroup', [SupportGroupController::class, 'callerJoinSupportGroup']);
-$app->router->post('/cancelSupportGroupJointRequest', [SupportGroupController::class, 'cancelSupportGroupJointRequest']);
 $app->router->post('/cancelSupportGroupJoinRequest', [SupportGroupController::class, 'cancelSupportGroupJoinRequest']);
 
 /* Visitor views*/

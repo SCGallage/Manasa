@@ -27,10 +27,22 @@
             </p>
         </a>
 
+        <p class="col-s-5 col-m-5 col-l-5 text-right heading color-1">
+            Phone
+        </p>
+        <p class="col-s-1 col-m-1 col-l-1 heading color-1">
+            :
+        </p>
+
+            <p class="col-s-6 col-m-6 col-l-6 heading color-1">
+                0112346374
+            </p>
+
+
         <a href="https://zoom.us/">
             <input class="col-s-12 col-m-12 col-l-12 bannerButton color-4 heading bg-color-1 normal-card"
                    type="button"
-                   value="Start Meeting">
+                   value="Start Online Meeting">
         </a>
 
     </div>

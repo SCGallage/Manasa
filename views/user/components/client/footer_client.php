@@ -1,5 +1,5 @@
 <!--Footer----------------------------------------------------------------------------------------------->
-<div class="col-l-12 col-m-12 col-s-12 bg-color-3 footer-card">
+<div class="col-l-12 col-m-12 col-s-12 bg-color-3 normal-card">
     <div class="col-s-12 col-m-6 col-l-4">
         <h1 class="col-s-12 col-m-12 col-l-12 heading-text-center color-1">Contact Us</h1>
 

@@ -46,6 +46,14 @@ class SupportGroupController extends Controller
         return json_encode($supportGroup->removeMemberFromSupportGroup($requestData), JSON_NUMERIC_CHECK);
     }
 
+    /*
+     * Function: callerLoadSupportGroupsList
+     * Operation: filter support group details according to the user and
+                  set data to load caller support group list UI
+     * Parameters:
+     * Return:
+     *
+     * */
     public function callerLoadSupportGroupsList()
     {
 
@@ -115,8 +123,20 @@ class SupportGroupController extends Controller
         return $this->render('caller/supportGroups/supportGroupsList',"Support Groups List",$params);
     }
 
+
+    /*
+     * Function: callerLoadSupportGroupHomeMember
+     * Operation: get data from database to load support group member home page UI
+     * Parameter:
+     * Return:
+     *
+     * */
     public function callerLoadSupportGroupHomeMember()
     {
+        $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
+        //load upcoming events
+        //load members
+        $membeList =
         $this->setLayout('caller/supportGroupHomeMember');
         return $this->render('caller/supportGroups/memberSupportGroup');
     }
@@ -145,23 +165,13 @@ class SupportGroupController extends Controller
         }
     }
 
-    public function cancelSupportGroupJointRequest(Request $request)
-    {
-        $sgEnrollRequest = new SgEnroll();
-        if ($request->isPost()) {
-
-            if ($sgEnrollRequest->addRequest($request->getBody())) {
-
-            }
-            Application::$app->response->setRedirectUrl('/callerSupportGroupsList');
-        }
-    }
 
     public function cancelSupportGroupJoinRequest(Request $request)
     {
         $sgEnrollRequest = new SgEnroll();
         if ($request->isPost()) {
-
+            //check the state of request
+            //$sgEnrollRequest
             if ($sgEnrollRequest->removeRequest($request->getBody())) {
 
             }
