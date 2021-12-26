@@ -16,6 +16,6 @@ class DonateController extends \core\Controller
             $this->setLayout('user/visitorFunction');
         }
 
-        return $this->render('user/donate/donateForm');
+        return $this->render('user/donate/donateForm', 'Donate Form');
     }
 }

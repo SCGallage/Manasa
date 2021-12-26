@@ -28,13 +28,13 @@
                 <a href="/" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Service</a>
+                <a href="#services" class="nav-link">Service</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">About Us</a>
+                <a href="#about" class="nav-link">About Us</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Our Team</a>
+                <a href="#team" class="nav-link">Our Team</a>
             </li>
         </ul>
         <div class="button-container">

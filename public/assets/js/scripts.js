@@ -160,7 +160,23 @@ function popup(id, x) {
 
 //----------------------/popup function----------------------------------------------------------------
 
+//----------------------Custom Warning popup-----------------------------------------------------------
+/*
+    *Function customWarningPopup
+    *This function is used to show or hide custom warning popups
+*/
+var hiddenValues = 'nan';
+function customWarningPopup(id, title, subTitle, message, hiddenValues, link, x, method) {
+    let doc = document.getElementById(id);
+    let popup_title = document.getElementById('warning_title');
+    let popup_subtitle = document.getElementById('warning_subtitle');
+    let popup_message = document.getElementById('warning_message');
+    let popup_hidden = document.getElementById('warning_hidden');
+    let popup_link = document.getElementById('warning_link')
 
+}
+
+//----------------------/Custom Warning popup----------------------------------------------------------
 
 
 //----------------------Validate future date function--------------------------------------------------

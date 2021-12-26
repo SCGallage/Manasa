@@ -47,8 +47,8 @@
                            type="submit" value="View">
                 </form>
                 <form class="col-s-12 col-m-5 col-l-5 normal-card"
-                      action="/joinSupportGroup"
-                      method="post">
+                      action="/loadJoinRequestTimeSlots?sgId=<?php echo $row['id']?>"
+                      method="get">
                     <input type="hidden" value="<?php echo $_SESSION[CommonConstants::SESSION_USER_ID];?>" name="callerId">
                     <input type="hidden" value="<?php echo $row['id']?>" name="supportGroupId">
                     <input type="hidden" value="<?php echo CommonConstants::STATE_PENDING?>" name="state">
@@ -223,3 +223,5 @@
 
 </div>
 <!--/Cancel Request message popup-------------------------------------------------------------------->
+<?php include '../views/caller/callerAlert.php' ;
+echo getcwd();?>

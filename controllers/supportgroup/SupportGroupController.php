@@ -137,20 +137,20 @@ class SupportGroupController extends Controller
         //load upcoming events
         //load members
         $membeList =
-        $this->setLayout('caller/supportGroupHomeMember');
-        return $this->render('caller/supportGroups/memberSupportGroup');
+            $this->setLayout('caller/supportGroupHomeMember');
+        return $this->render('caller/supportGroups/memberSupportGroup', 'Support Group Home');
     }
 
     public function viewSupportGroupEvent()
     {
         $this->setLayout('caller/memberSupportGroupFunction');
-        return $this->render('caller/supportGroups/supportGroupEvent');
+        return $this->render('caller/supportGroups/supportGroupEvent', 'Support Group Event');
     }
 
     public function callerSupportGroupHomeVisitor()
     {
         $this->setLayout('caller/supportGroupHomeVisitor');
-        return $this->render('caller/supportGroups/visitorSupportGroup');
+        return $this->render('caller/supportGroups/visitorSupportGroup', 'Support Group Home');
     }
 
     public function callerJoinSupportGroup(Request $request)
@@ -177,5 +177,21 @@ class SupportGroupController extends Controller
             }
             Application::$app->response->setRedirectUrl('/callerSupportGroupsList');
         }
+    }
+
+
+    /*
+     * Function: loadJoinRequestTimeSlots
+     * Operation: Load timeslots for preliminary session for support group join
+     * Parameters: Request request
+     * Return:
+     *
+     * */
+    public function loadJoinRequestTimeSlots(Request $request)
+    {
+        $back =
+        $this->setLayout('caller/callerFunction');
+        return $this->render('caller/appointments/timeSlots', 'Time Slots');
+        print_r($request);
     }
 }

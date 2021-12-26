@@ -1,5 +1,5 @@
 <div class="col-l-12 col-m-12 col-s-12 bg-color-4">
-    <a href="/appointments">
+    <a href="<php echo $back;?>">
         <input class="bannerButton color-4 bg-color-5 card-align-right" type="button" value="Back">
     </a>
 

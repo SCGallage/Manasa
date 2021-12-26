@@ -187,8 +187,10 @@ $app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow'
 $app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
 $app->router->post('/joinSupportGroup', [SupportGroupController::class, 'callerJoinSupportGroup']);
 $app->router->post('/cancelSupportGroupJoinRequest', [SupportGroupController::class, 'cancelSupportGroupJoinRequest']);
+$app->router->get('/loadJoinRequestTimeSlots', [SupportGroupController::class, 'loadJoinRequestTimeSlots']);
 
 /* Visitor views*/
+$app->router->get('/callNowVisitor', [CallerAppointmentController::class, 'loadCallNow']);
 $app->router->get('/callNowVisitor', [CallerAppointmentController::class, 'loadCallNow']);
 
 /* Volunteer views */
