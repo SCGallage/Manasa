@@ -174,9 +174,9 @@ $app->router->get('/mod/UserRequestsDelete', [AdminController::class, 'ModUserRe
 /* Caller Views */
 $app->router->get('/callerHome', [CallerController::class, 'loadCallerHome', 'Caller']);
 $app->router->get('/callerSupportGroupsList', [SupportGroupController::class, 'callerLoadSupportGroupsList']);
-$app->router->get('/callerSupportGroupHomeMember', [SupportGroupController::class, 'callerLoadSupportGroupHomeMember']);
-$app->router->get('/callerSupportGroupHomeVisitor', [SupportGroupController::class, 'callerSupportGroupHomeVisitor']);
+$app->router->get('/callerSupportGroupHome', [SupportGroupController::class, 'supportGroupHome']);
 $app->router->get('/viewSupportGroupEvent', [SupportGroupController::class, 'viewSupportGroupEvent']);
+$app->router->get('/cancelSgEventParticipation', [SupportGroupController::class, 'cancelSgEventParticipation']);
 $app->router->get('/profile', [CallerController::class, 'loadCallerProfile']);
 $app->router->get('/updateProfile', [CallerController::class, 'loadUpdateCallerProfileForm']);
 $app->router->get('/appointments', [CallerAppointmentController::class, 'loadAppointmentsPage']);
@@ -185,9 +185,11 @@ $app->router->post('/appointmentInfo', [CallerAppointmentController::class, 'loa
 $app->router->get('/loadDonateForm', [DonateController::class, 'loadDonateForm']);
 $app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow']);
 $app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
-$app->router->post('/joinSupportGroup', [SupportGroupController::class, 'callerJoinSupportGroup']);
 $app->router->post('/cancelSupportGroupJoinRequest', [SupportGroupController::class, 'cancelSupportGroupJoinRequest']);
 $app->router->get('/loadJoinRequestTimeSlots', [SupportGroupController::class, 'loadJoinRequestTimeSlots']);
+$app->router->post('/loadJoinRequestTimeSlots', [SupportGroupController::class, 'loadJoinRequestTimeSlots']);
+$app->router->post('/completeSgJoinRequest', [SupportGroupController::class, 'callerJoinSupportGroup']);
+$app->router->post('/participateSgEvent', [SupportGroupController::class, 'participateSgEvent']);
 
 /* Visitor views*/
 $app->router->get('/callNowVisitor', [CallerAppointmentController::class, 'loadCallNow']);

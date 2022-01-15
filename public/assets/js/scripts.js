@@ -186,21 +186,16 @@ function customWarningPopup(id, title, subTitle, message, hiddenValues, link, x,
     * This function is used to check weather the entered date is future date.
 
 */
-function isFutureDate(id, message) {
+function isFutureDate(id, message, btnId) {
     let inputField = document.getElementById(id);
     let inputDay = new Date(inputField.value);
+    let submitBtn = document.getElementById('submitBtn');
     let today = new Date();
 
-    if (inputDay.getFullYear() >= today.getFullYear()) {
-        if (inputDay.getMonth() >= today.getMonth()) {
-            if (inputDay.getDay() <= today.getDay()) {
-                document.getElementById(message).style.display = "block";
-            } else {
-                document.getElementById(message).style.display = "none";
-            }
-        } else {
-            document.getElementById(message).style.display = "block";
-        }
+    //compare dates
+    if (inputDay.getTime() > today.getTime()){
+        document.getElementById(message).style.display = "none";
+        submitBtn.type = "submit";
     } else {
         document.getElementById(message).style.display = "block";
     }

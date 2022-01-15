@@ -5,10 +5,27 @@ namespace models\supportgroup;
 use core\DatabaseService;
 use core\Request;
 use core\Model;
+use util\CommonConstants;
 
 class SgEnroll extends Model
 {
-    private $table = "sg_enrollrequest";
+    private string $table = "sg_enrollrequest";
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /*
+     * Function: loadReservedTimeslotsByDate
+     * Operation: load reserved timeslots for a day
+     * Parameters: date value
+     * Return: array of timeslots data
+     *
+     * */
+    public function loadReservedTimeslotsByDate($date) {
+
+    }
 
     /*
      * Function: addRequest
@@ -17,7 +34,7 @@ class SgEnroll extends Model
      * Return:
      *
      * */
-    public function addRequest(array $supportGroupEnrollRequest)
+    public function addRequest(array $supportGroupEnrollRequest): bool|int
     {
         return $this->insert($this->table, $supportGroupEnrollRequest);
     }
@@ -29,9 +46,16 @@ class SgEnroll extends Model
      * Return:
      *
      * */
-    public function removeRequest(array $supportGroupEnrollRequest)
+    public function leaveSupportGroup(array $supportGroupEnrollRequest): bool|int
     {
-        return $this->delete($this->table, $supportGroupEnrollRequest);
+
+        $sql = "DELETE FROM ".$this->table."
+                WHERE supportGroupId=".$supportGroupEnrollRequest['supportGroupId']." AND 
+                      callerId=".$supportGroupEnrollRequest['callerId']." AND 
+                      state=".CommonConstants::STATE_PENDING;
+
+        return $this->customSqlQuery($sql, DatabaseService::FETCH_COUNT);
+
     }
 
     /*
@@ -41,7 +65,7 @@ class SgEnroll extends Model
      * Return: one support group join request record
      *
      * */
-    public function findSupportGroupRequestByIdAndState($userId, $sgId, $state)
+    public function findSupportGroupRequestByIdAndState($userId, $sgId, $state): array|bool|int
     {
         $sqlStatement = "SELECT * FROM sg_enrollrequest WHERE 
                                      supportGroupId = $sgId AND 
@@ -61,10 +85,29 @@ class SgEnroll extends Model
     * */
     public function findSupportGroupRequestById($userId, $sgId)
     {
-        $sqlStatement = "SELECT * FROM sg_enrollrequest WHERE 
-                                     supportGroupId = $sgId AND 
-                                     callerId = $userId";
+        $sqlStatement = "SELECT * 
+                         FROM sg_enrollrequest 
+                         WHERE supportGroupId = ".$sgId." AND 
+                               callerId = ".$userId;
         return $result = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
+    /*
+    * Function: getMemberListById
+    * Operation: find and return members of the support group
+    * Parameters: sgId(supportGroupId)
+    * Return: array of support member information
+    *
+    * */
+    public function getMemberListById($sgId): array|bool|int
+    {
+        $sqlStatement = "SELECT c.fname, c.lname 
+                         FROM sg_enrollrequest sge join caller c on sge.callerId = c.id
+                         WHERE sge.supportGroupId = ".$sgId." AND
+                               sge.state = ".CommonConstants::STATE_AVAILABLE;
+
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+
     }
 
 }

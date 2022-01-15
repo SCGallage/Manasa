@@ -1,6 +1,7 @@
 <?php
     use core\sessions\SessionManagement;
     use util\CommonConstants;
+
     ?>
 <!--Search Support Groups-------------------------------------------------------------------------------->
 <div class="col-s-12 col-m-12 col-l-12 shadow-1 normal-card sg-card-img-1">
@@ -41,11 +42,11 @@
             </div>
 
             <div class="col-s-12 col-m-4 col-l-4 normal-card">
-                <form class="col-s-12 col-m-6 col-l-6 normal-card" action="/callerSupportGroupHomeVisitor" method="get">
-                    <input type="hidden" value="1">
+                <a href="/callerSupportGroupHome?sgId=<?php echo $row['id']?>"
+                   class="col-s-12 col-m-6 col-l-6 normal-card">
                     <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
                            type="submit" value="View">
-                </form>
+                </a>
                 <form class="col-s-12 col-m-5 col-l-5 normal-card"
                       action="/loadJoinRequestTimeSlots?sgId=<?php echo $row['id']?>"
                       method="get">
@@ -88,11 +89,12 @@
                 </div>
 
                 <div class="col-s-12 col-m-4 col-l-4 normal-card">
-                    <form class="col-s-12 col-m-6 col-l-6 normal-card" action="/callerSupportGroupHomeVisitor" method="get">
-                        <input type="hidden" value="1">
+                    <a href="/callerSupportGroupHome?sgId=<?php echo $row['supportGroupId']?>"
+                       class="col-s-12 col-m-6 col-l-6 normal-card">
                         <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
                                type="submit" value="View">
-                    </form>
+                    </a>
+
                     <form class="col-s-12 col-m-5 col-l-5 normal-card" action="/cancelSupportGroupJoinRequest" method="post">
                         <input type="hidden"
                                name="supportGroupId"
@@ -102,9 +104,6 @@
                                name="callerId"
                                value="<?php echo $row['callerId']?>">
 
-                        <input type="hidden"
-                               name="state"
-                               value="<?php echo $row['state']?>">
 
                         <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-6 color-4 heading"
                                type="button"  value="Cancel"
@@ -173,11 +172,11 @@
             </div>
 
             <div class="col-s-12 col-m-4 col-l-4 normal-card">
-                <form class="col-s-12 col-m-6 col-l-6 card-align-right normal-card" action="/callerSupportGroupHomeMember" method="get">
-                    <input type="hidden" value="1">
+                <a href="/callerSupportGroupHome?sgId=<?php echo $row['supportGroupId']?>"
+                   class="col-s-12 col-m-6 col-l-6 normal-card card-align-right">
                     <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
                            type="submit" value="View">
-                </form>
+                </a>
             </div>
         </div>
         <?php
@@ -195,33 +194,4 @@
 <!--/My Support Groups----------------------------------------------------------------------------------->
 
 
-<!--Popups------------------------------------------------------------------------------------------------>
-<!--Cancel Request message popup--------------------------------------------------------------------->
-<div id="requestPopup" class="col-s-7 col-m-8 col-l-6 popup-card list-card shadow-2 border-color-1 bg-color-4">
-    <h2 class="col-s-12 col-m-12 col-l-12 text-center heading color-6">
-        Your Appointment will be canceled!!
-    </h2>
-    <h4 class="col-s-12 col-m-12 col-l-12 text-center heading color-1">
-        Do you really want to continue?<br>
-        Your appointment will be deleted once you click "Confirm" button.<br>
-        You can cancel this process by clicking "Cancel" button.
-    </h4>
 
-    <div class="col-s-0 col-m-1 col-l-2 color-0">.</div>
-    <input class="col-s-12 col-m-5 col-l-4 bannerButton color-4 normal-text bg-color-5"
-           type="button"
-           onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_HIDE; ?>)"
-           value="Cancel">
-
-    <a href="">
-        <input class="col-s-12 col-m-5 col-l-4 bannerButton color-4 normal-text bg-color-6"
-               type="button"
-               onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_HIDE; ?>)"
-               value="Confirm">
-    </a>
-    <div class="col-s-0 col-m-1 col-l-2 color-0">.</div>
-
-</div>
-<!--/Cancel Request message popup-------------------------------------------------------------------->
-<?php include '../views/caller/callerAlert.php' ;
-echo getcwd();?>

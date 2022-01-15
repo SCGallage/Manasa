@@ -20,9 +20,10 @@
             <option class="bg-color-1 color-4 heading" value="whatsappv">WhatsApp Video Call</option>
         </select>
         <input class="col-s-12 col-m-8 col-l-6 form-button border-color-1 bg-color-1 color-4"
-               type="submit"
+               type="button"
+               id="submitBtn"
                value="Select Time"
-               onclick="isFutureDate('appointment_date', 'dateError')">
+               onclick="isFutureDate('appointment_date', 'dateError', 'submitBtn')">
     </form>
     <img class="col-s-0 col-m-6 col-l-6 flex-div" src="../../assets/img/Manasa/quests/quests-befriending.png" alt="">
 </div>

@@ -13,14 +13,11 @@
 <div id="top" class="mainContainer col-l-12 col-m-12 col-s-12">
 <?php
     include '../views/components/header_caller_function.php';
-    include '../views/components/banner_caller_support_group_home.php';
+    //include '../views/components/banner_caller_support_group_home.php';
 ?>
 
     {{content}}
-<?php
-    include '../views/components/about_support_group.php';
-    include '../views/components/team_support_group_home.php';
-?>
+
 </div>
 
 <?php include "../views/components/footer_client.php"; ?>
