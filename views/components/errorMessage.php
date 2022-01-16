@@ -1,7 +1,7 @@
 <?php
     use \util\CommonConstants;
     $titleColor = "color-6";
-    //print_r($params);
+    //print_r($params['res']);
     if ($params['messageType'] == CommonConstants::MESSAGE_TYPE_SUCCESS) $titleColor = "color-1";
 ?>
 
@@ -21,8 +21,13 @@
 
         //check array empty or not
         if (!empty($params['request'])){
+            $i = 0;
             foreach ($params['request'] as $key => $value) {
-                $tailLink = $tailLink."?".$key."=".$value;
+                if ($i == 0){
+                    $tailLink = $tailLink."?".$key."=".$value;
+                    continue;
+                }
+                $tailLink = $tailLink."&".$key."=".$value;
             }
         }
     ?>

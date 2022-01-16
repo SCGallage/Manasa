@@ -66,58 +66,65 @@ class SupportGroupController extends Controller
         $requests = array();
         $mySupportGroups = array();
         $availableSupportGroups = array();
+        $keys = array();
 
-        //loop to set request and mySupportGroups arrays
-        foreach ($results as $row) {
+        //filter support groups
+        foreach ($supportGroups as $sg){
 
-            $state = $row['state'];
-            //check for requests
-            if ($state == CommonConstants::STATE_PENDING) {
-                array_push($requests, $row);
-                continue;
-            }
-            //check for user's support groups
-            if ($state == CommonConstants::STATE_ACCEPTED) {
-                array_push($mySupportGroups, $row);
-            }
 
-        }
+            foreach ($results as $result){
+                if ($sg['id'] == $result['supportGroupId']){
+                    if ($result['state'] == CommonConstants::STATE_PENDING){
+                        array_push($requests, $sg);
+                    }
 
-        //loop for available support groups array
-        foreach ($supportGroups as $row) {
+                    if ($result['state'] == CommonConstants::STATE_ACCEPTED){
+                        array_push($mySupportGroups, $sg);
+                    }
 
-            $supportGroupId = intval($row['id']);
-
-            $check = 0; // value 0 -> record not found value 1 -> record found
-
-            // check in requests list
-            foreach($requests as $req_row) {
-                if (intval($req_row['supportGroupId']) === $supportGroupId) {
-                    $check = 1;
+                    array_push($keys, array_keys($supportGroups, $sg, true));
                     break;
                 }
             }
 
-            //check in mySupporGroups list
-            if ($check === 0) {
-                foreach ($mySupportGroups as $mysg_row) {
-                    if (intval($mysg_row['supportGroupId']) === $supportGroupId) {
-                        $check = 1;
-                        break;
+        }
+
+        //clear support groups
+        if (!empty($supportGroups)){
+            if (!empty($requests)){
+                foreach ($requests as $r){
+                    $check = 0;
+                    foreach ($supportGroups as $sg){
+                        if ($r['id'] == $sg['id']){
+                            $check = array_keys($supportGroups,$sg,true);
+                            break;
+                        }
                     }
+
+                    if ($check != 0) unset($supportGroups[$check[0]]);
                 }
             }
 
-            //if Support group not found in above arrays
-            if ($check === 0) {
-                array_push($availableSupportGroups, $row);
-            }
+            if (!empty($supportGroups) && !empty($mySupportGroups)){
+                foreach ($mySupportGroups as $msg){
+                    $check = 0;
+                    foreach ($supportGroups as $sg){
+                        if ($msg['id'] == $sg['id']){
+                            $check = array_keys($supportGroups,$sg,true);
+                            break;
+                        }
+                    }
 
+                    if ($check != 0) unset($supportGroups[$check[0]]);
+                }
+            }
         }
+
+
 
         $params = [
             'requests' => $requests,
-            'availableSupportGroups' =>$availableSupportGroups,
+            'availableSupportGroups' =>$supportGroups,
             'mySupportGroups' => $mySupportGroups,
             'viewType' => 'sgList'
         ];
@@ -224,7 +231,7 @@ class SupportGroupController extends Controller
                 'request' => ['sgId' => $requestBody['sgId']],
                 'title' => "Cannot remove your participation.",
                 'message' => 'Remove participation failed.',
-                'messageType' => CommonConstants::MESSAGE_TYPE_SUCCESS,
+                'messageType' => CommonConstants::MESSAGE_TYPE_ERROR,
                 'link' => '/callerSupportGroupHome',
                 'linkType' => CommonConstants::LINK_TYPE_GET,
             ];
@@ -376,8 +383,6 @@ class SupportGroupController extends Controller
 
             $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
             $requestBody = $request->getBody();
-            //set user id
-            $requestBody['callerId'] = $userId;
             $sgEnrollRequest = new SgEnroll();
             $callerAppointment = new CallerAppointment();
 
@@ -393,41 +398,15 @@ class SupportGroupController extends Controller
 
             //get support group join request
             $sg_join_request = $sgEnrollRequest->findSupportGroupRequestById($userId, $requestBody['supportGroupId']);
-
             //check results
-            if (!empty($sg_join_request)){
-                $meetingId = -1;
-                $timeslotId = -1;
+            if (!empty($sg_join_request) && sizeof($sg_join_request)){
 
-                foreach ($sg_join_request as $row) {
-                    //check join request state
-                    if ($row['state'] == CommonConstants::STATE_PENDING) {
-                        $meeting = intval($row['meeting']);
+                //check join request state
+                if ($sg_join_request[0]['state'] == CommonConstants::STATE_PENDING) {
+                    $meetingId = intval($sg_join_request[0]['meeting']);
 
-                        if ($meeting > -1) {
-                            //get timeslot id
-                            $meeting = $callerAppointment->getMeetingByID($meeting);
-
-                            if (!empty($meeting)) {
-                                foreach ($meeting as $row) {
-                                    //check meeting state
-                                    if ($row['state'] == CommonConstants::STATE_PENDING) {
-                                        $timeslotId = intval($row['timeslotId']);
-                                        $meetingId = intval($row['id']);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    }
-                }
-
-                if ($timeslotId > -1 && $meetingId > -1) {
-
-                    $params['request'] = $requestBody;
-
-                    if ($callerAppointment->cancelMeeting($timeslotId, $meetingId)) {
+                    //cancel appointment
+                    if ($callerAppointment->cancelMeeting($meetingId)) {
                         //success message
                         $params = [
                             'request' => $requestBody,
@@ -438,14 +417,54 @@ class SupportGroupController extends Controller
                             'linkType' => CommonConstants::LINK_TYPE_GET,
                         ];
                     }
-
-
                 }
+
             }
 
             $this->setLayout('caller/callerFunction');
             return $this->render('components/errorMessage', 'test',$params);
         }
+    }
+
+    /*
+     * Function: leveSupportGroup
+     * Operation: remove approved support group join request
+     * Parameter: Request object
+     * Return:
+     *
+     * */
+    public function leaveSupportGroup(Request $request): array|bool|string
+    {
+
+        $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
+        $requestBody = $request->getBody();
+        $sgId = $requestBody['sgId'];
+        $sgEnroll = new SgEnroll();
+
+        //default error message
+        $params = [
+            'request' => $requestBody,
+            'title' => "Error!.",
+            'message' => 'Failed to leave support group.',
+            'messageType' => CommonConstants::MESSAGE_TYPE_ERROR,
+            'link' => '/callerSupportGroupHome',
+            'linkType' => CommonConstants::LINK_TYPE_GET,
+        ];
+
+        if ($sgEnroll->leaveSupportGroup($sgId,$userId)){
+            $params = [
+                'request' => $requestBody,
+                'title' => "You left the support group!.",
+                'message' => 'You successfully left the support group.',
+                'messageType' => CommonConstants::MESSAGE_TYPE_SUCCESS,
+                'link' => '/callerSupportGroupHome',
+                'linkType' => CommonConstants::LINK_TYPE_GET,
+            ];
+        }
+
+        $this->setLayout('caller/callerFunction');
+        return $this->render('components/errorMessage', 'test',$params);
+
     }
 
 
@@ -521,5 +540,73 @@ class SupportGroupController extends Controller
 
         $this->setLayout('caller/callerFunction');
         return $this->render('caller/appointments/timeSlots', 'Time Slots',$params);
+    }
+
+    public function searchSg(Request $request){
+        $supportGroup = new SupportGroup();
+        $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
+        $searchResults = $supportGroup->searchSg($request->getBody()['searchKey']);
+        $requests = $supportGroup->findAllSupportGroupsWithRequestsByUserId($userId);
+
+        $mySupportGroups = array();
+        $myRequests = array();
+        $myResults = array();
+
+        //filter results
+        if (!empty($requests) && !empty($searchResults)){
+
+            foreach ($requests as $row){
+                foreach ($searchResults as $result){
+                    //request found
+                    if ($result['id'] == $row['supportGroupId']){
+                        if ($row['state'] == CommonConstants::STATE_ACCEPTED){
+                            array_push($mySupportGroups, $result);
+                        } else if ($row['state'] == CommonConstants::STATE_PENDING){
+                            array_push($myRequests, $result);
+                        }
+                    }
+
+                }
+            }
+
+            //set my results
+            foreach ($searchResults as $sr){
+                $check = 0;
+                if (!empty($myRequests)){
+                    foreach ($myRequests as $mr){
+                        if ($sr['id'] == $mr['id']){
+                            $check = 1;
+                            break;
+                        }
+                    }
+                }
+
+                if ($check == 0 && !empty(!$mySupportGroups)){
+                    foreach ($mySupportGroups as $ms){
+                        if ($sr['id'] == $ms['id']){
+                            $check = 1;
+                            break;
+                        }
+                    }
+                }
+
+                if ($check == 0){
+                    array_push($myResults, $sr);
+                }
+            }
+        }
+
+
+        $params = [
+            "results" => $myResults,
+            "mySupportGroups" => $mySupportGroups,
+            "requests" => $myRequests,
+            "userId" => $userId,
+            "viewType" => "searchSg"
+        ];
+
+        $this->setLayout('caller/callerFunction');
+        return $this->render('caller/supportGroups/supportGroupsList',"Support Groups List",$params);
+
     }
 }

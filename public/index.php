@@ -189,7 +189,9 @@ $app->router->post('/cancelSupportGroupJoinRequest', [SupportGroupController::cl
 $app->router->get('/loadJoinRequestTimeSlots', [SupportGroupController::class, 'loadJoinRequestTimeSlots']);
 $app->router->post('/loadJoinRequestTimeSlots', [SupportGroupController::class, 'loadJoinRequestTimeSlots']);
 $app->router->post('/completeSgJoinRequest', [SupportGroupController::class, 'callerJoinSupportGroup']);
+$app->router->get('/leaveSupportGroup', [SupportGroupController::class, 'leaveSupportGroup']);
 $app->router->post('/participateSgEvent', [SupportGroupController::class, 'participateSgEvent']);
+$app->router->post('/searchSg', [SupportGroupController::class, 'searchSg']);
 
 /* Visitor views*/
 $app->router->get('/callNowVisitor', [CallerAppointmentController::class, 'loadCallNow']);

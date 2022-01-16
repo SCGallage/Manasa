@@ -1,7 +1,7 @@
 <?php
 
 use util\CommonConstants;
-echo getcwd()."<br>";
+//echo getcwd()."<br>";
 //print_r($params['sg']);
 
 ?>
@@ -27,21 +27,56 @@ echo getcwd()."<br>";
         <?php
         if ($params['viewType'] == CommonConstants::USER_TYPE_NORMAL_CALLER) {
             ?>
-            <a class="link-text" href="#">
+
                 <input class="col-s-12 col-m-2 col-l-2 bannerButton bg-color-6 color-4 border-color-4 heading  card-align-right"
-                       type="button" value="Leave Group">
-            </a>
+                       type="button" value="Leave Group"
+                       onclick="popup('leaveWarning',
+                                        <?php echo CommonConstants::POPUP_SHOW; ?>)">
+
+            <!--Leave Support Group message popup--------------------------------------------------------------------->
+            <div id="leaveWarning" class="col-s-7 col-m-8 col-l-6 popup-card list-card shadow-2 border-color-1 bg-color-4">
+                <h2 class="col-s-12 col-m-12 col-l-12 text-center heading color-6">
+                    Your Support Group membership will be canceled!!
+                </h2>
+                <h4 class="col-s-12 col-m-12 col-l-12 text-center heading color-1">
+                    Do you really want to continue?<br>
+                    Your request will be removed from <?php echo $params['sg'][0]['name']?> once you click "Confirm" button.<br>
+                    You can cancel this process by clicking "Cancel" button.
+                </h4>
+
+                <div class="col-s-0 col-m-1 col-l-2 color-0">.</div>
+                <input class="col-s-12 col-m-5 col-l-4 bannerButton color-4 normal-text bg-color-5"
+                       type="button"
+                       onclick="popup('leaveWarning',
+                       <?php echo CommonConstants::POPUP_HIDE; ?>)"
+                       value="Cancel">
+
+                <a class="link-text" href="/leaveSupportGroup?sgId=<?php echo $params['sg'][0]['id']?>">
+                    <input class="col-s-12 col-m-5 col-l-4 bannerButton color-4 normal-text bg-color-6"
+                           type="submit"
+                           onclick="popup('requestPopup', <?php echo CommonConstants::POPUP_HIDE; ?>)"
+                           value="Confirm">
+                </a>
+                <div class="col-s-0 col-m-1 col-l-2 color-0">.</div>
+
+            </div>
+            <!--/Leave Support Group message popup-------------------------------------------------------------------->
 
             <a class="link-text" href="#members">
                 <input class="col-s-12 col-m-2 col-l-2 bannerButton bg-color-1 color-4 border-color-4 heading  card-align-right"
                        type="button" value="Members">
             </a>
 
-            <a class="link-text" href="#events">
-                <input class="col-s-12 col-m-2 col-l-2 bannerButton bg-color-1 color-4 border-color-4 heading  card-align-right"
-                       type="button" value="Events">
-            </a>
             <?php
+            if (array_key_exists('events', $params) && !empty($params['events'])){
+                ?>
+                <a class="link-text" href="#events">
+                    <input class="col-s-12 col-m-2 col-l-2 bannerButton bg-color-1 color-4 border-color-4 heading  card-align-right"
+                           type="button" value="Events">
+                </a>
+                <?php
+            }
+
         }
         ?>
 
@@ -148,6 +183,7 @@ if ($params['viewType'] == CommonConstants::USER_TYPE_NORMAL_CALLER && array_key
                         <input class="col-s-12 col-m-12 col-l-12 bannerButton bg-color-2 color-1 heading"
                                type="button" value="View">
                     </a>
+
                 </div>
             </div>
 

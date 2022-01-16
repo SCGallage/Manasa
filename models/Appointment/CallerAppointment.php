@@ -112,26 +112,35 @@ class CallerAppointment extends Model
     /*
      * Function: cancelMeeting
      * Operation: Cancel reserved meetings for callers
-     * Parameter: request array
+     * Parameter: meeting id
      * Return: bool or int value
      *
      * */
-    public function cancelMeeting($timeslotId, $meetingId): bool|int
+    public function cancelMeeting($meetingId): bool|int
     {
-        $sql = "delete from ".$this->meeting_table." where id = $meetingId and state = ".CommonConstants::STATE_PENDING;
-        //delete meeting
-        //$conditions = array("id = ".$meetingId, "state = ".CommonConstants::STATE_PENDING);
+        //get timeslot
+        $meeting = $this->getMeetingByID($meetingId);
 
-        if ($this->customSqlQuery($sql,DatabaseService::FETCH_COUNT == 1)){//$this->delete($this->meeting_table, $conditions)){
-            //update timeslot
-            $sqlStatement = "UPDATE ".$this->timeslot_table." 
+        if (!empty($meeting) && sizeof($meeting) == 1){
+            $timeslotId = $meeting[0]['timeslotId'];
+
+            if ($timeslotId >= 0){
+                //delete meeting
+                $sql = "delete from ".$this->meeting_table." where id = ".$meetingId." and state = ".CommonConstants::STATE_PENDING;
+                if ($this->customSqlQuery($sql,DatabaseService::FETCH_COUNT == 1)){//$this->delete($this->meeting_table, $conditions)){
+                    //update timeslot
+                    $sqlStatement = "UPDATE ".$this->timeslot_table." 
                              SET num_reservations = num_reservations - 1
                              WHERE timeslotId =".$timeslotId." AND
                                    num_reservations > 0";
 
-            return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
+                    return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
 
+                }
+            }
         }
+
+
 
         return false;
     }
@@ -145,8 +154,8 @@ class CallerAppointment extends Model
      * */
     public function getMeetingByID($meetingId): array|int
     {
-        $conditions = array("id=".$meetingId);
-        return $this->select($this->meeting_table, "*", $conditions, DatabaseService::FETCH_ALL);
+        $sqlStatement = "SELECT * FROM ".$this->meeting_table." WHERE id = ".$meetingId;
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
     /*

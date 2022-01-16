@@ -16,16 +16,6 @@ class SgEnroll extends Model
         parent::__construct();
     }
 
-    /*
-     * Function: loadReservedTimeslotsByDate
-     * Operation: load reserved timeslots for a day
-     * Parameters: date value
-     * Return: array of timeslots data
-     *
-     * */
-    public function loadReservedTimeslotsByDate($date) {
-
-    }
 
     /*
      * Function: addRequest
@@ -46,13 +36,15 @@ class SgEnroll extends Model
      * Return:
      *
      * */
-    public function leaveSupportGroup(array $supportGroupEnrollRequest): bool|int
+    public function leaveSupportGroup($sgId, $userId): bool|int
     {
+//        return $this->delete($this->table,
+//                        array("supportGroupId= $sgId", "callerId = $userId", "state = ".CommonConstants::STATE_ACCEPTED));
 
         $sql = "DELETE FROM ".$this->table."
-                WHERE supportGroupId=".$supportGroupEnrollRequest['supportGroupId']." AND 
-                      callerId=".$supportGroupEnrollRequest['callerId']." AND 
-                      state=".CommonConstants::STATE_PENDING;
+                WHERE supportGroupId=".$sgId." AND
+                      callerId=".$userId." AND
+                      state=".CommonConstants::STATE_ACCEPTED;
 
         return $this->customSqlQuery($sql, DatabaseService::FETCH_COUNT);
 

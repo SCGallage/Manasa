@@ -223,6 +223,15 @@ class SupportGroup extends Model
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
+    public function searchSg($key): array|bool|int
+    {
+        $sqlStatement = "SELECT *
+                         FROM supportgroup
+                         WHERE supportgroup.name LIKE '%".$key."%' OR
+                               supportgroup.type LIKE '%".$key."%'";
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
     public function __construct()
     {
         parent::__construct();
