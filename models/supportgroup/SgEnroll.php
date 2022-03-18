@@ -75,13 +75,27 @@ class SgEnroll extends Model
     * Return: one support group join request record
     *
     * */
-    public function findSupportGroupRequestById($userId, $sgId)
+    public function findSupportGroupRequestById($userId, $sgId): array|bool|int
     {
         $sqlStatement = "SELECT * 
                          FROM sg_enrollrequest 
                          WHERE supportGroupId = ".$sgId." AND 
                                callerId = ".$userId;
         return $result = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
+    /*
+    * Function: getSgRequestsByMember
+    * Operation: find support group join requests from sg_enrollrequest using given user id
+    * Parameters: userId(callerId)
+    * Return: support group join requests
+    *
+    * */
+    public function getSgRequestsByMember($userId): array|int
+    {
+        return $this->select($this->table,
+                        "*", array("callerId = ".$userId),
+                    DatabaseService::FETCH_ALL);
     }
 
     /*

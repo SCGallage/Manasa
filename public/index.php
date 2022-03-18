@@ -180,8 +180,8 @@ $app->router->get('/cancelSgEventParticipation', [SupportGroupController::class,
 $app->router->get('/profile', [CallerController::class, 'loadCallerProfile']);
 $app->router->get('/updateProfile', [CallerController::class, 'loadUpdateCallerProfileForm']);
 $app->router->get('/appointments', [CallerAppointmentController::class, 'loadAppointmentsPage']);
-$app->router->post('/appointmentLink', [CallerAppointmentController::class, 'loadAppointmentLink']);
-$app->router->post('/appointmentInfo', [CallerAppointmentController::class, 'loadAppointmentInfo']);
+$app->router->get('/appointmentLink', [CallerAppointmentController::class, 'loadAppointmentLink']);
+$app->router->get('/appointmentInfo', [CallerAppointmentController::class, 'loadAppointmentInfo']);
 $app->router->get('/loadDonateForm', [DonateController::class, 'loadDonateForm']);
 $app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow']);
 $app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
@@ -192,6 +192,8 @@ $app->router->post('/completeSgJoinRequest', [SupportGroupController::class, 'ca
 $app->router->get('/leaveSupportGroup', [SupportGroupController::class, 'leaveSupportGroup']);
 $app->router->post('/participateSgEvent', [SupportGroupController::class, 'participateSgEvent']);
 $app->router->post('/searchSg', [SupportGroupController::class, 'searchSg']);
+$app->router->post('/reserveMeeting', [CallerAppointmentController::class, 'reserveMeeting']);
+$app->router->post('/cancelMeeting', [CallerAppointmentController::class, 'cancelMeeting']);
 
 /* Visitor views*/
 $app->router->get('/callNowVisitor', [CallerAppointmentController::class, 'loadCallNow']);

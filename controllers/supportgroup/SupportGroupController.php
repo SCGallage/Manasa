@@ -180,7 +180,8 @@ class SupportGroupController extends Controller
         return $this->render('caller/supportGroups/supportGroupEvent', 'Support Group Event', $params);
     }
 
-    public function participateSgEvent(Request $request){
+    public function participateSgEvent(Request $request): array|bool|string
+    {
 
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $requestBody = $request->getBody();
@@ -208,11 +209,12 @@ class SupportGroupController extends Controller
         }
 
         $this->setLayout('caller/callerFunction');
-        return $this->render('components/errorMessage', 'test',$params);
+        return $this->render('components/errorMessage', 'Manasa',$params);
 
     }
 
-    public function cancelSgEventParticipation(Request $request){
+    public function cancelSgEventParticipation(Request $request): array|bool|string
+    {
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $supportGroup = new SupportGroup();
         $requestBody = $request->getBody();
@@ -238,7 +240,7 @@ class SupportGroupController extends Controller
         }
 
         $this->setLayout('caller/callerFunction');
-        return $this->render('components/errorMessage', 'test',$params);
+        return $this->render('components/errorMessage', 'Manasa',$params);
     }
 
     /*
@@ -359,7 +361,7 @@ class SupportGroupController extends Controller
                 ];
 
                 $this->setLayout('caller/callerFunction');
-                return $this->render('components/errorMessage', 'test',$params);
+                return $this->render('components/errorMessage', 'Manasa',$params);
 
             }
 
@@ -422,7 +424,7 @@ class SupportGroupController extends Controller
             }
 
             $this->setLayout('caller/callerFunction');
-            return $this->render('components/errorMessage', 'test',$params);
+            return $this->render('components/errorMessage', 'Manasa',$params);
         }
     }
 
@@ -463,7 +465,7 @@ class SupportGroupController extends Controller
         }
 
         $this->setLayout('caller/callerFunction');
-        return $this->render('components/errorMessage', 'test',$params);
+        return $this->render('components/errorMessage', 'Manasa',$params);
 
     }
 
@@ -517,7 +519,7 @@ class SupportGroupController extends Controller
                     ];
 
                     $this->setLayout('caller/callerFunction');
-                    return $this->render('components/errorMessage', 'test',$params);
+                    return $this->render('components/errorMessage', 'Manasa',$params);
                 }
             } else if ($limitCheck == -1) {
                 //schedule not found
@@ -533,7 +535,7 @@ class SupportGroupController extends Controller
                 ];
 
                 $this->setLayout('caller/callerFunction');
-                return $this->render('components/errorMessage', 'test',$params);
+                return $this->render('components/errorMessage', 'Manasa',$params);
             }
 
         }
@@ -542,7 +544,15 @@ class SupportGroupController extends Controller
         return $this->render('caller/appointments/timeSlots', 'Time Slots',$params);
     }
 
-    public function searchSg(Request $request){
+    /*
+     * Function: searchSg
+     * Operation: Load support groups suing given keyword
+     * Parameters: Request request
+     * Return: support groups list
+     *
+     * */
+    public function searchSg(Request $request): array|bool|string
+    {
         $supportGroup = new SupportGroup();
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $searchResults = $supportGroup->searchSg($request->getBody()['searchKey']);

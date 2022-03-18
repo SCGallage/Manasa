@@ -154,7 +154,59 @@ class CallerAppointment extends Model
      * */
     public function getMeetingByID($meetingId): array|int
     {
-        $sqlStatement = "SELECT * FROM ".$this->meeting_table." WHERE id = ".$meetingId;
+        $sqlStatement = "SELECT meeting.id,
+                                meeting.date 'date_reserved',
+                                meeting.time 'time_reserved',
+                                meeting.state,
+                                meeting.timeslotId,
+                                meeting.callerId,
+                                meeting.meeting_type,
+                                meeting.virtual_meeting,
+                                meeting.contact,
+                                t.startTime 'startTime',
+                                t.endTime 'endTime',
+                                s.date 'date'
+                        FROM meeting JOIN timeslot t ON t.timeslotId = meeting.timeslotId JOIN 
+                             shift s ON s.shiftId = t.shiftId 
+                        WHERE meeting.id = ".$meetingId;
+
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
+    /*
+     * Function: getAllMeetingsByUser
+     * Operation: Get all meeting data by using user id and date
+     * Parameter: user id
+     * Return: array or int
+     *
+     * */
+    public function getAllMeetingsByUser($userId): array|int
+    {
+        //delete old pending appointments
+        $sqlStatement = "DELETE FROM meeting 
+                         WHERE id IN (SELECT m.id FROM meeting m
+                                        LEFT JOIN timeslot t ON m.timeslotId = t.timeslotId
+                                        LEFT JOIN shift s ON s.shiftId = t.shiftId
+                                      WHERE s.date < DATE (NOW()) AND m.state = ".CommonConstants::STATE_PENDING.")";
+
+        $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
+
+        $sqlStatement = "SELECT m.id, 
+                                m.state, 
+                                m.timeslotId, 
+                                m.callerId, 
+                                m.meeting_type, 
+                                t.startTime, 
+                                t.endTime, 
+                                t.shiftId, 
+                                s.date
+                         FROM meeting m 
+                             LEFT JOIN timeslot t 
+                             on m.timeslotId = t.timeslotId 
+                             LEFT JOIN shift s 
+                                 on t.shiftId = s.shiftId
+                         WHERE m.callerId = ".$userId;
+
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
