@@ -84,7 +84,7 @@ class CallerAppointmentController extends \core\Controller
      * Return: array, boolean, or string
      *
      * */
-    public function loadAppointmentLink(Request $request): array|bool|string
+    public function loadAppointmentById(Request $request): array|bool|string
     {
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $requestBody = $request->getBody();
@@ -93,10 +93,11 @@ class CallerAppointmentController extends \core\Controller
         $appointmentInfo = $callerAppointment->getMeetingByID($appointmentId);
         $params = [
             'appointmentInfo' => $appointmentInfo,
-            'userId' => $userId
+            'userId' => $userId,
+            'request' => $requestBody
             ];
         $this->setLayout('caller/callerFunction');
-        return $this->render('caller/appointments/appointmentGetLink', 'Caller | Get Link', $params);
+        return $this->render('caller/appointments/appointmentGetInfo', 'Caller | Appointment', $params);
     }
 
     public function loadAppointmentInfo(Request $request): array|bool|string
@@ -212,5 +213,7 @@ class CallerAppointmentController extends \core\Controller
         $this->setLayout('caller/callerFunction');
         return $this->render('components/errorMessage', 'Manasa',$params);
     }
+
+
 
 }

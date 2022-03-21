@@ -172,7 +172,7 @@ $app->router->get('/mod/UserRequestsDelete', [AdminController::class, 'ModUserRe
 
 
 /* Caller Views */
-$app->router->get('/callerHome', [CallerController::class, 'loadCallerHome', 'Caller']);
+$app->router->get('/callerHome', [CallerController::class, 'loadCallerHome']);
 $app->router->get('/callerSupportGroupsList', [SupportGroupController::class, 'callerLoadSupportGroupsList']);
 $app->router->get('/callerSupportGroupHome', [SupportGroupController::class, 'supportGroupHome']);
 $app->router->get('/viewSupportGroupEvent', [SupportGroupController::class, 'viewSupportGroupEvent']);
@@ -180,8 +180,8 @@ $app->router->get('/cancelSgEventParticipation', [SupportGroupController::class,
 $app->router->get('/profile', [CallerController::class, 'loadCallerProfile']);
 $app->router->get('/updateProfile', [CallerController::class, 'loadUpdateCallerProfileForm']);
 $app->router->get('/appointments', [CallerAppointmentController::class, 'loadAppointmentsPage']);
-$app->router->get('/appointmentLink', [CallerAppointmentController::class, 'loadAppointmentLink']);
-$app->router->get('/appointmentInfo', [CallerAppointmentController::class, 'loadAppointmentInfo']);
+$app->router->get('/appointmentLink', [CallerAppointmentController::class, 'loadAppointmentById']);
+$app->router->get('/appointmentInfo', [CallerAppointmentController::class, 'loadAppointmentById']);
 $app->router->get('/loadDonateForm', [DonateController::class, 'loadDonateForm']);
 $app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow']);
 $app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
@@ -201,9 +201,11 @@ $app->router->get('/callNowVisitor', [CallerAppointmentController::class, 'loadC
 
 /* Volunteer views */
 $app->router->get('/volunteerHome', [VolunteerController::class, 'loadVolunteerHome']);
+$app->router->get('/participateVolunteerEvent', [VolunteerController::class, 'participateVolunteerEvent']);
+$app->router->get('/cancelParticipationVolunteerEvent', [VolunteerController::class, 'cancelEventParticipation']);
 $app->router->get('/volunteerProfile', [VolunteerController::class, 'loadVolunteerProfile']);
 $app->router->get('/updateVolunteerProfile', [VolunteerController::class, 'loadVolunteerProfileUpdateForm']);
-$app->router->get('/volunteerEvents', [VolunteerController::class, 'loadVolunteerEvents']);
+$app->router->get('/volunteerParticipatedEvents', [VolunteerController::class, 'loadParticipatedEvents']);
 
 
 

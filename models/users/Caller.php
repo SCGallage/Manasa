@@ -2,6 +2,7 @@
 
 namespace models\users;
 
+use core\DatabaseService;
 use core\Model;
 
 class Caller extends Model
@@ -18,9 +19,17 @@ class Caller extends Model
         $this->insert( "caller",[
             "id" => $caller['lastId'],
             "fname" => $caller['fname'],
-            "lname" => $caller['lname'],
+            "lname" => $caller['lname'],-
             "type" => $caller['usertype'],
         ]);
+    }
+
+    public function loadCallerInfo($userId): int|array
+    {
+        $conditions = [
+            'id' => $userId
+        ];
+        return $this->select('user', ['*'], $conditions, DatabaseService::FETCH_ALL);
     }
 
 }

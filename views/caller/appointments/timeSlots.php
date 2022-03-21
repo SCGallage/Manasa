@@ -35,11 +35,19 @@
 
     //print_r($params['timeSlots']);
 
-    if (array_key_exists('chances', $params)){
-?>
-<div class="col-s-12 col-m-12 col-l-12 normal-card text-center">
-    <h2 class="heading color-5">You have <?php echo $params['chances']?> meeting reservations left.</h2>
-</div>
+    if (array_key_exists('chances', $params) ||
+        array_key_exists(CommonConstants::VIEW_TYPE, $params) && $params[CommonConstants::VIEW_TYPE] == 'sg_join_meeting'){
+
+        if (array_key_exists('chances', $params)){
+            ?>
+            <div class="col-s-12 col-m-12 col-l-12 normal-card text-center">
+                <h2 class="heading color-5">You have
+                    <?php echo $params['chances']?> meeting reservations left.</h2>
+            </div>
+            <?php
+        }
+        ?>
+
 
         <div class="col-l-12 col-m-12 col-s-12 bg-color-4">
 

@@ -10,6 +10,7 @@ class CommonConstants
     //States-------------------------------------------
     const STATE_PENDING = 0;
     const STATE_ACCEPTED = 1;
+    const STATE_FINISHED = 1;
     const STATE_REJECTED = 2;
     const STATE_AVAILABLE = 1;
     const STATE_NOT_AVAILABLE = 0;
@@ -17,6 +18,7 @@ class CommonConstants
     //Volunteer event types
     const VOLUNTEER_EVENT_TYPE_OPEN = 1;
     const VOLUNTEER_EVENT_TYPE_EXCLUSIVE = 0;
+    const VOLUNTEER_EVENT_CANCEL_LIMIT = 2;
 
     //Support group event types
     const SG_EVENT_TYPE_VIRTUAL = "Virtual";
@@ -75,6 +77,10 @@ class CommonConstants
     const MEETING_TYPES_ARRAY = array(self::MEETING_TYPE_ZOOM,
                                       self::MEETING_TYPE_WHATSAPP,
                                       self::MEETING_TYPE_PHONE_CALL);
+
+    //view types
+    const VIEW_TYPE = "viewType";
+    const VIEW_APPOINTMENT_LINK = "link";
 
 
 

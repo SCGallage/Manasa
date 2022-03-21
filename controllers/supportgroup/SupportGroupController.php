@@ -487,7 +487,7 @@ class SupportGroupController extends Controller
         if ($request->isGet()){
             $params = [
                 'request' =>$requestBody,
-                'viewType' => 'sg_join_meeting'
+                CommonConstants::VIEW_TYPE => 'sg_join_meeting'
             ];
         }
 

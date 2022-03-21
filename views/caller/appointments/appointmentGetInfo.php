@@ -1,6 +1,10 @@
 <?php use util\CommonConstants;
 
-//print_r($params)?>
+print_r($params);
+
+//if ()
+
+?>
 <div class="col-s-12 col-m-12 col-l-12 list-card shadow-2 bg-color-3">
     <a class="col-s-12 col-m-12 col-l-12" href="/appointments">
         <input class="bannerButton bg-color-5 color-4 card-align-right" type="button" value="Appointment Function">

@@ -174,14 +174,13 @@ class CallerAppointment extends Model
     }
 
     /*
-     * Function: getAllMeetingsByUser
-     * Operation: Get all meeting data by using user id and date
-     * Parameter: user id
-     * Return: array or int
+     * Function: deleteOldPendingAppointments
+     * Operation: Delete all old pending appointments
+     * Parameter:
+     * Return:
      *
      * */
-    public function getAllMeetingsByUser($userId): array|int
-    {
+    public function deleteOldPendingAppointments(){
         //delete old pending appointments
         $sqlStatement = "DELETE FROM meeting 
                          WHERE id IN (SELECT m.id FROM meeting m
@@ -190,6 +189,50 @@ class CallerAppointment extends Model
                                       WHERE s.date < DATE (NOW()) AND m.state = ".CommonConstants::STATE_PENDING.")";
 
         $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
+    }
+
+    /*
+     * Function: getAllPendingAppointmentsByUser
+     * Operation: Get all pending appointments by user
+     * Parameter: userId
+     * Return: Array, boolean or int
+     *
+     * */
+    public function getAllPendingAppointmentsByUser($userId): array|bool|int
+    {
+        //delete old pending appointments
+        $this->deleteOldPendingAppointments();
+
+        $sqlStatement = "SELECT m.id,
+                                m.state,
+                                m.timeslotId,
+                                m.callerId,
+                                m.meeting_type,
+                                m.contact,
+                                m.virtual_meeting,
+                                t.startTime,
+                                t.endTime,
+                                t.shiftId,
+                                s.date
+                        FROM meeting m LEFT JOIN
+                             timeslot t on m.timeslotId = t.timeslotId LEFT JOIN
+                             shift s on t.shiftId = s.shiftId
+                        WHERE m.callerId = $userId AND m.state = ".CommonConstants::STATE_PENDING." 
+                        ORDER BY s.date";
+
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+
+    }
+
+    /*
+     * Function: getAllMeetingsByUser
+     * Operation: Get all meeting data by using user id and date
+     * Parameter: user id
+     * Return: array or int
+     *
+     * */
+    public function getAllMeetingsByUser($userId): array|int
+    {
 
         $sqlStatement = "SELECT m.id, 
                                 m.state, 
@@ -205,7 +248,7 @@ class CallerAppointment extends Model
                              on m.timeslotId = t.timeslotId 
                              LEFT JOIN shift s 
                                  on t.shiftId = s.shiftId
-                         WHERE m.callerId = ".$userId;
+                         WHERE m.callerId = ".$userId." ORDER BY s.date";
 
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
@@ -310,6 +353,12 @@ class CallerAppointment extends Model
 
         return false;
 
+    }
+
+    public function countCallerMeetings($userId): int|bool|array
+    {
+        $sqlStatement = "SELECT COUNT(id) count FROM meeting WHERE callerId = ".$userId." AND state = ".CommonConstants::STATE_FINISHED;
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
 }
