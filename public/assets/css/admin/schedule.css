@@ -1,0 +1,206 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+}
+
+/*.grid-item-heading {*/
+/*    margin-left: 25px;*/
+/*    font-size: 30px;*/
+/*    color: #03929b;*/
+/*    font-family: "Josefin Sans", sans-serif;*/
+/*}*/
+
+.grid-container-01 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 0.5fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr;
+    column-gap: 10px;
+    margin-bottom: 10px;
+    font-family: "Poppins", sans-serif;
+}
+
+.grid-container-02 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 0.5fr repeat(7, 3fr);
+    grid-template-rows: repeat(2, 110px);
+    column-gap: 10px;
+    row-gap: 8px;
+    font-family: "Poppins", sans-serif;
+}
+
+.grid-item-day {
+    display: flex;
+    align-items: center;
+    /* background-color: rgba(138, 138, 138, 0.22); */
+    /* background: rgba(3, 191, 203, 0.25);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25); */
+    border-radius: 2px;
+    font-family: "Poppins", sans-serif;
+}
+
+.day {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.date {
+    font-size: 0.8rem;
+    margin-left: auto;
+}
+
+/* .grid-item-day:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 0.5px solid black;
+} */
+
+.grid-item-slot {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    background: white;
+    /* box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25); */
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+    /* padding: 1rem; */
+    padding: 0.7rem 0 0 0.8rem;
+    font-weight: 700;
+    /* border-top: 5px solid #868686; */
+    color: #242424;
+}
+
+.slot-id {
+    font-weight: 600;
+}
+
+.slot-remain {
+    font-weight: 400;
+    font-size: 0.8rem;
+}
+
+.label-available {
+    font-weight: 500;
+    font-size: 0.65rem;
+    background-color: #57d463;
+    color: white;
+    width: max-content;
+    padding: 0.2rem;
+    border-radius: 3px;
+    margin-top: 0.2rem;
+}
+
+.label-reserved {
+    font-weight: 500;
+    font-size: 0.65rem;
+    background-color: #772fee;
+    color: white;
+    width: max-content;
+    padding: 0.2rem;
+    border-radius: 3px;
+    margin-top: 0.2rem;
+}
+
+.label-closed {
+    font-weight: 500;
+    font-size: 0.65rem;
+    background-color: #d30808;
+    color: white;
+    width: max-content;
+    padding: 0.2rem;
+    border-radius: 3px;
+    margin-top: 0.2rem;
+}
+
+.view-btn {
+    margin-top: auto;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: 10px;
+    width: fit-content;
+    background-color: transparent;
+    border: none;
+    padding: 0.1rem 0.4rem;
+    text-align: center;
+    /* height: 40px;
+    line-height: 40px; */
+    transition: 0.5s;
+    font-weight: 600;
+    font-size: 0.7rem;
+    border-radius: 2px;
+    font-family: "Poppins", sans-serif;
+}
+
+.view-btn:hover {
+    color: white;
+    background-color: #004f53;
+}
+
+.grid-item-time {
+    /* background: rgba(193, 193, 193, 0.25); */
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    /* box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-start {
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+    font-weight: 600;
+}
+
+.time-end {
+    font-size: 0.8rem;
+    margin-top: auto;
+    font-weight: 600;
+}
+
+.layout-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    row-gap: 3rem;
+    /* height: 100vh; */
+}
+
+/* slot colors */
+
+/* .success {
+  border-top: 5px solid #00c208;
+  background: rgba(55, 255, 111, 0.34);
+  color: #02560b;
+}
+
+.danger {
+  background: rgba(255, 81, 81, 0.34);
+  border-top: 5px solid #cc4444;
+  color: #742020;
+}
+
+.pending {
+  background: rgba(233, 244, 99, 0.34);
+  border-top: 5px solid #e1e364;
+  color: #b0c81b;
+}
+
+.disabled {
+  background: rgba(57, 57, 57, 0.4);
+} */
+
+.duration{
+    margin-left: 1rem;
+    color: #0f191d;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.labels{
+    margin-top: 5rem;
+}

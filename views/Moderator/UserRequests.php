@@ -21,7 +21,7 @@
     <div class="row flex-container">
         <div class="col-l-12 col-m-12 col-s-12 flex-gap">
             <span class="head-text2">User Requests</span>
-            <span class="head-text2">Hello</span>
+<!--            <span class="head-text2">Hello</span>-->
         </div>
     </div>
 

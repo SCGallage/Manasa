@@ -7,6 +7,7 @@
         document.getElementById("dropdownUser").classList.toggle("show");
     }
 
+
     function updateUser(){
         var modal = document.getElementById("modal-box")
         var btn = document.getElementById("updateUser");
