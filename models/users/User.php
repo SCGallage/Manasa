@@ -40,7 +40,7 @@ class User extends Model
     {
         $data = $this->select('user', '*', [ "email" => $login['email'] ], DatabaseService::FETCH_ALL);
 
-        if (($data[0]['email'] === $login['email'])  && password_verify($login['password'], $data[0]['password']) && $data[0]['state'] !== 'pending') {
+        if (($data[0]['email'] === $login['email'])  && password_verify($login['password'], $data[0]['password'])  ) {
             $user = $this->select($data[0]['type'], "*", [ 'id' => $data[0]['id'] ], DatabaseService::FETCH_ALL);
             //print_r($user);
             //return $user[0]['type'];
@@ -90,6 +90,44 @@ class User extends Model
         }
 
         return false;
+    }
+
+    public function saveDonation($request)
+    {
+        $sql = "INSERT INTO test (id) VALUES ('".$request['payment_id'].$request['order_id']."')";
+        $columnsAndValues = [
+            'id' => $request['payment_id'],
+            'email' => $request['order_id'],
+            'date' => $request['date'],
+            'amount' => $request['payhere_amount']
+        ];
+
+        $values = [
+
+        ];
+
+        $this->insert('donate', $columnsAndValues);
+    }
+
+    public function loadUserInfo($userId): int|array
+    {
+        $conditions = [
+            'id' => $userId
+        ];
+        return $this->select('user', ['*'], $conditions, DatabaseService::FETCH_ALL);
+    }
+
+    public function updateUser($request)
+    {
+        $columns = [
+            'username' => $request['username'],
+            'password' => $request['password'],
+            'gender' => $request['gender'],
+            'dateOfBirth' => $request['dateOfBirth']
+        ];
+
+        $conditions = ["id=".$request['id']];
+        return $this->update('user', $columns, $conditions);
     }
 
 }

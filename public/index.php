@@ -172,31 +172,44 @@ $app->router->get('/mod/UserRequestsDelete', [AdminController::class, 'ModUserRe
 
 
 /* Caller Views */
-$app->router->get('/callerHome', [CallerController::class, 'loadCallerHome', 'Caller']);
+$app->router->get('/callerHome', [CallerController::class, 'loadCallerHome']);
 $app->router->get('/callerSupportGroupsList', [SupportGroupController::class, 'callerLoadSupportGroupsList']);
-$app->router->get('/callerSupportGroupHomeMember', [SupportGroupController::class, 'callerLoadSupportGroupHomeMember']);
-$app->router->get('/callerSupportGroupHomeVisitor', [SupportGroupController::class, 'callerSupportGroupHomeVisitor']);
+$app->router->get('/callerSupportGroupHome', [SupportGroupController::class, 'supportGroupHome']);
 $app->router->get('/viewSupportGroupEvent', [SupportGroupController::class, 'viewSupportGroupEvent']);
+$app->router->get('/cancelSgEventParticipation', [SupportGroupController::class, 'cancelSgEventParticipation']);
 $app->router->get('/profile', [CallerController::class, 'loadCallerProfile']);
 $app->router->get('/updateProfile', [CallerController::class, 'loadUpdateCallerProfileForm']);
+$app->router->post('/updateProfile', [CallerController::class, 'updateCallerProfile']);
 $app->router->get('/appointments', [CallerAppointmentController::class, 'loadAppointmentsPage']);
-$app->router->post('/appointmentLink', [CallerAppointmentController::class, 'loadAppointmentLink']);
-$app->router->post('/appointmentInfo', [CallerAppointmentController::class, 'loadAppointmentInfo']);
+$app->router->get('/appointmentLink', [CallerAppointmentController::class, 'loadAppointmentById']);
+$app->router->get('/appointmentInfo', [CallerAppointmentController::class, 'loadAppointmentById']);
 $app->router->get('/loadDonateForm', [DonateController::class, 'loadDonateForm']);
 $app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow']);
 $app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
-$app->router->post('/joinSupportGroup', [SupportGroupController::class, 'callerJoinSupportGroup']);
-$app->router->post('/cancelSupportGroupJointRequest', [SupportGroupController::class, 'cancelSupportGroupJointRequest']);
 $app->router->post('/cancelSupportGroupJoinRequest', [SupportGroupController::class, 'cancelSupportGroupJoinRequest']);
+$app->router->get('/loadJoinRequestTimeSlots', [SupportGroupController::class, 'loadJoinRequestTimeSlots']);
+$app->router->post('/loadJoinRequestTimeSlots', [SupportGroupController::class, 'loadJoinRequestTimeSlots']);
+$app->router->post('/completeSgJoinRequest', [SupportGroupController::class, 'callerJoinSupportGroup']);
+$app->router->get('/leaveSupportGroup', [SupportGroupController::class, 'leaveSupportGroup']);
+$app->router->post('/participateSgEvent', [SupportGroupController::class, 'participateSgEvent']);
+$app->router->post('/searchSg', [SupportGroupController::class, 'searchSg']);
+$app->router->post('/reserveMeeting', [CallerAppointmentController::class, 'reserveMeeting']);
+$app->router->post('/cancelMeeting', [CallerAppointmentController::class, 'cancelMeeting']);
+$app->router->post('/saveDonation', [DonateController::class, 'saveDonation']);
+$app->router->post('/failedDonation', [DonateController::class, 'failedDonation']);
+
 
 /* Visitor views*/
 $app->router->get('/callNowVisitor', [CallerAppointmentController::class, 'loadCallNow']);
 
 /* Volunteer views */
 $app->router->get('/volunteerHome', [VolunteerController::class, 'loadVolunteerHome']);
+$app->router->get('/participateVolunteerEvent', [VolunteerController::class, 'participateVolunteerEvent']);
+$app->router->get('/cancelParticipationVolunteerEvent', [VolunteerController::class, 'cancelEventParticipation']);
 $app->router->get('/volunteerProfile', [VolunteerController::class, 'loadVolunteerProfile']);
 $app->router->get('/updateVolunteerProfile', [VolunteerController::class, 'loadVolunteerProfileUpdateForm']);
-$app->router->get('/volunteerEvents', [VolunteerController::class, 'loadVolunteerEvents']);
+$app->router->post('/updateVolunteerProfile', [VolunteerController::class, 'updateVolunteer']);
+$app->router->get('/volunteerParticipatedEvents', [VolunteerController::class, 'loadParticipatedEvents']);
 
 
 

@@ -114,14 +114,26 @@ function validateProfileForm(){
     * This function is used to check weather the entered number is positive.
 
 */
-function isPositive(id, message) {
+function isPositive(submitBtnId,id, message) {
     let number = document.getElementById(id).value;
     let msg = document.getElementById(message);
+    let submitBtn = document.getElementById(submitBtnId);
     if (number > 0) {
         msg.style.display = "none";
+        submitBtn.type = "submit";
     } else {
         msg.style.display = "block";
+        submitBtn.type = "button";
     }
+}
+
+//Donate set order id
+function setOrderId(emailId, orderId) {
+    let emailElement = document.getElementById(emailId);
+    let orderIdElement = document.getElementById(orderId);
+
+    //set orderId
+    orderIdElement.value = emailElement.value;
 }
 //----------------------/Caller, Volunteer profile form validation function----------------------------
 
@@ -160,7 +172,23 @@ function popup(id, x) {
 
 //----------------------/popup function----------------------------------------------------------------
 
+//----------------------Custom Warning popup-----------------------------------------------------------
+/*
+    *Function customWarningPopup
+    *This function is used to show or hide custom warning popups
+*/
+var hiddenValues = 'nan';
+function customWarningPopup(id, title, subTitle, message, hiddenValues, link, x, method) {
+    let doc = document.getElementById(id);
+    let popup_title = document.getElementById('warning_title');
+    let popup_subtitle = document.getElementById('warning_subtitle');
+    let popup_message = document.getElementById('warning_message');
+    let popup_hidden = document.getElementById('warning_hidden');
+    let popup_link = document.getElementById('warning_link')
 
+}
+
+//----------------------/Custom Warning popup----------------------------------------------------------
 
 
 //----------------------Validate future date function--------------------------------------------------
@@ -173,18 +201,13 @@ function popup(id, x) {
 function isFutureDate(id, message) {
     let inputField = document.getElementById(id);
     let inputDay = new Date(inputField.value);
+    let submitBtn = document.getElementById('submitBtn');
     let today = new Date();
 
-    if (inputDay.getFullYear() >= today.getFullYear()) {
-        if (inputDay.getMonth() >= today.getMonth()) {
-            if (inputDay.getDay() <= today.getDay()) {
-                document.getElementById(message).style.display = "block";
-            } else {
-                document.getElementById(message).style.display = "none";
-            }
-        } else {
-            document.getElementById(message).style.display = "block";
-        }
+    //compare dates
+    if (inputDay.getTime() > today.getTime()){
+        document.getElementById(message).style.display = "none";
+        submitBtn.type = "submit";
     } else {
         document.getElementById(message).style.display = "block";
     }

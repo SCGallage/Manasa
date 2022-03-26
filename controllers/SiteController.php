@@ -11,7 +11,7 @@ class SiteController extends Controller
     public function home()
     {
         $this->setLayout('main');
-        return $this->render("user/landigPage");
+        return $this->render("user/landigPage", 'Manasa.lk');
 
     }
 
@@ -22,10 +22,7 @@ class SiteController extends Controller
 
     }
 
-    public function callerHome()
-    {
-        return $this->render('callerHome');
-    }
+
 
 
 

@@ -37,6 +37,7 @@
 
 /*Tablet view*/
 @media only screen and (min-width: 600px) {
+    .col-m-0 {width: 0px;}
     .col-m-1 {width: 8.33%;}
     .col-m-2 {width: 16.66%;}
     .col-m-3 {width: 25%;}
@@ -53,6 +54,7 @@
 
 /*Desktop view*/
 @media only screen and (min-width: 768px) {
+    .col-l-0 {width: 0px;}
     .col-l-1 {width: 8.33%;}
     .col-l-2 {width: 16.66%;}
     .col-l-3 {width: 25%;}
