@@ -46,21 +46,10 @@ class SupportGroup extends Model
                     FROM caller, sg_enrollrequest, user
                     WHERE sg_enrollrequest.supportGroupId = 1 AND sg_enrollrequest.state = 'approved' AND caller.id = sg_enrollrequest.callerId AND caller.id = user.id";
         $result = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
-        /*for ($i = 0; $i < count($result); $i++) {
+        for ($i = 0; $i < count($result); $i++) {
             $filePath = dirname(__DIR__, 2).$_ENV['PROFILE_LOCATION']."\\{$result[$i]['profile_pic']}";
             $result[$i]['profile_pic'] = base64_encode(fread(fopen($filePath, 'r'), filesize($filePath)));
-        }*/
-        return $result;
-    }
-
-    public function getSupportGroupMemberEmails(int $supportGroupId)
-    {
-        $sqlStatement = "SELECT user.email
-                    FROM sg_enrollrequest, user
-                    WHERE sg_enrollrequest.supportGroupId = {$supportGroupId} AND sg_enrollrequest.state = 'approved' AND user.id = sg_enrollrequest.callerId";
-        $result = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
-        //print_r($result[1]);
-
+        }
         return $result;
     }
 
@@ -83,6 +72,7 @@ class SupportGroup extends Model
         $sqlStatement = "SELECT * FROM supportgroup";
         return $result = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
+
 
     public function __construct()
     {

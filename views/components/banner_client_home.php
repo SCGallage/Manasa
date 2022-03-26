@@ -1,4 +1,3 @@
-<!--Banner----------------------------------------------------------------------------------------------->
 <div class="col-l-12 col-m-12 col-s-12 shadow-1 banner-card">
     <div class="col-s-12 col-m-12 col-l-12">
         <h1 class="heading color-4">You diserve to be happy</h1>
@@ -15,20 +14,7 @@
                    value="Call Now">
         </a>
 
-        <a class="link-text" href="/appointments">
-            <input class="bannerButton bg-color-1 color-4 heading  col-s-12 col-m-3 col-l-2 card-align-right"
-                   type="submit" value="Appointments">
-        </a>
 
-
-        <a href="./callerSupportGroupsList">
-            <input class="bannerButton bg-color-1 color-4 heading  col-s-12 col-m-3 col-l-2 card-align-right"
-                   type="submit" value="Support Groups">
-        </a>
-        <!--form action="" class="col-s-12 col-m-3 col-l-2 card-align-right">
-
-
-        </form-->
     </div>
 </div>
 <!--/Banner---------------------------------------------------------------------------------------------->

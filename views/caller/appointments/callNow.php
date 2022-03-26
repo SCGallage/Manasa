@@ -1,12 +1,14 @@
 <div class="col-s-12 col-m-12 col-l-12 list-card shadow-2 bg-color-3">
     <a class="col-s-12 col-m-12 col-l-12" href="/callerHome">
         <?php
-        /*
-            if ($_SESSION['loggedIn'] === true) {
-                echo "<input class='bannerButton bg-color-5 color-4 card-align-right' type='button' value='Appointment Function'>";
+
+            if (isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])) {
+                echo "<a href='/appointments'>
+                        <input class='bannerButton bg-color-5 color-4 card-align-right' type='button' value='Appointment Function'>
+                      </a>";
             }
-         */?>
-        <input class='bannerButton bg-color-5 color-4 card-align-right' type='button' value='Appointment Function'>
+         ?>
+
     </a>
     <h1 class="col-s-12 col-m-12 col-l-12 heading color-1 text-center">Call Now</h1>
     <div class="col-s-1 col-m-3 col-l-4 text-hidden">.</div>

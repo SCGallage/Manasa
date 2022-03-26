@@ -1,6 +1,6 @@
 <!--Quest------------------------------------------------------------------------------------------------>
 <div id="services" class="col-l-12 col-m-12 col-s-12 bg-color-4">
-    <h1 class="col-s-12 col-m-12 col-l-12 heading-text-center color-1">Our Quests</h1>
+    <h1 class="col-s-12 col-m-12 col-l-12 heading-text-center color-1 normal-card text-shadow">Our Quests</h1>
 
     <div class="col-l-12 col-m-12 col-s-12 flex-card">
         <div class="col-s-12 col-m-12 col-l-12 normal-card shadow-1 flex-div">
