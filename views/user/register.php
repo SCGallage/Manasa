@@ -58,7 +58,6 @@
                                 <div class="input-field">
                                     <label for="email">Date of Birth</label><br>
                                     <input type="date" class="text-field" name="dateOfBirth" id="dateOfBirth"><br>
-                                    
                                     <h5 class="validation-msg" id="dob-text">*Required</h5>
                                 </div>
                                 <div class="input-field" id="anon-field">

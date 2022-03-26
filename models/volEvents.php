@@ -1,9 +1,11 @@
 <?php
 
 namespace models;
+use core\DatabaseService;
 use core\Model;
 use models\users\Staff;
 use models\users\User;
+use util\CommonConstants;
 
 class volEvents extends Model
 {
@@ -234,4 +236,109 @@ class volEvents extends Model
 //        $this->staff->setState($state);
 //        $this->staff->getUsername($username);
     }
+
+    /*
+     * Loads volunteer events list by user id
+     * */
+    public function loadVolunteerEventsByUser($userId): array|bool|int
+    {
+       $sqlStatement = "SELECT volunteer_event.id 'id',
+                               volunteer_event.name 'name',
+                               volunteer_event.moderator 'moderator',
+                               volunteer_event.state 'state',
+                               volunteer_event.startdate 'startDate',
+                               volunteer_event.location 'location',
+                               volunteer_event.type 'type',
+                               volunteer_event.capacity 'capacity',
+                               volunteer_event.description 'description',
+                               volunteer_event.starttime 'startTime',
+                               volunteer_event.endtime 'endTime',
+                               vp.volunteerid,
+                               vp.eventid,
+                               vp.state 'participation_state'
+                       FROM volunteer_event RIGHT JOIN volunteer_participate vp on volunteer_event.id = vp.eventId
+                       WHERE vp.volunteerId = 61 AND volunteer_event.startdate >= (SELECT DATE(NOW()))";
+
+       return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
+    /*
+     * Load event by id
+     * */
+    public function loadVolunteerEventById($eventId): int|array
+    {
+        return $this->select('volunteer_event', '*', ['id = '.$eventId], DatabaseService::FETCH_ALL);
+    }
+
+    /*
+     * Loads all available volunteer events
+     * */
+    public function loadAllVolunteerEvents(): array|int
+    {
+        $sqlStatement = "SELECT * FROM volunteer_event WHERE startDate >= (SELECT DATE(NOW()))";
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
+    /*
+     * Compares current participation requests with event capacity.
+     * return true when capacity is not exceeded
+     * */
+    public function checkParticipantCount($eventId): bool|int
+    {
+        $sqlStatement = "SELECT e.capacity, COUNT(vp.volunteerId) 'count' 
+                         FROM volunteer_event e JOIN volunteer_participate vp on e.id = vp.eventId
+                         WHERE vp.eventId = ".$eventId;
+
+        $results = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+
+        if ($results[0]['capacity'] > $results[0]['count']) return true;
+
+        return false;
+
+    }
+
+    public function participateVolunteerEvent($request, $userId): bool|int
+    {
+        $event = $this->loadVolunteerEventById($request['eventId']);
+
+        // default for open events
+        $state = CommonConstants::STATE_ACCEPTED;
+
+        //set values
+        $valueSet = [
+            'volunteerId' => $userId,
+            'eventId' => $request['eventId'],
+            'state' => $state
+        ];
+
+        //exclusive event
+        if ($request['type'] == CommonConstants::VOLUNTEER_EVENT_TYPE_EXCLUSIVE ||
+            $request['type'] == CommonConstants::VOLUNTEER_EVENT_TYPE_OPEN &&
+            !$this->checkParticipantCount($request['eventId'])){
+            $valueSet['state'] = CommonConstants::STATE_PENDING;
+        }
+
+        //save participation request
+        return $this->insert('volunteer_participate', $valueSet);
+    }
+
+    public function cancelEventParticipation($eventId, $userId): bool|int
+    {
+        $conditions = [
+            'volunteerId' => $userId,
+            'eventId' => $eventId
+        ];
+        return $this->delete('volunteer_participate', $conditions);
+    }
+
+    public function loadParticipatedEvents($userId): int|bool|array
+    {
+        $sqlStatement = "SELECT * FROM volunteer_event RIGHT JOIN volunteer_participate vp on 
+                                            volunteer_event.id = vp.eventId
+                         WHERE VP.state = ".CommonConstants::STATE_ACCEPTED." 
+                               AND volunteer_event.state = ".CommonConstants::STATE_FINISHED." 
+                               AND VP.volunteerId = ".$userId;
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
 }

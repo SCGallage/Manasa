@@ -40,7 +40,8 @@ main {
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 10px;
-  /*grid-template-rows: 50% 50%;*/
+  /*grid-template-rows: 75% 25%;*/
+
 }
 
 .grid-item-02 {

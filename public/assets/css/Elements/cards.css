@@ -6,6 +6,10 @@
     box-shadow: 4px 4px 10px gray;
 }
 
+[class*="card-"] {
+    overflow: hidden;
+}
+
 .card-align-center {
     margin: auto;
 }

@@ -16,12 +16,12 @@
                         <form action="/login" method="post">
                         <div class="input-field" id="email-field">
                             <label class="input-label" for="email">Email</label><br>
-                            <input type="email" class="text-field" name="email" id="email"><br>
+                            <input type="email" class="text-field" name="email" id="email" required><br>
                             <h5>*Required</h5>
                         </div>
                         <div class="input-field">
                             <label class="input-label" for="password">Password</label><br>
-                            <input type="password" class="text-field" name="password" id="password"><br>
+                            <input type="password" class="text-field" name="password" id="password" required><br>
                             <h5>*Required</h5>
                         </div>
                         <div class="input-check">

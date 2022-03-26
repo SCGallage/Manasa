@@ -13,6 +13,7 @@ const fnameText = document.getElementById("fname-text");
 const lnameText = document.getElementById("lname-text");
 const passwordText = document.getElementById("password-text");
 const conpasswordText = document.getElementById("conpassword-text");
+const dateOfBirthText = document.getElementById("dob-text");
 
 const nameRegex = /^[aA-zZ][a-z]{1,}$/;
 const usernameRegex = /^[aA-zZ0-9]{6,30}$/;
@@ -25,6 +26,7 @@ let fnameState = false;
 let lnameState = false;
 let passwordState = false;
 let conpasswordState = false;
+let dateOfBirthState = false;
 
 const validateInput = (inputField) => {
   if (inputField.classList.contains("danger"))
@@ -180,7 +182,15 @@ dateOfBirth.addEventListener("change", () => {
   //console.log(dateOfBirth.value);
   if (new Date(dateOfBirth.value).getTime() < new Date().getTime()) {
     validateInput(dateOfBirth);
-  } else dateOfBirth.classList.add("danger");
+    dateOfBirthText.innerText = "Success!";
+    dateOfBirthText.style.color = "rgba(8, 140, 21, 0.88)";
+    dateOfBirthState = true;
+  } else {
+    dateOfBirth.classList.add("danger");
+    dateOfBirthText.innerText = "Cannot Select a Future Date!";
+    dateOfBirthText.style.color = "rgba(173, 5, 5)";
+    dateOfBirthState = false;
+  }
 });
 
 //console.log(termsCheckBox);
@@ -199,7 +209,8 @@ registerForm.addEventListener("submit", (e) => {
       fnameState &&
       lnameState &&
       passwordState &&
-      conpasswordState
+      conpasswordState &&
+      dateOfBirthState
   ) {
     console.log(true);
     registerForm.submit();
