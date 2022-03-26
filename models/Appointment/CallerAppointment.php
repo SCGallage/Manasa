@@ -12,7 +12,7 @@ class CallerAppointment extends Model
     private string $timeslot_table = "timeslot";
     private string $shift_table = "shift";
     private string $meeting_table = "meeting";
-    private string $limit_table = "limits";
+    private string $limit_table = "settings";
     private string $schedule_table = "schedule";
 
     public function __construct()
@@ -382,14 +382,12 @@ class CallerAppointment extends Model
                     }
 
                     if (isset($count)){
-                        $result = $this->select($this->limit_table,
-                            array("limit_value"),
-                            array("id=".CommonConstants::RESERVATION_LIMIT),
+                        $result = $this->select($this->limit_table, ['val'], ["name = meeting_limit"],
                             DatabaseService::FETCH_ALL);
 
                         if (!empty($result)){
                             foreach ($result as $row){
-                                $limit = $row['limit_value'];
+                                $limit = $row['val'];
                             }
 
                             if (isset($limit)){

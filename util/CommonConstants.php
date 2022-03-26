@@ -25,7 +25,7 @@ class CommonConstants
     const SG_EVENT_TYPE_PHYSICAL = "Physical";
 
     //limits
-    const RESERVATION_LIMIT ="callerReservationLimit";
+    const RESERVATION_LIMIT ="meeting_limit";
 
     //user image paths
     const USER_PROFILE_PIC_PATH = "file_storage/profile_pictures/";
