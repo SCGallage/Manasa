@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="http://localhost/assets/css/befriender/appointments.css">
+<link rel="stylesheet" href="<?php echo $_ENV['BASE_URL']?>/assets/css/befriender/appointments.css">
 <main>
     <div class="table-container">
         <div class="main-heading">
@@ -27,8 +27,22 @@
             </tr>
             </thead>
             <tbody class="table-body">
-            <tr>
-                <td><img src="http://localhost/assets/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
+            <?php
+                foreach ($meetingList as $meeting) {
+                    echo "
+                    <tr>
+                        <td><img  alt='' class='profile-icon' /></td>
+                        <td>{$meeting['id']}</td>
+                        <td>{$meeting['username']}</td>
+                        <td>{$meeting['appointment_date']}</td>
+                        <td>{$meeting['startTime']} - {$meeting['endTime']}</td>
+                        <td>{$meeting['meeting_type']}</td>
+                        <td class='details-link'>Details</td>
+                    </tr>";
+                }
+            ?>
+            <!--<tr>
+                <td><img src="<?php /*echo $_ENV['BASE_URL'] */?>/assets/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
                 <td>#098</td>
                 <td>Mantis21</td>
                 <td>2021.08.21</td>
@@ -37,7 +51,7 @@
                 <td class="details-link">Details</td>
             </tr>
             <tr>
-                <td><img src="http://localhost/assets/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
+                <td><img src="<?php /*echo $_ENV['BASE_URL'] */?>/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
                 <td>#099</td>
                 <td>CoreyTaylor</td>
                 <td>2021.08.24</td>
@@ -46,7 +60,7 @@
                 <td class="details-link">Details</td>
             </tr>
             <tr>
-                <td><img src="http://localhost/assets/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
+                <td><img src="<?php /*echo $_ENV['BASE_URL'] */?>/befriender/default.jpg" alt="" class="profile-icon" /></td>
                 <td>#100</td>
                 <td>Traversy21</td>
                 <td>2021.08.26</td>
@@ -55,7 +69,7 @@
                 <td class="details-link">Details</td>
             </tr>
             <tr>
-                <td><img src="http://localhost/assets/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
+                <td><img src="<?php /*echo $_ENV['BASE_URL'] */?>/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
                 <td>#101</td>
                 <td>ColinPo43</td>
                 <td>2021.08.29</td>
@@ -64,7 +78,7 @@
                 <td class="details-link">Details</td>
             </tr>
             <tr>
-                <td><img src="http://localhost/assets/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
+                <td><img src="<?php /*echo $_ENV['BASE_URL'] */?>/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
                 <td>#101</td>
                 <td>ColinPo43</td>
                 <td>2021.08.29</td>
@@ -73,7 +87,7 @@
                 <td class="details-link">Details</td>
             </tr>
             <tr>
-                <td><img src="http://localhost/assets/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
+                <td><img src="<?php /*echo $_ENV['BASE_URL'] */?>/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
                 <td>#101</td>
                 <td>ColinPo43</td>
                 <td>2021.08.29</td>
@@ -82,7 +96,7 @@
                 <td class="details-link">Details</td>
             </tr>
             <tr>
-                <td><img src="http://localhost/assets/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
+                <td><img src="<?php /*echo $_ENV['BASE_URL'] */?>/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
                 <td>#101</td>
                 <td>ColinPo43</td>
                 <td>2021.08.29</td>
@@ -91,14 +105,14 @@
                 <td class="details-link">Details</td>
             </tr>
             <tr>
-                <td><img src="http://localhost/assets/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
+                <td><img src="<?php /*echo $_ENV['BASE_URL'] */?>/img/befriender/default.jpg" alt="" class="profile-icon" /></td>
                 <td>#101</td>
                 <td>ColinPo43</td>
                 <td>2021.08.29</td>
                 <td>8.00 - 12.00</td>
                 <td>Virtual Meeting</td>
                 <td class="details-link">Details</td>
-            </tr>
+            </tr>-->
             </tbody>
         </table>
     </div>

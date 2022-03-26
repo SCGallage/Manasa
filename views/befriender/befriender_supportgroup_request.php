@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="http://localhost/assets/css/navbaronly.css">
-<link rel="stylesheet" href="http://localhost/assets/css/befriender/sg_requests.css">
-<link rel="stylesheet" href="http://localhost/assets/css/befriender/popup_card.css">
+<link rel="stylesheet" href="<?php echo $_ENV['BASE_URL']?>/assets/css/navbaronly.css">
+<link rel="stylesheet" href="<?php echo $_ENV['BASE_URL']?>/assets/css/befriender/sg_requests.css">
+<link rel="stylesheet" href="<?php echo $_ENV['BASE_URL']?>/assets/css/befriender/popup_card.css">
 <div class="modal-bg">
     <div class="container">
         <svg
@@ -53,13 +53,14 @@
                         name="name"
                         id="name"
                         placeholder="Cancer Support Group"
+                        required
                     />
                     <span class="required-text">*Required</span>
                 </div>
                 <div class="input-field">
                     <div class="tooltip-icon" data-tooltip=""></div>
                     <label class="field-label" for="">Support Group Type</label>
-                    <input class="input" type="text" name="type" id="type" />
+                    <input class="input" type="text" name="type" id="type" required />
                     <span class="required-text">*Required</span>
                 </div>
                 <div class="input-field">
@@ -68,7 +69,7 @@
                         data-tooltip="Enter number of participants you wish to have for the support group."
                     ></div>
                     <label class="field-label" for="">Number of Participants</label>
-                    <input class="input" type="text" name="capacity" id="capacity" />
+                    <input class="input" type="text" name="capacity" id="capacity" required />
                     <span class="required-text">*Required</span>
                 </div>
                 <div class="input-field">

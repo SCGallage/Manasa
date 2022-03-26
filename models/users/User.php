@@ -3,6 +3,7 @@
 namespace models\users;
 
 use core\Application;
+use core\authentication\SecurityToken;
 use core\DatabaseService;
 use core\Mailer;
 use core\Model;
@@ -95,6 +96,45 @@ class User extends Model
         }
 
         return false;
+    }
+
+    public function verifyEmail($token)
+    {
+        $data = $this->select('email_token', '*', [ 'token' => $token ], DatabaseService::FETCH_ALL);
+        if (count($data) == 1) {
+
+            $this->update('user', [ "email_verified" => 1 ], [ "email" => $data[0]['email'] ]);
+            $this->delete('email_token', [ "email" => $data[0]['email'] ]);
+        }
+    }
+
+    public function addEmailValidationRecord($email)
+    {
+        $token = SecurityToken::generateRandomToken(16);
+        $result = $this->insert('email_token', [ "email" => $email, "token" => $token]);
+        if ($result) {
+            $mailer = new Mailer();
+            $mailer->init('smtp.gmail.com', $_ENV['SEND_EMAIL'], $_ENV['PASSWORD']);
+            $mailer->configure_email($_ENV['SEND_EMAIL'], $email);
+            $mailer->loadTemplate("Confirm Your Email", "confirmEmailTemplate", $_ENV['BASE_URL'].'/verifyemail?token='.$token);
+            $mailer->sendMail();
+        }
+    }
+
+    public function updateUserProfilePicture($data, $userId)
+    {
+//        $this->delete('user', ["id" => $userId]);
+        $data = explode(',', $data);
+        $extension = explode(';', explode('/', $data[0])[1]);
+        //echo $extension[0];
+        $filename = microtime(true)*10000.0.".".$extension[0];
+        $fptr = fopen("./file_storage/profile_pictures/pictures/".$filename, "wb");
+
+        fwrite($fptr, base64_decode($data[1]));
+        fclose($fptr);
+        $result = $this->update('user', [ "profile_pic" => $filename ], [ "id" => $userId ]);
+        return json_encode(["result" => $result]);
+        //base64_decode($data);
     }
 
 }

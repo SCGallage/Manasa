@@ -1,0 +1,5 @@
+<?php
+
+define('CLIENT_ID', 'YOUR_CLIENT_ID');
+define('CLIENT_SECRET', '8eQQA70VpXP0y0m7ZcgNgMU6vNaDmye3SvTI');
+define('REDIRECT_URI', 'REDIRECT_URL_FOR_OAUTH');
