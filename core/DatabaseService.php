@@ -137,4 +137,11 @@ class DatabaseService
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function executeStoredProcedure($query)
+    {
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

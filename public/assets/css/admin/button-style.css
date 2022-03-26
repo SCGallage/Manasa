@@ -61,6 +61,20 @@
     float: right;
   }
 
+  .button7 {
+    background-color: rgb(55, 112, 178);
+    border: none;
+    color: white;
+    padding: 0.6rem 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 4px 2px;
+    cursor: pointer;
+    float: right;
+  }
+
   #button3 .sub-button3 a{
     display: none;
   }
@@ -132,6 +146,20 @@
   font-size: 1rem;
   font-family: 'Josefin Sans', sans-serif;
   margin: 4px 2px;
+  cursor: pointer;
+  float: right;
+}
+
+.cancel-button-1 {
+  background-color: #d53f3f;
+  border: none;
+  color: white;
+  padding: 0.3rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: 'Josefin Sans', sans-serif;
+  /*margin: 4px 2px;*/
   cursor: pointer;
   float: right;
 }

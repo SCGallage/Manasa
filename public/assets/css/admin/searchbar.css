@@ -1,26 +1,28 @@
  
   /*Search Bar*/
   .search {
-    width: 100%;
-    position: relative;
-    display: flex;
+    /*width: 100%;*/
+    /*position: relative;*/
+    /*display: flex;*/
+    /*float: right;*/
     margin: 4px 2px;
     padding-right: 0.6rem;
   }
   
   .searchTerm {
-    width: 100%;
+    width: 80%;
     border: none;
     padding: 0.5rem;
     height: 36px;
     border-radius: 0.3rem 0 0 0.3rem;
     outline: none;
     color: #003249;
+    float: left;
   }
   
   
   .searchButton {
-    width: 40px;
+    width: 20%;
     height: 36px;
     border: none;
     padding-top: 3px;
@@ -30,4 +32,5 @@
     border-radius: 0 0.3rem 0.3rem 0;
     cursor: pointer;
     font-size: 20px;
+    float: left;
   }

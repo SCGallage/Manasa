@@ -16,8 +16,10 @@
   /*}*/
 
   main {
-    margin-left: 5rem;
+    margin-left: 3.5rem;
     font-family: 'Josefin Sans', sans-serif;
+    /*margin: 0;*/
+    margin-bottom: 5rem !important;
   }
 
   a {
@@ -137,6 +139,12 @@
     justify-content: center;
   }
 
+  .flex-container4{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .upper-box-details{
     display: flex;
     flex-direction: column;
@@ -179,6 +187,11 @@
   .margin-top{
     margin-top: 1rem;
   }
+
+  .margin-top-2{
+    margin-top: 2rem;
+  }
+
   .padding1{
     padding: 1rem;
   }
@@ -195,17 +208,40 @@
     padding-right: 2rem;
   }
 
+  .padding-right-1{
+    padding-right: 1rem;
+  }
+
   .padding-top-1{
     padding-top: 0.8rem;
   }
+  .padding-bottom{
+    padding-bottom: 0.8rem;
+  }
   .positionR{
-    float: right;
+    float: right !important;
   }
 
+  /*Align items*/
+  .float-center{
+    margin-left: 10%;
+    margin-right: 10%;
+    display: block;
+  }
 
   /* Overflow */
   .scroll1{
     height: 18rem;
+    overflow-y: scroll;
+  }
+
+  .scroll2{
+    height: 23rem;
+    overflow-y: scroll;
+  }
+
+  .scroll3{
+    height: 33rem;
     overflow-y: scroll;
   }
 
@@ -234,6 +270,20 @@
   height: 300px;
 }
 
+  /*Profile picture */
+
+  .profile-pic-vol {
+    margin-left: 12px;
+    height: 10rem;
+    width: 10rem;
+    background-color: #204c60;
+    border-radius: 50%;
+    background: url("./img/propic.png");
+    background-size: cover;
+  }
+
+
+
   @media only screen and (max-width: 600px) {
     .navbar {
         bottom: 0;
@@ -253,26 +303,14 @@
         justify-content: center;
       }
     
-      main {
-        margin: 0;
-        margin-bottom: 5rem !important;
-      }
 
-      .flex-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
+
 
       .padding-left{
         padding-left: 0rem;
         padding-top: 1.5rem;
       }
-    
-      .padding-right{
-        padding-right: 0rem;
-        /*padding-top: 1rem;*/
-      }
+
 
       .flex-gap{
         margin: 0rem;
@@ -289,6 +327,10 @@
         margin: 0rem;
         margin-top: 2rem;
         margin-bottom: 2rem;
+      }
+
+      .testColor{
+        background-color: #ececec; !important;
       }
     }
 

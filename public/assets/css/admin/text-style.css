@@ -54,6 +54,61 @@
   text-align: center;
 }
 
+.head-text4{
+  font-size: 1.8rem;
+  color: #003249;
+  font-weight: 900;
+}
+
+.head-text5{
+  font-size: 1.5rem;
+  color: #003249;
+  font-weight: 900;
+  padding: 1rem;
+}
+
 .required-text {
   font-weight: 300;
+}
+
+.session-text{
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+.session-text-heading{
+  padding: 1rem;
+  font-size: 1.3rem;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.no-record{
+  font-weight: bold;
+  text-align: center;
+}
+
+.select-text{
+  padding: 12px 15px;
+  text-align: left;
+  font-family: 'Poppins', sans-serif;
+}
+
+.slot-close{
+  color: red;
+  font-weight: bold;
+  text-align: center !important;
+  font-size: 1.5rem;
+}
+
+.text-align-center{
+  text-align: center;
+}
+
+.vol-text{
+  padding-top: 2rem !important;
+  font-size: 1.5rem;
+  font-weight: bold;
 }

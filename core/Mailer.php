@@ -80,7 +80,7 @@ class Mailer
     {
         $this->mail->isHTML(true);
         $this->mail->Subject = $subject;
-        $mailBody = file_get_contents("D:\\PHP_Projects\\Manasa\\templates\\".$template.".html");
+        $mailBody = file_get_contents("C:\\xampp\\htdocs\\Manasa-v2\\templates\\".$template.".html");
         $mailBody = str_replace('{{resetLink}}', $params, $mailBody);
         $this->mail->Body = $mailBody;
     }
