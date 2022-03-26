@@ -6,8 +6,8 @@
     box-sizing: border-box;
 }
 
-/*Clear flow*/ 
-.row::after {   /*selector inserts something after the content of each selected element*/
+/*Clear flow*/
+.row::after {
     content: "";
     clear: both;
     display: block;
@@ -16,7 +16,9 @@
 /*Set all columns float to left */  
 [class*="col-"] {
     float: left;
+    overflow: hidden;
 }
+
 
 /*Mobile view*/
 @media only screen and (max-width: 600px) {

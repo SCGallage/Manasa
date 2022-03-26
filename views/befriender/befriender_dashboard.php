@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="http://localhost/assets/css/befriender/befriender_dashboard.css">
+<link rel="stylesheet" href="<?php echo $_ENV['BASE_URL']?>/assets/css/befriender/befriender_dashboard.css">
 <?php require_once(__DIR__."\befriender_supportgroup_request.php") ?>
 <main>
 
@@ -213,7 +213,7 @@
     </div>
 </main>
 <script>
-    const data = {
+    let data = {
         labels: ["Completed", "Remaining"],
         datasets: [
             {
@@ -244,4 +244,4 @@
         document.querySelector(".modal-bg").classList.remove("display");
     });
 </script>
-<script src="http://localhost/assets/js/befriender/calendar.js"></script>
+<script src="<?php echo $_ENV['BASE_URL']?>/assets/js/befriender/calendar.js"></script>

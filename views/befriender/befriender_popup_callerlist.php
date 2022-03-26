@@ -37,7 +37,7 @@
                 <div class="request-card">
                     <div class="card-icon">
                         <!-- <span class="picture"></span> -->
-                        <img class="picture" src="http://localhost/assets/img/propic.png" alt="" />
+                        <img class="picture" src="<?php echo $_ENV['BASE_URL']?>/assets/img/propic.png" alt="" />
                     </div>
                     <span class="card-text">
                 <h4 class="request-name">Heather Chapman</h4>

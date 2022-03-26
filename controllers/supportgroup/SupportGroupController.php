@@ -4,16 +4,34 @@ namespace controllers\supportgroup;
 
 use core\Application;
 use core\Controller;
+
+use core\Mailer;
+use core\Model;
 use core\Request;
 use core\sessions\SessionManagement;
+use Google\Service\AdMob\App;
+use models\supportgroup\Location;
 use models\Appointment\CallerAppointment;
+
 use models\supportgroup\SgEnroll;
 use models\supportgroup\SupportGroup;
+use models\supportgroup\SupportGroupEvent;
+use models\supportgroup\VirtualMeeting;
 use util\CommonConstants;
 use util\CustomMessage;
 
 class SupportGroupController extends Controller
 {
+
+    private string $id;
+    private string $name;
+    private string $type;
+    private string $description;
+    private string $facilitator;
+    private string $co_facilitator;
+    private string $state;
+    private string $capacity;
+
 
     public function getSupportGroupRequests(Request $request): bool|string
     {
@@ -69,16 +87,16 @@ class SupportGroupController extends Controller
         $keys = array();
 
         //filter support groups
-        foreach ($supportGroups as $sg){
+        foreach ($supportGroups as $sg) {
 
 
-            foreach ($results as $result){
-                if ($sg['id'] == $result['supportGroupId']){
-                    if ($result['state'] == CommonConstants::STATE_PENDING){
+            foreach ($results as $result) {
+                if ($sg['id'] == $result['supportGroupId']) {
+                    if ($result['state'] == CommonConstants::STATE_PENDING) {
                         array_push($requests, $sg);
                     }
 
-                    if ($result['state'] == CommonConstants::STATE_ACCEPTED){
+                    if ($result['state'] == CommonConstants::STATE_ACCEPTED) {
                         array_push($mySupportGroups, $sg);
                     }
 
@@ -90,13 +108,13 @@ class SupportGroupController extends Controller
         }
 
         //clear support groups
-        if (!empty($supportGroups)){
-            if (!empty($requests)){
-                foreach ($requests as $r){
+        if (!empty($supportGroups)) {
+            if (!empty($requests)) {
+                foreach ($requests as $r) {
                     $check = 0;
-                    foreach ($supportGroups as $sg){
-                        if ($r['id'] == $sg['id']){
-                            $check = array_keys($supportGroups,$sg,true);
+                    foreach ($supportGroups as $sg) {
+                        if ($r['id'] == $sg['id']) {
+                            $check = array_keys($supportGroups, $sg, true);
                             break;
                         }
                     }
@@ -105,12 +123,12 @@ class SupportGroupController extends Controller
                 }
             }
 
-            if (!empty($supportGroups) && !empty($mySupportGroups)){
-                foreach ($mySupportGroups as $msg){
+            if (!empty($supportGroups) && !empty($mySupportGroups)) {
+                foreach ($mySupportGroups as $msg) {
                     $check = 0;
-                    foreach ($supportGroups as $sg){
-                        if ($msg['id'] == $sg['id']){
-                            $check = array_keys($supportGroups,$sg,true);
+                    foreach ($supportGroups as $sg) {
+                        if ($msg['id'] == $sg['id']) {
+                            $check = array_keys($supportGroups, $sg, true);
                             break;
                         }
                     }
@@ -121,16 +139,15 @@ class SupportGroupController extends Controller
         }
 
 
-
         $params = [
             'requests' => $requests,
-            'availableSupportGroups' =>$supportGroups,
+            'availableSupportGroups' => $supportGroups,
             'mySupportGroups' => $mySupportGroups,
             'viewType' => 'sgList'
         ];
 
         $this->setLayout('caller/callerFunction');
-        return $this->render('caller/supportGroups/supportGroupsList',"Support Groups List",$params);
+        return $this->render('caller/supportGroups/supportGroupsList', "Support Groups List", $params);
     }
 
 
@@ -147,7 +164,7 @@ class SupportGroupController extends Controller
         //load upcoming events
         //load members
         //$membeList =
-            $this->setLayout('caller/supportGroupHomeMember');
+        $this->setLayout('caller/supportGroupHomeMember');
         return $this->render('caller/supportGroups/memberSupportGroup', 'Support Group Home');
     }
 
@@ -187,7 +204,7 @@ class SupportGroupController extends Controller
         $requestBody = $request->getBody();
         $supportGroup = new SupportGroup();
 
-        if ($supportGroup->participateSgEvent($userId, $requestBody['eventId'])){
+        if ($supportGroup->participateSgEvent($userId, $requestBody['eventId'])) {
 
             $params = [
                 'request' => ['sgId' => $requestBody['sgId']],
@@ -209,7 +226,7 @@ class SupportGroupController extends Controller
         }
 
         $this->setLayout('caller/callerFunction');
-        return $this->render('components/errorMessage', 'Manasa',$params);
+        return $this->render('components/errorMessage', 'Manasa', $params);
 
     }
 
@@ -219,7 +236,7 @@ class SupportGroupController extends Controller
         $supportGroup = new SupportGroup();
         $requestBody = $request->getBody();
 
-        if ($supportGroup->cancelSgEventParticipation($requestBody['eventId'], $userId)){
+        if ($supportGroup->cancelSgEventParticipation($requestBody['eventId'], $userId)) {
             $params = [
                 'request' => ['sgId' => $requestBody['sgId']],
                 'title' => "Your participation removed.",
@@ -240,7 +257,7 @@ class SupportGroupController extends Controller
         }
 
         $this->setLayout('caller/callerFunction');
-        return $this->render('components/errorMessage', 'Manasa',$params);
+        return $this->render('components/errorMessage', 'Manasa', $params);
     }
 
     /*
@@ -264,13 +281,13 @@ class SupportGroupController extends Controller
 
 
         //check user is a member or not
-        $check = $sgEnrollRequest->findSupportGroupRequestById($userId,$requestBody['sgId']);
+        $check = $sgEnrollRequest->findSupportGroupRequestById($userId, $requestBody['sgId']);
 
-        if (!empty($check)){
+        if (!empty($check)) {
             //user in sg_enroll table
             //check the request accepted or not
-            foreach ($check as $row){
-                if ($row['state'] == CommonConstants::STATE_ACCEPTED){
+            foreach ($check as $row) {
+                if ($row['state'] == CommonConstants::STATE_ACCEPTED) {
                     //request accepted
                     //set view type
                     $params['viewType'] = CommonConstants::USER_TYPE_NORMAL_CALLER;
@@ -284,22 +301,22 @@ class SupportGroupController extends Controller
                     $events_p = $supportGroup->get_sg_event_participate_member($userId, $requestBody['sgId']);
 
                     //filter events
-                    if (!empty($events_p) && !empty($events)){
+                    if (!empty($events_p) && !empty($events)) {
 
                         //add params
                         $params['participated'] = $events_p;
 
                         //filter events
-                        foreach ($events_p as $participation){
+                        foreach ($events_p as $participation) {
                             $key = -1;
-                            foreach ($events as $event){
-                                if ($event['id'] == $participation['eventId']){
+                            foreach ($events as $event) {
+                                if ($event['id'] == $participation['eventId']) {
                                     $key = array_keys($events, $event, true);
                                     break;
                                 }
                             }
 
-                            if ($key != -1){
+                            if ($key != -1) {
                                 //remove requested events from events
                                 unset($events[$key[0]]);
 
@@ -361,7 +378,7 @@ class SupportGroupController extends Controller
                 ];
 
                 $this->setLayout('caller/callerFunction');
-                return $this->render('components/errorMessage', 'Manasa',$params);
+                return $this->render('components/errorMessage', 'Manasa', $params);
 
             }
 
@@ -401,7 +418,7 @@ class SupportGroupController extends Controller
             //get support group join request
             $sg_join_request = $sgEnrollRequest->findSupportGroupRequestById($userId, $requestBody['supportGroupId']);
             //check results
-            if (!empty($sg_join_request) && sizeof($sg_join_request)){
+            if (!empty($sg_join_request) && sizeof($sg_join_request)) {
 
                 //check join request state
                 if ($sg_join_request[0]['state'] == CommonConstants::STATE_PENDING) {
@@ -424,18 +441,63 @@ class SupportGroupController extends Controller
             }
 
             $this->setLayout('caller/callerFunction');
-            return $this->render('components/errorMessage', 'Manasa',$params);
+            return $this->render('components/errorMessage', 'Manasa', $params);
         }
     }
 
-    /*
-     * Function: leveSupportGroup
-     * Operation: remove approved support group join request
-     * Parameter: Request object
-     * Return:
-     *
-     * */
-    public function leaveSupportGroup(Request $request): array|bool|string
+
+    public function createSupportGroupEvent(Request $request)
+    {
+        $meetingId = null;
+        $meetingData = null;
+        $locationId = null;
+
+        $meetingDetails = $request->getJsonBody();
+        $supportGroupEvent = new SupportGroupEvent();
+        $supportGroupEvent->setType($meetingDetails["type"]);
+        $supportGroupEvent->setTopic($meetingDetails["topic"]);
+        $supportGroupEvent->setDate($meetingDetails["eventDate"]);
+        $supportGroupEvent->setStartTime($meetingDetails["startTime"]);
+        $supportGroupEvent->setEndTime($meetingDetails["endTime"]);
+        $supportGroupEvent->setAgenda($meetingDetails["agenda"]);
+        $supportGroupEvent->setNotify($meetingDetails["notify"]);
+        $supportGroupEvent->setSupportGroupId($meetingDetails["supportGroupId"]);
+
+        /*$location = new Location();
+        $location->setLat($meetingDetails["location"]["lat"]);
+        $location->setLng($meetingDetails["location"]["lng"]);
+        $location->setPlaceId($meetingDetails["location"]["place_id"]);
+        $supportGroupEvent->setLocation($location);*/
+
+        $supportGroupEvent->createSupportGroupEvent();
+    }
+
+    public function sendBulkMail(array $params, array $emailList)
+    {
+        //$mailList = ["gallagesanka03@gmail.com", "2019is026@stu.ucsc.cmb.ac.lk"];
+        $mailer = new Mailer();
+        $mailer->init('smtp.gmail.com', $_ENV['SEND_EMAIL'], $_ENV['PASSWORD']);
+        $mailer->bulkEmailSend("jw8041360@gmail.com", "Test Bulk Mail", $emailList, $params);
+    }
+
+    public function getSupportGroupEvents(Request $request): bool|string
+    {
+        $supportGroupEvent = new SupportGroupEvent();
+        Application::$app->response->setContentTypeJson();
+        return json_encode($supportGroupEvent->getSupportGroupEvents($request->getBody()["supportGroupId"]));
+
+        /*
+         * Function: leveSupportGroup
+         * Operation: remove approved support group join request
+         * Parameter: Request object
+         * Return:
+         *
+         * */
+
+    }
+
+    public
+    function leaveSupportGroup(Request $request): array|bool|string
     {
 
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
@@ -453,7 +515,7 @@ class SupportGroupController extends Controller
             'linkType' => CommonConstants::LINK_TYPE_GET,
         ];
 
-        if ($sgEnroll->leaveSupportGroup($sgId,$userId)){
+        if ($sgEnroll->leaveSupportGroup($sgId, $userId)) {
             $params = [
                 'request' => $requestBody,
                 'title' => "You left the support group!.",
@@ -463,9 +525,8 @@ class SupportGroupController extends Controller
                 'linkType' => CommonConstants::LINK_TYPE_GET,
             ];
         }
-
         $this->setLayout('caller/callerFunction');
-        return $this->render('components/errorMessage', 'Manasa',$params);
+        return $this->render('components/errorMessage', 'Manasa', $params);
 
     }
 
@@ -484,32 +545,32 @@ class SupportGroupController extends Controller
         $sgEnrollRequest = new SgEnroll();
         $requestBody = $request->getBody();
         $params = array();
-        if ($request->isGet()){
+        if ($request->isGet()) {
             $params = [
-                'request' =>$requestBody,
+                'request' => $requestBody,
                 CommonConstants::VIEW_TYPE => 'sg_join_meeting'
             ];
         }
 
-        if (array_key_exists('date', $requestBody)){
+        if (array_key_exists('date', $requestBody)) {
 
-            $limitCheck = $callerAppointment->reservationLimit_check($userId,$requestBody['date']);
+            $limitCheck = $callerAppointment->reservationLimit_check($userId, $requestBody['date']);
 
-            if ($limitCheck != -1){
+            if ($limitCheck != -1) {
                 //schedule found
-                if ($request->isPost() && $limitCheck){
+                if ($request->isPost() && $limitCheck) {
                     $params = [
                         'timeSlots' => $callerAppointment->loadTimeSlots($userId, $requestBody['date']),
-                        'request' =>$requestBody,
+                        'request' => $requestBody,
                         'viewType' => 'sg_join_meeting',
                         'searchedDate' => $requestBody['date'],
                         'meetingType' => $requestBody['meetingType'],
                         'chances' => $limitCheck
                     ];
-                } else if (!$limitCheck){
+                } else if (!$limitCheck) {
                     //error message
                     $params = [
-                        'error' => $callerAppointment->reservationLimit_check($userId,$requestBody['date']),
+                        'error' => $callerAppointment->reservationLimit_check($userId, $requestBody['date']),
                         'request' => $requestBody,
                         'title' => "Cannot load timeslots.",
                         'message' => 'Reservation limit exceeded.',
@@ -519,13 +580,13 @@ class SupportGroupController extends Controller
                     ];
 
                     $this->setLayout('caller/callerFunction');
-                    return $this->render('components/errorMessage', 'Manasa',$params);
+                    return $this->render('components/errorMessage', 'Manasa', $params);
                 }
             } else if ($limitCheck == -1) {
                 //schedule not found
                 //error message
                 $params = [
-                    'error' => $callerAppointment->reservationLimit_check($userId,$requestBody['date']),
+                    'error' => $callerAppointment->reservationLimit_check($userId, $requestBody['date']),
                     'request' => $requestBody,
                     'title' => "Cannot find timeslots.",
                     'message' => 'Timeslots not available. Please try again with another date. ',
@@ -535,13 +596,13 @@ class SupportGroupController extends Controller
                 ];
 
                 $this->setLayout('caller/callerFunction');
-                return $this->render('components/errorMessage', 'Manasa',$params);
+                return $this->render('components/errorMessage', 'Manasa', $params);
             }
 
         }
 
         $this->setLayout('caller/callerFunction');
-        return $this->render('caller/appointments/timeSlots', 'Time Slots',$params);
+        return $this->render('caller/appointments/timeSlots', 'Time Slots', $params);
     }
 
     /*
@@ -551,7 +612,8 @@ class SupportGroupController extends Controller
      * Return: support groups list
      *
      * */
-    public function searchSg(Request $request): array|bool|string
+    public
+    function searchSg(Request $request): array|bool|string
     {
         $supportGroup = new SupportGroup();
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
@@ -563,15 +625,15 @@ class SupportGroupController extends Controller
         $myResults = array();
 
         //filter results
-        if (!empty($requests) && !empty($searchResults)){
+        if (!empty($requests) && !empty($searchResults)) {
 
-            foreach ($requests as $row){
-                foreach ($searchResults as $result){
+            foreach ($requests as $row) {
+                foreach ($searchResults as $result) {
                     //request found
-                    if ($result['id'] == $row['supportGroupId']){
-                        if ($row['state'] == CommonConstants::STATE_ACCEPTED){
+                    if ($result['id'] == $row['supportGroupId']) {
+                        if ($row['state'] == CommonConstants::STATE_ACCEPTED) {
                             array_push($mySupportGroups, $result);
-                        } else if ($row['state'] == CommonConstants::STATE_PENDING){
+                        } else if ($row['state'] == CommonConstants::STATE_PENDING) {
                             array_push($myRequests, $result);
                         }
                     }
@@ -580,27 +642,27 @@ class SupportGroupController extends Controller
             }
 
             //set my results
-            foreach ($searchResults as $sr){
+            foreach ($searchResults as $sr) {
                 $check = 0;
-                if (!empty($myRequests)){
-                    foreach ($myRequests as $mr){
-                        if ($sr['id'] == $mr['id']){
+                if (!empty($myRequests)) {
+                    foreach ($myRequests as $mr) {
+                        if ($sr['id'] == $mr['id']) {
                             $check = 1;
                             break;
                         }
                     }
                 }
 
-                if ($check == 0 && !empty(!$mySupportGroups)){
-                    foreach ($mySupportGroups as $ms){
-                        if ($sr['id'] == $ms['id']){
+                if ($check == 0 && !empty(!$mySupportGroups)) {
+                    foreach ($mySupportGroups as $ms) {
+                        if ($sr['id'] == $ms['id']) {
                             $check = 1;
                             break;
                         }
                     }
                 }
 
-                if ($check == 0){
+                if ($check == 0) {
                     array_push($myResults, $sr);
                 }
             }
@@ -616,7 +678,7 @@ class SupportGroupController extends Controller
         ];
 
         $this->setLayout('caller/callerFunction');
-        return $this->render('caller/supportGroups/supportGroupsList',"Support Groups List",$params);
+        return $this->render('caller/supportGroups/supportGroupsList', "Support Groups List", $params);
 
     }
 }

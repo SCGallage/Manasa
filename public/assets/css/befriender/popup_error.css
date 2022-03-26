@@ -33,9 +33,10 @@
 }
 
 .flash-description {
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
     font-weight: 300;
+    font-family: "Poppins", sans-serif;
 }
 
 .button-group {
@@ -46,23 +47,24 @@
 
 .common-button {
     font-size: 0.8rem;
-    padding: 0.8rem;
+    padding: 0.6rem 0.7rem;
     border: none;
     font-weight: 700;
     border-radius: 5px;
     color: white;
     /* margin-top: 1.5rem; */
-    width: 0px;
+    width: 90px;
     cursor: pointer;
+    font-family: "Poppins", sans-serif;
     /* transition: all 200ms linear; */
 }
 
 .accept-button {
-    background-color: #98f69c;
+    background-color: #003249;
 }
 
 .cancel-button {
-    background-color: #d53f3f;
+    background-color: #406577;
 }
 
 .common-button:hover {
