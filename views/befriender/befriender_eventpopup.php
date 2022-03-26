@@ -1,92 +1,133 @@
-<link rel="stylesheet" href="http://localhost/assets/css/befriender/event_popup.css">
-<div class="container">
-        <div class="calendar">
-            <h3 class="calendar-title">Add Event</h3>
-            <div class="calendar-header">
-                <select name="month-picker" id="month-picker" hidden>
-                    <option value="0">January</option>
-                    <option value="1">February</option>
-                    <option value="2">March</option>
-                    <option value="3">April</option>
-                    <option value="4">May</option>
-                    <option value="5">June</option>
-                    <option value="6">July</option>
-                    <option value="7">August</option>
-                    <option value="8">September</option>
-                    <option value="9">October</option>
-                    <option value="10">November</option>
-                    <option value="11">December</option>
-                </select>
-                <div class="calendar-controls">
-                    <span class="year-change prev" id="prev-year">PREV</span>
-                    <span id="year">2021</span>
-                    <span class="year-change next" id="next-year">NEXT</span>
+<link rel="stylesheet" href="<?php echo $_ENV['BASE_URL']?>/assets/css/befriender/event_popup.css">
+<script src="<?php echo $_ENV['BASE_URL']?>/assets/js/befriender/maps_script.js"></script>
+<div class="modal-secondary-bg">
+        <div class="main-container">
+            <h4 class="main-heading">Pick a Location</h4>
+            <div class="secondary-container">
+              <div class="location-info">
+                <input
+                  id="pac-input"
+                  class="controls"
+                  type="text"
+                  placeholder="Search Location"
+                />
+                <h5 class="secondary-heading">Location Details</h5>
+                <div class="data-field">
+                  <span class="loc-details-label">Name:</span>
+                  <span class="location-details" id="location-name">Not Chosen</span>
                 </div>
-                <div class="calendar-body">
-                    <div class="calendar-week-day">
-                        <div class="day">SUN</div>
-                        <div class="day">MON</div>
-                        <div class="day">TUE</div>
-                        <div class="day">WED</div>
-                        <div class="day">THU</div>
-                        <div class="day">FRI</div>
-                        <div class="day">SAT</div>
-                    </div>
-                    <div class="calendar-days"></div>
+                <div class="data-field">
+                  <span class="loc-details-label">Address:</span>
+                  <span class="location-details" id="location-address">Not Chosen</span>
                 </div>
+                <button class="confirm-loc-btn" onclick="closeLocationModal()" >Confirm Location</button>
+              </div>
+              <div id="map"></div>
             </div>
-        </div>
-        <div class="event-container">
-            <h4 class="event-list-heading">Events</h4>
-            <div class="event-list">
-                <div class="event-add-card">
-                    <h5 class="event-card-title">Annual Meet Up</h5>
-                    <div class="event-info">
-                        <h5 class="event-detail">Date: 02.12.2021</h5>
-                        <h5 class="event-detail">Time: 2.00p.m. - 4.00p.m.</h5>
-                        <h5 class="event-detail">Type: Virtual Meeting</h5>
+          </div>
+    </div>
+    <div class="main-grid">
+        <h1 class="main-title">Schedule Event</h1>
+        <div class="flex-container">
+            <div class="grid-item-01">
+                <h2 class="date-title">Friday, December 24, 2021</h2>
+                <div class="event-calendar">
+                    <div class="time-slots">
+                        <span class="time">9:00</span>
+                        <span class="time">10.00</span>
+                        <span class="time">11:00</span>
+                        <span class="time">12:00</span>
+                        <span class="time">13:00</span>
+                        <span class="time">14:00</span>
+                        <span class="time">15:00</span>
+                        <span class="time">16:00</span>
+                        <span class="time">17:00</span>
                     </div>
-                </div>
+                    <div class="cards-list">
+                    </div>
+                </div>        
             </div>
-            <h4 class="event-heading">Event Details</h4>
+            <div class="grid-item-02">
+                <div class="secondary-item">
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <select name="month-picker" id="month-picker">
+                            <option value="0">January</option>
+                            <option value="1">February</option>
+                            <option value="2">March</option>
+                            <option value="3">April</option>
+                            <option value="4">May</option>
+                            <option value="5">June</option>
+                            <option value="6">July</option>
+                            <option value="7">August</option>
+                            <option value="8">September</option>
+                            <option value="9">October</option>
+                            <option value="10">November</option>
+                            <option value="11">December</option>
+                        </select>
+                        <span class="year-change" id="prev-year"> < </span>
+                        <span id="year">2021</span>
+                        <span class="year-change" id="next-year"> > </span>
+                        <div class="calendar-body">
+                            <div class="calendar-week-day">
+                                <div>SUN</div>
+                                <div>MON</div>
+                                <div>TUE</div>
+                                <div>WED</div>
+                                <div>THU</div>
+                                <div>FRI</div>
+                                <div>SAT</div>
+                            </div>
+                            <div class="calendar-days"></div>
+                        </div>
+                    </div>
+            </div>
             <div class="event-form">
-                <div class="form-field">
-                    <label for="" class="field-name">Event Name</label>
-                    <input type="text" class="input-field" />
-                </div>
-                <div class="form-field">
-                    <label for="" class="field-name">Date</label>
-                    <input type="date" class="input-field" />
-                </div>
-                <div class="time-fields">
-                    <div class="form-field">
-                        <label for="" class="field-name">From</label>
-                        <input type="text" class="time-input-field" />
+                <!-- <form action="post" class="form"> -->
+                    <div class="form-field flex-field">
+                        <label for="" class="field-name">Event Name</label>
+                        <input type="text" placeholder="ex: Annual Meeting" class="form-input" name="eventName" id="event-name">
                     </div>
-                    <div class="form-field addtional">
-                        <label for="" class="field-name">To</label>
-                        <input type="text" class="time-input-field" />
+                    <div class="form-field grid-field">
+                        <label for="" class="field-name">Start Time: </label>
+                        <input type="time" name="eventName" class="form-input form-input-time" id="event-start" onchange="validateStartTime()">
+                        <label for="" class="field-name time-label">End Time: </label>
+                        <input type="time" name="eventName" class="form-input form-input-time time-label" id="event-end" onchange="validateEventTime()" disabled>
                     </div>
-                </div>
-                <div class="event-options">
-                    <input type="checkbox" name="" id="" /><span class="checkbox-text"
-                    >Virtual Meeting</span
-                    >
-                </div>
-                <div class="event-options">
-                    <input type="checkbox" name="" id="" /><span class="checkbox-text"
-                    >Inform Members</span
-                    >
-                </div>
-                <div class="form-field">
-                    <label for="" class="field-name">Agenda</label>
-                    <textarea
-                        type="text"
-                        class="input-field-textarea"
-                        rows="6"
-                    ></textarea>
-                </div>
-                <button class="add-event-btn">ADD EVENT</button>
+                    <span id="error" class="error-msg"></span>
+                    <div class="form-field-new">
+                        <label for="" class="field-name">Agenda</label>
+                        <textarea rows="4" placeholder="ex: Annual Meeting" class="form-input" name="eventName" id="event-agenda"></textarea>
+                    </div>
+                    <div class="form-field-new flex-field" id="location-div">
+                        <div>
+                            <label for="" class="field-name">Location</label>
+                            <button class="choose-loc" onclick="openLocationModal()">ADD</button>
+                        </div>
+                        <h5 class="location-name">Not Chosen</h5>
+                    </div>
+                    <div class=".form-field-checkbox">
+                        <input type="checkbox" name="notify" id="notify">
+                        <span class="checkbox-text">Notify Members</span>
+                    </div>
+                    <div class=".form-field-checkbox">
+                        <input type="checkbox" name="virtual" id="virtual" onclick="locationInputDiv()">
+                        <span class="checkbox-text">Virtual Meeting</span>
+                    </div>
+                    <div class="btn-set">
+                        <button class="form-btn submit-btn" id="submit-btn">ADD EVENT</button>
+                    </div>
+                <!-- </form> -->
             </div>
         </div>
-</div>
+        </div>
+        </div>
+    </div>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOVLqE0v0LK9JMLirxu3voFbI2OJiWaas&callback=initAutocomplete&libraries=places&v=weekly"
+      async
+    ></script>
+    <script src="<?php echo $_ENV['BASE_URL']?>/assets/js/befriender/event_calendar.js"></script>
+    <script src="<?php echo $_ENV['BASE_URL']?>/assets/js/befriender/event_script.js"></script>
+<script src="<?php echo $_ENV['BASE_URL']?>/assets/js/befriender/eventpage_validation.js"></script>

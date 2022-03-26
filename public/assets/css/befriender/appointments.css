@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0%;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+body {
+    background-color: #efefef;
+}
+
+.table-container {
+    width: 1100px;
+    /* background-color: white; */
+}
+
+.profile-icon {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+td {
+    text-align: center;
+    height: 55px;
+    border-bottom: 0.5px solid #003249;
+    font-weight: 300;
+    font-family: "Poppins", sans-serif;
+}
+
+th {
+    height: 45px;
+    font-family: "Poppins", sans-serif;
+}
+
+.table-head {
+    background-color: #003249;
+    color: white;
+}
+
+.upcoming-sessions {
+    width: 100%;
+    align-self: center;
+    border-collapse: collapse;
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.details-link {
+    font-weight: 600;
+    color: #406577;
+    cursor: pointer;
+}
+
+/* Page heading and search */
+
+.main-heading {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 2.5rem;
+}
+
+.search-bar {
+    margin-left: auto;
+}
+
+.search-field {
+    width: 12rem;
+    height: 1.8rem;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #003249;
+    padding-left: 0.3rem;
+}
+
+.search-btn {
+    height: 1.8rem;
+    width: 6rem;
+    border: none;
+    background-color: #406577;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    border-radius: 3px;
+}

@@ -46,7 +46,7 @@ class Staff extends Model
         $mailer = new Mailer();
         $mailer->init('smtp.gmail.com', $_ENV['SEND_EMAIL'], $_ENV['PASSWORD']);
         $mailer->configure_email($_ENV['SEND_EMAIL'], $email);
-        $mailer->loadTemplate("Welcome To Manasa!", "registerTemplate", $username);
+        $mailer->loadTemplate("Welcome To Manasa!", "pendingRequestTemplate", $username);
         $mailer->sendMail();
     }
 

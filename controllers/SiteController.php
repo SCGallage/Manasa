@@ -2,6 +2,7 @@
 namespace controllers;
 
 use core\Application;
+use core\Mailer;
 use core\Request;
 use core\Controller;
 
@@ -23,6 +24,10 @@ class SiteController extends Controller
     }
 
 
+
+    public function sendBulkMail() {
+        $mailer = new Mailer();
+    }
 
 
 

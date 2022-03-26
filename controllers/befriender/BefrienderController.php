@@ -6,6 +6,7 @@ use core\Application;
 use core\Model;
 use core\Request;
 use core\sessions\SessionManagement;
+use Google\Service\AdMob\App;
 use models\users\Befriender;
 
 class BefrienderController extends \core\Controller
@@ -29,12 +30,33 @@ class BefrienderController extends \core\Controller
 
     public function loadBefrienderAppointments(Request $request)
     {
-        return $this->render('befriender\befriender_appointments', 'Befriender | Appointments');
+        $meetingList = $this->befriender->getAllMeetingsOfBefriender($request->getBody()["befid"]);
+        return $this->render('befriender\befriender_appointments', 'Befriender | Appointments', [
+            "meetingList" => $meetingList
+        ]);
     }
 
     public function loadBefrienderReports(Request $request)
     {
-        return $this->render('befriender\befriender_reports', 'Befriender | Reports');
+        $reportData = $this->befriender->getReportPendingForBefriender($request->getBody()['befid']);
+        $months = [ "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" ];
+        foreach ($reportData as $key => $report) {
+            $timestamp = strtotime($report['date']);
+            $reportData[$key]['month'] = $months[intval(date("m", $timestamp))-1];
+            $reportData[$key]['day'] = date("j", $timestamp);
+        }
+
+        $submittedReports = $this->befriender->getSubmittedReportsForBefriender($request->getBody()['befid']);
+        foreach ($submittedReports as $key => $submittedReport) {
+            $timestamp = strtotime($submittedReport['date']);
+            $submittedReports[$key]['month'] = $months[intval(date("m", $timestamp))-1];
+            $submittedReports[$key]['day'] = date("j", $timestamp);
+        }
+        return $this->render('befriender\befriender_reports', 'Befriender | Reports',
+            [
+                "reports" => $reportData,
+                "submittedReports" => $submittedReports
+            ]);
     }
 
     public function loadBefrienderSupportGroup(Request $request)
@@ -45,6 +67,11 @@ class BefrienderController extends \core\Controller
     public function befrienderSchedule(Request $request)
     {
         return $this->render('befriender\befriender_schedule', 'Befriender | Schedule');
+    }
+
+    public function transferBefrienderShift(Request $request)
+    {
+        return $this->render('befriender\befriender_transfer', 'Befriender | Tranfer Shift');
     }
 
     public function addSupportGroupRequest(Request $request)
@@ -58,5 +85,19 @@ class BefrienderController extends \core\Controller
         $this->setLayout('reset');
         Application::$app->response->setRedirectUrl('/befriender/dashboard?befid='.SessionManagement::get_session_data('user_id'));
         //return $this->render('befriender\befriender_supportgroup_request', 'Befriender | Support Group');
+    }
+
+    public function getSingleMeetingDetails(Request $request)
+    {
+        Application::$app->response->setContentTypeJson();
+        return json_encode($this->befriender->getSingleMeetingDetails($request->getBody()['meetingId']));
+    }
+
+    public function submitReportForMeeting(Request $request)
+    {
+        Application::$app->response->setContentTypeJson();
+        return json_encode([
+            "result" => $this->befriender->submitReportForMeeting($request->getJsonBody())
+        ], JSON_NUMERIC_CHECK);
     }
 }

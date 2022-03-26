@@ -9,12 +9,15 @@ use controllers\befriender\BefrienderController;
 use controllers\caller\CallerAppointmentController;
 use controllers\caller\CallerController;
 use controllers\DonateController;
+use controllers\schedule\ScheduleController;
 use controllers\supportgroup\SupportGroupController;
+use controllers\supportgroup\SupportGroupEventController;
 use controllers\volunteer\VolunteerController;
 use core\Application;
 use controllers\SiteController;
 use core\DotEnv;
 use controllers\Admin\AdminController;
+use core\Settings;
 
 $dotenv = new DotEnv(dirname(__DIR__).'\.env');
 $dotenv->load();
@@ -58,6 +61,11 @@ cors();
 
 $app = new Application(dirname(__DIR__), $config);
 
+$settings = new Settings();
+$settings->addSettingToDatabase("bef_limit", 10);
+$settings->loadSettingsToEnv();
+echo $_ENV['bef_limit'];
+
 /* Testing routes only */
 $app->router->get('/', [SiteController::class, 'home']);
 $app->router->get('/contact', [SiteController::class, 'contact']);
@@ -83,48 +91,32 @@ $app->router->get('/validatelogin', [AuthController::class, 'loginGoogleUser']);
 /* Password Reset */
 $app->router->get('/resetpassword', [AuthController::class, 'resetPassword']);
 $app->router->post('/resetpassword', [AuthController::class, 'resetPassword']);
-
 $app->router->get('/resetemail', 'users/resetEmailSent');
-
 $app->router->get('/updatepassword', [AuthController::class, 'updatePassword']);
 $app->router->post('/updatepassword', [AuthController::class, 'updatePassword']);
 
-/* API endpoints */
-
-/* SupportGroup Requests */
-$app->router->get('/api/v1/supportgroup/requests', [SupportGroupController::class, 'getSupportGroupRequests']);
-$app->router->post('/api/v1/supportgroup/requestDecision', [SupportGroupController::class, 'supportGroupRequestDecision']);
-
-/* SupportGroup Members */
-$app->router->get('/api/v1/supportgroup/members', [SupportGroupController::class, 'getSupportGroupMembers']);
-$app->router->post('/api/v1/supportgroup/remove_member', [SupportGroupController::class, 'removeMemberFromSupportGroup']);
-
-$app->router->post('/api/v1/auth/validate', [AuthController::class, 'checkExistingUsernameOrEmail']);
-
 /* Befriender Views */
-
 
 $app->router->get('/befriender/dashboard', [BefrienderController::class, 'loadBefrienderDashboard', 'Befriender']);
 $app->router->get('/befriender/appointments', [BefrienderController::class, 'loadBefrienderAppointments']);
 $app->router->get('/befriender/reports', [BefrienderController::class, 'loadBefrienderReports']);
 $app->router->get('/befriender/supportgroup', [BefrienderController::class, 'loadBefrienderSupportGroup']);
 $app->router->get('/befriender/schedule', [BefrienderController::class, 'befrienderSchedule']);
-
 $app->router->get('/befriender/sg_request', [BefrienderController::class, 'addSupportGroupRequest']);
 $app->router->post('/befriender/sg_request', [BefrienderController::class, 'addSupportGroupRequest']);
+
+/* Schedule Views */
+$app->router->get('/befriender/transfershift', [ScheduleController::class, 'loadPreviousShift']);
 
 //admin landing page
 $app->router->get('/admin/AdminDash', [AdminController::class, 'home']);
 
 //Admin support group
 $app->router->get('/admin/SupportGroup', [AdminController::class, 'supportGroup']);
-
 $app->router->get('/admin/createSG', [AdminController::class, 'createSG']);
 $app->router->post('/admin/createSG', [AdminController::class, 'createdSG']);
-
 $app->router->get('/admin/updateSG', [AdminController::class, 'updateSG']);
 $app->router->post('/admin/updatedSGform', [AdminController::class, 'updateSG']);
-
 $app->router->get('/admin/deleteSG', [AdminController::class, 'deleteSG']);
 
 //Support group request update
@@ -148,14 +140,12 @@ $app->router->get('/admin/SearchUsers', [AdminController::class, 'SearchUsers'])
 //add users
 $app->router->get('/admin/addUsers', [AdminController::class, 'createUser']);
 $app->router->post('/admin/addUsers', [AdminController::class, 'createUser']);
-
 $app->router->get('/admin/deleteUser', [AdminController::class, 'deleteUser']);
 
 //User requests
 $app->router->get('/admin/UserRequests', [AdminController::class, 'UserRequests']);
 $app->router->post('/admin/UserRequests', [AdminController::class, 'UserRequestsUpdate']);
 $app->router->get('/admin/UserRequestsDelete', [AdminController::class, 'UserRequestsDelete']);
-
 $app->router->get('/cvdownload', [AdminController::class, 'cvDownload']);
 
 //moderator views
@@ -211,10 +201,52 @@ $app->router->get('/updateVolunteerProfile', [VolunteerController::class, 'loadV
 $app->router->post('/updateVolunteerProfile', [VolunteerController::class, 'updateVolunteer']);
 $app->router->get('/volunteerParticipatedEvents', [VolunteerController::class, 'loadParticipatedEvents']);
 
+/* API endpoints */
 
+/* SupportGroup Requests */
+$app->router->get('/api/v1/supportgroup/requests', [SupportGroupController::class, 'getSupportGroupRequests']);
+$app->router->post('/api/v1/supportgroup/requestDecision', [SupportGroupController::class, 'supportGroupRequestDecision']);
 
+/* SupportGroup Members */
+$app->router->get('/api/v1/supportgroup/members', [SupportGroupController::class, 'getSupportGroupMembers']);
+$app->router->post('/api/v1/supportgroup/remove_member', [SupportGroupController::class, 'removeMemberFromSupportGroup']);
+
+/* Validation */
+$app->router->post('/api/v1/auth/validate', [AuthController::class, 'checkExistingUsernameOrEmail']);
+
+/* Schedule Functions */
+$app->router->get('/api/v1/schedule/scheduleDetails', [ScheduleController::class, 'getAllSlotDetails']);
+$app->router->get('/api/v1/schedule/getDisabledSchedule', [ScheduleController::class, 'getDisabledSchedule']);
+$app->router->get('/api/v1/schedule/getReservedSlotsBefriender', [ScheduleController::class, 'getReservedSlotsByBefriender']);
+$app->router->get('/api/v1/schedule/getSlotReservations', [ScheduleController::class, 'getBefriendersAssignedToSlot']);
+$app->router->get('/api/v1/schedule/checkLock', [ScheduleController::class, 'getPreviousDate']);
+$app->router->get('/api/v1/schedule/getTransferRequest', [ScheduleController::class, 'loadShiftsAvailableForTransfer']);
+
+$app->router->post('/api/v1/schedule/reserveTimeSlot', [ScheduleController::class, 'reserveTimeSlot']);
+$app->router->post('/api/v1/schedule/requestShiftTransfer', [ScheduleController::class, 'requestShiftTransfer']);
+$app->router->get('/api/v1/schedule/getShiftFromDate', [ScheduleController::class, 'getSlotForGivenDate']);
+$app->router->post('/api/v1/schedule/createShiftTransfer', [ScheduleController::class, 'createTransferRequest']);
+$app->router->post('/api/v1/schedule/deleteShiftTransfer', [ScheduleController::class, 'deleteTransferRequest']);
+$app->router->post('/api/v1/schedule/makeDecisionOnTransfer', [ScheduleController::class, 'makeDecisionForTransferRequest']);
+
+/* Support Group Events */
+$app->router->post('/api/v1/supportgroup/createEvent', [SupportGroupController::class, 'createSupportGroupEvent']);
+$app->router->get('/api/v1/supportgroup/getEvents', [SupportGroupController::class, 'getSupportGroupEvents']);
+$app->router->get('/api/v1/supportgroup/upcomingEvents', [SupportGroupEventController::class, 'getUpcomingEventForSG']);
+$app->router->get('/api/v1/supportgroup/eventfordate', [SupportGroupEventController::class, 'getSupportGroupEventsForDate']);
+$app->router->get('/supportGroup/bulk', [SupportGroupController::class, 'sendBulkMail']);
+
+/* Befriender Reports */
+$app->router->get('/api/v1/meeting', [BefrienderController::class, 'getSingleMeetingDetails']);
+$app->router->post('/api/v1/addSessionReport', [BefrienderController::class, 'submitReportForMeeting']);
 
 //terms and conditions
 $app->router->get('/TermsandConditions', '/TermsandConditions');
+
+/* Currently testing */
+
+$app->router->get('/verifyemail', [AuthController::class, 'verifyEmail']);
+
+$app->router->post('/api/v1/profilepic', [AuthController::class, 'updateUserProfilePicture']);
 
 $app->run();
