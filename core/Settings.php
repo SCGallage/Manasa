@@ -16,7 +16,7 @@ class Settings extends Model
         $count = $this->select("settings", "*", [
             "name" => $key
         ], DatabaseService::FETCH_COUNT);
-        echo $count;
+
         if ($count > 0)
             $this->update("settings", [ "val" => $value ], [ "name" => $key ]);
         else
