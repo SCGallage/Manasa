@@ -111,6 +111,7 @@ class DatabaseService
         $columnQueryString = implode(', ', $this->refactorDataForQuery($columns, 0));
         $conditionQueryString = implode(' AND ', $this->refactorDataForQuery($conditions, 0));
         $sqlStatement = "UPDATE $tableName SET $columnQueryString  WHERE $conditionQueryString";
+        //echo $sqlStatement;
         return $this->pdo->exec($sqlStatement);
     }
 
@@ -135,6 +136,13 @@ class DatabaseService
         if ($flag === DatabaseService::FETCH_COUNT)
             return $statement->rowCount();
 
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function executeStoredProcedure($query)
+    {
+        $statement = $this->pdo->prepare($query);
+        $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }

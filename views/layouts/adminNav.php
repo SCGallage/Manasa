@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="http://localhost/assets/img/favicon-16x16.png" sizes="16x16" />
-    <link rel="stylesheet" href="http://localhost/assets/css/navbaronly.css">
+    <link rel="icon" type="image/png" href="<?php echo $_ENV['BASE_URL']?>/assets/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" href="<?php echo $_ENV['BASE_URL']?>/assets/css/navbaronly.css">
     <title>{{title}}</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
@@ -197,6 +197,6 @@
 <main>
     {{content}}
 </main>
-<script src="http://localhost/assets/js/vertical_nav.js"></script>
+<script src="<?php echo $_ENV['BASE_URL']?>/assets/js/vertical_nav.js"></script>
 </body>
 </html>

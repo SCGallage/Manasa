@@ -1,3 +1,16 @@
+/* * {
+  padding: 0%;
+  margin: 0%;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
 .modal-background {
   position: fixed;
   height: 100vh;
@@ -13,169 +26,152 @@
   visibility: visible;
 }
 
-.container {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  background: #f7f7f7;
-  column-gap: 10px;
-  padding: 2rem 3rem;
-  border-radius: 3px;
-  /* height: 70vh; */
-}
-
-/* Event Infotmation */
-.event-container {
-  background: #fafafa;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 3px;
-  height: fit-content;
-  padding-bottom: 1rem;
-  /* height: 350px; */
-}
-
-.event-list {
-  background: rgba(241, 241, 241, 0.45);
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  /* height: 30%; */
-  padding: 0.8rem 0.5rem;
-  margin: 0 0.5rem;
-}
-
-.event-list-heading {
-  font-size: 1.5rem;
-  /* margin: 1rem 0 0.5rem 0; */
-  margin-top: 1rem;
-  margin-bottom: 0.3rem;
-  margin-left: 0.5rem;
-  color: #03929b;
-}
-
-.event-add-card {
-  background-color: white;
-  padding: 1rem;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-}
-
-.event-form {
-  background: rgba(241, 241, 241, 0.45);
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  margin: 0 0.5rem;
-  padding: 0.8rem 1.5rem;
-}
-
-.form-field {
+.card {
   display: flex;
   flex-direction: column;
-  margin-bottom: 0.8rem;
-}
-
-.input-field {
-  height: 2rem;
-  width: 13.5rem;
-  border: 2px solid #004f53;
-  font-family: "Poppins", sans-serif;
-}
-
-.input-field-textarea {
-  width: 13.5rem;
-  border: 2px solid #004f53;
-}
-
-.time-fields {
-  display: flex;
-  flex-direction: row;
-}
-
-.time-input-field {
-  height: 2rem;
-  border: 2px solid #004f53;
-  width: 100px;
-}
-
-.event-options {
-  margin-bottom: 0.5rem;
-}
-
-.field-name {
-  font-weight: 500;
-}
-
-.checkbox-text {
-  margin-left: 0.5rem;
-}
-
-.addtional {
-  margin-left: auto;
-}
-
-.add-event-btn {
-  background-color: #004f53;
+  width: fit-content;
+  background-color: rgb(54,69,79);
+  padding: 0.5rem 1.3rem;
+  border-radius: 10px;
   color: white;
-  border: none;
-  width: 13.7rem;
-  padding: 0.6rem;
 }
 
-.event-card-title {
-  font-size: 0.9rem;
-  margin-bottom: 0.2rem;
-  font-family: "Poppins", sans-serif;
-  color: #6e7074;
+.card-head {
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
-.event-detail {
+.card-body {
+  display: flex;
+  flex-direction: column;
   font-weight: 400;
-  margin-bottom: 0.1rem;
-  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
 }
 
-/* Calendar */
+.single-card {
+  /* padding: 30px 60px; */
+  background-color: aquamarine;
+  width: fit-content;
+  border-radius: 5px;
+  padding-left: 15px;
+  width: 250px;
+}
 
-.calendar-title {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-  color: #03929b;
+.time-slots {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+}
+
+.time {
+  margin-bottom: 43px;
+  height: 16px;
+  margin-top: 0%;
+  padding: 0;
+  border-top: 1px solid black;
+}
+
+.event-calendar {
+  display: flex;
+}
+
+.participant-text {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #4e4e4e;
+}
+
+.event-title-text {
+  font-weight: 600;
+  color: #404040;
+}
+
+.date-title {
+  font-weight: 400;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.9rem;
+  margin-left: 3.5rem;
+  /* margin-right: auto; */
+}
+
+.cards-list {
+  margin-left: 0.8rem;
+}
+
+.main-title {
+  margin-left: 1.5rem;
+  color: #716F81;
+}
+
+/* Card grid view */
+.main-grid {
+  width: 760px;
+  background-color: #f6f6f6;
+  /* grid-template-columns: auto auto; */
+  /* column-gap: 10px; */
+}
+
+.flex-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.grid-item-01 {
+  /* margin: 0 auto; */
+  margin-left: 30px;
+}
+
+.grid-item-02 {
+  /* margin: 0 auto; */
+  /*margin-left: 10px;*/
+}
+
+/* calendar styles */
+
+.calendar {
+  margin-top: 1rem;
 }
 
 .calendar-week-day {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, 30px);
   text-align: center;
-  margin: 10px 0 0.2rem 0;
+  margin: 10px 0;
   font-weight: 700;
-  font-size: 1.1rem;
-  column-gap: 0.2rem;
-}
-
-.day {
-  background: rgba(86, 86, 86, 0.12);
-  padding: 0.4rem 1rem;
-  color: black;
+  font-size: 0.7rem;
+  column-gap: 5px;
+  row-gap: 3px;
 }
 
 .calendar-days {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  column-gap: 0.2rem;
-  row-gap: 0.2rem;
+  grid-template-columns: repeat(7, 30px);
+  column-gap: 5px;
+  row-gap: 5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
+  /* margin: 0 2.5rem; */
 }
 
 .calendar-day-hover {
-  /* width: 100%;
-  height: 100%; */
+  /* width: 30px; */
+  /* height: 100%; */
+  height: 30px;
   align-items: center;
   justify-content: center;
   position: relative;
   cursor: pointer;
-  padding: 1.3rem 1rem;
+  /* padding: 5px; */
   animation: to-top 1s forwards;
-  background: rgba(0, 169, 149, 0.4);
+  /* background-color: #00bfc9; */
   text-align: center;
   color: black;
-  font-size: 1.5rem;
-  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
   font-family: "Poppins", sans-serif;
-  /* border-radius: 50%; */
+  font-weight: 600;
 }
 
 .calendar-day-hover:hover {
@@ -186,26 +182,268 @@
 
 .curr-date {
   background-color: #494949;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
   color: white;
 }
 
 .year-change {
-  color: white;
-  background-color: #23232e;
   cursor: pointer;
-  padding: 0.4rem 0.8rem;
-  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
 }
 
-.calendar-controls {
+#year {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Event form */
+
+.event-form {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.form-field {
+  margin-bottom: 10px;
+}
+
+.form-field-checkbox {
+  margin-bottom: 5px;
+}
+
+.form-input {
+  border: 2px solid #003249;
+  padding-left: 5px;
+  width: 250px;
+}
+
+.form-input-time {
+  width: 100px;
+}
+
+.field-name {
+  font-size: 0.9rem;
+}
+
+.time-label {
+  margin-top: 5px;
+}
+
+.error-msg {
+  color: darkred;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.grid-field {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-auto-rows: auto auto;
+}
+
+.btn-set {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  width: 250px;
+}
+
+.form-btn {
+  font-weight: 500;
+}
+
+.submit-btn {
+  border: 2px solid #003249;
+  background-color: #003249;
+  color: white;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.choose-loc {
+  padding: 2.5px 5px;
+  font-size: 0.6rem;
+  background-color: #23232e;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.checkbox-text {
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+/* .form {
+  width: 270px;
+  margin: auto auto;
+} */
+
+.secondary-item {
+  width: 270px;
+  margin: auto;
+}
+
+
+/* Location modal */
+.modal-secondary-bg {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  z-index: 999;
 }
 
-.prev {
-  margin-right: auto;
+.open-modal {
+  visibility: visible;
 }
 
-.next {
-  margin-left: auto;
+.close-modal {
+  visibility: hidden;
 }
+
+/* Maps */
+/* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    
+     #map {
+      height: 350px;
+      width: 350px;
+    }
+    
+    #description {
+      font-family: Roboto;
+      font-size: 15px;
+      font-weight: 300;
+    }
+    
+    #infowindow-content .title {
+      font-weight: bold;
+    }
+    
+    #infowindow-content {
+      display: none;
+    }
+    
+    #map #infowindow-content {
+      display: inline;
+    }
+    
+    .pac-card {
+      background-color: #fff;
+      border: 0;
+      border-radius: 2px;
+      box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+      margin: 10px;
+      padding: 0 0.5em;
+      font: 400 18px Roboto, Arial, sans-serif;
+      overflow: hidden;
+      font-family: Roboto;
+      padding: 0;
+    }
+    
+    #pac-container {
+      padding-bottom: 12px;
+      margin-right: 12px;
+    }
+    
+    .pac-controls {
+      display: inline-block;
+      padding: 5px 11px;
+    }
+    
+    .pac-controls label {
+      font-family: Roboto;
+      font-size: 13px;
+      font-weight: 300;
+    }
+    
+    #pac-input {
+      background-color: #fff;
+      font-family: Roboto;
+      font-size: 15px;
+      font-weight: 300;
+      /* margin-left: 12px; */
+      padding: 5px 11px 5px 8px;
+      text-overflow: ellipsis;
+      width: 250px;
+      margin-top: 15px;
+      border-radius: 3px;
+    }
+    
+    #pac-input:focus {
+      border-color: #4d90fe;
+    }
+    
+    #title {
+      color: #fff;
+      background-color: #4d90fe;
+      font-size: 25px;
+      font-weight: 500;
+      padding: 6px 12px;
+    }
+    
+    #target {
+      width: 345px;
+    }
+
+    /* card container styles */
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      background-color: #f6f6f6;
+      width: max-content;
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    .secondary-container {
+      display: flex;
+    }
+
+    .location-info {
+      margin-right: 50px;
+    }
+
+    .main-heading {
+      padding: 0;
+      margin: 0;
+      font-size: 1.8rem;
+      color: #404040;
+    }
+
+    .secondary-heading {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    .data-field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    .loc-details-label {
+      font-weight: 500;
+    }
+
+    .location-details {
+      font-weight: 300;
+      font-size: 0.9rem;
+    }
+
+    .confirm-loc-btn {
+      background-color: #4d90fe;
+      border: none;
+      font-weight: 600;
+      color: white;
+      border-radius: 3px;
+      padding: 8px 7px 8px 7px;
+      cursor: pointer;
+    }

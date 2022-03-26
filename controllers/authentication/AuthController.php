@@ -5,6 +5,7 @@ namespace controllers\authentication;
 use core\Application;
 use core\authentication\AuthenticatorModule;
 use core\authentication\GoogleSignUp;
+use core\authentication\SecurityToken;
 use core\authentication\ValidateInput;
 use core\Controller;
 use core\DatabaseService;
@@ -113,7 +114,7 @@ class AuthController extends Controller
 
     }
 
-    public function register(Request $request)
+    public function register(Request $request): array|bool|string
     {
         if ($request->isGet()) {
             $this->googleSignUp = new GoogleSignUp('register');
@@ -123,6 +124,7 @@ class AuthController extends Controller
         $postData = $request->getBody();
         print_r($request->getBody());
         if ($this->validateInput->validateEmail($postData['email']) && $this->validateInput->validateUsername($postData['username'])) {
+            $this->user->addEmailValidationRecord($postData['email']);
             if ($postData['usertype'] === 'Befriender' || $postData['usertype'] === 'Volunteer') {
                 $postData['type'] = 'staff';
                 $lastId = $this->user->register($postData);
@@ -268,6 +270,21 @@ class AuthController extends Controller
             $validity = $this->validateInput->validateUsername($jsonRequestData['value']);
         Application::$app->response->setContentTypeJson();
         return json_encode([ "valid" => $validity ], JSON_NUMERIC_CHECK);
+    }
+
+    public function verifyEmail(Request $request)
+    {
+        $data = $request->getBody();
+        $this->user->verifyEmail($data['token']);
+
+        //SecurityToken::generateRandomToken($data['token']);
+    }
+
+    public function updateUserProfilePicture(Request $request)
+    {
+        $data = $request->getJsonBody();
+        Application::$app->response->setContentTypeJson();
+        return $this->user->updateUserProfilePicture($data['profile_pic'], $data["id"]);
     }
 
 }
