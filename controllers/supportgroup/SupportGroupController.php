@@ -4,15 +4,29 @@ namespace controllers\supportgroup;
 
 use core\Application;
 use core\Controller;
+use core\Mailer;
 use core\Model;
 use core\Request;
 use core\sessions\SessionManagement;
+use Google\Service\AdMob\App;
+use models\supportgroup\Location;
 use models\supportgroup\SgEnroll;
 use models\supportgroup\SupportGroup;
+use models\supportgroup\SupportGroupEvent;
+use models\supportgroup\VirtualMeeting;
 use util\CommonConstants;
 
 class SupportGroupController extends Controller
 {
+
+    private string $id;
+    private string $name;
+    private string $type;
+    private string $description;
+    private string $facilitator;
+    private string $co_facilitator;
+    private string $state;
+    private string $capacity;
 
     public function getSupportGroupRequests(Request $request) {
         $requestData = $request->getBody();
@@ -167,5 +181,44 @@ class SupportGroupController extends Controller
             }
             Application::$app->response->setRedirectUrl('/callerSupportGroupsList');
         }
+    }
+
+    public function createSupportGroupEvent(Request $request) {
+        $meetingId = null;
+        $meetingData = null;
+        $locationId = null;
+
+        $meetingDetails = $request->getJsonBody();
+        $supportGroupEvent = new SupportGroupEvent();
+        $supportGroupEvent->setType($meetingDetails["type"]);
+        $supportGroupEvent->setTopic($meetingDetails["topic"]);
+        $supportGroupEvent->setDate($meetingDetails["eventDate"]);
+        $supportGroupEvent->setStartTime($meetingDetails["startTime"]);
+        $supportGroupEvent->setEndTime($meetingDetails["endTime"]);
+        $supportGroupEvent->setAgenda($meetingDetails["agenda"]);
+        $supportGroupEvent->setNotify($meetingDetails["notify"]);
+        $supportGroupEvent->setSupportGroupId($meetingDetails["supportGroupId"]);
+
+        /*$location = new Location();
+        $location->setLat($meetingDetails["location"]["lat"]);
+        $location->setLng($meetingDetails["location"]["lng"]);
+        $location->setPlaceId($meetingDetails["location"]["place_id"]);
+        $supportGroupEvent->setLocation($location);*/
+
+        $supportGroupEvent->createSupportGroupEvent();
+    }
+
+    public function sendBulkMail(array $params, array $emailList) {
+        //$mailList = ["gallagesanka03@gmail.com", "2019is026@stu.ucsc.cmb.ac.lk"];
+        $mailer = new Mailer();
+        $mailer->init('smtp.gmail.com', $_ENV['SEND_EMAIL'], $_ENV['PASSWORD']);
+        $mailer->bulkEmailSend("jw8041360@gmail.com", "Test Bulk Mail", $emailList, $params);
+    }
+
+    public function getSupportGroupEvents(Request $request)
+    {
+        $supportGroupEvent = new SupportGroupEvent();
+        Application::$app->response->setContentTypeJson();
+        return json_encode($supportGroupEvent->getSupportGroupEvents($request->getBody()["supportGroupId"]));
     }
 }
