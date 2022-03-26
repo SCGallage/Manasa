@@ -7,6 +7,10 @@ use core\Controller;
 use core\DatabaseService;
 use core\Request;
 use core\Model;
+use core\sessions\SessionManagement;
+use models\donate;
+use models\meeting;
+use models\session_report;
 use models\supportgroup\sg_request;
 use models\users\staff;
 use models\supportgroup\supportGroup;
@@ -25,32 +29,59 @@ class AdminController extends Controller
 
     public function home()
     {
+        $meeting = new meeting();
+        $userInfo = new User();
+        $sessionReport = new session_report();
+        $donationData = new donate();
 
-        return $this->render('Moderator/Admin/Dashboard', 'Admin Dashboard');
+        $sqlStatement = "SELECT meeting.*,t.startTime,t.endTime,t.num_reservations,s.num_of_befrienders
+                            FROM meeting
+                            JOIN timeslot t on meeting.timeslotId = t.timeslotId
+                            JOIN shift s on s.shiftId = t.shiftId
+                            WHERE meeting.date = CURRENT_DATE";
+        $meetingDetails = $meeting->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
+        $meetingCount = $meeting->customSqlQuery($sqlStatement,DatabaseService::FETCH_COUNT);
+
+        $sqlStatement1 = "SELECT  COUNT(*) AS Count
+                            FROM user
+                            WHERE MONTH(user.registration_date)=MONTH(now())
+                            AND YEAR(user.registration_date)=YEAR(now())
+                            AND user.type='caller'";
+
+        $newCallers = $userInfo->customSqlQuery($sqlStatement1,DatabaseService::FETCH_ALL);
+
+        $sqlStatement2 = "SELECT *
+                            FROM session_report
+                            WHERE MONTH(session_report.date )=MONTH(now()) AND YEAR(session_report.date )=YEAR(now())";
+
+        $sessionReportCount = $sessionReport->customSqlQuery($sqlStatement2,DatabaseService::FETCH_COUNT);
+
+        $sqlStatement4 = "SELECT SUM(amount) AS Total FROM donate WHERE MONTH(date )=MONTH(now()) AND YEAR(date )=YEAR(now())";
+        $donations = $donationData->customSqlQuery($sqlStatement4,DatabaseService::FETCH_ALL);
+
+//        Overview Graph Data
+        $overviewData = new session_report();
+        $sqlStatement3 = "SELECT p.name AS type, COUNT(p.name) AS amount  
+                          FROM session_report s JOIN problems p ON s.problemType = p.id 
+                          WHERE MONTH(s.date) = MONTH(now()) AND YEAR(s.date) = YEAR(now())GROUP BY p.name";
+        $graphData = $overviewData->customSqlQuery($sqlStatement3,DatabaseService::FETCH_ALL);
+//Donation graph Data
+        $sqlStatement5 = "SELECT MONTHNAME(date) AS Month , SUM(amount) AS Total FROM donate WHERE YEAR(date)=YEAR(now()) GROUP BY MONTH(date)";
+        $donationGraphData = $donationData->customSqlQuery($sqlStatement5,DatabaseService::FETCH_ALL);
+
+        $params = [
+            'meetingDetails' => $meetingDetails,
+            'meetingCount' => $meetingCount,
+            'newCallers' => $newCallers,
+            'sessionReportCount' => $sessionReportCount,
+            'donations' => $donations,
+            'graphData' => $graphData,
+            'donationGraphData' => $donationGraphData
+        ];
+
+        return $this->render('Admin/Dashboard', 'Admin Dashboard',$params);
 
     }
-
-    public function Volunteer()
-    {
-
-        return $this->render('Moderator/Admin/Volunteer', 'Volunteer Events');
-
-    }
-
-    public function Schedule()
-    {
-
-        return $this->render('Moderator/Admin/Schedule', 'Schedule');
-
-    }
-
-    public function FixSchedule()
-    {
-
-        return $this->render('Moderator/Admin/FixSchedule', 'Fix Schedule');
-
-    }
-
 
 //  Support Group  -------------------------------------------------------------------------------------------------------------------------------
     public function supportGroup(Request $request)
@@ -79,15 +110,19 @@ class AdminController extends Controller
                         ON staff.id = sg_request.befrienderId";
         $viewSGRequest = $sgRequest->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
 
-
+//Support Group Graph data
+        $sgGraphData = new SupportGroup();
+        $sqlStatement3 = "SELECT type , COUNT(type) AS amount FROM supportgroup GROUP BY type";
+        $graphData = $sgGraphData ->customSqlQuery($sqlStatement3,DatabaseService::FETCH_ALL);
 
         $params = [
             'viewSG' => $viewSG,
-            'viewSGRequest' => $viewSGRequest
+            'viewSGRequest' => $viewSGRequest,
+            'graphData' => $graphData
         ];
 
 
-        return $this->render('Moderator/SupportGroup', 'Support Group', $params);
+        return $this->render('Admin/SupportGroup', 'Support Group', $params);
     }
 
 //  Support Group UPDATE  -------------------------------------------------------------------------------------------------------------------------------
@@ -112,6 +147,7 @@ class AdminController extends Controller
         $viewBefriender = $befrienderView->select('staff','*',["type" => "befriender" , "state" => "1"],DatabaseService::FETCH_ALL);
 
         $SGView = new SupportGroup();
+        $data = $request->getBody();
         $sqlStatement = "SELECT staff1.fname AS facilitatorfname, 
                         staff1.lname AS facilitatorlname,
                         staff2.fname AS co_facilitatorfname, 
@@ -121,22 +157,17 @@ class AdminController extends Controller
                         FROM supportgroup
                         JOIN staff AS staff1
                         ON staff1.id = supportgroup.facilitator  
-                        JOIN staff AS staff2 ON staff2.id = supportgroup.co_facilitator";
-        $viewSG = $SGView->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
-
-//        update sg
-        $sgview = new SupportGroup();
-        $data = $request->getBody();
-        $viewUpdateSG = $sgview->select('supportgroup','*',[ 'id' => $data['SupportGroupId'] ], DatabaseService::FETCH_ALL);
+                        JOIN staff AS staff2 ON staff2.id = supportgroup.co_facilitator
+                        WHERE supportgroup.id = '$data[SupportGroupId]'";
+        $viewUpdateSG = $SGView->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
 
 
         $params = [
             'viewBefriender' => $viewBefriender,
             'viewUpdateSG' =>  $viewUpdateSG,
-            'viewSG' => $viewSG
         ];
 
-        return $this->render('Moderator/SGUpdate', 'Update Support Group',$params);
+        return $this->render('Admin/SGUpdate', 'Update Support Group',$params);
     }
 
 //  Support Group CREATE -------------------------------------------------------------------------------------------------------------------------------
@@ -147,11 +178,15 @@ class AdminController extends Controller
         $befrienderView = new staff();
         $viewBefriender = $befrienderView->select('staff','*',["type" => "befriender" , "state" => "1"],DatabaseService::FETCH_ALL);
 
+        $data = $request->getBody();
+
+
         $params = [
-            'viewBefriender' => $viewBefriender
+            'viewBefriender' => $viewBefriender,
+            'data' => $data
         ];
 
-        return $this->render('Moderator/SGCreate', 'Create Support Group',$params);
+        return $this->render('Admin/SGCreate', 'Create Support Group',$params);
     }
 
     public function createdSG(Request $request)
@@ -160,7 +195,6 @@ class AdminController extends Controller
         //        Create support group
         if ($request->isPost()) {
             $VolunteerCreateEvent = new SupportGroup();
-            $VolunteerCreateEvent->overrideTableName('supportgroup');
             $data = $request->getBody();
 
             //            Validate Support group name
@@ -221,7 +255,7 @@ class AdminController extends Controller
 
         if($del)
         {
-            header("location:/admin/createSG");
+            header("location:/admin/createSG?capacity=$data[capacity]&type=$data[type]&name=$data[name]");
         }
         else
         {
@@ -269,7 +303,7 @@ class AdminController extends Controller
         $params = [
             'viewSGRequest' => $viewSGRequest
         ];
-        return $this->render('Moderator/SGRequest', 'Support Group Requests',$params);
+        return $this->render('Admin/SGRequest', 'Support Group Requests',$params);
 
     }
 
@@ -294,17 +328,66 @@ class AdminController extends Controller
 
     }
 //    ---------------------------------------------------------------------------------------------------------
-    public function GenReport()
-    {
 
-        return $this->render('Moderator/Admin/Report', 'Generate Reports');
+
+    public function SessionReport(Request $request)
+    {
+        if ($request->isPost()) {
+            $sessionReport = new session_report();
+            $data = $request->getBody();
+
+            $sqlStatement = "SELECT session_report.*,s.fname AS befrienderFname,s.lname AS befrienderlname,p.name AS problemType,m.meeting_type AS sessionType
+                                FROM session_report
+                                JOIN staff s on session_report.befrienderId = s.id
+                                JOIN problems p on p.id = session_report.problemType
+                                LEFT JOIN meeting m on m.id = session_report.meetingId
+                            WHERE CONCAT( s.fname,  ' ', s.lname ) LIKE '%$data[search]%'
+                            OR session_report.date LIKE CAST('$data[search]' AS DATE )
+                            ORDER BY session_report.date DESC";
+
+            $sessionReports = $sessionReport->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+        }else {
+            $sessionReport = new session_report();
+
+            $sqlStatement = "SELECT session_report.id,session_report.date,s.fname AS befrienderFname,
+                                    s.lname AS befrienderlname,p.name AS problemType,m.meeting_type AS sessionType,
+                                    s2.date AS meetingDate
+                                    FROM session_report
+                                    JOIN staff s on session_report.befrienderId = s.id
+                                    JOIN problems p on p.id = session_report.problemType
+                                    LEFT JOIN meeting m on m.id = session_report.meetingId
+                                    LEFT JOIN timeslot t on t.timeslotId = m.timeslotId
+                                    LEFT JOIN shift s2 on s2.shiftId = t.shiftId
+                                    ORDER BY session_report.date DESC;";
+
+            $sessionReports = $sessionReport->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+        }
+        $params = [
+            'sessionReports' => $sessionReports
+        ];
+
+        return $this->render('Admin/SessionReport', 'Session Reports',$params);
 
     }
 
-    public function SessionReport()
+    public function SessionReportView(Request $request)
     {
+        $sessionReport = new session_report();
+        $data = $request->getBody();
 
-        return $this->render('Moderator/SessionReport', 'Session Reports');
+        $sqlStatement = "SELECT session_report.*,s.fname AS befrienderFname,s.lname AS befrienderlname,p.name AS problemType,m.meeting_type AS sessionType
+                                FROM session_report
+                                JOIN staff s on session_report.befrienderId = s.id
+                                JOIN problems p on p.id = session_report.problemType
+                                LEFT JOIN meeting m on m.id = session_report.meetingId
+                                WHERE session_report.id = $data[id]";
+
+        $sessionReportDetails = $sessionReport->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+
+        $params = [
+            'sessionReportDetails' => $sessionReportDetails
+        ];
+        return $this->render('Admin/SessionReportView', 'Session Reports',$params);
 
     }
 
@@ -312,9 +395,24 @@ class AdminController extends Controller
 
     public function SearchUsers(Request $request)
     {
-        $userView = new staff();
-//        $viewUser = $userView->select('staff','*',[ 'state' => 1 ], DatabaseService::FETCH_ALL);
-        $sqlStatement = "SELECT staff.fname,
+        if ($request->isPost()) {
+            $userView = new staff();
+            $data = $request->getBody();
+            $sqlStatement = "SELECT staff.fname,
+                                staff.lname,
+                                staff.cv,
+                                staff.type AS 'role',
+                                staff.state,
+                                u.email,
+                                u.gender,
+                                u.username,
+                                u.id
+                                FROM staff
+                                JOIN user u on staff.id = u.id WHERE staff.state='1' AND  staff.type LIKE '%$data[search]%' OR CONCAT( fname,  ' ', lname ) LIKE '%$data[search]%'";
+            $viewUser = $userView->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+        }else{
+            $userView = new staff();
+            $sqlStatement = "SELECT staff.fname,
                                 staff.lname,
                                 staff.cv,
                                 staff.type AS 'role',
@@ -325,38 +423,56 @@ class AdminController extends Controller
                                 u.id
                                 FROM staff
                                 JOIN user u on staff.id = u.id WHERE staff.state='1'";
-//        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
-        $viewUser = $userView->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
-
-        $params = [
-            'viewUser' => $viewUser
-        ];
-
-        return $this->render('Moderator/Admin/Users', 'Search Users',$params);
+            $viewUser = $userView->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+        }
+            $params = [
+                'viewUser' => $viewUser
+            ];
+            return $this->render('Admin/Users', 'Search Users', $params);
 
     }
 
-//    create user
+    public function InactiveUsers(Request $request)
+    {
+            $userView = new staff();
+            $sqlStatement = "SELECT staff.fname,
+                               staff.lname,
+                               staff.cv,
+                               staff.type AS 'role',
+                               staff.state,
+                               u.email,
+                               u.gender,
+                               u.username,
+                               u.id
+                                FROM staff
+                                JOIN user u on staff.id = u.id  WHERE staff.state='0' AND (staff.type = 'Moderator' OR staff.type = 'Administrator')";
+            $viewUser = $userView->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+
+            $params = [
+                'viewUser' => $viewUser
+            ];
+            return $this->render('Admin/UsersInactive', 'Search Users', $params);
+
+    }
 
     public function createUser(Request $request){
 
         if ($request->isPost()) {
             $userAccount = new User();
             $staffAccount = new Staff();
-            $staffAccount->overrideTableName('staff');
             $data = $request->getBody();
             $data['type'] = 'staff';
 
 //            Validate Username and email
-            $viewSGRequest = $staffAccount->select('user','*', ["username" => $data["username"]],DatabaseService::FETCH_COUNT);
-            $viewRequest = $staffAccount->select('user','*', ["email" => $data["email"]],DatabaseService::FETCH_COUNT);
+            $Username = $staffAccount->select('user','*', ["username" => $data["username"]],DatabaseService::FETCH_COUNT);
+            $Email = $staffAccount->select('user','*', ["email" => $data["email"]],DatabaseService::FETCH_COUNT);
 
-            if ($viewSGRequest > 0) {
+            if ($Username > 0) {
                 echo '<script>';
                 echo 'alert("User name already exists")';
                 echo '</script>';
             }
-            elseif ($viewRequest > 0){
+            elseif ($Email > 0){
                 echo '<script>';
                 echo 'alert("Email already exists")';
                 echo '</script>';
@@ -368,43 +484,80 @@ class AdminController extends Controller
             }
         }
 
-        return $this->render('Moderator/Admin/AddStaff','Add Staff');
+        return $this->render('Admin/UserCreate','Add User');
     }
 
-//    Delete User
+    public function updateUser(Request $request){
+
+        if ($request->isPost()) {
+            $userAccount = new User();
+            $staffAccount = new Staff();
+            $data = $request->getBody();
+
+//            Validate Username and email
+            $viewSGRequest = $userAccount->select('user','*', ["username" => $data["username"]],DatabaseService::FETCH_COUNT);
+            $viewRequest = $userAccount->select('user','*', ["email" => $data["email"]],DatabaseService::FETCH_COUNT);
+
+            if ($viewSGRequest > 1) {
+                echo '<script>';
+                echo 'alert("User name already exists")';
+                echo '</script>';
+            }
+            elseif ($viewRequest > 1){
+                echo '<script>';
+                echo 'alert("Email already exists")';
+                echo '</script>';
+            }
+            else{
+                $userAccount->update("user", ["gender" => $data["gender"], "username" => $data["username"], "email" => $data["email"]], [ 'id' => $data['StaffId'] ]);
+                $staffAccount ->update("staff", ["fname" => $data['fname'], "lname" => $data['lname'], "type" => $data["type"], "state" => $data["state"]], [ 'id' => $data['StaffId'] ]);
+            }
+        }
+
+        //        update user view
+        $staffAccount = new staff();
+        $userAccount = new User();
+        $data = $request->getBody();
+        $viewUpdateStaff = $staffAccount->select('staff','*',['id' => $data['StaffId']],DatabaseService::FETCH_ALL);
+        $viewUpdateUser = $userAccount->select('user','*',['id' => $data['StaffId']],DatabaseService::FETCH_ALL);
+
+
+        $params = [
+            'viewUpdateUser' => $viewUpdateUser,
+            'viewUpdateStaff' => $viewUpdateStaff
+        ];
+
+        return $this->render('Admin/UserUpdate','update Staff',$params);
+    }
+
     public function deleteUser(Request $request)
     {
         if ($request->isGet()) {
-            $deleteReq = new staff();
+            $deleteReqStaff = new staff();
+            $deleteReqUser = new User();
             $data = $request->getBody();
-            $del = $deleteReq->delete('staff',[ 'id' => $data['id'] ]);
+            $del = $deleteReqStaff->delete('staff',[ 'id' => $data['id'] ]);
+            $delUser = $deleteReqUser->delete('user',[ 'id' => $data['id'] ]);
         }
 
-        if($del)
-        {
-            header("location:/admin/SearchUsers");
-        }
-        else
-        {
-            echo '<script>';
-            echo 'alert("Error Deleting Record")';
-            echo '</script>';
-        }
+//        if($del)
+//        {
+//            header("location:/admin/SearchUsers");
+//        }
+//        else
+//        {
+//            echo '<script>';
+//            echo 'alert("Error Deleting Record")';
+//            echo '</script>';
+//        }
 
     }
+
 //  Verify Registration -------------------------------------------------------------------------------------------------------------------------------
 
     public function UserRequests(Request $request)
     {
         $userRequest = new staff();
-//        $sqlStatement2 = "SELECT sg_request.*,
-//                            staff.fname,
-//                            staff.lname
-//                        FROM sg_request
-//                        JOIN staff
-//                        ON staff.id = sg_request.befrienderId";
-//        $viewSGRequest = $sgRequest->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
-
         $sqlStatement = "SELECT staff.fname,
                                 staff.lname,
                                 staff.cv,
@@ -417,13 +570,12 @@ class AdminController extends Controller
                                 FROM staff
                                 JOIN user u on staff.id = u.id WHERE
                                 staff.state='0' AND (staff.type='Befriender' OR staff.type='Volunteer')";
-//        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
         $viewUserRequests = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
         $params = [
             'viewUserRequests' => $viewUserRequests
         ];
 
-        return $this->render('Moderator/Admin/UserRequests', 'User Requests',$params);
+        return $this->render('Admin/UserRequests', 'User Requests',$params);
 
     }
 
@@ -454,9 +606,14 @@ class AdminController extends Controller
     public function UserRequestsDelete(Request $request)
     {
         if ($request->isGet()) {
-            $deleteReq = new staff();
+//            $deleteReq = new staff();
+//            $data = $request->getBody();
+//            $del = $deleteReq->delete('staff',[ 'id' => $data['id'] ]);
+            $deleteReqStaff = new staff();
+            $deleteReqUser = new User();
             $data = $request->getBody();
-            $del = $deleteReq->delete('staff',[ 'id' => $data['id'] ]);
+            $del = $deleteReqStaff->delete('staff',[ 'id' => $data['id'] ]);
+            $delUser = $deleteReqUser->delete('user',[ 'id' => $data['id'] ]);
         }
 
         if($del)
@@ -471,179 +628,5 @@ class AdminController extends Controller
         }
 
     }
-//---------------------------------------------------------------------------------------------------------------
-//    Moderator
 
-    public function Modhome()
-    {
-        $userRequest = new staff();
-        $sqlStatement = "SELECT * FROM staff WHERE state=0 AND (type='Befriender' OR type='Volunteer')";
-        $viewUserRequests = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
-        $viewUserRequestsCount = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_COUNT);
-        $params = [
-            'viewUserRequests' => $viewUserRequests,
-            'viewUserRequestsCount' => $viewUserRequestsCount
-        ];
-
-        $this->setLayout('modNav');
-        return $this->render('Moderator/ModDashboard', 'Moderator Dashboard',$params);
-
-    }
-
-    public function ModUsers()
-    {
-        $userView = new staff();
-//        $viewUser = $userView->select('staff','*',[ 'state' => 1 ], DatabaseService::FETCH_ALL);
-        $sqlStatement = "SELECT staff.fname,
-                                staff.lname,
-                                staff.cv,
-                                staff.type AS 'role',
-                                staff.state,
-                                u.email,
-                                u.gender,
-                                u.username,
-                                u.id
-                                FROM staff
-                                JOIN user u on staff.id = u.id WHERE staff.state='1'";
-//        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
-        $viewUser = $userView->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
-
-        $params = [
-            'viewUser' => $viewUser
-        ];
-
-        $this->setLayout('modNav');
-        return $this->render('Moderator/ModUsers', 'Users',$params);
-
-    }
-
-
-    public function ModVolunteer()
-    {
-
-        $this->setLayout('modNav');
-        return $this->render('Moderator/Volunteer', 'Volunteer Events');
-
-    }
-
-    public function ModSchedule()
-    {
-
-        $this->setLayout('modNav');
-        return $this->render('Moderator/Schedule', 'Schedule');
-
-    }
-
-    public function ModFixSchedule()
-    {
-        $this->setLayout('modNav');
-        return $this->render('Moderator/FixSchedule', 'Fix Schedule');
-
-    }
-
-    //  Verify Registration -------------------------------------------------------------------------------------------------------------------------------
-
-    public function ModUserRequests(Request $request)
-    {
-        $userRequest = new staff();
-        $sqlStatement = "SELECT staff.fname,
-                                staff.lname,
-                                staff.cv,
-                                staff.type AS 'role',
-                                staff.state,
-                                u.email,
-                                u.gender,
-                                u.username,
-                                u.id
-                                FROM staff
-                                JOIN user u on staff.id = u.id WHERE
-                                staff.state='0' AND (staff.type='Befriender' OR staff.type='Volunteer')";
-//        $sqlStatement = "SELECT * FROM staff WHERE state='0' AND (type='Befriender' OR type='Volunteer')";
-        $viewUserRequests = $userRequest->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
-
-        $params = [
-            'viewUserRequests' => $viewUserRequests
-        ];
-
-        $this->setLayout('modNav');
-        return $this->render('Moderator/UserRequests', 'User Requests',$params);
-
-    }
-
-    public function ModUserRequestsUpdate(Request $request)
-    {
-        //        update request state
-        if ($request->isPost()) {
-            $updateUserReq = new Staff();
-            $data = $request->getBody();
-            $updateReq = $updateUserReq->update("staff", ["state" => '1'], [ 'id' => $data['id'] ]);
-            $data = $updateUserReq->select('user', [ 'email','username' ], [ 'id' => $data['id'] ], DatabaseService::FETCH_ALL);
-            $updateUserReq->sendApprovedMail($data[0]['username'], $data[0]['email']);
-        }
-
-        if($updateReq)
-        {
-            header("location:/mod/UserRequests"); // redirects to user requests page
-        }
-        else
-        {
-            echo '<script>';
-            echo 'alert("Error Updating Record")';
-            echo '</script>';
-        }
-
-    }
-
-    public function ModUserRequestsDelete(Request $request)
-    {
-        if ($request->isGet()) {
-            $deleteReq = new staff();
-            $data = $request->getBody();
-            $del = $deleteReq->delete('staff',[ 'id' => $data['id'] ]);
-        }
-
-        if($del)
-        {
-            header("location:/mod/UserRequests"); // redirects to all records page
-        }
-        else
-        {
-            echo '<script>';
-            echo 'alert("Error Deleting Record")';
-            echo '</script>';
-        }
-
-    }
-
-    public function cvDownload(Request $request)
-    {
-        $filename = $request->getBody()['filename'];
-//        $filename = 'http://localhost/core/uploads/'.$filename;
-        echo $filename;
-        //Check the file exists or not
-        if(file_exists("../core/uploads/".$filename)) {
-
-            //Define header information
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header("Cache-Control: no-cache, must-revalidate");
-            header("Expires: 0");
-            header('Content-Disposition: attachment; filename="'.$filename.'"');
-            header('Content-Length: ' . filesize($filename));
-            header('Pragma: public');
-
-            //Clear system output buffer
-            flush();
-
-            //Read the size of the file
-            readfile("../core/uploads/".$filename);
-
-            //Terminate from the script
-            //die();
-            Application::$app->response->setRedirectUrl('/admin/SearchUsers');
-        }
-        else{
-            echo "File does not exist.";
-        }
-    }
 }

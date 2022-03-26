@@ -10,10 +10,16 @@
 @import url("./admin/button-style.css");
 @import url("./admin/form.css");
 @import url("./admin/tool_tip.css");
+@import url("./admin/schedule.css");
+@import url("./admin/switch.css");
+@import url("./admin/reportGen.css");
 
   [class*="col-"] {
-    /*float: left;*/
-    /* padding: 15px; */
+    float: left;
+    /* padding: 15px;*/
     /*border: 1px solid red;*/
   }
+
+
+
 

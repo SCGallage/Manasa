@@ -1,11 +1,6 @@
 <?php $params
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Moderator Dashboard</title>
     <link rel="stylesheet" href="http://localhost/assets/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,50 +49,6 @@
                             ?></td>
                     </tr>
                     <?php } ?>
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Befriender</td>-->
-<!--                        <td>Pending</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Befriender</td>-->
-<!--                        <td>Pending</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Befriender</td>-->
-<!--                        <td>Pending</td>-->
-<!--                    </tr>-->
-<!---->
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Befriender</td>-->
-<!--                        <td>Pending</td>-->
-<!--                    </tr>-->
-<!---->
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Befriender</td>-->
-<!--                        <td>Pending</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Befriender</td>-->
-<!--                        <td>Pending</td>-->
-<!--                    </tr>-->
-<!---->
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Befriender</td>-->
-<!--                        <td>Pending</td>-->
-<!--                    </tr>-->
-<!---->
-<!--                    <tr>-->
-<!--                        <td>Peter Griffin</td>-->
-<!--                        <td>Befriender</td>-->
-<!--                        <td>Pending</td>-->
-<!--                    </tr>-->
 
                 </table>
             </div>
@@ -109,39 +60,16 @@
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 scroll1">
+                <?php foreach ($events as $row1){?>
                 <div class="upper-box-details card1 margin-top">
-                    <div class="col-l-12 col-m-12 col-s-12 text-style3">Annual Meeting</div>
+                    <div class="col-l-12 col-m-12 col-s-12 text-style3"><?php echo $row1['name']?></div>
                     <div class="col-l-12 col-m-12 col-s-12">
-                        <span>Date: 2021/09/08</span><br>
-                        <span>Time: 9.00 AM </span><br>
-                        <span>Place: Virtual</span>
+                        <span>Date: <?php echo $row1['startDate']?></span><br>
+                        <span>Time: <?php echo $row1['startTime']?></span><br>
+                        <span>Location: <?php echo $row1['location']?></span>
                     </div>
                 </div>
-
-                <div class="upper-box-details card1 margin-top">
-                    <div class="col-l-12 col-m-12 col-s-12 text-style3">Annual Meeting</div>
-                    <div class="col-l-12 col-m-12 col-s-12">
-                        <span>Date: 2021/09/08</span><br>
-                        <span>Time: 9.00 AM </span><br>
-                        <span>Place: Virtual</span>
-                    </div>
-                </div>
-                <div class="upper-box-details card1 margin-top">
-                    <div class="col-l-12 col-m-12 col-s-12 text-style3">Annual Meeting</div>
-                    <div class="col-l-12 col-m-12 col-s-12">
-                        <span>Date: 2021/09/08</span><br>
-                        <span>Time: 9.00 AM </span><br>
-                        <span>Place: Virtual</span>
-                    </div>
-                </div>
-                <div class="upper-box-details card1 margin-top">
-                    <div class="col-l-12 col-m-12 col-s-12 text-style3">Annual Meeting</div>
-                    <div class="col-l-12 col-m-12 col-s-12">
-                        <span>Date: 2021/09/08</span><br>
-                        <span>Time: 9.00 AM </span><br>
-                        <span>Place: Virtual</span>
-                    </div>
-                </div>
+                <?php }?>
             </div>
         </div>
     </div>

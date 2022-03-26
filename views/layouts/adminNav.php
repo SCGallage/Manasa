@@ -15,13 +15,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
 <nav class="navbar">
     <ul class="navbar-nav">
         <li class="logo">
             <div class="icon-header">
-                <img src="http://localhost/assets/img/icon.png" alt="" class="icon-image">
+                <img src="http://localhost/assets/img/icon1.png" alt="" class="icon-image">
                 <svg viewBox="0 0 28 28" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M7 16h18M7 25h18M7 7h18" class="stroke-000000">
                     </path></svg>
             </div>
@@ -102,7 +103,7 @@
                     <path d="M39 49h2v2h-2zM15 49h22v2H15zM15 53h22v2H15zM39 53h2v2h-2zM32 5c-1.654 0-3 1.346-3 3s1.346 3 3 3 3-1.346 3-3-1.346-3-3-3zm0 4c-.551 0-1-.449-1-1s.449-1 1-1 1 .449 1 1-.449 1-1 1zM24 9h2v2h-2zM38 9h2v2h-2z" fill="#ffffff" class="fill-000000">
                     </path>
                 </svg>
-                <span class="link-text">Session Reports</span>
+                <span class="link-text">Session Records</span>
             </a>
         </li>
 
