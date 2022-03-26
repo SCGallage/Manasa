@@ -64,7 +64,7 @@ $app = new Application(dirname(__DIR__), $config);
 $settings = new Settings();
 $settings->addSettingToDatabase("bef_limit", 10);
 $settings->loadSettingsToEnv();
-echo $_ENV['bef_limit'];
+
 
 /* Testing routes only */
 $app->router->get('/', [SiteController::class, 'home']);
