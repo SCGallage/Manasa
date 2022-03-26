@@ -666,6 +666,8 @@ class SupportGroupController extends Controller
                     array_push($myResults, $sr);
                 }
             }
+        } else {
+            $myResults = $searchResults;
         }
 
 

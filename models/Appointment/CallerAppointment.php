@@ -75,6 +75,20 @@ class CallerAppointment extends Model
         $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
     }
 
+    public function reserveTimeSlot($timeslotId): array|bool|int
+    {
+
+        //check availability of request timeslot
+        $sqlStatement = "UPDATE ".$this->timeslot_table."
+                             SET num_reservations = num_reservations + 1
+                             WHERE timeslotId = ".$requestBody['timeslotId']." AND
+                                   num_reservations < (SELECT num_of_befrienders
+                                                       FROM ".$this->shift_table."
+                                                       WHERE shiftId = (SELECT shiftId 
+                                                                        FROM ".$this->timeslot_table." 
+                                                                        WHERE timeslotId = ".$requestBody['timeslotId']."))";
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
+    }
 
     public function findBefriender($timeslot)
     {
@@ -120,40 +134,27 @@ class CallerAppointment extends Model
      * */
     public function reserveMeeting(array $requestBody): bool|int
     {
+        $timeslot = $requestBody['timeslotId'];
+        //reserve time slot
+        if ($this->reserveTimeSlot($timeslot) == 1) {
+            //find befriender
+            $befriender = $this->findBefriender($timeslot);
 
-        //check availability of request timeslot
-        //reserve timeslot
-        $sqlStatement = "UPDATE ".$this->timeslot_table."
-                             SET num_reservations = num_reservations + 1
-                             WHERE timeslotId = ".$requestBody['timeslotId']." AND
-                                   num_reservations < (SELECT num_of_befrienders
-                                                       FROM ".$this->shift_table."
-                                                       WHERE shiftId = (SELECT shiftId 
-                                                                        FROM ".$this->timeslot_table." 
-                                                                        WHERE timeslotId = ".$requestBody['timeslotId']."))";
-        //confirm update
-        if ($this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT) == 1) {
+            if (!empty($befriender)){
+                $columns = array(
+                    "date" => $requestBody['reserveDate'],
+                    "time" => $requestBody['reserveTime'],
+                    "state" => $requestBody['state'],
+                    "timeslotId" => $requestBody['timeslotId'],
+                    "callerId" => $requestBody['callerId'],
+                    "meeting_type" => $requestBody['meetingType'],
+                    "befrienderId" => $befriender
+                );
 
-            $timeslot = $requestBody['timeslotId'];
-
-
-            //schedule meeting
-            $columns = array(
-                "date" => $requestBody['reserveDate'],
-                "time" => $requestBody['reserveTime'],
-                "state" => $requestBody['state'],
-                "timeslotId" => $requestBody['timeslotId'],
-                "callerId" => $requestBody['callerId'],
-                "meeting_type" => $requestBody['meetingType'],
-                "befrienderId" => $this->findBefriender($timeslot)
-            );
-
-            $lastId = $this->insert($this->meeting_table, $columns, DatabaseService::RETURN_LAST_ID);
-            if ($lastId != -1) {
-                return $lastId;
-            } else {
-                $this->releaseTimeSLot($timeslot);
+                //schedule meeting
+                return $this->insert($this->meeting_table, $columns, DatabaseService::RETURN_LAST_ID);
             }
+
         }
         return false;
     }
@@ -179,18 +180,10 @@ class CallerAppointment extends Model
                 $sql = "delete from ".$this->meeting_table." where id = ".$meetingId." and state = ".CommonConstants::STATE_PENDING;
                 if ($this->customSqlQuery($sql,DatabaseService::FETCH_COUNT == 1)){//$this->delete($this->meeting_table, $conditions)){
                     //update timeslot
-                    $sqlStatement = "UPDATE ".$this->timeslot_table." 
-                             SET num_reservations = num_reservations - 1
-                             WHERE timeslotId =".$timeslotId." AND
-                                   num_reservations > 0";
-
-                    return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
-
+                    return $this->releaseTimeSLot($timeslotId);
                 }
             }
         }
-
-
 
         return false;
     }

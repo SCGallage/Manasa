@@ -221,5 +221,10 @@ class SupportGroup extends Model
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
+    public function checkSgEventParticipateEligibility($userId, $date, $startTime)
+    {
+
+    }
+
 
 }
