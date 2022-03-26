@@ -67,6 +67,50 @@ class CallerAppointment extends Model
     }
 
 
+    public function releaseTimeSLot($timeslot)
+    {
+        //update timeslots table
+        $sqlStatement = "UPDATE timeslot SET num_reservations = num_reservations -1
+                                     WHERE timeslotId = ".$timeslot." AND num_reservations > 0";
+        $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
+    }
+
+
+    public function findBefriender($timeslot)
+    {
+        //check pending meetings by timeslot
+        $meetings = $this->select('meeting',['*'],
+                                            ["timeslotId = $timeslot", "state = ".CommonConstants::STATE_PENDING],
+                                DatabaseService::FETCH_ALL);
+
+        if (!empty($meetings)){
+            // reserve befriender to meeting
+            $sqlStatement = "SELECT r.befrienderId
+                             FROM meeting m, timeslot t, reserve r
+                             WHERE m.timeslotId = t.timeslotId AND t.shiftId = r.shiftId AND
+                                m.state = ".CommonConstants::STATE_PENDING." AND
+                                m.timeslotId = ".$timeslot." AND
+                                r.befrienderId NOT IN (SELECT meeting.befrienderId FROM meeting WHERE meeting.timeslotId = ".$timeslot.") LIMIT 1";
+            $befriender = $this->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
+
+            if (!empty($befriender)) {
+                return intval($befriender[0]['befrienderId']);
+            }
+        } else {
+            //select befriender
+            $sqlStatement = "SELECT r.befrienderId
+                                 FROM reserve r, timeslot t
+                                 WHERE r.shiftId = t.shiftId AND t.timeslotId = ".$timeslot." LIMIT 1";
+            $befriender = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+            return intval($befriender[0]['befrienderId']);
+        }
+    }
+
+    public function loadContacts($befriender): array|int
+    {
+        return $this->select('staff_contacts', ['*'], ["staff_id = ".$befriender], DatabaseService::FETCH_ALL);
+    }
+
     /*
      * Function: reserveMeeting
      * Operation: Reserve meetings for callers
@@ -89,6 +133,10 @@ class CallerAppointment extends Model
                                                                         WHERE timeslotId = ".$requestBody['timeslotId']."))";
         //confirm update
         if ($this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT) == 1) {
+
+            $timeslot = $requestBody['timeslotId'];
+
+
             //schedule meeting
             $columns = array(
                 "date" => $requestBody['reserveDate'],
@@ -96,13 +144,15 @@ class CallerAppointment extends Model
                 "state" => $requestBody['state'],
                 "timeslotId" => $requestBody['timeslotId'],
                 "callerId" => $requestBody['callerId'],
-                "meeting_type" => $requestBody['meetingType']
+                "meeting_type" => $requestBody['meetingType'],
+                "befrienderId" => $this->findBefriender($timeslot)
             );
 
-            $lastId = -1;
             $lastId = $this->insert($this->meeting_table, $columns, DatabaseService::RETURN_LAST_ID);
             if ($lastId != -1) {
                 return $lastId;
+            } else {
+                $this->releaseTimeSLot($timeslot);
             }
         }
         return false;
@@ -162,7 +212,7 @@ class CallerAppointment extends Model
                                 meeting.callerId,
                                 meeting.meeting_type,
                                 meeting.virtual_meeting,
-                                meeting.contact,
+                                meeting.befrienderId,
                                 t.startTime 'startTime',
                                 t.endTime 'endTime',
                                 s.date 'date'
@@ -208,8 +258,8 @@ class CallerAppointment extends Model
                                 m.timeslotId,
                                 m.callerId,
                                 m.meeting_type,
-                                m.contact,
                                 m.virtual_meeting,
+                                m.befrienderId,
                                 t.startTime,
                                 t.endTime,
                                 t.shiftId,

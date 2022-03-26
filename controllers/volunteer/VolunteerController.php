@@ -4,6 +4,7 @@ namespace controllers\volunteer;
 
 use core\Request;
 use core\sessions\SessionManagement;
+use models\users\Volunteer;
 use models\volEvents;
 use util\CommonConstants;
 
@@ -130,14 +131,53 @@ class VolunteerController extends \core\Controller
 
     public function loadVolunteerProfile(): array|bool|string
     {
+        $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
+        $volunteer = new Volunteer();
+        $params = [
+            'info' => $volunteer->getVolunteerById($userId),
+            'events' => $volunteer->eventsParticipated($userId)
+        ];
         $this->setLayout('volunteer/volunteerFunction');
-        return $this->render('volunteer/profile/profile');
+        return $this->render('volunteer/profile/profile', "Volunteer | Profile", $params);
     }
 
     public function loadVolunteerProfileUpdateForm(): array|bool|string
     {
+        $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
+        $volunteer = new Volunteer();
+        $params = [
+            'info' => $volunteer->getVolunteerById($userId)
+        ];
         $this->setLayout('volunteer/volunteerFunction');
-        return $this->render('volunteer/profile/updateProfileForm');
+        return $this->render('volunteer/profile/updateProfileForm', 'Update | Volunteer', $params);
+    }
+
+    public function updateVolunteer(Request $request)
+    {
+        $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
+        $request = $request->getBody();
+        $volunteer = new Volunteer();
+        $params = [
+            'title' => "Profile update failed.",
+            'message' => 'Failed to update profile. Please try again.',
+            'messageType' => CommonConstants::MESSAGE_TYPE_ERROR,
+            'link' => '/volunteerProfile',
+            'linkType' => CommonConstants::LINK_TYPE_GET,
+            'req' => $request
+        ];
+
+        if ($volunteer->updateVolunteer($request, $userId)) {
+            $params = [
+                'title' => "Profile update success.",
+                'message' => 'Your profile updated successfully.',
+                'messageType' => CommonConstants::MESSAGE_TYPE_SUCCESS,
+                'link' => '/volunteerProfile',
+                'linkType' => CommonConstants::LINK_TYPE_GET
+            ];
+        }
+
+        $this->setLayout('volunteer/volunteerFunction');
+        return $this->render('components/errorMessage', 'Manasa',$params);
     }
 
     public function loadVolunteerEvents(): array|bool|string

@@ -1,7 +1,11 @@
 <?php use util\CommonConstants;
 
-print_r($params);
+//print_r($params);
 
+//set timezone
+date_default_timezone_set("Asia/Colombo");
+$today = date("Y-m-d");
+$timeToday = date("H:i:s");
 //if ()
 
 ?>
@@ -28,7 +32,7 @@ print_r($params);
             :
         </p>
         <p class="col-s-6 col-m-6 col-l-6 heading color-1">
-            <?php echo $params['appointmentInfo'][0]['startTime']?> a.m
+            <?php echo $params['appointmentInfo'][0]['startTime']?>
         </p>
         <p class="col-s-5 col-m-5 col-l-5 text-right heading color-1">
             End
@@ -37,7 +41,7 @@ print_r($params);
             :
         </p>
         <p class="col-s-6 col-m-6 col-l-6 heading color-1">
-            <?php echo $params['appointmentInfo'][0]['endTime']?> a.m
+            <?php echo $params['appointmentInfo'][0]['endTime']?>
         </p>
 
         <?php
@@ -55,22 +59,32 @@ print_r($params);
                 </p>
             </a>
             <?php
-        }
+        } else {
 
-        if ($params['appointmentInfo'][0]['meeting_type'] == CommonConstants::MEETING_TYPE_PHONE_CALL){
-            ?>
-            <p class="col-s-5 col-m-5 col-l-5 text-right heading color-1">
-                Contact NO
-            </p>
-            <p class="col-s-1 col-m-1 col-l-1 heading color-1">
-                :
-            </p>
-            <a href="https://zoom.us/">
-                <p class="col-s-6 col-m-6 col-l-6 heading color-1">
-                    <?php echo $params['appointmentInfo'][0]['virtual_meeting']?>
-                </p>
-            </a>
-            <?php
+            $appointmentTime = strtotime($params['appointmentInfo'][0]['startTime']);
+            $appointmentEndTime = strtotime($params['appointmentInfo'][0]['endTime']);
+            $appointmentDate = date($params['appointmentInfo'][0]['date']);
+
+
+            if (array_key_exists('contacts', $params) &&
+                $today == $appointmentDate &&
+                $appointmentTime <= $timeToday &&
+                $appointmentEndTime > $timeToday){
+                foreach ($params['contacts'] as $contact) {
+                    ?>
+                    <p class="col-s-5 col-m-5 col-l-5 text-right heading color-1">
+                        <?php echo $contact['contact_type']?>
+                    </p>
+                    <p class="col-s-1 col-m-1 col-l-1 heading color-1">
+                        :
+                    </p>
+                    <p class="col-s-6 col-m-6 col-l-6 heading color-1">
+                        <?php echo $contact['contact_number']?>
+                    </p>
+                    <?php
+                }
+            }
+
         }
         ?>
 

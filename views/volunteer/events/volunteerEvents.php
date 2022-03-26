@@ -54,9 +54,6 @@
                             <?php echo $event['description']?>
                         </p>
                     </div>
-                    <input class="col-s-12 col-m-3 col-l-3 color-4 bg-color-6 normal-card border-color-tranparent bannerButton card-align-right"
-                           type="button"
-                           value="Participated">
 
                 </div>
             </div>

@@ -94,7 +94,8 @@ class CallerAppointmentController extends \core\Controller
         $params = [
             'appointmentInfo' => $appointmentInfo,
             'userId' => $userId,
-            'request' => $requestBody
+            'request' => $requestBody,
+            'contacts' => $callerAppointment->loadContacts($appointmentInfo[0]['befrienderId'])
             ];
         $this->setLayout('caller/callerFunction');
         return $this->render('caller/appointments/appointmentGetInfo', 'Caller | Appointment', $params);

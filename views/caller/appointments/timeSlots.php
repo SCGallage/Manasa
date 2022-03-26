@@ -70,7 +70,8 @@
                            id="appointment_date"
                            name="date"
                            class="col-s-12 col-m-8 col-l-6 form-field text-center border-color-1"
-                           value="<?php if (0 != strcmp($dateSearched, 'not_set')) echo $dateSearched?>">
+                           value="<?php if (0 != strcmp($dateSearched, 'not_set')) echo $dateSearched?>" \
+                           min="<?php echo date('Y-m-d', strtotime($today . ' +1 day'))?>">
                     <div class="col-s-0 col-m-2 col-l-3 text-hidden">.</div>
 
                     <p class="col-s-12 col-m-12 col-l-12 color-1 normal-text text-center">Please select your preferred meeting type.</p>
@@ -189,7 +190,7 @@
                                     </td>
                                     <td>
                                         <p class="col-s-9 col-m-10 col-l-10 heading color-1 text-left">
-                                            From: <?php echo $values['startTime']?>
+                                            From: <?php echo date("H:i", strtotime($values['startTime']))?>
                                         </p>
                                     </td>
                                 </tr>
@@ -203,7 +204,7 @@
                                     </td>
                                     <td>
                                         <p class="col-s-9 col-m-10 col-l-10 heading color-1 text-left">
-                                            To:<?php echo $values['endTime']?></p>
+                                            To:<?php echo date("H:i", strtotime($values['endTime']))?></p>
                                     </td>
                                 </tr>
                             </table>

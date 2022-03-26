@@ -1,50 +1,32 @@
 <?php
 
 namespace models\users;
-
 use core\DatabaseService;
 use core\Model;
 use util\CommonConstants;
-
-class Caller extends Model
+class Volunteer extends Model
 {
-
-    private int $id;
-    private string $fname;
-    private string $lname;
-    private int $phone;
-    private string $type;
-
-    public function saveCaller(array $caller)
+    public function getVolunteerById($userId): array|bool|int
     {
-        $this->insert( "caller",[
-            "id" => $caller['lastId'],
-            "fname" => $caller['fname'],
-            "lname" => $caller['lname'],-
-            "type" => $caller['usertype'],
-        ]);
-    }
+        $sqlStatement = "SELECT *
+                         FROM staff LEFT JOIN user u on u.id = staff.id
+                         WHERE staff.id = ".$userId;
 
-    public function loadCallerInfo($userId): int|array
-    {
-        $sqlStatement = "SELECT caller.id,
-                                u.username,
-                                caller.fname,
-                                caller.lname,
-                                u.dateOfBirth,
-                                u.gender,
-                                u.registration_date,
-                                u.email,
-                                u.email_verified
-                        FROM caller LEFT JOIN user u on u.id = caller.id
-                        WHERE caller.id = ".$userId;
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
-    public function updateCaller($request, $userId): bool
+    public function eventsParticipated($userId): array|bool|int
     {
+        $sqlStatement = "SELECT COUNT(volunteer_participate.eventId) events 
+                         FROM volunteer_participate LEFT JOIN volunteer_event ve on ve.id = volunteer_participate.eventId
+                         WHERE volunteer_participate.volunteerId = ".$userId." AND ve.state = ".CommonConstants::STATE_FINISHED;
 
-        $sqlStatement = "UPDATE caller
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
+    public function updateVolunteer($request, $userId): bool
+    {
+        $sqlStatement = "UPDATE staff
                          SET fname = '".$request['fname']."', 
                              lname = '".$request['lname']."' 
                          WHERE id = ".$userId;
@@ -72,5 +54,4 @@ class Caller extends Model
 
         return false;
     }
-
 }

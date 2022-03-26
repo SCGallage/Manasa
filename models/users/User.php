@@ -91,4 +91,42 @@ class User extends Model
         return false;
     }
 
+    public function saveDonation($request)
+    {
+        $sql = "INSERT INTO test (id) VALUES ('".$request['payment_id'].$request['order_id']."')";
+        $columnsAndValues = [
+            'id' => $request['payment_id'],
+            'email' => $request['order_id'],
+            'date' => $request['date'],
+            'amount' => $request['payhere_amount']
+        ];
+
+        $values = [
+
+        ];
+
+        $this->insert('donate', $columnsAndValues);
+    }
+
+    public function loadUserInfo($userId): int|array
+    {
+        $conditions = [
+            'id' => $userId
+        ];
+        return $this->select('user', ['*'], $conditions, DatabaseService::FETCH_ALL);
+    }
+
+    public function updateUser($request)
+    {
+        $columns = [
+            'username' => $request['username'],
+            'password' => $request['password'],
+            'gender' => $request['gender'],
+            'dateOfBirth' => $request['dateOfBirth']
+        ];
+
+        $conditions = ["id=".$request['id']];
+        return $this->update('user', $columns, $conditions);
+    }
+
 }

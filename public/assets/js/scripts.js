@@ -114,14 +114,26 @@ function validateProfileForm(){
     * This function is used to check weather the entered number is positive.
 
 */
-function isPositive(id, message) {
+function isPositive(submitBtnId,id, message) {
     let number = document.getElementById(id).value;
     let msg = document.getElementById(message);
+    let submitBtn = document.getElementById(submitBtnId);
     if (number > 0) {
         msg.style.display = "none";
+        submitBtn.type = "submit";
     } else {
         msg.style.display = "block";
+        submitBtn.type = "button";
     }
+}
+
+//Donate set order id
+function setOrderId(emailId, orderId) {
+    let emailElement = document.getElementById(emailId);
+    let orderIdElement = document.getElementById(orderId);
+
+    //set orderId
+    orderIdElement.value = emailElement.value;
 }
 //----------------------/Caller, Volunteer profile form validation function----------------------------
 
@@ -186,7 +198,7 @@ function customWarningPopup(id, title, subTitle, message, hiddenValues, link, x,
     * This function is used to check weather the entered date is future date.
 
 */
-function isFutureDate(id, message, btnId) {
+function isFutureDate(id, message) {
     let inputField = document.getElementById(id);
     let inputDay = new Date(inputField.value);
     let submitBtn = document.getElementById('submitBtn');

@@ -5,7 +5,7 @@
 //set timezone
 date_default_timezone_set("Asia/Colombo");
 $today = date("Y-m-d");
-$timeToday = date("H:i:s");
+$timeToday = date("H:i");
 
 if (array_key_exists('pending', $params) && !empty($params['pending'])){
     ?>
@@ -17,6 +17,15 @@ if (array_key_exists('pending', $params) && !empty($params['pending'])){
         <div class="col-s-12 col-m-12 col-l-12">
             <?php
             foreach ($params['pending'] as $meeting){
+
+                $appointmentDate = date($meeting['date']);
+                $appointmentEndTime = strtotime($meeting['endTime']);
+                $timeToday = strtotime($timeToday);
+
+                if ($appointmentEndTime < $timeToday) {
+                    continue;
+                }
+
                 ?>
                 <div class="col-s-12 col-m-12 col-l-12 normal-card shadow-2 bg-color-3 list-card">
                     <div class="col-s-1 col-m-1 col-l-1">
@@ -46,15 +55,14 @@ if (array_key_exists('pending', $params) && !empty($params['pending'])){
                                 <td class="imageTableCard"><img src="../../assets/img/icons/clock-icon.png" alt="clock icon">
                                 </td>
                                 <td>
-                                    <p class="col-s-9 col-m-10 col-l-10 heading color-1 text-left"><?php echo $meeting['startTime']?></p>
+                                    <p class="col-s-9 col-m-10 col-l-10 heading color-1 text-left"><?php echo date("H:i", strtotime($meeting['startTime']))?></p>
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div class="col-s-12 col-m-12 col-l-2">
                         <?php
-                        $appointmentDate = $meeting['date'];
-                        $appointmentDate = date($appointmentDate);
+
 
                         if ($today == $appointmentDate) {
                             ?>

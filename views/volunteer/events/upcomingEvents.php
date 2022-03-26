@@ -108,7 +108,7 @@ $timeToday = date("H:i:s");
     $i = -1;
     if (array_key_exists('participated', $params)){
         ?>
-        <h1 class="col-s-12 col-m-12 col-l-12 heading text-shadow color-1 text-center">Participated Events</h1>
+        <h1 class="col-s-12 col-m-12 col-l-12 heading text-shadow color-1 text-center">Participating Events</h1>
         <?php
         foreach ($params['participated'] as $event){
             if ($event['state'] == CommonConstants::STATE_FINISHED) continue;

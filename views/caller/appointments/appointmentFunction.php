@@ -2,7 +2,10 @@
 
 use util\CommonConstants;
 
-
+//set timezone
+date_default_timezone_set("Asia/Colombo");
+$today = date("Y-m-d");
+$timeToday = date("H:i:s");
 
 
 ?>
@@ -16,7 +19,7 @@ use util\CommonConstants;
         <b><p id="dateError" class="col-s-12 col-m-12 col-l-12 color-6 normal-text text-center hide">Please enter a future date</p></b>
         <input class="col-s-12 col-m-11 col-l-11 border-color-1"
                type="date" name="date"
-               id="appointment_date"><br>
+               id="appointment_date" min="<?php echo date('Y-m-d', strtotime($today . ' +1 day'))?>"><br>
         <b>
             <p class="col-s-12 col-m-12 col-l-12 normal-text color-1">Select Meeting Type:</p>
         </b>
@@ -92,7 +95,7 @@ if (array_key_exists('finished', $params) && !empty($params['finished'])){
                                                                 alt="clock icon">
                                 </td>
                                 <td>
-                                    <p class="col-s-9 col-m-10 col-l-10 heading color-1 text-left"><?php echo $meeting['startTime']?></p>
+                                    <p class="col-s-9 col-m-10 col-l-10 heading color-1 text-left"><?php echo date('H:i', strtotime($meeting['startTime']))?></p>
                                 </td>
                             </tr>
                         </table>

@@ -47,8 +47,7 @@ use util\CommonConstants;
                 <div class="col-s-0 col-m-1 col-l-2 color-0">.</div>
                 <input class="col-s-12 col-m-5 col-l-4 bannerButton color-4 normal-text bg-color-5"
                        type="button"
-                       onclick="popup('leaveWarning',
-                       <?php echo CommonConstants::POPUP_HIDE; ?>)"
+                       onclick="popup('leaveWarning', <?php echo CommonConstants::POPUP_HIDE; ?>)"
                        value="Cancel">
 
                 <a class="link-text" href="/leaveSupportGroup?sgId=<?php echo $params['sg'][0]['id']?>">
