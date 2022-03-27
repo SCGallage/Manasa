@@ -1,12 +1,9 @@
 <?php use util\CommonConstants;
 
-//print_r($params);
-
 //set timezone
 date_default_timezone_set("Asia/Colombo");
 $today = date("Y-m-d");
 $timeToday = date("H:i:s");
-//if ()
 
 ?>
 <div class="col-s-12 col-m-12 col-l-12 list-card shadow-2 bg-color-3">

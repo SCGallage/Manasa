@@ -72,7 +72,7 @@ class CallerAppointment extends Model
         //update timeslots table
         $sqlStatement = "UPDATE timeslot SET num_reservations = num_reservations -1
                                      WHERE timeslotId = ".$timeslot." AND num_reservations > 0";
-        $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
     }
 
     public function reserveTimeSlot($timeslotId): array|bool|int
@@ -81,12 +81,12 @@ class CallerAppointment extends Model
         //check availability of request timeslot
         $sqlStatement = "UPDATE ".$this->timeslot_table."
                              SET num_reservations = num_reservations + 1
-                             WHERE timeslotId = ".$requestBody['timeslotId']." AND
+                             WHERE timeslotId = ".$timeslotId." AND
                                    num_reservations < (SELECT num_of_befrienders
                                                        FROM ".$this->shift_table."
                                                        WHERE shiftId = (SELECT shiftId 
                                                                         FROM ".$this->timeslot_table." 
-                                                                        WHERE timeslotId = ".$requestBody['timeslotId']."))";
+                                                                        WHERE timeslotId = ".$timeslotId."))";
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
     }
 
@@ -97,6 +97,7 @@ class CallerAppointment extends Model
                                             ["timeslotId = $timeslot", "state = ".CommonConstants::STATE_PENDING],
                                 DatabaseService::FETCH_ALL);
 
+        //pending meetings in the meeting table
         if (!empty($meetings)){
             // reserve befriender to meeting
             $sqlStatement = "SELECT r.befrienderId
@@ -180,7 +181,9 @@ class CallerAppointment extends Model
                 $sql = "delete from ".$this->meeting_table." where id = ".$meetingId." and state = ".CommonConstants::STATE_PENDING;
                 if ($this->customSqlQuery($sql,DatabaseService::FETCH_COUNT == 1)){//$this->delete($this->meeting_table, $conditions)){
                     //update timeslot
-                    return $this->releaseTimeSLot($timeslotId);
+                    if ($this->releaseTimeSLot($timeslotId)) {
+                        return true;
+                    }
                 }
             }
         }
@@ -399,6 +402,14 @@ class CallerAppointment extends Model
     public function countCallerMeetings($userId): int|bool|array
     {
         $sqlStatement = "SELECT COUNT(id) count FROM meeting WHERE callerId = ".$userId." AND state = ".CommonConstants::STATE_FINISHED;
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
+    public function getCurrentSchedule() {
+        //set timezone
+        date_default_timezone_set("Asia/Colombo");
+        $today = date("Y-m-d");
+        $sqlStatement = "SELECT * FROM schedule WHERE startDate <= '$today' AND endDate >= '$today' AND state = ".CommonConstants::STATE_AVAILABLE;
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 

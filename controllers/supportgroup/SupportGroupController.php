@@ -542,13 +542,14 @@ class SupportGroupController extends Controller
     {
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $callerAppointment = new CallerAppointment();
-        $sgEnrollRequest = new SgEnroll();
+
         $requestBody = $request->getBody();
         $params = array();
         if ($request->isGet()) {
             $params = [
                 'request' => $requestBody,
-                CommonConstants::VIEW_TYPE => 'sg_join_meeting'
+                CommonConstants::VIEW_TYPE => 'sg_join_meeting',
+                'schedule' => $callerAppointment->getCurrentSchedule()
             ];
         }
 
@@ -557,7 +558,7 @@ class SupportGroupController extends Controller
             $limitCheck = $callerAppointment->reservationLimit_check($userId, $requestBody['date']);
 
             if ($limitCheck != -1) {
-                //schedule found
+                //timeslots found
                 if ($request->isPost() && $limitCheck) {
                     $params = [
                         'timeSlots' => $callerAppointment->loadTimeSlots($userId, $requestBody['date']),
@@ -565,7 +566,8 @@ class SupportGroupController extends Controller
                         'viewType' => 'sg_join_meeting',
                         'searchedDate' => $requestBody['date'],
                         'meetingType' => $requestBody['meetingType'],
-                        'chances' => $limitCheck
+                        'chances' => $limitCheck,
+                        'schedule' => $callerAppointment->getCurrentSchedule()
                     ];
                 } else if (!$limitCheck) {
                     //error message

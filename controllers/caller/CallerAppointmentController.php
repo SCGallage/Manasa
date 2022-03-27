@@ -35,6 +35,7 @@ class CallerAppointmentController extends \core\Controller
     {
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $sg_enroll = new SgEnroll();
+        $callerAppointment = new CallerAppointment();
         $normalAppointmentsPending = array();
         $normalAppointmentsFinished = array();
         $allAppointments = $this->loadAllAppointments();
@@ -70,6 +71,7 @@ class CallerAppointmentController extends \core\Controller
         $params = [
             'pending' => $normalAppointmentsPending,
             'finished' => $normalAppointmentsFinished,
+            'schedule' => $callerAppointment->getCurrentSchedule()
         ];
 
         $this->setLayout('caller/callerAppointmentFunction');
@@ -137,11 +139,13 @@ class CallerAppointmentController extends \core\Controller
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $callerAppointments = new CallerAppointment();
         $requestBody = $request->getBody();
+
         $reservationLimit = $callerAppointments->reservationLimit_check($userId, $requestBody['date']);
         $requestBody['callerId'] = $userId;
         $params = [
             'request' => $requestBody,
-            'viewType' => 'normal_meeting'
+            'viewType' => 'normal_meeting',
+            'schedule' => $callerAppointments->getCurrentSchedule()
         ];
         if ($reservationLimit){
             $params['timeSlots'] = $callerAppointments->loadTimeSlots($userId, $requestBody['date']);

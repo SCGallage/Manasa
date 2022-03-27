@@ -22,7 +22,7 @@ if (array_key_exists('pending', $params) && !empty($params['pending'])){
                 $appointmentEndTime = strtotime($meeting['endTime']);
                 $timeToday = strtotime($timeToday);
 
-                if ($appointmentEndTime < $timeToday) {
+                if ($appointmentDate == $today &&$appointmentEndTime < $timeToday) {
                     continue;
                 }
 
@@ -62,7 +62,6 @@ if (array_key_exists('pending', $params) && !empty($params['pending'])){
                     </div>
                     <div class="col-s-12 col-m-12 col-l-2">
                         <?php
-
 
                         if ($today == $appointmentDate) {
                             ?>

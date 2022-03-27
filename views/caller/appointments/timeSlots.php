@@ -19,6 +19,7 @@
         $meetingType = $params['request']['meetingType'];
     }
 
+
     $formLink = "";
     $reserveLink = "";
     if ($viewType == 'normal_meeting'){
@@ -70,8 +71,9 @@
                            id="appointment_date"
                            name="date"
                            class="col-s-12 col-m-8 col-l-6 form-field text-center border-color-1"
-                           value="<?php if (0 != strcmp($dateSearched, 'not_set')) echo $dateSearched?>" \
-                           min="<?php echo date('Y-m-d', strtotime($today . ' +1 day'))?>">
+                           value="<?php if (0 != strcmp($dateSearched, 'not_set')) echo $dateSearched; else echo date('Y-m-d', strtotime($today . ' +1 day'))?>" \
+                           min="<?php echo date('Y-m-d', strtotime($today . ' +1 day'))?>"
+                           max="<?php echo $params['schedule'][0]['endDate']?>">
                     <div class="col-s-0 col-m-2 col-l-3 text-hidden">.</div>
 
                     <p class="col-s-12 col-m-12 col-l-12 color-1 normal-text text-center">Please select your preferred meeting type.</p>
@@ -236,7 +238,7 @@
                 }
                 }
 
-                if (array_key_exists('searchedDate',$params) && count($params['timeSlots']) == 0) {
+                if (array_key_exists('searchedDate',$params) && sizeof($params['timeSlots']) == 0) {
 
                     //No time slots found
                     ?>
