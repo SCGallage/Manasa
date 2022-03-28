@@ -299,6 +299,7 @@ $app->router->get('/appointmentLink', [CallerAppointmentController::class, 'load
 $app->router->get('/appointmentInfo', [CallerAppointmentController::class, 'loadAppointmentById']);
 $app->router->get('/loadDonateForm', [DonateController::class, 'loadDonateForm']);
 $app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow']);
+$app->router->get('/cancelCallNow', [CallerAppointmentController::class, 'cancelCallNow']);
 $app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
 $app->router->post('/cancelSupportGroupJoinRequest', [SupportGroupController::class, 'cancelSupportGroupJoinRequest']);
 $app->router->get('/loadJoinRequestTimeSlots', [SupportGroupController::class, 'loadJoinRequestTimeSlots']);

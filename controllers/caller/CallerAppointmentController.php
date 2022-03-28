@@ -2,6 +2,7 @@
 
 namespace controllers\caller;
 
+use core\Application;
 use core\Request;
 use core\sessions\SessionManagement;
 use models\Appointment\CallerAppointment;
@@ -99,6 +100,19 @@ class CallerAppointmentController extends \core\Controller
             'request' => $requestBody,
             'contacts' => $callerAppointment->loadContacts($appointmentInfo[0]['befrienderId'])
             ];
+        if (strcmp($appointmentInfo[0]['virtual_meeting'], "")) {
+            $link = $callerAppointment->loadVirtualMeetingLInk($appointmentInfo[0]['virtual_meeting']);
+
+            $params = [
+                'appointmentInfo' => $appointmentInfo,
+                'userId' => $userId,
+                'request' => $requestBody,
+                'contacts' => $callerAppointment->loadContacts($appointmentInfo[0]['befrienderId']),
+                'link' => $link
+            ];
+            $this->setLayout('caller/callerFunction');
+            return $this->render('caller/appointments/appointmentGetInfo', 'Caller | Appointment', $params);
+        }
         $this->setLayout('caller/callerFunction');
         return $this->render('caller/appointments/appointmentGetInfo', 'Caller | Appointment', $params);
     }
@@ -118,20 +132,41 @@ class CallerAppointmentController extends \core\Controller
 
     public function loadCallNow(): array|bool|string
     {
-        $userType = "";
-        if(isset($_SESSION[CommonConstants::SESSION_LOGGED_IN]) && !empty($_SESSION[CommonConstants::SESSION_LOGGED_IN])) {
-            //load Call now function for Caller
-            $params = [
-                'userType' => $userType
-            ];
-            $this->setLayout('caller/callerFunction');
 
-        } else{
-            $this->setLayout('user/visitorFunction');
+        $callerAppointment = new CallerAppointment();
+        $befriender = $callerAppointment->getCallNowBefriender();
+
+        if (empty($befriender)) {
+            //error message
+            $params = [
+                'title' => "Cannot find a befriender.",
+                'message' => "We apologize, currently we don't have any free befriends.",
+                'messageType' => CommonConstants::MESSAGE_TYPE_ERROR,
+                'link' => '/callerHome',
+                'linkType' => CommonConstants::LINK_TYPE_GET,
+            ];
+
+            $this->setLayout('caller/callNowFunction');
+            return $this->render('components/errorMessage', 'Manasa',$params);
         }
 
-        return $this->render('caller/appointments/callNow', 'Call Now');
+        $contacts = $callerAppointment->loadContacts(intval($befriender[0]['befriender']));
 
+        $params = [
+            'contacts' => $contacts,
+            'befriender' => $befriender[0],
+            'viewType' => 'callNow'
+        ];
+        $this->setLayout('caller/callNowFunction');
+        return $this->render('caller/appointments/callNow', 'Call Now', $params);
+
+    }
+
+    public function cancelCallNow(Request $request) {
+        $callerAppointments = new CallerAppointment();
+        $callerAppointments->cancelCalNow($request->getBody());
+
+        Application::$app->response->setRedirectUrl('/callerHome');
     }
 
     public function loadTimeslots(Request $request): array|bool|string

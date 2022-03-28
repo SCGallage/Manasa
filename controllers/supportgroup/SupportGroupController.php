@@ -670,19 +670,19 @@ class SupportGroupController extends Controller
 
             $sg_enroll = new SgEnroll();
 
-            if ($sg_enroll->addRequest($columns)) {
-                $params = [
-                    'request' => $request,
-                    'title' => "Meeting reserved.",
-                    'message' => 'Your meeting request saved successfully.',
-                    'messageType' => CommonConstants::MESSAGE_TYPE_SUCCESS,
-                    'link' => '/callerSupportGroupsList',
-                    'linkType' => CommonConstants::LINK_TYPE_GET, 'meeting' => $meetingId
-                ];
+            $sg_enroll->addRequest($columns);
 
-                $this->setLayout('caller/callerFunction');
-                return $this->render('components/errorMessage', 'Manasa', $params);
-            }
+            $params = [
+                'request' => $request,
+                'title' => "Meeting reserved.",
+                'message' => 'Your meeting request saved successfully.',
+                'messageType' => CommonConstants::MESSAGE_TYPE_SUCCESS,
+                'link' => '/callerSupportGroupsList',
+                'linkType' => CommonConstants::LINK_TYPE_GET, 'meeting' => $meetingId
+            ];
+
+            $this->setLayout('caller/callerFunction');
+            return $this->render('components/errorMessage', 'Manasa', $params);
 
         }
         $this->setLayout('caller/callerFunction');

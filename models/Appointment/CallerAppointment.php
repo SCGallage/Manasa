@@ -4,6 +4,7 @@ namespace models\Appointment;
 use core\DatabaseService;
 use core\Model;
 use core\Request;
+use models\users\Befriender;
 use util\CommonConstants;
 
 class CallerAppointment extends Model
@@ -123,7 +124,9 @@ class CallerAppointment extends Model
 
     public function loadContacts($befriender): array|int
     {
-        return $this->select('staff_contacts', ['*'], ["staff_id = ".$befriender], DatabaseService::FETCH_ALL);
+        $sqlStatement = "SELECT * FROM staff_contacts WHERE staff_id = ".$befriender;
+        //return $this->select('staff_contacts', ['*'], ["staff_id = ".$befriender], DatabaseService::FETCH_ALL);
+        return $this->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
     }
 
     /*
@@ -469,6 +472,38 @@ class CallerAppointment extends Model
                          WHERE m.id NOT IN (SELECT meeting FROM sg_enrollrequest WHERE sg_enrollrequest.callerId = ".$userId.") AND m.state = ".CommonConstants::STATE_PENDING;
 
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
+    public function getCallNowBefriender() {
+
+        date_default_timezone_set("Asia/Colombo");
+        $today = date("Y-m-d");
+        $timeToday = date("H:i:s");
+        $sqlStatement = "SELECT callnow.befriender, callnow.id FROM callnow LEFT JOIN shift s on s.shiftId = callnow.shift
+                         WHERE callnow.state = ".CommonConstants::STATE_PENDING." AND s.startTime <= '$timeToday' AND s.endTime >= '$timeToday' ORDER BY RAND() LIMIT 1";
+
+        $befriender = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+
+        if (empty($befriender)) return null;
+
+        //reserve befriender
+        $sqlStatement = "UPDATE callnow SET state = ".CommonConstants::STATE_ACCEPTED." WHERE id = ".$befriender[0]['id'];
+
+        if ($this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT)) return $befriender;
+        else return null;
+    }
+
+    public function cancelCalNow($request)
+    {
+        $sqlStatement = "UPDATE callnow SET state = ".CommonConstants::STATE_PENDING." WHERE id = ".$request['id'];
+
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
+    }
+
+    public function loadVirtualMeetingLInk($id) {
+
+        return $this->select('virtual_meeting', ['*'], ["meetingId = ".$id],
+            DatabaseService::FETCH_ALL);
     }
 
 }

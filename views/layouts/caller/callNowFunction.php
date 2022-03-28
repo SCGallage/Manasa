@@ -12,12 +12,13 @@
 
 <div id="top" class="mainContainer col-l-12 col-m-12 col-s-12">
 
-    <?php include '../views/components/header_visitor_function.php'; ?>
+    <?php include '../views/components/header_callNow_function.php'; ?>
 
     {{content}}
 
 </div>
-<?php include "../views/components/footer_client_function.php"; ?>
+
+    <?php include "../views/components/footer_client_function.php"; ?>
 
 
 </body>
