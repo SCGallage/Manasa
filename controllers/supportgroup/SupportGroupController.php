@@ -571,7 +571,7 @@ class SupportGroupController extends Controller
         ];
 
         if (empty($timeSlots)) {
-            $params['timeSlots'] = $callerAppointment->getTimeSlotsBySGBefrienders(intval($facilitator), $today);
+            $params['timeSlots'] = $callerAppointment->getTimeSlotsBySGBefrienders(intval($facilitator), $today, $userId);
         }
 
 
