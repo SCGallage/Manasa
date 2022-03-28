@@ -7,7 +7,7 @@
 
         <input type="hidden" name="merchant_id" value="1219981">    <!-- Replace your Merchant ID -->
         <input type="hidden" name="return_url" value="http://5089-2407-c00-c002-a5c3-7048-f1a3-3069-37bb.ngrok.io/loadDonateForm">
-        <input type="hidden" name="cancel_url" value="http://5089-2407-c00-c002-a5c3-7048-f1a3-3069-37bb.ngrok.io">
+        <input type="hidden" name="cancel_url" value="http://5089-2407-c00-c002-a5c3-7048-f1a3-3069-37bb.ngrok.io/failedDonation">
         <input type="hidden" name="notify_url" value="http://5089-2407-c00-c002-a5c3-7048-f1a3-3069-37bb.ngrok.io/saveDonation">
 
         <b>

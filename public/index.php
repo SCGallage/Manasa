@@ -298,6 +298,7 @@ $app->router->get('/appointments', [CallerAppointmentController::class, 'loadApp
 $app->router->get('/appointmentLink', [CallerAppointmentController::class, 'loadAppointmentById']);
 $app->router->get('/appointmentInfo', [CallerAppointmentController::class, 'loadAppointmentById']);
 $app->router->get('/loadDonateForm', [DonateController::class, 'loadDonateForm']);
+$app->router->get('/failedDonation', [DonateController::class, 'failedDonation']);
 $app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow']);
 $app->router->get('/cancelCallNow', [CallerAppointmentController::class, 'cancelCallNow']);
 $app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
