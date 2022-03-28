@@ -360,6 +360,7 @@ $app->router->get('/api/v1/schedule/getShiftFromDate', [ScheduleController::clas
 $app->router->post('/api/v1/schedule/createShiftTransfer', [ScheduleController::class, 'createTransferRequest']);
 $app->router->post('/api/v1/schedule/deleteShiftTransfer', [ScheduleController::class, 'deleteTransferRequest']);
 $app->router->post('/api/v1/schedule/makeDecisionOnTransfer', [ScheduleController::class, 'makeDecisionForTransferRequest']);
+$app->router->post('/api/v1/schedule/cancelTransferRequest', [ScheduleController::class, 'cancelShiftTransferRequest']);
 
 /* Support Group Events */
 $app->router->post('/api/v1/supportgroup/createEvent', [SupportGroupController::class, 'createSupportGroupEvent']);
@@ -371,6 +372,7 @@ $app->router->get('/supportGroup/bulk', [SupportGroupController::class, 'sendBul
 /* Befriender Reports */
 $app->router->get('/api/v1/meeting', [BefrienderController::class, 'getSingleMeetingDetails']);
 $app->router->post('/api/v1/addSessionReport', [BefrienderController::class, 'submitReportForMeeting']);
+$app->router->get('/api/v1/report', [BefrienderController::class, 'loadBefrienderCompletedReports']);
 
 //terms and conditions
 $app->router->get('/TermsandConditions', '/TermsandConditions');

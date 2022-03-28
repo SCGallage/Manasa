@@ -29,28 +29,12 @@
         </div>
         <div class="container-body">
             <h4 id="report-id" class="report-item">Caller Name: Robert Pattinson</h4>
-
             <h4 id="report-date" class="report-item">Session Date: 22 - 12 - 2021</h4>
-
             <h4 id="report-time" class="report-item">Session Time: 6.00p.m.</h4>
-
             <h4 id="report-meeting-type" class="report-item">Session Type: Virtual Meeting</h4>
-
             <h4 id="report-problem-type" class="report-item">Problem Type:</h4>
-            <select id="problemType" name="problemType">
-                <?php
-                foreach ($problems as $problem)
-                    echo "<option value='{$problem["id"]}' >{$problem['name']}</option>";
-                ?>
-            </select>
-
-            <div class="input-field">
-                <label class="field-label" for="remark">Remark</label>
-                <textarea class="textarea" rows="8" name="" id="remark"></textarea>
-            </div>
-            <button onclick="submitReport()" class="send-request-btn">
-                SUBMIT REPORT
-            </button>
+            <h4 class="report-item">Remark:</h4>
+            <h4 id="report-remark-text" class="report-item"></h4>
         </div>
     </div>
 </div>

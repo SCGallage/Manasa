@@ -77,6 +77,14 @@ class BefrienderController extends \core\Controller
             ]);
     }
 
+    public function loadBefrienderCompletedReports(Request $request)
+    {
+        Application::$app->response->setContentTypeJson();
+        return json_encode(
+            $this->befriender->loadBefrienderCompletedReports($request->getBody()['reportId'])
+        );
+    }
+
     public function loadBefrienderSupportGroup(Request $request)
     {
         return $this->render('befriender\befriender_supportgroup', 'Befriender | Support Group');

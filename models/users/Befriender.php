@@ -113,4 +113,14 @@ class Befriender extends Model
         return $this->select("problems", "*", [], DatabaseService::FETCH_ALL);
     }
 
+    public function loadBefrienderCompletedReports(mixed $reportId)
+    {
+        $sqlStatement = "select *
+            from session_report, problems
+            where session_report.problemType = problems.id and session_report.id = {$reportId}";
+        //$this->select()
+
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
 }

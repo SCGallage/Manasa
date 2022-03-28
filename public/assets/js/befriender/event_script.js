@@ -162,70 +162,70 @@ const validateEventTime = () => {
 }
 
 const eventNameValidation = () => {
-    console.log("called");
-    if (eve.value == "" || eve.value == null){
-        const errorMsg = document.getElementById("error");
-        errorMsg.innerHTML = "Event Topic Not Given";
-        document.getElementById('submit-btn').style.backgroundColor = "#607F8D";
-        eventTopicValidation = false;
-        return;
-    }
-
-    errorMsg.innerHTML = "";
-    eventTopicValidation = true;
+    // console.log("called");
+    // if (eve.value == "" || eve.value == null){
+    //     const errorMsg = document.getElementById("error");
+    //     errorMsg.innerHTML = "Event Topic Not Given";
+    //     document.getElementById('submit-btn').style.backgroundColor = "#607F8D";
+    //     eventTopicValidation = false;
+    //     return;
+    // }
+    //
+    // errorMsg.innerHTML = "";
+    // eventTopicValidation = true;
 }
 
 const validateStartTime = () => {
-    console.log("called");
-    let eventStartArray = eventStart.value.split(":");
-    let startStartTimeMinutes = (parseInt(eventStartArray[0])*60) + parseInt(eventStartArray[1]);
-    if ((9*60) > startStartTimeMinutes || (17*60) < startStartTimeMinutes) {
-        errorMsg.innerHTML = "Start Time Invalid.";
-        document.getElementById('submit-btn').style.backgroundColor = "#607F8D";
-        timeStartValidation = false;
-        return;
-    }
-    timeStartValidation = true;
-    if (validateFields())
-        document.getElementById('submit-btn').style.backgroundColor = "#003249";
-
-    eventEnd.disabled = false;
+    // console.log("called");
+    // let eventStartArray = eventStart.value.split(":");
+    // let startStartTimeMinutes = (parseInt(eventStartArray[0])*60) + parseInt(eventStartArray[1]);
+    // if ((9*60) > startStartTimeMinutes || (17*60) < startStartTimeMinutes) {
+    //     errorMsg.innerHTML = "Start Time Invalid.";
+    //     document.getElementById('submit-btn').style.backgroundColor = "#607F8D";
+    //     timeStartValidation = false;
+    //     return;
+    // }
+    // timeStartValidation = true;
+    // if (validateFields())
+    //     document.getElementById('submit-btn').style.backgroundColor = "#003249";
+    //
+    // eventEnd.disabled = false;
 }
 
 const validateEndTime = () => {
-    console.log("called");
-    let eventStartArray = eventStart.value.split(":");
-    let startStartTimeMinutes = (parseInt(eventStartArray[0])*60) + parseInt(eventStartArray[1]);
-    let eventEndArray = eventEnd.value.split(":");
-    let endTimeMinutes = (parseInt(eventEndArray[0])*60) + parseInt(eventEndArray[1]);
-    if ((17*60) < endTimeMinutes || (9*60) > endTimeMinutes || (startStartTimeMinutes+60) > endTimeMinutes) {
-        errorMsg.innerHTML = "End Time Invalid.";
-        timeEndValidation = false;
-        document.getElementById('submit-btn').style.backgroundColor = "#607F8D";
-        return;
-    }
-    if (validateFields())
-        document.getElementById('submit-btn').style.backgroundColor = "#003249";
-    timeEndValidation = true;
+    // console.log("called");
+    // let eventStartArray = eventStart.value.split(":");
+    // let startStartTimeMinutes = (parseInt(eventStartArray[0])*60) + parseInt(eventStartArray[1]);
+    // let eventEndArray = eventEnd.value.split(":");
+    // let endTimeMinutes = (parseInt(eventEndArray[0])*60) + parseInt(eventEndArray[1]);
+    // if ((17*60) < endTimeMinutes || (9*60) > endTimeMinutes || (startStartTimeMinutes+60) > endTimeMinutes) {
+    //     errorMsg.innerHTML = "End Time Invalid.";
+    //     timeEndValidation = false;
+    //     document.getElementById('submit-btn').style.backgroundColor = "#607F8D";
+    //     return;
+    // }
+    // if (validateFields())
+    //     document.getElementById('submit-btn').style.backgroundColor = "#003249";
+    // timeEndValidation = true;
 }
 
 const validateDate = () => {
-    let selectedDateString = sessionStorage.getItem("event-date");
-    let currentDate = new Date();
-    const error = document.getElementById("error");
-    const selectedDate = new Date(selectedDateString);
-    const diffTime = Math.abs(currentDate - selectedDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    console.log("Curr Date: " + currentDate);
-    console.log("Time Diff.: " + (currentDate >= selectedDate));
-    if (currentDate >= selectedDate) {
-        error.innerHTML = "Error: Invalid Date or Time";
-        dateValidationState = false;
-    }
-    else {
-        error.innerHTML = "";
-        dateValidationState = true;
-    }
+    // let selectedDateString = sessionStorage.getItem("event-date");
+    // let currentDate = new Date();
+    // const error = document.getElementById("error");
+    // const selectedDate = new Date(selectedDateString);
+    // const diffTime = Math.abs(currentDate - selectedDate);
+    // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    // console.log("Curr Date: " + currentDate);
+    // console.log("Time Diff.: " + (currentDate >= selectedDate));
+    // if (currentDate >= selectedDate) {
+    //     error.innerHTML = "Error: Invalid Date or Time";
+    //     dateValidationState = false;
+    // }
+    // else {
+    //     error.innerHTML = "";
+    //     dateValidationState = true;
+    // }
 }
 
 const openLocationModal = () => {
@@ -238,8 +238,8 @@ const validateFields = () => {
 
 const submitEventDetails = () => {
 
-    if (validateFields())
-        return;
+    // if (validateFields())
+    //     return;
 
     let eventStart = document.getElementById("event-start").value;
     let eventEnd = document.getElementById("event-end").value;

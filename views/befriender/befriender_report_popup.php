@@ -29,13 +29,9 @@
     </div>
     <div class="container-body">
             <h4 id="report-id" class="report-item">Caller Name: Robert Pattinson</h4>
-
             <h4 id="report-date" class="report-item">Session Date: 22 - 12 - 2021</h4>
-
             <h4 id="report-time" class="report-item">Session Time: 6.00p.m.</h4>
-
             <h4 id="report-meeting-type" class="report-item">Session Type: Virtual Meeting</h4>
-
             <h4 id="report-problem-type" class="report-item">Problem Type:</h4>
             <select id="problemType" name="problemType">
                 <?php
