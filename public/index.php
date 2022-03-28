@@ -17,6 +17,13 @@ use core\Application;
 use controllers\SiteController;
 use core\DotEnv;
 use controllers\Admin\AdminController;
+use controllers\moderator\modController;
+use controllers\moderator\ModeratorVolunteerController;
+use controllers\moderator\modScheduleController;
+use controllers\Admin\ReportGenerationController;
+use controllers\Admin\AdminVolunteerController;
+use controllers\Admin\AdminScheduleController;
+use controllers\Admin\FPDFController;
 use core\Settings;
 
 $dotenv = new DotEnv(dirname(__DIR__).'\.env');
@@ -62,9 +69,9 @@ cors();
 $app = new Application(dirname(__DIR__), $config);
 
 $settings = new Settings();
-//$settings->addSettingToDatabase("bef_limit", 10);
+$settings->addSettingToDatabase("bef_limit", 10);
 $settings->loadSettingsToEnv();
-//echo $_ENV['bef_limit'];
+
 
 /* Testing routes only */
 $app->router->get('/', [SiteController::class, 'home']);
@@ -127,38 +134,155 @@ $app->router->get('/admin/SGRequestsDelete', [AdminController::class, 'SupportGr
 $app->router->get('/admin/SGRequests', [AdminController::class, 'SGRequests']);
 $app->router->get('/admin/SGRequestsPageDelete', [AdminController::class, 'SupportGroupRequestsPageDelete']);
 
-//admin views
-$app->router->get('/admin/Volunteer', [AdminController::class, 'Volunteer']);
-$app->router->get('/admin/Schedule', [AdminController::class, 'Schedule']);
-$app->router->get('/admin/FixSchedule', [AdminController::class, 'FixSchedule']);
-$app->router->get('/admin/GenReport', [AdminController::class, 'GenReport']);
+//admin views (upcoming events)
+$app->router->get('/admin/Volunteer', [AdminVolunteerController::class, 'Volunteer']);
+
+//Admin volunteer event view (all volunteer event views)
+$app->router->get('/admin/viewVolunteerEvent', [AdminVolunteerController::class, 'viewVolEvent']);
+$app->router->post('/admin/viewVolunteerEvent', [AdminVolunteerController::class, 'viewVolEvent']);
+
+$app->router->get('/admin/createVolunteerEvent', [AdminVolunteerController::class, 'createVolEvent']);
+$app->router->post('/admin/createVolunteerEvent', [AdminVolunteerController::class, 'createVolEvent']);
+
+$app->router->get('/admin/updateVolunteerEvent', [AdminVolunteerController::class, 'updateVolEvent']);
+$app->router->post('/admin/updateVolunteerEvent', [AdminVolunteerController::class, 'updateVolEvent']);
+$app->router->get('/admin/deleteVolunteerEvent', [AdminVolunteerController::class, 'deleteVolunteerEvent']);
+
+$app->router->get('/admin/selectVolunteer', [AdminVolunteerController::class, 'selectVolunteers']);
+$app->router->post('/admin/selectVolunteer', [AdminVolunteerController::class, 'selectVolunteers']);
+$app->router->get('/admin/volParticipateReport',[ReportGenerationController::class,'volParticipateReport']);
+$app->router->post('/admin/volParticipateReport',[ReportGenerationController::class,'volParticipateReport']);
+//admin view volunteer details
+$app->router->get('/admin/viewVolunteerInformation', [AdminVolunteerController::class, 'viewVolunteer']);
+//accept volunteers
+$app->router->get('/admin/acceptVolunteer', [AdminVolunteerController::class, 'volunteerRequestsUpdate']);
+$app->router->post('/admin/acceptVolunteer', [AdminVolunteerController::class, 'volunteerRequestsUpdate']);
+$app->router->get('/admin/rejectVolunteer', [AdminVolunteerController::class, 'VolunteerRequestsDelete']);
+
+
+$app->router->get('/admin/Schedule', [AdminScheduleController::class, 'Schedule']);
+$app->router->get('/admin/upcomingSchedule', [AdminScheduleController::class, 'UpcomingSchedule']);
+$app->router->get('/admin/FixSchedule', [AdminScheduleController::class, 'FixSchedule']);
+$app->router->get('/admin/CreateSchedule', [AdminScheduleController::class, 'createSchedule']);
+$app->router->post('/admin/CreateSchedule', [AdminScheduleController::class, 'createSchedule']);
+$app->router->get('/admin/ScheduleSelect', [AdminScheduleController::class, 'selectSchedule']);
+$app->router->post('/admin/ScheduleSelect', [AdminScheduleController::class, 'selectSchedule']);
+
+//Remove befriender from slot
+$app->router->get('/admin/removeBefriender', [AdminScheduleController::class, 'removeBefriender']);
+$app->router->post('/admin/assignBefriender', [AdminScheduleController::class, 'assignBefriender']);
+
+//Close/open schedule slot
+$app->router->post('/admin/closeSlot', [AdminScheduleController::class, 'closeSlot']);
+$app->router->post('/admin/openSlot', [AdminScheduleController::class, 'openSlot']);
+//lock schedule
+$app->router->post('/admin/lockSchedule', [AdminScheduleController::class, 'lockSchedule']);
+$app->router->post('/admin/unlockSchedule', [AdminScheduleController::class, 'unlockSchedule']);
+$app->router->post('/admin/lockUpcomingSchedule', [AdminScheduleController::class, 'lockUpcomingSchedule']);
+$app->router->post('/admin/unlockUpcomingSchedule', [AdminScheduleController::class, 'unlockUpcomingSchedule']);
+
+//admin report generation form
+//volunteer report
+$app->router->get('/admin/volReport', [ReportGenerationController::class, 'volunteerReportForm']);
+$app->router->post('/admin/volReport', [ReportGenerationController::class, 'volunteerReportForm']);
+//pdf
+$app->router->get('/admin/volReportPDF', [ReportGenerationController::class, 'volunteerReportPDF']);
+$app->router->post('/admin/volReportPDF', [ReportGenerationController::class, 'volunteerReportPDF']);
+
+//overview report
+$app->router->get('/admin/GenReport', [ReportGenerationController::class, 'overviewReportForm']);
+$app->router->post('/admin/GenReport', [ReportGenerationController::class, 'overviewReportForm']);
+
+//befriender report
+$app->router->get('/admin/befrienderReport', [ReportGenerationController::class, 'befrienderReportForm']);
+$app->router->post('/admin/befrienderReport', [ReportGenerationController::class, 'befrienderReportForm']);
+
+$app->router->get('/admin/donationReport', [ReportGenerationController::class, 'donationReportForm']);
+$app->router->post('/admin/donationReport', [ReportGenerationController::class, 'donationReportForm']);
+
+//admin report view
+$app->router->get('/admin/ReportVolunteer', [ReportGenerationController::class, 'volunteerReport']);
+$app->router->post('/admin/ReportVolunteer', [ReportGenerationController::class, 'volunteerReport']);
+
+//session report
 $app->router->get('/admin/SessionReport', [AdminController::class, 'SessionReport']);
+$app->router->post('/admin/SessionReport', [AdminController::class, 'SessionReport']);
+$app->router->get('/admin/SessionReportView', [AdminController::class, 'SessionReportView']);
+$app->router->post('/admin/SessionReportView', [AdminController::class, 'SessionReportView']);
 
 //admin user function
 $app->router->get('/admin/SearchUsers', [AdminController::class, 'SearchUsers']);
+$app->router->post('/admin/SearchUsers', [AdminController::class, 'SearchUsers']);
 
+//admin Inactive users
+$app->router->get('/admin/inactiveUsers', [AdminController::class, 'InactiveUsers']);
+$app->router->post('/admin/inactiveUsers', [AdminController::class, 'InactiveUsers']);
 //add users
 $app->router->get('/admin/addUsers', [AdminController::class, 'createUser']);
 $app->router->post('/admin/addUsers', [AdminController::class, 'createUser']);
+
+$app->router->get('/admin/updateUser', [AdminController::class, 'updateUser']);
+$app->router->post('/admin/updateUser', [AdminController::class, 'updateUser']);
+
 $app->router->get('/admin/deleteUser', [AdminController::class, 'deleteUser']);
 
 //User requests
 $app->router->get('/admin/UserRequests', [AdminController::class, 'UserRequests']);
 $app->router->post('/admin/UserRequests', [AdminController::class, 'UserRequestsUpdate']);
 $app->router->get('/admin/UserRequestsDelete', [AdminController::class, 'UserRequestsDelete']);
+
 $app->router->get('/cvdownload', [AdminController::class, 'cvDownload']);
 
 //moderator views
 //moderator landing page
-$app->router->get('/mod/ModDash', [AdminController::class, 'Modhome']);
-$app->router->get('/mod/ModUsers', [AdminController::class, 'ModUsers']);
-$app->router->get('/mod/Volunteer', [AdminController::class, 'ModVolunteer']);
-$app->router->get('/mod/Schedule', [AdminController::class, 'ModSchedule']);
-$app->router->get('/mod/FixSchedule', [AdminController::class, 'ModFixSchedule']);
+$app->router->get('/mod/ModDash', [modController::class, 'Modhome']);
+$app->router->get('/mod/ModUsers', [modController::class, 'ModUsers']);
+$app->router->post('/mod/ModUsers', [modController::class, 'ModUsers']);
+//$app->router->get('/mod/Schedule', [modController::class, 'ModSchedule']);
+//$app->router->get('/mod/FixSchedule', [modController::class, 'ModFixSchedule']);
 
-$app->router->get('/mod/UserRequests', [AdminController::class, 'ModUserRequests']);
-$app->router->post('/mod/UserRequests', [AdminController::class, 'ModUserRequestsUpdate']);
-$app->router->get('/mod/UserRequestsDelete', [AdminController::class, 'ModUserRequestsDelete']);
+$app->router->get('/mod/Schedule', [modScheduleController::class, 'Schedule']);
+$app->router->get('/mod/upcomingSchedule', [modScheduleController::class, 'UpcomingSchedule']);
+$app->router->get('/mod/FixSchedule', [modScheduleController::class, 'FixSchedule']);
+$app->router->get('/mod/CreateSchedule', [modScheduleController::class, 'createSchedule']);
+$app->router->post('/mod/CreateSchedule', [modScheduleController::class, 'createSchedule']);
+$app->router->get('/mod/ScheduleSelect', [modScheduleController::class, 'selectSchedule']);
+$app->router->post('/mod/ScheduleSelect', [modScheduleController::class, 'selectSchedule']);
+//Close/open schedule slot
+$app->router->post('/mod/closeSlot', [modScheduleController::class, 'closeSlot']);
+$app->router->post('/mod/openSlot', [modScheduleController::class, 'openSlot']);
+//lock schedule
+$app->router->post('/mod/lockSchedule', [modScheduleController::class, 'lockSchedule']);
+$app->router->post('/mod/unlockSchedule', [modScheduleController::class, 'unlockSchedule']);
+$app->router->post('/mod/lockUpcomingSchedule', [modScheduleController::class, 'lockUpcomingSchedule']);
+$app->router->post('/mod/unlockUpcomingSchedule', [modScheduleController::class, 'unlockUpcomingSchedule']);
+
+//Remove befriender from slot
+$app->router->get('/mod/removeBefriender', [modScheduleController::class, 'removeBefriender']);
+$app->router->post('/mod/assignBefriender', [modScheduleController::class, 'assignBefriender']);
+
+$app->router->get('/mod/UserRequests', [modController::class, 'ModUserRequests']);
+$app->router->post('/mod/UserRequests', [modController::class, 'ModUserRequestsUpdate']);
+$app->router->get('/mod/UserRequestsDelete', [modController::class, 'ModUserRequestsDelete']);
+
+//moderator volunteer
+$app->router->get('/mod/Volunteer', [ModeratorVolunteerController::class, 'Volunteer']);
+
+$app->router->get('/mod/createVolunteerEvent', [ModeratorVolunteerController::class, 'createVolEvent']);
+$app->router->post('/mod/createVolunteerEvent', [ModeratorVolunteerController::class, 'createVolEvent']);
+
+$app->router->get('/mod/updateVolunteerEvent', [ModeratorVolunteerController::class, 'updateVolEvent']);
+$app->router->post('/mod/updateVolunteerEvent', [ModeratorVolunteerController::class, 'updateVolEvent']);
+$app->router->get('/mod/deleteVolunteerEvent', [ModeratorVolunteerController::class, 'deleteVolunteerEvent']);
+
+$app->router->get('/mod/selectVolunteer', [ModeratorVolunteerController::class, 'selectVolunteers']);
+$app->router->post('/mod/selectVolunteer', [ModeratorVolunteerController::class, 'selectVolunteers']);
+
+//accept volunteers
+$app->router->get('/mod/acceptVolunteer', [ModeratorVolunteerController::class, 'volunteerRequestsUpdate']);
+$app->router->post('/mod/acceptVolunteer', [ModeratorVolunteerController::class, 'volunteerRequestsUpdate']);
+$app->router->get('/mod/rejectVolunteer', [ModeratorVolunteerController::class, 'VolunteerRequestsDelete']);
+
 
 
 /* Caller Views */
@@ -228,24 +352,17 @@ $app->router->get('/api/v1/schedule/getShiftFromDate', [ScheduleController::clas
 $app->router->post('/api/v1/schedule/createShiftTransfer', [ScheduleController::class, 'createTransferRequest']);
 $app->router->post('/api/v1/schedule/deleteShiftTransfer', [ScheduleController::class, 'deleteTransferRequest']);
 $app->router->post('/api/v1/schedule/makeDecisionOnTransfer', [ScheduleController::class, 'makeDecisionForTransferRequest']);
-$app->router->post('/api/v1/schedule/cancelTransferRequest', [ScheduleController::class, 'cancelShiftTransferRequest']);
 
 /* Support Group Events */
 $app->router->post('/api/v1/supportgroup/createEvent', [SupportGroupController::class, 'createSupportGroupEvent']);
 $app->router->get('/api/v1/supportgroup/getEvents', [SupportGroupController::class, 'getSupportGroupEvents']);
 $app->router->get('/api/v1/supportgroup/upcomingEvents', [SupportGroupEventController::class, 'getUpcomingEventForSG']);
 $app->router->get('/api/v1/supportgroup/eventfordate', [SupportGroupEventController::class, 'getSupportGroupEventsForDate']);
-$app->router->get('/api/v1/supportgroup/eventTypeDetails', [SupportGroupEventController::class, 'getMeetingTypeDetails']);
-$app->router->post('/api/v1/supportgroup/deleteEvent', [SupportGroupEventController::class, 'deleteSupportGroupEvent']);
 $app->router->get('/supportGroup/bulk', [SupportGroupController::class, 'sendBulkMail']);
 
 /* Befriender Reports */
 $app->router->get('/api/v1/meeting', [BefrienderController::class, 'getSingleMeetingDetails']);
 $app->router->post('/api/v1/addSessionReport', [BefrienderController::class, 'submitReportForMeeting']);
-
-//////////////
-$app->router->post('/befriender/deletemeeting', [BefrienderController::class, 'cancelBefrienderAppointmentsForAWeek']);
-$app->router->post('/befriender/getcancelled', [BefrienderController::class, 'loadBefrienderAppointments']);
 
 //terms and conditions
 $app->router->get('/TermsandConditions', '/TermsandConditions');

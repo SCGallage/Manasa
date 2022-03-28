@@ -22,7 +22,7 @@
     <ul class="navbar-nav">
         <li class="logo">
             <div class="icon-header">
-                <img src="http://localhost/assets/img/icon.png" alt="" class="icon-image">
+                <img src="http://localhost/assets/img/icon1.png" alt="" class="icon-image">
                 <svg viewBox="0 0 28 28" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M7 16h18M7 25h18M7 7h18" class="stroke-000000">
                     </path></svg>
             </div>
@@ -73,10 +73,10 @@
 
         <li class="last-item">
             <a href="#" class="last-link">
-                <span class="profile-pic"></span>
+                <img src="http://localhost/assets/img/user/<?php echo $_SESSION['profile_pic'] ?>" class="profile-pic">
                 <div class="user-details">
-                    <span class="username">Yadeesha Weerasinghe</span>
-                    <span class="occupation">Administrator</span>
+                    <span class="username"><?php echo $_SESSION['user_name'] ?></span>
+                    <span class="occupation"><?php echo $_SESSION['user_data'] ?></span>
                 </div>
             </a>
         </li>
