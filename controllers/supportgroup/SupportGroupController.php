@@ -470,11 +470,13 @@ class SupportGroupController extends Controller
         $supportGroupEvent->setNotify($meetingDetails["notify"]);
         $supportGroupEvent->setSupportGroupId($meetingDetails["supportGroupId"]);
 
-        /*$location = new Location();
-        $location->setLat($meetingDetails["location"]["lat"]);
-        $location->setLng($meetingDetails["location"]["lng"]);
-        $location->setPlaceId($meetingDetails["location"]["place_id"]);
-        $supportGroupEvent->setLocation($location);*/
+        if (array_key_exists("location", $meetingDetails)) {
+            $location = new Location();
+            $location->setLat($meetingDetails["location"]["lat"]);
+            $location->setLng($meetingDetails["location"]["lng"]);
+            $location->setPlaceId($meetingDetails["location"]["place_id"]);
+            $supportGroupEvent->setLocation($location);
+        }
 
         $supportGroupEvent->createSupportGroupEvent();
     }

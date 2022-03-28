@@ -23,11 +23,12 @@
 
     .container {
         display: flex;
-        flex-direction: column;
+        /* flex-direction: column; */
         height: 100vh;
         justify-content: center;
         align-items: center;
         font-family: 'Josefin Sans', sans-serif;
+        column-gap: 20px;
     }
 
     .error-img {
@@ -43,16 +44,17 @@
     }
 
     .title-text {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         font-weight: 700;
         color: #5F5F5F;
     }
 
     .description-text {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: 400;
         margin-top: 1rem;
         color: #444444;
+        text-align: center;
     }
 
     .home-link {

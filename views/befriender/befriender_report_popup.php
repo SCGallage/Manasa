@@ -36,6 +36,14 @@
 
             <h4 id="report-meeting-type" class="report-item">Session Type: Virtual Meeting</h4>
 
+            <h4 id="report-problem-type" class="report-item">Problem Type:</h4>
+            <select id="problemType" name="problemType">
+                <?php
+                    foreach ($problems as $problem)
+                        echo "<option value='{$problem["id"]}' >{$problem['name']}</option>";
+                ?>
+            </select>
+
             <div class="input-field">
                 <label class="field-label" for="remark">Remark</label>
                 <textarea class="textarea" rows="8" name="" id="remark"></textarea>

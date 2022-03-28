@@ -32,7 +32,7 @@ class VirtualMeeting extends Model
             "topic" => $this->topic,
             "type" => 2,
             "pre_schedule" => false,
-            "start_time" => "{$this->eventDate}T{$this->startTime}Z",
+            "start_time" => "{$this->eventDate}T{$this->startTime}",
             "duration" => $this->duration,
             "timezone" => "Asia/Colombo",
             "password" => $this->password,

@@ -106,6 +106,9 @@ const sendTransferRequest = async () => {
           'Content-Type': 'application/json'
       },
       body: createTransferRequestBody()
+  }).then(response => response.json()).then(data => {
+      console.log(data);
+      window.location.reload();
   });
 }
 
@@ -127,14 +130,41 @@ const acceptShiftTransfer = async (transferId) => {
   await fetch();
 }
 
-document.getElementById('transfer-list').addEventListener('click', (e) => {
+/*document.getElementById('transfer-list').addEventListener('click', (e) => {
     if (e.target && e.target.nodeName === "BUTTON" && e.target.name === "decline") {
         deleteShiftTransfer(e.target.value);
         console.log(e.target.value);
     }
-});
+});*/
+
+
 
 document.getElementById("submitBtn").addEventListener('click', sendTransferRequest);
+
+const cancelTransfer = async (transferId) => {
+    await fetch("http://localhost:80/api/v1/schedule/cancelTransferRequest",{
+        method: 'POST',
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: parseInt(transferId)
+        })
+    }).then(response => response.json())
+        .then(data => {
+            if (data.result)
+                window.location.reload();
+        });
+};
+
+document.getElementById("transfers-list").addEventListener('click', (e) => {
+    if (e.target && e.target.nodeName === "BUTTON" && e.target.name === "cancel") {
+        cancelTransfer(e.target.value);
+        console.log(e.target.value);
+    }
+});
 
 /*let scheduleDate = document.getElementById("scheduleDate")
 
@@ -174,7 +204,7 @@ const decisionOnTransfer = async (decisionType, selectedTransferId) => {
 
 document.getElementById('availableShiftList').addEventListener('click', (e) => getClickedShiftId(e, "available"));
 document.getElementById('reservedShiftList').addEventListener('click', (e) => getClickedShiftId(e, "reserved"));
-document.getElementById('createRequest').addEventListener('click', sendTransferRequest);
+document.getElementById('submitBtn').addEventListener('click', sendTransferRequest);
 //document.getElementById('accept').addEventListener('click', (e) => console.log(e.target.value));
 document.getElementById('requested-transfer-list').addEventListener('click', (e) => {
     if (e.target && e.target.nodeName === "BUTTON" && e.target.name === "accept") {
@@ -184,3 +214,68 @@ document.getElementById('requested-transfer-list').addEventListener('click', (e)
         console.log("decline clicked");
     }
 });
+
+/* Request Button Validation */
+const requestBtn = document.getElementById("submitBtn");
+requestBtn.disabled = true;
+let requestedSlotPicked = false;
+let reservedSlotPicked = false;
+let befriendersPicked = false;
+
+const validateRequestingShift = () => {
+    let requestedSlots = document.querySelectorAll(".request-selection");
+    requestedSlots.forEach((radioBtn) => {
+        if (radioBtn.checked) {
+            requestedSlotPicked = true;
+            return;
+        }
+        requestedSlotPicked = false;
+    });
+}
+
+const validateReservedSlots = () => {
+    let reservedSlots = document.querySelectorAll(".reserved-selection");
+    reservedSlots.forEach((radioBtn) => {
+        if (radioBtn.checked) {
+            reservedSlotPicked = true;
+            return;
+        }
+        reservedSlotPicked = false;
+    });
+}
+
+const validateBefrienderSelection = () => {
+    let checkBoxes = document.querySelectorAll(".befriender_id");
+
+    checkBoxes.forEach((checkBox) => {
+        if (checkBox.checked) {
+            befriendersPicked = true;
+            return;
+        }
+        befriendersPicked = true;
+    });
+}
+
+const validateAllFields = () => {
+    return requestedSlotPicked && reservedSlotPicked && befriendersPicked;
+}
+
+const changeButtonState = () => {
+  if (validateAllFields()) {
+      console.log(validateAllFields())
+      requestBtn.disabled = false;
+      return;
+  }
+  console.log(validateAllFields())
+  requestBtn.disabled = true;
+}
+
+console.log(document.querySelectorAll(".shift-transfer-validate"));
+document.querySelectorAll(".shift-transfer-validate").forEach(selection => {
+    selection.addEventListener("click", (e) => {
+            validateBefrienderSelection();
+            validateRequestingShift();
+            validateReservedSlots();
+            changeButtonState();
+    })
+})

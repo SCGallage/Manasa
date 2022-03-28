@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost/assets/css/navbaronly.css">
-    <link rel="icon" type="image/png" href="http://localhost/assets/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" href="<?php echo $_ENV['BASE_URL']?>/assets/css/navbaronly.css">
+    <link rel="icon" type="image/png" href="<?php echo $_ENV['BASE_URL']?>/assets/img/favicon-16x16.png" sizes="16x16" />
     <title>{{title}}</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -30,7 +30,7 @@
     <ul class="navbar-nav">
         <li class="logo">
             <div class="icon-header">
-                <img src="http://localhost/assets/img/Group 2.png" alt="" class="icon-image">
+                <img src="<?php echo $_ENV['BASE_URL']?>/assets/img/Group 2.png" alt="" class="icon-image">
                 <svg
                         id="logo-icon"
                         aria-hidden="true"
@@ -74,7 +74,7 @@
         </li>
 
         <li class="nav-item">
-            <a href="/befriender/appointments" class="nav-link">
+            <a href="/befriender/appointments?befid=<?php echo $_SESSION['user_id']?>" class="nav-link">
                 <svg width="61" height="57" viewBox="0 0 61 57" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M40.7175 7.90399V3.57199H38.43V7.90399H31.9487V3.57199H29.6612V7.90399H22.7225V3.57199H20.435V7.90399H4.11749V53.428H56.8062V7.90399H40.7175ZM20.435 10.184V14.44H22.7225V10.108H29.7375V14.44H32.025V10.108H38.5062V14.44H40.7937V10.108H54.595V43.7H6.40499V10.184H20.435ZM6.40499 51.148V46.056H54.5187V51.148H6.40499Z" fill="#F0F0F0"/>
                     <path d="M21.5787 22.8H17.2325V27.132H21.5787V22.8Z" fill="#F0F0F0"/>
@@ -89,7 +89,7 @@
         </li>
 
         <li class="nav-item">
-            <a href="/befriender/reports" class="nav-link">
+            <a href="/befriender/reports?befid=<?php echo $_SESSION['user_id']?>" class="nav-link">
                 <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_262:653)">
                         <path d="M32.9223 6.39022L26.7556 0.223555C26.6836 0.152113 26.5982 0.0955911 26.5043 0.0572309C26.4103 0.0188707 26.3098 -0.000573638 26.2083 1.28839e-05H6.16666C5.55334 1.28839e-05 4.96515 0.243651 4.53147 0.677328C4.09779 1.11101 3.85416 1.6992 3.85416 2.31251V34.6875C3.85416 35.3008 4.09779 35.889 4.53147 36.3227C4.96515 36.7564 5.55334 37 6.16666 37H30.8333C31.4466 37 32.0348 36.7564 32.4685 36.3227C32.9022 35.889 33.1458 35.3008 33.1458 34.6875V6.93751C33.1464 6.83607 33.127 6.7355 33.0886 6.64159C33.0502 6.54767 32.9937 6.46225 32.9223 6.39022ZM26.9792 2.62855L30.5173 6.16668H27.75C27.5456 6.16668 27.3495 6.08547 27.2049 5.94091C27.0604 5.79635 26.9792 5.60028 26.9792 5.39585V2.62855ZM31.6042 34.6875C31.6042 34.8919 31.5229 35.088 31.3784 35.2326C31.2338 35.3771 31.0378 35.4583 30.8333 35.4583H6.16666C5.96222 35.4583 5.76615 35.3771 5.6216 35.2326C5.47704 35.088 5.39582 34.8919 5.39582 34.6875V2.31251C5.39582 2.10808 5.47704 1.91201 5.6216 1.76745C5.76615 1.62289 5.96222 1.54168 6.16666 1.54168H25.4375V5.39585C25.4375 6.00916 25.6811 6.59735 26.1148 7.03103C26.5485 7.46471 27.1367 7.70835 27.75 7.70835H31.6042V34.6875Z" fill="#F0F0F0"/>
@@ -125,6 +125,14 @@
                     <path d="M6.3 0V6.3H8.4V0H6.3ZM33.6 0V6.3H35.7V0H33.6ZM0 2.1V42H42V2.1H37.8V4.2H39.9V10.5H2.1V4.2H4.2V2.1H0ZM10.5 2.1V4.2H31.5V2.1H10.5ZM2.1 12.6H39.9V39.9H2.1V12.6ZM28.3664 20.9918C28.0939 20.9994 27.835 21.1126 27.6445 21.3076L17.8869 31.0652L14.4293 27.6076C13.4397 26.5769 11.9138 28.1027 12.9445 29.0924L17.1445 33.2924C17.5546 33.7023 18.2192 33.7023 18.6293 33.2924L29.1293 22.7924C29.8124 22.1246 29.3213 20.9656 28.3664 20.9918Z" fill="#F0F0F0"/>
                 </svg>
                 <span class="link-text">Schedule</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/befriender/transfershift?befid=<?php echo $_SESSION['user_id']?>" class="nav-link">
+                <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.3 0V6.3H8.4V0H6.3ZM33.6 0V6.3H35.7V0H33.6ZM0 2.1V42H42V2.1H37.8V4.2H39.9V10.5H2.1V4.2H4.2V2.1H0ZM10.5 2.1V4.2H31.5V2.1H10.5ZM2.1 12.6H39.9V39.9H2.1V12.6ZM28.3664 20.9918C28.0939 20.9994 27.835 21.1126 27.6445 21.3076L17.8869 31.0652L14.4293 27.6076C13.4397 26.5769 11.9138 28.1027 12.9445 29.0924L17.1445 33.2924C17.5546 33.7023 18.2192 33.7023 18.6293 33.2924L29.1293 22.7924C29.8124 22.1246 29.3213 20.9656 28.3664 20.9918Z" fill="#F0F0F0"/>
+                </svg>
+                <span class="link-text">Transfer Shift</span>
             </a>
         </li>
         <li class="last-item">
@@ -208,6 +216,6 @@
 </div>
 {{content}}
 </body>
-<script src="http://localhost/assets/js/vertical_nav.js"></script>
+<script src="<?php echo $_ENV['BASE_URL']?>/assets/js/vertical_nav.js"></script>
 </html>
 
