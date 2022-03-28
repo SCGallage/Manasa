@@ -116,6 +116,19 @@
     align-content: center;
 }
 
+.request-main-header {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    font-weight: 600;
+    background-color: gray;
+    color: white;
+    text-align: center;
+    font-size: 0.9rem;
+    height: 25px;
+    justify-content: center;
+    align-content: center;
+}
+
 .request-header {
     font-weight: 600;
     background-color: gray;

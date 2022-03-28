@@ -28,4 +28,9 @@ class SecurityToken
         return $randomPIN;
     }
 
+    public static function generateRandomToken($length) : string
+    {
+        $token = openssl_random_pseudo_bytes($length);
+        return bin2hex($token);
+    }
 }

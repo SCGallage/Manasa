@@ -4,6 +4,7 @@ main {
     align-items: center;
     height: 100vh;
     background: #f9f9f9;
+    font-family: "Poppins", sans-serif;
 }
 
 .main-grid-container {

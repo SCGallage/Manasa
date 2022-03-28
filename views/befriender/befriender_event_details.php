@@ -9,9 +9,9 @@
         <div class="icon-bg">
             <img class="type-icon" src="<?php echo $_ENV['BASE_URL']?>/assets/img/befriender/location_sign.svg" alt="" srcset="">
         </div>
-        <h4 class="type-field">Independence Square, Colombo 00700</h4>
+        <h4 class="type-field" id="info-field">Click The View Button For Location</h4>
         <div class="btn-col">
-            <a class="type-btn" href="https://www.google.com/maps/search/?api=1&query=47.5951518%2C-122.3316393&query_place_id=ChIJKxjxuaNqkFQR3CK6O1HNNqY">VIEW</a>
+            <a class="type-btn" target="_blank" id="event-btn" href="https://www.google.com/maps/search/?api=1&query=47.5951518%2C-122.3316393&query_place_id=ChIJKxjxuaNqkFQR3CK6O1HNNqY">VIEW</a>
         </div>
     </div>
 </div>

@@ -31,7 +31,9 @@ const submitReport = async () => {
       },
       body: JSON.stringify({
           meetingId: sessionStorage.getItem("meetingId"),
-          remark: document.getElementById("remark").value
+          remark: document.getElementById("remark").value,
+          problem: document.getElementById("problemType").value,
+          befrienderId: 41
       })
   }).then(result => result.json()).then(data => {
       if (data.result === 1)
