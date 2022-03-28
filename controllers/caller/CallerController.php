@@ -14,8 +14,11 @@ class CallerController extends \core\Controller
     {
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $callerAppointment = new CallerAppointment();
+        $normalAppointmentsPending = $callerAppointment->getAllNormalPendingAppointmentsByUser($userId);
+
+
         $params = [
-            'pending' => $callerAppointment->getAllPendingAppointmentsByUser($userId)
+            'pending' => $normalAppointmentsPending
         ];
         $this->setLayout('caller/callerHome');
         return $this->render('caller/appointments/upcomingAppointments', 'Caller | Home', $params);

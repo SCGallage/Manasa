@@ -426,7 +426,7 @@ class CallerAppointment extends Model
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
-    public function getTimeSlotsBySGBefrienders($userId, $date) {
+    public function getTimeSlotsBySGBefrienders($userId, $date, $callerId) {
         $sqlStatement = "SELECT t.timeslotId, t.startTime, t.endTime,
                                 s.date,
                                 r.befrienderId
@@ -438,7 +438,7 @@ class CallerAppointment extends Model
                                t.timeslotId NOT IN (SELECT m.timeslotId 
                                                     FROM meeting m 
                                                     WHERE m.state = ".CommonConstants::STATE_PENDING." AND 
-                                                          m.befrienderId = ".$userId.")";
+                                                          m.befrienderId = ".$userId." OR m.callerId = ".$callerId.")";
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
@@ -461,6 +461,14 @@ class CallerAppointment extends Model
         }
 
         return false;
+    }
+
+    public function getAllNormalPendingAppointmentsByUser($userId)
+    {
+        $sqlStatement = "SELECT * FROM meeting m LEFT JOIN timeslot t on t.timeslotId = m.timeslotId LEFT JOIN shift s on t.shiftId = s.shiftId
+                         WHERE m.id NOT IN (SELECT meeting FROM sg_enrollrequest WHERE sg_enrollrequest.callerId = ".$userId.") AND m.state = ".CommonConstants::STATE_PENDING;
+
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
 }

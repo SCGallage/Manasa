@@ -354,7 +354,7 @@ class SupportGroupController extends Controller
 
             //Reserve meeting
             $meetingId = -1;
-            $meetingId = $callerAppointment->reserveMeeting($requestBody);
+            $meetingId = $callerAppointment->reserveSgMeeting($requestBody, $userId);
             if ($meetingId > -1) {
                 //add support group join request
                 $columns = array(
@@ -364,7 +364,14 @@ class SupportGroupController extends Controller
                     "meeting" => $meetingId
                 );
                 if ($sgEnrollRequest->addRequest($columns)) {
-
+                    $params = [
+                        'request' => $requestBody,
+                        'title' => "Support Group Join Request Placed.",
+                        'message' => 'Your support group join request placed successfully. After your appointment with one of our facilitator, your request approval will be decided.<br>Have a nice day!',
+                        'messageType' => CommonConstants::MESSAGE_TYPE_SUCCESS,
+                        'link' => '/callerSupportGroupsList',
+                        'linkType' => CommonConstants::LINK_TYPE_GET,
+                    ];
                 }
             } else {
 
@@ -554,7 +561,7 @@ class SupportGroupController extends Controller
         $facilitator = $supportGroup[0]['facilitator'];
 
         //load timeslots for facilitator or co_facilitator
-        $timeSlots = $callerAppointment->getTimeSlotsBySGBefrienders($co_facilitator, $today);
+        $timeSlots = $callerAppointment->getTimeSlotsBySGBefrienders($co_facilitator, $today, $userId);
         $params = [
             'chances' => $limitCheck,
             'timeSlots' => $timeSlots,
