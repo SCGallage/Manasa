@@ -100,6 +100,7 @@ class VolunteerController extends \core\Controller
         $participated = $volunteerEvent->loadVolunteerEventsByUser($userId);
         $allEvents = $volunteerEvent->loadAllVolunteerEvents();
 
+
         foreach ($participated as $participatedEvent) {
 
             //clear array

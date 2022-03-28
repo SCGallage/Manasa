@@ -10,11 +10,12 @@
 <body>
 <div id="top" class="col-s-12 col-m-12 col-l-12 mainContainer">
     <?php
+    //echo getcwd();
     include 'components/header_volunteer_function.php';
     ?>
     {{content}}
     <?php
-    include 'components/footer_client.php';
+    include '../views/components/footer_client_function.php';
     ?>
 </div>
 </body>

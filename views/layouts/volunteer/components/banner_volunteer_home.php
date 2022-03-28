@@ -2,7 +2,7 @@
 <div class="col-l-12 col-m-12 col-s-12 shadow-1 banner-volunteer">
     <div class="col-s-12 col-m-12 col-l-12">
         <h1 class="heading color-4">Empathy will change the world.</h1>
-        <h2 class="normal-text color-4">Volunteer with us make a difference.</h2>
+        <h2 class="normal-text color-4">Volunteer with us make and difference.</h2>
     </div>
     <div class="col-s-12 col-m-12 col-l-12">
 
