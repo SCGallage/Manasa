@@ -30,10 +30,25 @@ class BefrienderController extends \core\Controller
 
     public function loadBefrienderAppointments(Request $request)
     {
+
+        //rint_r($request->getBody());
         $meetingList = $this->befriender->getAllMeetingsOfBefriender($request->getBody()["befid"]);
+
+        if (array_key_exists("from", $request->getBody()))
+            return $this->render('befriender\befriender_appointments', 'Befriender | Appointments', [
+                "meetingList" => $meetingList,
+                "cancelled" => $this->befriender->getCancelledWithinWeek($request->getBody())
+            ]);
+
         return $this->render('befriender\befriender_appointments', 'Befriender | Appointments', [
-            "meetingList" => $meetingList
-        ]);
+                "meetingList" => $meetingList,
+                "cancelled" => $this->befriender->getCancelledWithinWeek()
+            ]);
+    }
+
+    public function cancelBefrienderAppointmentsForAWeek(Request $request)
+    {
+        $this->befriender->cancelBefrienderAppointmentsForAWeek($request->getBody()['befid']);
     }
 
     public function loadBefrienderReports(Request $request)
@@ -52,10 +67,13 @@ class BefrienderController extends \core\Controller
             $submittedReports[$key]['month'] = $months[intval(date("m", $timestamp))-1];
             $submittedReports[$key]['day'] = date("j", $timestamp);
         }
+
+        $problemTypes = $this->befriender->getProblemTypes();
         return $this->render('befriender\befriender_reports', 'Befriender | Reports',
             [
                 "reports" => $reportData,
-                "submittedReports" => $submittedReports
+                "submittedReports" => $submittedReports,
+                "problems" => $problemTypes
             ]);
     }
 
@@ -66,6 +84,7 @@ class BefrienderController extends \core\Controller
 
     public function befrienderSchedule(Request $request)
     {
+        setcookie("max_reservations", $_ENV['max_reservations'], time() + (86400 * 30), "/");
         return $this->render('befriender\befriender_schedule', 'Befriender | Schedule');
     }
 

@@ -62,9 +62,9 @@ cors();
 $app = new Application(dirname(__DIR__), $config);
 
 $settings = new Settings();
-$settings->addSettingToDatabase("bef_limit", 10);
+//$settings->addSettingToDatabase("bef_limit", 10);
 $settings->loadSettingsToEnv();
-echo $_ENV['bef_limit'];
+//echo $_ENV['bef_limit'];
 
 /* Testing routes only */
 $app->router->get('/', [SiteController::class, 'home']);
@@ -228,17 +228,24 @@ $app->router->get('/api/v1/schedule/getShiftFromDate', [ScheduleController::clas
 $app->router->post('/api/v1/schedule/createShiftTransfer', [ScheduleController::class, 'createTransferRequest']);
 $app->router->post('/api/v1/schedule/deleteShiftTransfer', [ScheduleController::class, 'deleteTransferRequest']);
 $app->router->post('/api/v1/schedule/makeDecisionOnTransfer', [ScheduleController::class, 'makeDecisionForTransferRequest']);
+$app->router->post('/api/v1/schedule/cancelTransferRequest', [ScheduleController::class, 'cancelShiftTransferRequest']);
 
 /* Support Group Events */
 $app->router->post('/api/v1/supportgroup/createEvent', [SupportGroupController::class, 'createSupportGroupEvent']);
 $app->router->get('/api/v1/supportgroup/getEvents', [SupportGroupController::class, 'getSupportGroupEvents']);
 $app->router->get('/api/v1/supportgroup/upcomingEvents', [SupportGroupEventController::class, 'getUpcomingEventForSG']);
 $app->router->get('/api/v1/supportgroup/eventfordate', [SupportGroupEventController::class, 'getSupportGroupEventsForDate']);
+$app->router->get('/api/v1/supportgroup/eventTypeDetails', [SupportGroupEventController::class, 'getMeetingTypeDetails']);
+$app->router->post('/api/v1/supportgroup/deleteEvent', [SupportGroupEventController::class, 'deleteSupportGroupEvent']);
 $app->router->get('/supportGroup/bulk', [SupportGroupController::class, 'sendBulkMail']);
 
 /* Befriender Reports */
 $app->router->get('/api/v1/meeting', [BefrienderController::class, 'getSingleMeetingDetails']);
 $app->router->post('/api/v1/addSessionReport', [BefrienderController::class, 'submitReportForMeeting']);
+
+//////////////
+$app->router->post('/befriender/deletemeeting', [BefrienderController::class, 'cancelBefrienderAppointmentsForAWeek']);
+$app->router->post('/befriender/getcancelled', [BefrienderController::class, 'loadBefrienderAppointments']);
 
 //terms and conditions
 $app->router->get('/TermsandConditions', '/TermsandConditions');

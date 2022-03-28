@@ -1,7 +1,7 @@
 const dateList = document.getElementById("date-list");
 const weekdays = [
     "SUNDAY",
-    "MODAY",
+    "MONDAY",
     "TUESDAY",
     "WEDNESDAY",
     "THURSDAY",
@@ -16,12 +16,12 @@ const slotRowTwo = document.getElementById("slot-row-two");
 
 const populateSchedule = (slotOne, slotTwo) => {
     let weekOne = `<div class="grid-item-time" id="slot-row-one">
-        <span class="time-start">9.00</span>
+        <span class="time-start">8.00</span>
         <span class="time-end">12.00</span>
         </div>`;
 
     let weekTwo = `<div class="grid-item-time" id="slot-row-one">
-        <span class="time-start">9.00</span>
+        <span class="time-start">8.00</span>
         <span class="time-end">12.00</span>
         </div>`;
 
@@ -41,36 +41,35 @@ const populateSchedule = (slotOne, slotTwo) => {
           <span class="date">${slotTwo[slotIndex].date}</span>
           </div>`;
         }
-        // console.log(slotOne[slotIndex].reserved_count);
+        console.log(slotOne[slotIndex].state);
         // console.log(slotTwo[slotIndex].reserved_count);
 
         weekOne +=
             `<div class="grid-item-slot" id="${slotOne[slotIndex].shiftId}">
         <span class="slot-id">Slot #00${slotOne[slotIndex].shiftId}</span>
-        <span class="slot-remain">Remaining: ${
+        <span class="slot-remain">`+ (slotOne[slotIndex].state === 0 ? `Remaining: ${
                 5 - slotOne[slotIndex].reserved_count
-            }</span>
+            }` : '') +`</span>
         <div class="lables">` +
-            (slotOne[slotIndex].reserved_count < 5
+            (slotOne[slotIndex].reserved_count < 5 && slotOne[slotIndex].state === 0
                 ? '<span class="label-available">AVAILABLE</span>'
                 : '<span class="label-closed">CLOSED</span>') +
-            `</div>
-        <button class="view-btn" onclick="slotDecision(${slotOne[slotIndex].shiftId})">VIEW</button>
-      </div>`;
+            `</div>`+(slotOne[slotIndex].state === 0 ? `<button class="view-btn" onclick="slotDecision(${slotOne[slotIndex].shiftId})">VIEW</button>`: '') +
+            `</div>`;
 
         weekTwo +=
             `<div class="grid-item-slot" id="${slotTwo[slotIndex].shiftId}">
         <span class="slot-id">Slot #00${slotTwo[slotIndex].shiftId}</span>
-        <span class="slot-remain">Remaining: ${
+        <span class="slot-remain">` + (slotTwo[slotIndex].state === 0 ? `Remaining: ${
                 5 - slotTwo[slotIndex].reserved_count
-            }</span>
+            }`:'') + `</span>
         <div class="lables">` +
-            (slotTwo[slotIndex].reserved_count < 5
+            (slotTwo[slotIndex].reserved_count < 5 || slotTwo[slotIndex].state === 0
                 ? '<span class="label-available">AVAILABLE</span>'
                 : '<span class="label-closed">CLOSED</span>') +
-            `</div>
-        <button class="view-btn" onclick="slotDecision(${slotTwo[slotIndex].shiftId})">VIEW</button>
-      </div>`;
+            `</div>`+
+        (slotTwo[slotIndex].state === 0 ? `<button class="view-btn" onclick="slotDecision(${slotTwo[slotIndex].shiftId})">VIEW</button>`: '')
+      +`</div>`;
 
         if (slotIndex == 6) {
             weekOne += `<div class="grid-item-time" id="slot-row-one">
@@ -146,6 +145,10 @@ const slotDecision = (shiftId) => {
         if (slot.shiftId === shiftId) {
             cardBtn.innerHTML = "REMOVE RESERVATION";
             return false;
+        } else if (JSON.parse(sessionStorage.getItem("reservedSlots")).length
+            <= parseInt(sessionStorage.getItem("max_reservations"))) {
+            cardBtn.innerHTML = "";
+            return false;
         }
     });
     popolateBefrienders(shiftId);
@@ -159,13 +162,17 @@ const getTimeSlotsReserved = async (befrienderId) => {
 
     let reservedSlots = await response.json();
 
-    reservedSlots.forEach((shift) => {
-        document.getElementById(
-            shift.shiftId
-        ).children[2].innerHTML += `<span class="label-reserved">RESERVED</span>`;
-    });
+    if (reservedSlots != null)
+    {
+        console.log(reservedSlots);
+        reservedSlots.forEach((shift) => {
+            document.getElementById(
+                shift.shiftId
+            ).children[2].innerHTML += `<span class="label-reserved">RESERVED</span>`;
+        });
 
-    sessionStorage.setItem("reservedSlots", JSON.stringify(reservedSlots));
+        sessionStorage.setItem("reservedSlots", JSON.stringify(reservedSlots));
+    }
 };
 
 const reserveTimeSlot = async () => {

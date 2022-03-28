@@ -86,13 +86,13 @@
                 <!-- <form action="post" class="form"> -->
                     <div class="form-field flex-field">
                         <label for="" class="field-name">Event Name</label>
-                        <input type="text" placeholder="ex: Annual Meeting" class="form-input" name="eventName" id="event-name">
+                        <input type="text" placeholder="ex: Annual Meeting" class="form-input" name="eventName" id="eventName" onchange="eventNameValidation()">
                     </div>
                     <div class="form-field grid-field">
                         <label for="" class="field-name">Start Time: </label>
                         <input type="time" name="eventName" class="form-input form-input-time" id="event-start" onchange="validateStartTime()">
                         <label for="" class="field-name time-label">End Time: </label>
-                        <input type="time" name="eventName" class="form-input form-input-time time-label" id="event-end" onchange="validateEventTime()" disabled>
+                        <input type="time" name="eventName" class="form-input form-input-time time-label" id="event-end" onchange="validateEndTime()" disabled>
                     </div>
                     <span id="error" class="error-msg"></span>
                     <div class="form-field-new">
@@ -125,7 +125,7 @@
     </div>
 
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOVLqE0v0LK9JMLirxu3voFbI2OJiWaas&callback=initAutocomplete&libraries=places&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndZ3I2dt-M78wuBG25yolIeBaDvrt4BU&callback=initAutocomplete&libraries=places&v=weekly"
       async
     ></script>
     <script src="<?php echo $_ENV['BASE_URL']?>/assets/js/befriender/event_calendar.js"></script>
