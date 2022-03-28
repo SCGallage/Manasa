@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-heading">
-        <svg
+        <svg onclick="closeModalBtn()"
                 id="schedule-close-btn-01"
                 class="schedule-close-btn"
                 width="27"

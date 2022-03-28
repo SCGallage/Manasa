@@ -76,7 +76,7 @@ class Befriender extends Model
         echo $newdate;
         $sqlStatement = "select callerId, meeting.id, meeting.callerId
             from meeting, timeslot, shift
-            where meeting.befrienderId = 41 and timeslot.timeslotId = meeting.timeslotId
+            where meeting.befrienderId = {$befid} and timeslot.timeslotId = meeting.timeslotId
               and timeslot.shiftId = shift.shiftId
               and shift.date between '$date' and '$newdate'";
         echo $sqlStatement;

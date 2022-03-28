@@ -57,9 +57,6 @@ function displayPopup(eventId) {
   document.querySelector(".event-date").innerHTML = `${dateArray[2]} ${months[parseInt(dateArray[1])-1]}, ${dateArray[0]}`;
   document.querySelector(".event-time").innerHTML = `${event.startTime} - ${event.endTime}`;
   getMeetingTypeDetails(event.id, event.type, event);
-  if (event.type === 'physical') {
-
-  }
 }
 
 const deleteEvent = async (eventId) => {

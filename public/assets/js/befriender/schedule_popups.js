@@ -155,6 +155,10 @@ const slotDecision = (shiftId) => {
     document.querySelector(".modal-bg").classList.add("display");
 };
 
+const closeModalBtn = () => {
+    document.querySelector(".modal-bg").classList.remove("display");
+}
+
 const getTimeSlotsReserved = async (befrienderId) => {
     let response = await fetch(
         `http://localhost:80/api/v1/schedule/getReservedSlotsBefriender?befId=${befrienderId}`
@@ -221,7 +225,7 @@ const popolateBefrienders = async (slotId) => {
     data = await response.json();
 
     let cardBody = document.querySelector(".card-body");
-
+    cardBody.innerHTML = "";
     data.forEach((befriender) => {
         cardBody.innerHTML += `<div class="single-card">
       <div class="icon">
