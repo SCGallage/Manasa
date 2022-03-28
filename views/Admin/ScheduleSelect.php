@@ -70,14 +70,16 @@
                 <span class="head-text">Assign Befriender</span>
             </div>
             <div class="col-l-12 col-m-12 col-s-12">
-<!--                <span class="head-text">Total Requests:--><?php //echo $participantRequestsCount?><!--</span>-->
+                <span class="head-text">Total Requests:<?php echo $_ENV['bef_limit']?></span>
             </div>
             <div class="col-l-12 col-m-12 col-s-12 scroll3 margin-top">
 
                 <table class="custom-table">
-                    <?php if ($befrienderParticipateCount == 5){?>
+                    <?php if ($befrienderParticipateCount == $_ENV['bef_limit']){?>
                         <tr>
                             <td class="no-record">Time slot Reserved</td>
+                        </tr>
+                        <tr>
                             <td class="no-record">Remove participant to assign befriender</td>
                         </tr>
                     <?php }else{?>
@@ -103,6 +105,7 @@
                         </tr>
 
                     <?php }}?>
+                </table>
             </div>
         </div>
     </div>

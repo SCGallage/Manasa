@@ -219,6 +219,17 @@ class Staff extends Model
         $mailer->sendMail();
     }
 
+    public function sendVolApprovedMail($username, $email)
+    {
+        $mailer = new Mailer();
+        $mailer->init('smtp.gmail.com', $_ENV['SEND_EMAIL'], $_ENV['PASSWORD']);
+        $mailer->configure_email($_ENV['SEND_EMAIL'], $email);
+        $subject = "Volunteer Request Approve";
+        $content = "We are delighted to accept your offer and very excited to begin this journey.";
+        $mailer->setContent(1,$subject,$content);
+        $mailer->sendMail();
+    }
+
     public function __construct()
     {
         parent::__construct();

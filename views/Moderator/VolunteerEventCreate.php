@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                                 <div class="col-l-12 col-m-12 col-s-12 ">
-                                    <input type="text" name="name" value="">
+                                    <input type="text" name="name" value="" required>
                                     <span class="required-text">*Required</span>
                                 </div>
 
@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                                 <div class="col-l-12 col-m-12 col-s-12 ">
-                                    <input type="date" name="startDate"   id="startDate" value="">
+                                    <input type="date" name="startDate"   id="startDate" value="" required>
                                     <span class="required-text">*Required</span>
                                 </div>
 
@@ -71,7 +71,7 @@
                                 </div>
 
                             <div class="col-l-12 col-m-12 col-s-12 ">
-                                <input type="text" name="location" value="">
+                                <input type="text" name="location" value="" required>
                                 <span class="required-text">*Required</span>
                             </div>
 
@@ -105,7 +105,7 @@
                             </div>
 
                             <div class="col-l-12 col-m-12 col-s-12 ">
-                                <input type="text" name="capacity" value="">
+                                <input type="text" name="capacity" value="" required>
                                 <span class="required-text">*Required</span>
                             </div>
 
@@ -120,7 +120,7 @@
                                             </div>
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
-                                            <input type="time" name="startTime" value="">
+                                            <input type="time" name="startTime" value="" min="05:00" max="20:00" required>
                                             <span class="required-text">*Required</span>
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@
                                             </div>
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
-                                            <input type="time" name="endTime" value="">
+                                            <input type="time" name="endTime" value="" min="05:00" max="22:00" required>
                                             <span class="required-text">*Required</span>
                                         </div>
                                     </div>

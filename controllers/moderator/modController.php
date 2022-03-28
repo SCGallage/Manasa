@@ -7,6 +7,7 @@ use core\Controller;
 use core\DatabaseService;
 use core\Request;
 use core\Model;
+use models\meeting;
 use models\users\staff;
 use models\users\User;
 use models\volEvents;
@@ -20,6 +21,17 @@ class modController extends Controller
 
     public function Modhome()
     {
+        $meeting = new meeting();
+//        meeting data
+        $sqlStatement = "SELECT meeting.id,meeting.meeting_type,t.startTime,t.endTime, s.date, s2.fname, s2.lname
+                            FROM meeting
+                            JOIN timeslot t on meeting.timeslotId = t.timeslotId
+                            JOIN shift s on s.shiftId = t.shiftId
+                            left join staff s2 on s2.id = meeting.befrienderId
+                            WHERE s.date = CURRENT_DATE";
+        $meetingDetails = $meeting->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
+        $meetingCount = $meeting->customSqlQuery($sqlStatement,DatabaseService::FETCH_COUNT);
+
 //        User requests data
         $userRequest = new staff();
         $sqlStatement = "SELECT * FROM staff WHERE state=0 AND (type='Befriender' OR type='Volunteer')";
@@ -34,7 +46,9 @@ class modController extends Controller
         $params = [
             'viewUserRequests' => $viewUserRequests,
             'viewUserRequestsCount' => $viewUserRequestsCount,
-            'events' => $events
+            'events' => $events,
+            'meetingDetails' => $meetingDetails,
+            'meetingCount' => $meetingCount
         ];
 
         $this->setLayout('modNav');

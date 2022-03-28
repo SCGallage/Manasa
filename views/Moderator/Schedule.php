@@ -80,11 +80,11 @@
                     <?php foreach ($morningShifts1 as $data) { ?>
                         <div class="grid-item-slot">
                             <span class="slot-id">Slot <?php echo $data['shiftId']?></span>
-                            <span class="slot-remain">Remaining: <?php echo (5 - $data['num_of_befrienders']); ?></span>
+                            <span class="slot-remain">Remaining: <?php echo ($_ENV['bef_limit'] - $data['num_of_befrienders']); ?></span>
                             <div class="lables">
                                 <?php if ($data['state']==1){?>
                                 <span class="label-closed">CLOSED</span>
-                                <?php }elseif (5 - $data['num_of_befrienders'] == 0){ ?>
+                                <?php }elseif ($_ENV['bef_limit'] - $data['num_of_befrienders'] == 0){ ?>
                                 <span class="label-reserved">RESERVED</span>
                                 <?php }else{ ?>
                                 <span class="label-available">AVAILABLE</span>
@@ -95,16 +95,16 @@
                     <?php }?>
                         <div class="grid-item-time">
                             <span class="time-start">13.00</span>
-                            <span class="time-end">15.00</span>
+                            <span class="time-end">17.00</span>
                         </div>
                         <?php foreach ($eveningShifts1 as $data) { ?>
                             <div class="grid-item-slot">
                                 <span class="slot-id">Slot <?php echo $data['shiftId']?></span>
-                                <span class="slot-remain">Remaining: <?php echo (5 - $data['num_of_befrienders']); ?></span>
+                                <span class="slot-remain">Remaining: <?php echo ($_ENV['bef_limit'] - $data['num_of_befrienders']); ?></span>
                                 <div class="lables">
                                     <?php if ($data['state']==1){?>
                                         <span class="label-closed">CLOSED</span>
-                                    <?php }elseif (5 - $data['num_of_befrienders'] == 0){ ?>
+                                    <?php }elseif ($_ENV['bef_limit'] - $data['num_of_befrienders'] == 0){ ?>
                                         <span class="label-reserved">RESERVED</span>
                                     <?php }else{ ?>
                                         <span class="label-available">AVAILABLE</span>
@@ -139,11 +139,11 @@
                         <?php foreach ($morningShifts2 as $data) { ?>
                             <div class="grid-item-slot">
                                 <span class="slot-id">Slot <?php echo $data['shiftId']?></span>
-                                <span class="slot-remain">Remaining: <?php echo (5 - $data['num_of_befrienders']); ?></span>
+                                <span class="slot-remain">Remaining: <?php echo ($_ENV['bef_limit'] - $data['num_of_befrienders']); ?></span>
                                 <div class="lables">
                                     <?php if ($data['state']==1){?>
                                         <span class="label-closed">CLOSED</span>
-                                    <?php }elseif (5 - $data['num_of_befrienders'] == 0){ ?>
+                                    <?php }elseif ($_ENV['bef_limit'] - $data['num_of_befrienders'] == 0){ ?>
                                         <span class="label-reserved">RESERVED</span>
                                     <?php }else{ ?>
                                         <span class="label-available">AVAILABLE</span>
@@ -155,16 +155,16 @@
 
                         <div class="grid-item-time">
                             <span class="time-start">13.00</span>
-                            <span class="time-end">15.00</span>
+                            <span class="time-end">17.00</span>
                         </div>
                         <?php foreach ($eveningShifts2 as $data) { ?>
                             <div class="grid-item-slot">
                                 <span class="slot-id">Slot <?php echo $data['shiftId']?></span>
-                                <span class="slot-remain">Remaining: <?php echo (5 - $data['num_of_befrienders']); ?></span>
+                                <span class="slot-remain">Remaining: <?php echo ($_ENV['bef_limit'] - $data['num_of_befrienders']); ?></span>
                                 <div class="lables">
                                     <?php if ($data['state']==1){?>
                                         <span class="label-closed">CLOSED</span>
-                                    <?php }elseif (5 - $data['num_of_befrienders'] == 0){ ?>
+                                    <?php }elseif ($_ENV['bef_limit'] - $data['num_of_befrienders'] == 0){ ?>
                                         <span class="label-reserved">RESERVED</span>
                                     <?php }else{ ?>
                                         <span class="label-available">AVAILABLE</span>

@@ -9,6 +9,7 @@
 
 .RG-nav li {
     float: right;
+    list-style-type: none; !important;
 }
 
 .RG-nav li a {

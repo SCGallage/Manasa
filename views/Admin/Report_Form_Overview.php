@@ -4,19 +4,13 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Report Generation</title>
     <link rel="stylesheet" href="http://localhost/assets/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"/>
 
-
-</head>
-<body>
 <main>
 
     <div class="row flex-gap">
@@ -24,10 +18,10 @@
             <span class="head-text2">Generate Reports</span>
         </div>
         <div class="col-l-8">
-            <ul class="RG-nav" style="list-style-type:none;">
+            <ul class="RG-nav">
                 <li class="RG-nav"><a href="/admin/GenReport">Overview Report</a></li>
                 <li class="RG-nav"><a class="" href="/admin/volReport">Volunteer Report</a></li>
-                <li class="RG-nav"><a href="/admin/befrienderReport">Befriender Report</a></li>
+<!--                <li class="RG-nav"><a href="/admin/befrienderReport">Befriender Report</a></li>-->
                 <li class="RG-nav"><a href="/admin/donationReport">Donation Report</a></li>
             </ul>
         </div>
@@ -40,7 +34,7 @@
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 card2">
-                <form action="/admin/GenReport" class="form1" method="post" name="reportGenForm" onsubmit="return reportGenValidation()">
+                <form action="/admin/GenReport" class="form1" method="post" name="reportGenForm" target="_blank" onsubmit="return reportGenValidation()">
 
                     <div class="col-l-12 col-m-12 col-s-12 ">
                         <p class="text-style3">
@@ -92,5 +86,3 @@
 
 </main>
 <script src="http://localhost/assets/js/admin/formValidation.js"></script>
-</body>
-</html>

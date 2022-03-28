@@ -74,28 +74,37 @@
             <div class="col-l-12 col-m-12 col-s-12 scroll2 margin-top">
 
                 <table class="custom-table">
-                    <tr>
-                        <th>Volunteer</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <?php
-                    foreach ($availableBefriender as $req) {
-                        ?>
+                    <?php if ($befrienderParticipateCount == $_ENV['bef_limit']){?>
                         <tr>
-                            <td><?php echo $req['fname']." ".$req['lname']?></td>
-                            <td></td>
-                            <td>
-                                <form method="post" action="/mod/assignBefriender">
-                                    <input type="hidden" class="button1" value="<?php echo $req['id']?>" name="befrienderId">
-                                    <input type="hidden" class="button1" value="<?php echo $data['id']?>" name="shiftId">
-                                    <input type="hidden" class="button1" value="<?php echo $data['scheduleId']?>" name="scheduleId">
-                                    <input type="submit" class="button1" value="Accept" name="state">
-                                </form>
-                            </td>
+                            <td class="no-record">Time slot Reserved</td>
                         </tr>
+                        <tr>
+                            <td class="no-record">Remove participant to assign befriender</td>
+                        </tr>
+                    <?php }else{?>
+                        <tr>
+                            <th>Befrienders</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <?php
+                        foreach ($availableBefriender as $req) {
+                            ?>
+                            <tr>
+                                <td><?php echo $req['fname']." ".$req['lname']?></td>
+                                <td></td>
+                                <td>
+                                    <form method="post" action="/mod/assignBefriender">
+                                        <input type="hidden" class="button1" value="<?php echo $req['id']?>" name="befrienderId">
+                                        <input type="hidden" class="button1" value="<?php echo $data['id']?>" name="shiftId">
+                                        <input type="hidden" class="button1" value="<?php echo $data['scheduleId']?>" name="scheduleId">
+                                        <input type="submit" class="button1" value="Assign" name="state">
+                                    </form>
+                                </td>
+                            </tr>
 
-                    <?php }?>
+                        <?php }}?>
+                </table>
             </div>
         </div>
     </div>

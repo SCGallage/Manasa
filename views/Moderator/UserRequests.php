@@ -1,21 +1,12 @@
 <?php $params ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Search User</title>
     <link rel="stylesheet" href="http://localhost/assets/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;1,200&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"/>
 
-</head>
-<body>
 <main>
 
     <div class="row flex-container">
@@ -38,7 +29,6 @@
                         <th>Email</th>
                         <th>User Type</th>
                         <th>Gender</th>
-                        <th>UserName</th>
                         <th>State</th>
                         <th>CV</th>
                         <th></th>
@@ -62,7 +52,6 @@
                                 echo 'Rather not say';
                             }
                             ?></td>
-                        <td><?php echo $row['username']?></td>
                         <td><?php
                             if ($row['state'] == 1) {
                                 echo 'Active';
@@ -89,6 +78,3 @@
 </main>
 
 
-
-</body>
-</html>

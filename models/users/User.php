@@ -65,7 +65,6 @@ class User extends Model
     {
         if ($userdata['password'] === $userdata['conpassword']) {
             $userdata['password'] = password_hash($userdata['password'], PASSWORD_BCRYPT);
-            print_r($userdata);
             return $this->save($userdata);
         }
     }

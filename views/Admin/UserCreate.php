@@ -91,7 +91,7 @@
                                         <label for="Date" class="text-style3">Confirm Password:</label>
                                     </div>
                                     <div class="col-l-12 col-m-12 col-s-12">
-                                        <input type="password" name="con_password" value="" required>
+                                        <input type="password" name="conpassword" value="" required>
                                         <span class="required-text">*Required</span>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                                     <div class="col-l-12 col-m-12 col-s-12">
                                         <select name="state" id="reportType" class="select2 custom-font">
                                             <option value="1" class="custom-font">Active</option>
-                                            <option value="0" class="custom-font">Inactive</option>
+                                            <option value="2" class="custom-font">Inactive</option>
                                         </select>
                                         <span class="required-text">*Required</span>
                                     </div>
