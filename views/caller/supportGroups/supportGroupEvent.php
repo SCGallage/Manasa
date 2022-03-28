@@ -27,12 +27,12 @@ $timeToday = date("H:i:s");
             <?php echo $params['participants']?>
         </p>
 
-        <p class="col-s-6 col-m-6 col-l-6 heading margin-r text-right color-1">
+        <!--p class="col-s-6 col-m-6 col-l-6 heading margin-r text-right color-1">
             Agenda:
         </p>
         <p class="col-s-5 col-m-5 col-l-5 heading margin-l text color-1">
             <?php echo $params['event'][0]['agenda']?>
-        </p>
+        </p-->
 
         <p class="col-s-6 col-m-6 col-l-6 heading margin-r text-right color-1">
             Date:
@@ -55,12 +55,12 @@ $timeToday = date("H:i:s");
             <?php echo $params['event'][0]['time_to']?>
         </p>
 
-        <p class="col-s-6 col-m-6 col-l-6 heading margin-r text-right color-1">
+        <!--p class="col-s-6 col-m-6 col-l-6 heading margin-r text-right color-1">
             Event type:
         </p>
         <p class="col-s-5 col-m-5 col-l-5 heading margin-l text color-1">
             <?php echo $params['event'][0]['type']?>
-        </p>
+        </p-->
 
         <?php
         if ($params['event'][0]['type'] == CommonConstants::SG_EVENT_TYPE_VIRTUAL  &&

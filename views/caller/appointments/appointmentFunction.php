@@ -19,7 +19,9 @@ $timeToday = date("H:i:s");
         <b><p id="dateError" class="col-s-12 col-m-12 col-l-12 color-6 normal-text text-center hide">Please enter a future date</p></b>
         <input class="col-s-12 col-m-11 col-l-11 border-color-1"
                type="date" name="date"
-               id="appointment_date" min="<?php echo date('Y-m-d', strtotime($today . ' +1 day'))?>"><br>
+               id="appointment_date"
+               min="<?php echo date('Y-m-d', strtotime($today . ' +1 day'))?>"
+               value="<?php echo date('Y-m-d', strtotime($today . ' +1 day'))?>"><br>
         <b>
             <p class="col-s-12 col-m-12 col-l-12 normal-text color-1">Select Meeting Type:</p>
         </b>

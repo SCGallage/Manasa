@@ -141,9 +141,10 @@ class User extends Model
         //base64_decode($data);
         }
 
-        public function saveDonation($request)
+        public function saveDonation($request): bool|int
         {
-            $sql = "INSERT INTO test (id) VALUES ('" . $request['payment_id'] . $request['order_id'] . "')";
+            //$sql = "INSERT INTO donate (id, email, date, amount)
+              //      VALUES (".$request['payment_id'].", '".$request['order_id']."', '".$request['date']."', ".$request['payhere_amount'].")";
             $columnsAndValues = [
                 'id' => $request['payment_id'],
                 'email' => $request['order_id'],
@@ -151,11 +152,7 @@ class User extends Model
                 'amount' => $request['payhere_amount']
             ];
 
-            $values = [
-
-            ];
-
-            $this->insert('donate', $columnsAndValues);
+            return $this->insert('donate', $columnsAndValues, DatabaseService::FETCH_COUNT);
         }
 
         public function loadUserInfo($userId): int|array

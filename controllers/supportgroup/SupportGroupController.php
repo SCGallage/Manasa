@@ -354,7 +354,7 @@ class SupportGroupController extends Controller
 
             //Reserve meeting
             $meetingId = -1;
-            $meetingId = $callerAppointment->reserveMeeting($requestBody);
+            $meetingId = $callerAppointment->reserveSgMeeting($requestBody, $userId);
             if ($meetingId > -1) {
                 //add support group join request
                 $columns = array(
@@ -364,7 +364,14 @@ class SupportGroupController extends Controller
                     "meeting" => $meetingId
                 );
                 if ($sgEnrollRequest->addRequest($columns)) {
-
+                    $params = [
+                        'request' => $requestBody,
+                        'title' => "Support Group Join Request Placed.",
+                        'message' => 'Your support group join request placed successfully. After your appointment with one of our facilitator, your request approval will be decided.<br>Have a nice day!',
+                        'messageType' => CommonConstants::MESSAGE_TYPE_SUCCESS,
+                        'link' => '/callerSupportGroupsList',
+                        'linkType' => CommonConstants::LINK_TYPE_GET,
+                    ];
                 }
             } else {
 
@@ -498,8 +505,7 @@ class SupportGroupController extends Controller
 
     }
 
-    public
-    function leaveSupportGroup(Request $request): array|bool|string
+    public function leaveSupportGroup(Request $request): array|bool|string
     {
 
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
@@ -544,13 +550,44 @@ class SupportGroupController extends Controller
     {
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $callerAppointment = new CallerAppointment();
-        $sgEnrollRequest = new SgEnroll();
         $requestBody = $request->getBody();
+        //set timezone
+        date_default_timezone_set("Asia/Colombo");
+        $today = date("Y-m-d");
+        $limitCheck = $callerAppointment->reservationLimit_check($userId, $today);
+
+        //get support group data
+        $supportGroup = new SupportGroup();
+        $supportGroup = $supportGroup->getSupportGroupById($requestBody['supportGroupId']);
+        $co_facilitator = $supportGroup[0]['co_facilitator'];
+        $facilitator = $supportGroup[0]['facilitator'];
+
+        //load timeslots for facilitator or co_facilitator
+        $timeSlots = $callerAppointment->getTimeSlotsBySGBefrienders($co_facilitator, $today, $userId);
+        $params = [
+            'chances' => $limitCheck,
+            'timeSlots' => $timeSlots,
+            'sgId' => $requestBody['supportGroupId']
+        ];
+
+        if (empty($timeSlots)) {
+            $params['timeSlots'] = $callerAppointment->getTimeSlotsBySGBefrienders(intval($facilitator), $today, $userId);
+        }
+
+
+
+        $this->setLayout('caller/callerFunction');
+        return $this->render('caller/supportGroups/timeSlots', 'Time Slots', $params);
+
+        ////////////////////////////////////
+
+
         $params = array();
         if ($request->isGet()) {
             $params = [
                 'request' => $requestBody,
-                CommonConstants::VIEW_TYPE => 'sg_join_meeting'
+                CommonConstants::VIEW_TYPE => 'sg_join_meeting',
+                'schedule' => $callerAppointment->getCurrentSchedule()
             ];
         }
 
@@ -559,7 +596,7 @@ class SupportGroupController extends Controller
             $limitCheck = $callerAppointment->reservationLimit_check($userId, $requestBody['date']);
 
             if ($limitCheck != -1) {
-                //schedule found
+                //timeslots found
                 if ($request->isPost() && $limitCheck) {
                     $params = [
                         'timeSlots' => $callerAppointment->loadTimeSlots($userId, $requestBody['date']),
@@ -567,7 +604,8 @@ class SupportGroupController extends Controller
                         'viewType' => 'sg_join_meeting',
                         'searchedDate' => $requestBody['date'],
                         'meetingType' => $requestBody['meetingType'],
-                        'chances' => $limitCheck
+                        'chances' => $limitCheck,
+                        'schedule' => $callerAppointment->getCurrentSchedule()
                     ];
                 } else if (!$limitCheck) {
                     //error message
@@ -607,6 +645,52 @@ class SupportGroupController extends Controller
         return $this->render('caller/appointments/timeSlots', 'Time Slots', $params);
     }
 
+    public function reserveSgJoinMeeting(Request $request): array|bool|string
+    {
+        $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
+        $request = $request->getBody();
+        $callerAppointment = new CallerAppointment();
+
+        $params = [
+            'request' => $request,
+            'title' => "Failed to reserve meeting.",
+            'message' => 'Failed to reserve meeting. Please try again with another time slot',
+            'messageType' => CommonConstants::MESSAGE_TYPE_ERROR,
+            'link' => '/callerSupportGroupsList',
+            'linkType' => CommonConstants::LINK_TYPE_GET,
+        ];
+
+        if ($meetingId = $callerAppointment->reserveSgMeeting($request, $userId)) {
+
+            //save sg join request
+            $columns = [
+                'supportGroupId' => $request['supportGroupId'],
+                'callerId' => $userId,
+                'state' => CommonConstants::STATE_PENDING,
+                'meeting' => $meetingId
+            ];
+
+            $sg_enroll = new SgEnroll();
+
+            $sg_enroll->addRequest($columns);
+
+            $params = [
+                'request' => $request,
+                'title' => "Meeting reserved.",
+                'message' => 'Your meeting request saved successfully.',
+                'messageType' => CommonConstants::MESSAGE_TYPE_SUCCESS,
+                'link' => '/callerSupportGroupsList',
+                'linkType' => CommonConstants::LINK_TYPE_GET, 'meeting' => $meetingId
+            ];
+
+            $this->setLayout('caller/callerFunction');
+            return $this->render('components/errorMessage', 'Manasa', $params);
+
+        }
+        $this->setLayout('caller/callerFunction');
+        return $this->render('components/errorMessage', 'Manasa', $params);
+    }
+
     /*
      * Function: searchSg
      * Operation: Load support groups suing given keyword
@@ -614,8 +698,7 @@ class SupportGroupController extends Controller
      * Return: support groups list
      *
      * */
-    public
-    function searchSg(Request $request): array|bool|string
+    public function searchSg(Request $request): array|bool|string
     {
         $supportGroup = new SupportGroup();
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
@@ -668,6 +751,8 @@ class SupportGroupController extends Controller
                     array_push($myResults, $sr);
                 }
             }
+        } else {
+            $myResults = $searchResults;
         }
 
 

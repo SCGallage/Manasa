@@ -257,7 +257,7 @@ class volEvents extends Model
                                vp.eventid,
                                vp.state 'participation_state'
                        FROM volunteer_event RIGHT JOIN volunteer_participate vp on volunteer_event.id = vp.eventId
-                       WHERE vp.volunteerId = 61 AND volunteer_event.startdate >= (SELECT DATE(NOW()))";
+                       WHERE vp.volunteerId = ".$userId." AND volunteer_event.startdate >= (SELECT DATE(NOW()))";
 
        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }

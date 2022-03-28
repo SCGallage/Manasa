@@ -18,6 +18,7 @@ class DonateController extends \core\Controller
             $this->setLayout('user/visitorFunction');
         }
 
+        $this->setLayout('caller/callerFunction');
         return $this->render('user/donate/donateForm', 'Donate Form');
     }
 

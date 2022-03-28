@@ -306,7 +306,9 @@ $app->router->get('/appointments', [CallerAppointmentController::class, 'loadApp
 $app->router->get('/appointmentLink', [CallerAppointmentController::class, 'loadAppointmentById']);
 $app->router->get('/appointmentInfo', [CallerAppointmentController::class, 'loadAppointmentById']);
 $app->router->get('/loadDonateForm', [DonateController::class, 'loadDonateForm']);
+$app->router->get('/failedDonation', [DonateController::class, 'failedDonation']);
 $app->router->get('/callNow', [CallerAppointmentController::class, 'loadCallNow']);
+$app->router->get('/cancelCallNow', [CallerAppointmentController::class, 'cancelCallNow']);
 $app->router->post('/timeslots', [CallerAppointmentController::class, 'loadTimeslots']);
 $app->router->post('/cancelSupportGroupJoinRequest', [SupportGroupController::class, 'cancelSupportGroupJoinRequest']);
 $app->router->get('/loadJoinRequestTimeSlots', [SupportGroupController::class, 'loadJoinRequestTimeSlots']);
@@ -319,6 +321,7 @@ $app->router->post('/reserveMeeting', [CallerAppointmentController::class, 'rese
 $app->router->post('/cancelMeeting', [CallerAppointmentController::class, 'cancelMeeting']);
 $app->router->post('/saveDonation', [DonateController::class, 'saveDonation']);
 $app->router->post('/failedDonation', [DonateController::class, 'failedDonation']);
+$app->router->post('/reserveSgMeeting', [SupportGroupController::class, 'reserveSgJoinMeeting']);
 
 
 /* Visitor views*/

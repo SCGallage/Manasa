@@ -2,6 +2,7 @@
 
 namespace controllers\caller;
 
+use core\Application;
 use core\Request;
 use core\sessions\SessionManagement;
 use models\Appointment\CallerAppointment;
@@ -10,12 +11,25 @@ use util\CommonConstants;
 
 class CallerController extends \core\Controller
 {
+    public function loginCheck() {
+        if (!((isset($_SESSION[CommonConstants::SESSION_LOGGED_IN]) && !empty($_SESSION[CommonConstants::SESSION_LOGGED_IN])))) {
+            $this->setLayout('main');
+            return $this->render("user/landigPage", 'Manasa.lk');
+        }
+    }
     public function loadCallerHome (): array|bool|string
     {
+        if (!((isset($_SESSION[CommonConstants::SESSION_LOGGED_IN]) && !empty($_SESSION[CommonConstants::SESSION_LOGGED_IN])))) {
+            $this->setLayout('main');
+            return $this->render("user/landigPage", 'Manasa.lk');
+        }
         $userId = intval(SessionManagement::get_session_data(CommonConstants::SESSION_USER_ID));
         $callerAppointment = new CallerAppointment();
+        $normalAppointmentsPending = $callerAppointment->getAllNormalPendingAppointmentsByUser($userId);
+
+
         $params = [
-            'pending' => $callerAppointment->getAllPendingAppointmentsByUser($userId)
+            'pending' => $normalAppointmentsPending
         ];
         $this->setLayout('caller/callerHome');
         return $this->render('caller/appointments/upcomingAppointments', 'Caller | Home', $params);

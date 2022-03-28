@@ -66,12 +66,18 @@ if (array_key_exists('info', $params)){
 
         <div class="col-s-0 col-m-1 col-l-2 color-0">.</div>
 
-        <table class="col-s-12 col-m-12 col-l-12 card-align-center">
+        <div class="col-s-12 col-m-12 col-l-12">
+            <div class="col-s-1 col-m-1 col-l-1 color-0">.</div>
+            <a href="/updateProfile">
+                <input class="col-s-10 col-m-10 col-l-10 bannerButton color-4 bg-color-1" type="button" value="Update Profile">
+            </a>
+        </div>
+        <div class="col-s-12 col-m-12 col-l-12 color-0">.</div>
+
+        <!--table class="col-s-12 col-m-12 col-l-12 card-align-center">
             <tr>
                 <td class="col-s-6 col-m-6 col-l-6 margin-l">
-                    <a href="/updateProfile">
-                        <input class="bannerButton color-4 bg-color-1 card-align-right" type="button" value="Update Profile">
-                    </a>
+
 
                 </td>
 
@@ -82,7 +88,7 @@ if (array_key_exists('info', $params)){
                            onclick="popup('popup', <?php echo \util\CommonConstants::POPUP_SHOW; ?>)">
                 </td>
             </tr>
-        </table>
+        </table-->
 
         <!--Delete profile message popup----------------------------------------------------------------------------------->
         <div id="popup" class="col-s-7 col-m-8 col-l-6 popup-card list-card shadow-2 border-color-1 bg-color-4">

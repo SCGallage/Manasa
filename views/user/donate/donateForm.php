@@ -6,9 +6,9 @@
         <h1 class="heading-text-center color-1 text-shadow">Donation Form</h1>
 
         <input type="hidden" name="merchant_id" value="1219981">    <!-- Replace your Merchant ID -->
-        <input type="hidden" name="return_url" value="http://1826-2402-4000-1380-bc73-c133-7ceb-27b3-9114.ngrok.io/loadDonateForm">
-        <input type="hidden" name="cancel_url" value="http://1826-2402-4000-1380-bc73-c133-7ceb-27b3-9114.ngrok.io">
-        <input type="hidden" name="notify_url" value="http://1826-2402-4000-1380-bc73-c133-7ceb-27b3-9114.ngrok.io/saveDonation">
+        <input type="hidden" name="return_url" value="http://5089-2407-c00-c002-a5c3-7048-f1a3-3069-37bb.ngrok.io/loadDonateForm">
+        <input type="hidden" name="cancel_url" value="http://5089-2407-c00-c002-a5c3-7048-f1a3-3069-37bb.ngrok.io/failedDonation">
+        <input type="hidden" name="notify_url" value="http://5089-2407-c00-c002-a5c3-7048-f1a3-3069-37bb.ngrok.io/saveDonation">
 
         <b>
             <p class=" col-s-12 col-m-12 col-l-12 normal-text color-1">Amount(Rs): </p>

@@ -1,13 +1,10 @@
 <?php use util\CommonConstants;
 
-//print_r($params);
-
 //set timezone
 date_default_timezone_set("Asia/Colombo");
 $today = date("Y-m-d");
 $timeToday = date("H:i:s");
-//if ()
-
+//print_r($params['link']);
 ?>
 <div class="col-s-12 col-m-12 col-l-12 list-card shadow-2 bg-color-3">
     <a class="col-s-12 col-m-12 col-l-12" href="/appointments">
@@ -45,7 +42,7 @@ $timeToday = date("H:i:s");
         </p>
 
         <?php
-        if ($params['appointmentInfo'][0]['meeting_type'] == CommonConstants::MEETING_TYPE_ZOOM){
+        if ($params['appointmentInfo'][0]['meeting_type'] == CommonConstants::MEETING_TYPE_ZOOM && array_key_exists('link', $params)){
             ?>
             <p class="col-s-5 col-m-5 col-l-5 text-right heading color-1">
                 Link
@@ -53,9 +50,9 @@ $timeToday = date("H:i:s");
             <p class="col-s-1 col-m-1 col-l-1 heading color-1">
                 :
             </p>
-            <a href="https://zoom.us/">
+            <a href="<?php echo $params['link'][0]['join_url']?>">
                 <p class="col-s-6 col-m-6 col-l-6 heading color-1">
-                    <?php echo $params['appointmentInfo'][0]['virtual_meeting']?>
+                    <?php echo $params['link'][0]['join_url']?>
                 </p>
             </a>
             <?php

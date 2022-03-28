@@ -10,7 +10,7 @@
     </div>
 
     <div class="col-s-12 col-m-6 col-l-5" id="menuDiv">
-        <div>
+        <!--div>
             <div class="col-s-12 col-m-6 col-l-6 color-1">
                 <a href="#upcoming">
                     <p
@@ -26,9 +26,9 @@
                 </a>
             </div>
 
-        </div>
+        </div-->
     </div>
-    <div class="col-s-12 col-m-5 col-l-6">
+    <div class="col-s-12 col-m-5 col-l-6 card-align-right">
         <div class="loginButtons card-align-right col-s-12 col-m-5 col-l-3">
             <a href="/logout">
                 <p

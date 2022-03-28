@@ -17,7 +17,7 @@
     {{content}}
 
 </div>
-<?php include "../views/components/footer_client.php"; ?>
+<?php include "../views/components/footer_client_function.php"; ?>
 
 
 </body>
