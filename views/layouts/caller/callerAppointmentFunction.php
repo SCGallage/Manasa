@@ -16,7 +16,6 @@
 </div>
 
 <?php include "../views/components/footer_client.php";?>
-<?php include "../views/components/absolute_button_client.php";?>
 
 </body>
 

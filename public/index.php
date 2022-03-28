@@ -311,6 +311,7 @@ $app->router->post('/reserveMeeting', [CallerAppointmentController::class, 'rese
 $app->router->post('/cancelMeeting', [CallerAppointmentController::class, 'cancelMeeting']);
 $app->router->post('/saveDonation', [DonateController::class, 'saveDonation']);
 $app->router->post('/failedDonation', [DonateController::class, 'failedDonation']);
+$app->router->post('/reserveSgMeeting', [SupportGroupController::class, 'reserveSgJoinMeeting']);
 
 
 /* Visitor views*/

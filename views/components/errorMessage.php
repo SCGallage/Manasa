@@ -1,7 +1,7 @@
 <?php
     use \util\CommonConstants;
     $titleColor = "color-6";
-    //print_r($params);
+    //print_r($params['meeting']);
     if ($params['messageType'] == CommonConstants::MESSAGE_TYPE_SUCCESS) $titleColor = "color-1";
 ?>
 

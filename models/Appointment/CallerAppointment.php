@@ -227,6 +227,19 @@ class CallerAppointment extends Model
      *
      * */
     public function deleteOldPendingAppointments(){
+        //release time slots
+        $sqlStatement = "SELECT m.timeslotId FROM meeting m
+                                        LEFT JOIN timeslot t ON m.timeslotId = t.timeslotId
+                                        LEFT JOIN shift s ON s.shiftId = t.shiftId
+                                      WHERE s.date < DATE (NOW()) AND m.state = ".CommonConstants::STATE_PENDING;
+
+        $timeSlots = $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+
+        if (!empty($timeSlots)) {
+            foreach ($timeSlots as $slot) {
+                $this->releaseTimeSLot($slot['timeslotId']);
+            }
+        }
         //delete old pending appointments
         $sqlStatement = "DELETE FROM meeting 
                          WHERE id IN (SELECT m.id FROM meeting m
@@ -234,7 +247,7 @@ class CallerAppointment extends Model
                                         LEFT JOIN shift s ON s.shiftId = t.shiftId
                                       WHERE s.date < DATE (NOW()) AND m.state = ".CommonConstants::STATE_PENDING.")";
 
-        $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
     }
 
     /*
@@ -409,8 +422,45 @@ class CallerAppointment extends Model
         //set timezone
         date_default_timezone_set("Asia/Colombo");
         $today = date("Y-m-d");
-        $sqlStatement = "SELECT * FROM schedule WHERE startDate <= '$today' AND endDate >= '$today' AND state = ".CommonConstants::STATE_AVAILABLE;
+        $sqlStatement = "SELECT * FROM schedule WHERE startDate <= '$today' AND endDate >= '$today'";
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
+    public function getTimeSlotsBySGBefrienders($userId, $date) {
+        $sqlStatement = "SELECT t.timeslotId, t.startTime, t.endTime,
+                                s.date,
+                                r.befrienderId
+                         FROM timeslot t, shift s, reserve r
+                         WHERE t.shiftId = r.shiftId AND
+                               t.shiftId = s.shiftId AND
+                               s.date > '$date' AND
+                               r.befrienderId = ".$userId." AND
+                               t.timeslotId NOT IN (SELECT m.timeslotId 
+                                                    FROM meeting m 
+                                                    WHERE m.state = ".CommonConstants::STATE_PENDING." AND 
+                                                          m.befrienderId = ".$userId.")";
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+    }
+
+    public function reserveSgMeeting($request, $userId) {
+        if ($this->reserveTimeSlot($request['timeslotId'])) {
+            date_default_timezone_set("Asia/Colombo");
+            $today = date("Y-m-d");
+            $timeToday = date("H:i:s");
+
+            $columnsAndValues = [
+                'date' => $today,
+                'time' => $timeToday,
+                'state' => CommonConstants::STATE_PENDING,
+                'timeslotId' => $request['timeslotId'],
+                'callerId' => $userId,
+                'meeting_type' => $request['meetingType'],
+                'befrienderId' => $request['befrienderId']
+            ];
+            return $this->insert('meeting',$columnsAndValues, DatabaseService::RETURN_LAST_ID);
+        }
+
+        return false;
     }
 
 }

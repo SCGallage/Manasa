@@ -26,28 +26,43 @@ class SgEnroll extends Model
      * */
     public function addRequest(array $supportGroupEnrollRequest): bool|int
     {
-        return $this->insert($this->table, $supportGroupEnrollRequest);
+        return $this->insert($this->table, $supportGroupEnrollRequest, DatabaseService::RETURN_LAST_ID);
+    }
+
+    /*
+     * Function: cancelAllEventParticipations
+     * Operation: remove all event participations of given support group member
+     * Parameters: userId, sgId
+     * Return: affected row count
+     *
+     * */
+    public function cancelAllEventParticipations($userId, $sgId): array|bool|int
+    {
+        $sqlStatement = "DELETE FROM sg_eventparticipate 
+                         WHERE callerId = ".$userId." AND eventId IN (SELECT id FROM sg_event WHERE supportGroupId = ".$sgId.")";
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
     }
 
     /*
      * Function: removeRequest
      * Operation: remove existing support group join request record from sg_enrollrequest table
-     * Parameters: array of values for sg_enrollrequest table
-     * Return:
+     * Parameters: sgId, userId
+     * Return: affected row count
      *
      * */
     public function leaveSupportGroup($sgId, $userId): bool|int
     {
-//        return $this->delete($this->table,
-//                        array("supportGroupId= $sgId", "callerId = $userId", "state = ".CommonConstants::STATE_ACCEPTED));
 
         $sql = "DELETE FROM ".$this->table."
                 WHERE supportGroupId=".$sgId." AND
                       callerId=".$userId." AND
                       state=".CommonConstants::STATE_ACCEPTED;
 
-        return $this->customSqlQuery($sql, DatabaseService::FETCH_COUNT);
+        if ($this->customSqlQuery($sql, DatabaseService::FETCH_COUNT)) {
+            return $this->cancelAllEventParticipations($userId, $sgId);
+        }
 
+        return false;
     }
 
     /*
