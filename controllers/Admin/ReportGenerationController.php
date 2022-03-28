@@ -18,21 +18,135 @@ use  core\setasign\fpdf\FPDF;
 class ReportGenerationController extends Controller
 {
 
+    public function getAllVolEvent($startDate, $endDate){
+        $volunteerEvent = new volEvents();
+        $sqlStatement3 = "SELECT id From volunteer_event WHERE startDate BETWEEN CAST('$startDate' AS DATE) AND CAST('$endDate' AS DATE)";
+        $allVolEvents = $volunteerEvent->customSqlQuery($sqlStatement3,DatabaseService::FETCH_COUNT);
+        return $allVolEvents;
+
+    }
+
+    public function getAllExclusivelEvent($startDate, $endDate){
+        $volunteerEvent = new volEvents();
+        $sqlStatement3 = "SELECT id From volunteer_event WHERE startDate BETWEEN CAST('$startDate' AS DATE) AND CAST('$endDate' AS DATE) AND volunteer_event.type = 1";
+        $allVolEvents = $volunteerEvent->customSqlQuery($sqlStatement3,DatabaseService::FETCH_COUNT);
+        return $allVolEvents;
+
+    }
+
+    public function getTotalDonationDuration($startDate, $endDate): int|bool|array
+    {
+        $donate = new donate();
+        $sqlStatement2 = "SELECT SUM(amount) AS Total FROM donate WHERE date BETWEEN CAST('$startDate' AS DATE) AND CAST('$endDate' AS DATE)";
+        return $donate->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
+    }
+
+    public function getTotalDonationForLastYearDuration($startDate, $endDate): int|bool|array
+    {
+        $donate = new donate();
+        $sqlStatement2 = "SELECT SUM(amount) AS Total FROM donate WHERE date BETWEEN DATE_SUB(CAST('$startDate' AS DATE),INTERVAL 1 year)
+                                                  AND DATE_SUB(CAST('$endDate' AS DATE),INTERVAL 1 year)";
+        return $donate->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
+    }
+
+    public function getTotalDonationYear(){
+        $donate = new donate();
+        $sqlStatement2 = "SELECT  SUM(amount) AS Total FROM donate WHERE YEAR(date) = YEAR(now())";
+        return $donate->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
+    }
+
+    public function getTotalDonationLastYear(){
+        $donate = new donate();
+        $sqlStatement2 = "SELECT  SUM(amount) AS Total FROM donate WHERE YEAR(date) = YEAR(DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR ));";
+        return $donate->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
+    }
+
+    public function getCurrentYearCumulativeDonations(){
+        $donate = new donate();
+        $sqlStatement2 = "SELECT MONTHNAME(date) AS Month , SUM(amount) AS Total FROM donate WHERE YEAR(date)=YEAR(now()) GROUP BY MONTH(date)";
+        return $donate->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
+    }
+
+    public function getLastYearCumulativeDonations(){
+        $donate = new donate();
+        $sqlStatement2 = "select MONTHNAME(date) AS Month, SUM(amount) AS Total
+                                from donate where YEAR(date) = YEAR(DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR ))
+                                GROUP BY MONTH(date)";
+        return $donate->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
+    }
+
+
     public function volunteerReportForm(Request $request){
 
+        if ($request->isPost()){
+            $data = $request->getBody();
+            $volunteer = new Staff();
+            $volunteerEvent = new volEvents();
+            $volunteerEvent->overrideTableName('volunteer_event');
+
+            $sqlStatement = "SELECT ve.*, s2.fname as modFname, s2.lname as modLname
+                           FROM volunteer_participate JOIN volunteer_event ve on ve.id = volunteer_participate.eventId
+                           JOIN staff s on s.id = volunteer_participate.volunteerId
+                           JOIN staff s2 on s2.id = ve.moderator
+                           WHERE volunteer_participate.volunteerId = '$data[id]' AND ve.startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) AND volunteer_participate.state = 1 ORDER BY ve.startDate DESC;";
+
+            $viewVolunteerParticipate = $volunteerEvent->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+            $viewVolunteerParticipateCount = $volunteerEvent->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
+
+            $sqlStatement2 = "SELECT s.fname, s.lname, u.email, u.gender, u.profile_pic FROM staff s join user u on s.id = u.id where s.id ='$data[id]'";
+            $volunteerData = $volunteer->customSqlQuery($sqlStatement2, DatabaseService::FETCH_ALL);
+
+            $allVolEvents = $this->getAllVolEvent($data['StartDate'],$data['EndDate']);
+
+            $sqlStatement4 = "SELECT id From volunteer_event WHERE startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) AND volunteer_event.type = 0";
+            $allExclusiveVolEvents = $volunteerEvent->customSqlQuery($sqlStatement4,DatabaseService::FETCH_COUNT);
+
+            $sqlStatement5 = "SELECT id FROM volunteer_participate JOIN volunteer_event ve on ve.id = volunteer_participate.eventId
+                                WHERE volunteer_participate.volunteerId = '$data[id]' AND ve.startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) 
+                                AND volunteer_participate.state = 1 AND ve.type = 0";
+            $ExclusiveEventsParticipated = $volunteerEvent->customSqlQuery($sqlStatement5,DatabaseService::FETCH_COUNT);
+
+            $sqlStatement6 = "SELECT id From volunteer_event WHERE startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) AND volunteer_event.type = 1";
+            $allopenVolEvents = $volunteerEvent->customSqlQuery($sqlStatement6,DatabaseService::FETCH_COUNT);
+
+            $sqlStatement7 = "SELECT id FROM volunteer_participate JOIN volunteer_event ve on ve.id = volunteer_participate.eventId
+                                WHERE volunteer_participate.volunteerId = '$data[id]' AND ve.startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) 
+                                AND volunteer_participate.state = 1 AND ve.type = 1";
+            $openEventsParticipated = $volunteerEvent->customSqlQuery($sqlStatement7,DatabaseService::FETCH_COUNT);
+
+            $sqlStatement8 = "SELECT COUNT(vp.volunteerId)/COUNT(*) AS Average FROM volunteer_event
+                                    inner join volunteer_participate vp on volunteer_event.id = vp.eventId
+                                    WHERE volunteer_event.startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)";
+            $avgParticipation = $volunteerEvent->customSqlQuery($sqlStatement8,DatabaseService::FETCH_ALL);
+
+            $sqlStatement9 = "SELECT COUNT(volunteer_participate.volunteerId) AS highest FROM volunteer_participate
+                                join volunteer_event ve on volunteer_participate.eventId = ve.id 
+                                WHERE ve.startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)
+                                GROUP BY volunteer_participate.volunteerId ORDER BY highest DESC  LIMIT 1";
+            $HighestParticipation = $volunteerEvent->customSqlQuery($sqlStatement9,DatabaseService::FETCH_ALL);
+
+            $params = [
+                'viewVolunteerParticipate' => $viewVolunteerParticipate,
+                'viewVolunteerParticipateCount' => $viewVolunteerParticipateCount,
+                'volunteerData' => $volunteerData,
+                'data' => $data,
+                'allVolEvents' => $allVolEvents,
+                'allExclusiveVolEvents' => $allExclusiveVolEvents,
+                'ExclusiveEventsParticipated' => $ExclusiveEventsParticipated,
+                'allopenVolEvents' => $allopenVolEvents,
+                'openEventsParticipated' => $openEventsParticipated,
+                'avgParticipation' => $avgParticipation,
+                'HighestParticipation' => $HighestParticipation
+            ];
+            $this->setLayout('reportLayout');
+            return $this->render('Admin/Report_volunteer','Volunteer Report',$params);
+        }else{
      $volunteerInfo = new User();
      $data = $request->getBody();
      $sqlStatement = "SELECT staff.fname,
                                 staff.lname,
-                                staff.cv,
-                                staff.type AS 'role',
-                                staff.state,
-                                u.email,
-                                u.gender,
-                                u.username,
-                                u.id
-                                FROM staff
-                                JOIN user u on staff.id = u.id WHERE staff.state='1' AND staff.type='volunteer'";
+                                staff.id
+                                FROM staff WHERE staff.state='1' AND staff.type='volunteer'";
 
      $viewVolunteer = $volunteerInfo->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
 
@@ -42,185 +156,13 @@ class ReportGenerationController extends Controller
 
 //     print_r($params);
      return $this->render('Admin/Report_Form_Volunteer','Volunteer Report Generation',$params);
- }
-
-    public function volunteerReportPDF(Request $request){
-
-        if ($request->isPost()) {
-            $userView = new staff();
-            $volunteerInfo = new User();
-            $data = $request->getBody();
-
-
-//         user data
-            $sqlStatement = "SELECT staff.fname,
-                                staff.lname,
-                                u.username
-                                FROM staff
-                                JOIN user u on staff.id = u.id
-                                WHERE u.username LIKE '%$data[username]%'";
-
-            $volunteer = $userView->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
-
-//         Report Data
-            $sqlStatement = "SELECT 
-                                v.id,
-                                v.startDate,
-                                v.name,
-                                v.capacity,
-                                v.location,
-                                v.moderator
-                                FROM staff
-                                JOIN user u on staff.id = u.id
-                                JOIN volunteer_participate vp on u.id = vp.volunteerId
-                                JOIN volunteer_event v on vp.eventId = v.id
-                                WHERE u.username LIKE '%$data[username]%'
-                                  AND vp.volunteerId = staff.id
-                                AND v.startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)";
-
-            $viewVolunteer = $volunteerInfo->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
-            $viewVolunteerCount = $volunteerInfo->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
-
-
-            // Column widths
-         $w = array(40, 35, 40, 45);
-         $pdf = new FPDF();
-            $pdf->AliasNbPages();
-            $pdf->AddPage();
-            $pdf->SetFont('Arial','BU',16);
-
-            // Set title and header
-            $pdf->Image('./assets/img/icon.png',170,6,30);
-            $pdf->SetFont('Arial','B',16);
-            $pdf->Ln(5);
-            $pdf->Cell(20,10,'Volunteer Report',0,1,'L');
-            $pdf->Ln(5);
-
-//         add horizontal line
-            $pdf->SetLineWidth(0.8);
-            $pdf->Line(10,28,200,28);
-            $pdf->SetLineWidth(0);
-            $pdf->Ln(5);
-
-            $pdf->SetFont('Arial','B',11);
-            foreach($volunteer as $req) {
-                $pdf->Cell(55,0,'Volunteer Name :',0,'0','L');
-                $pdf->SetFont('Arial','',11);
-                $pdf->Cell(32 ,0,$req['fname'].' '.$req['lname'],0,'0','L');
-                $pdf->Ln(5);
-                $pdf->SetFont('Arial','B',11);
-                $pdf->Cell(55,0,'User Name :',0,'0','L');
-                $pdf->SetFont('Arial','',11);
-                $pdf->Cell(32 ,0,$req['username'],0,'0','L');
-                $pdf->Ln(5);
-            }
-            $pdf->SetFont('Arial','B',11);
-            $pdf->Cell(55,0,'Duration :',0,'0','L');
-            $pdf->SetFont('Arial','',11);
-            $pdf->Cell(32 ,0,$data['StartDate'].' - '.$data['EndDate'],0,'0','L');
-            $pdf->Ln(10);
-
-            //         add horizontal line
-            $pdf->SetLineWidth(0.8);
-            $pdf->Line(10,50,200,50);
-            $pdf->SetLineWidth(0);
-            $pdf->Ln(5);
-
-
-//            Events Participated
-
-            $pdf->SetFont('Arial','B',12);
-            if ($viewVolunteerCount==0){
-                $pdf->Cell(0,5,'No events participated for the duration',0,0,'C');
-            }else {
-
-
-                $pdf->Cell(0,0,'Participated Events',0,0);
-                $pdf->Ln(5);
-
-                $pdf->SetFont('Arial', 'B', 11);
-                $pdf->Cell(23, 7, 'Event ID', 1, '0', 'C');
-                $pdf->Cell(32, 7, 'Event Name', 1, '0', 'C');
-                $pdf->Cell(23, 7, 'Capacity', 1, '0', 'C');
-                $pdf->Cell(25, 7, 'Date', 1, '0', 'C');
-                $pdf->Cell(60, 7, 'Location', 1, '0', 'C');
-                $pdf->Cell(23, 7, 'Moderator', 1, '0', 'C');
-                $pdf->Ln();
-
-                $pdf->SetFont('Arial', '', 11);
-
-                foreach ($viewVolunteer as $item) {
-                    $cellWidth = 60;//wrapped cell width
-                    $cellHeight = 5;//normal one-line cell height
-
-                    //check whether the text is overflowing
-                    if ($pdf->GetStringWidth($item['location']) < $cellWidth) {
-                        //if not, then do nothing
-                        $line = 1;
-                    } else {
-                        //if it is, then calculate the height needed for wrapped cell
-                        //by splitting the text to fit the cell width
-                        //then count how many lines are needed for the text to fit the cell
-
-                        $textLength = strlen($item['location']);    //total text length
-                        $errMargin = 10;        //cell width error margin, just in case
-                        $startChar = 0;        //character start position for each line
-                        $maxChar = 0;            //maximum character in a line, to be incremented later
-                        $textArray = array();    //to hold the strings for each line
-                        $tmpString = "";        //to hold the string for a line (temporary)
-
-                        while ($startChar < $textLength) { //loop until end of text
-                            //loop until maximum character reached
-                            while (
-                                $pdf->GetStringWidth($tmpString) < ($cellWidth - $errMargin) &&
-                                ($startChar + $maxChar) < $textLength) {
-                                $maxChar++;
-                                $tmpString = substr($item['location'], $startChar, $maxChar);
-                            }
-                            //move startChar to next line
-                            $startChar = $startChar + $maxChar;
-                            //then add it into the array so we know how many line are needed
-                            array_push($textArray, $tmpString);
-                            //reset maxChar and tmpString
-                            $maxChar = 0;
-                            $tmpString = '';
-
-                        }
-                        //get number of line
-                        $line = count($textArray);
-                    }
-
-                    //write the cells
-                    $pdf->Cell(23, ($line * $cellHeight), $item['id'], 1, 0); //adapt height to number of lines
-                    $pdf->Cell(32, ($line * $cellHeight), $item['name'], 1, 0); //adapt height to number of lines
-                    $pdf->Cell(23, ($line * $cellHeight), $item['capacity'], 1, 0);
-                    $pdf->Cell(25, ($line * $cellHeight), $item['startDate'], 1, 0);
-//                $pdf->Cell(23,($line * $cellHeight),$item['moderator'],1,0);
-
-
-                    //use MultiCell instead of Cell
-                    //but first, because MultiCell is always treated as line ending, we need to
-                    //manually set the xy position for the next cell to be next to it.
-                    //remember the x and y position before writing the multicell
-                    $xPos = $pdf->GetX();
-                    $yPos = $pdf->GetY();
-                    $pdf->MultiCell($cellWidth, $cellHeight, $item['location'], 1);
-
-                    //return the position for next cell next to the multicell
-                    //and offset the x with multicell width
-                    $pdf->SetXY($xPos + $cellWidth, $yPos);
-
-                    $pdf->Cell(23, ($line * $cellHeight), $item['moderator'], 1, 1); //adapt height to number of lines
-                }
-            }
-         $pdf->Output();
-
 
         }
-
     }
 
- public function overviewReportForm(Request $request){
+
+
+    public function overviewReportForm(Request $request){
 
      if ($request->isPost()) {
 //         $userView = new volEvents();
@@ -229,6 +171,7 @@ class ReportGenerationController extends Controller
          $supportGroup = new supportGroup();
          $sessionReport = new session_report();
          $donate = new donate();
+         $volunteerEvent = new volEvents();
          $data = $request->getBody();
 
          $sqlStatement = "SELECT supportgroup.type,
@@ -240,131 +183,148 @@ class ReportGenerationController extends Controller
 
          $SupportGroupCount = $supportGroup->select('supportGroup','*',["state" => 1],DatabaseService::FETCH_COUNT);
 
-         $sqlStatement1 = "SELECT count(*) AS Count
-                                FROM session_report
-                                WHERE session_report.date BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)";
-
-        $sessionCount = $sessionReport->customSqlQuery($sqlStatement1,DatabaseService::FETCH_ALL);
-
+//Session problems-------------------------------------------------------------------------------------
          $sqlStatement2 = "SELECT p.name AS problemName,
-                               COUNT(*) AS Count
-                        FROM session_report
-                        JOIN problems p on p.id = session_report.problemType
-                       WHERE session_report.date BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)
-                        GROUP BY session_report.problemType";
+                                   COUNT(*) AS Count
+                            FROM session_report
+                                     JOIN problems p on p.id = session_report.problemType
+                                    JOIN meeting m on m.id = session_report.meetingId
+                            JOIN timeslot t on t.timeslotId = m.timeslotId
+                            JOIN shift s on s.shiftId = t.shiftId
+                            WHERE s.date BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)
+                            GROUP BY session_report.problemType";
 
          $sessionProblemCount = $sessionReport->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
          $sessionProblemAmount = $sessionReport->customSqlQuery($sqlStatement2,DatabaseService::FETCH_COUNT);
-
+//-----------------------------------------------------------------------------------------------------
          $sqlStatement4 = "SELECT SUM(d.amount) AS Total FROM donate d WHERE d.date BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)";
          $donations = $donate->customSqlQuery($sqlStatement4,DatabaseService::FETCH_ALL);
-
+//-New callers-------------------------------------------------------------------------------------------------------------------------------
          $sqlStatement3 = "SELECT  COUNT(*) AS Count
                             FROM user
-                            WHERE MONTH(user.registration_date)=MONTH(now())
-                            AND YEAR(user.registration_date)=YEAR(now())
-                            AND user.type='caller'";
+                            WHERE user.registration_date BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) AND user.type = 'caller'";
 
          $newCallers = $userInfo->customSqlQuery($sqlStatement3,DatabaseService::FETCH_ALL);
+//--New Volunteers--------------------------------------------------------------------------------------------------------------
+         $sqlStatement3 = "SELECT  COUNT(*) AS Count
+                            FROM user inner join staff s on user.id = s.id
+                            WHERE user.registration_date BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) AND s.type = 'Volunteer'";
 
-         // PDF creation
-//         Page initialization
-         $pdf = new FPDF();
-         $pdf->AliasNbPages();
-         $pdf->AddPage();
-         $pdf->SetFont('Arial','BU',16);
+         $newvolunteers = $userInfo->customSqlQuery($sqlStatement3,DatabaseService::FETCH_ALL);
 
-         // Set title and header
-         $pdf->Image('./assets/img/icon.png',170,6,30);
-         $pdf->SetFont('Arial','B',16);
-         $pdf->Ln(5);
-         $pdf->Cell(20,5,'Overview Report',0,1,'L');
-         $pdf->Ln(5);
+//--New befrienders---------------------------------------------------------------------------------------------------------------
+         $sqlStatement3 = "SELECT  COUNT(*) AS Count
+                            FROM user inner join staff s on user.id = s.id
+                            WHERE user.registration_date BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) AND s.type = 'Befriender'";
 
-         $pdf->SetFont('Arial','B',14);
-         $pdf->Cell(0, 0, 'Duration : ' . $data['StartDate'] . ' - ' . $data['EndDate'], '');
-         $pdf->Ln(10);
+         $newbefrienders = $userInfo->customSqlQuery($sqlStatement3,DatabaseService::FETCH_ALL);
+//---Total meetings for the duration---------------------------------------------------------------------------------------------------------
+         $sqlStatement3 = "SELECT meeting.*,s.date
+                                FROM meeting
+                                         JOIN timeslot t on meeting.timeslotId = t.timeslotId
+                                         JOIN shift s on s.shiftId = t.shiftId
+                                WHERE s.date  BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)";
 
-//         add horizontal line
-         $pdf->SetLineWidth(0.8);
-         $pdf->Line(10,31,200,31);
-         $pdf->SetLineWidth(0);
-         $pdf->Ln(5);
+         $meetingsForDuration = $userInfo->customSqlQuery($sqlStatement3,DatabaseService::FETCH_COUNT);
+
+//--Total befreinders handling Meetings for duration------------------------------------------------------------------------------------------------------
+         $sqlStatement3 = "SELECT COUNT(meeting.befrienderId) AS COUNT
+                                    FROM meeting
+                                             JOIN timeslot t on meeting.timeslotId = t.timeslotId
+                                             JOIN shift s on s.shiftId = t.shiftId
+                                    WHERE s.date BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)
+                                    GROUP BY meeting.befrienderId";
+
+         $numBefrienderForAllMeeting = $userInfo->customSqlQuery($sqlStatement3,DatabaseService::FETCH_COUNT);
+
+// Meeting types of the duration-----------------------------------------------------------
+         $sqlStatement12 ="SELECT COUNT(meeting.id) AS Count, meeting_type
+                    FROM meeting
+                    JOIN timeslot t on meeting.timeslotId = t.timeslotId
+                    JOIN shift s on s.shiftId = t.shiftId
+                    WHERE s.date  BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) group by meeting_type;";
+
+         $meetingTypes = $userInfo->customSqlQuery($sqlStatement12,DatabaseService::FETCH_ALL);
+         $meetingTypesCount = $userInfo->customSqlQuery($sqlStatement12,DatabaseService::FETCH_COUNT);
+
+// Donations-------------------------------------------------------------------------------------------------------------
+         $totalDonationsDuration = $this->getTotalDonationDuration($data['StartDate'],$data['EndDate']);
+         $totalDonationLastYearDuration = $this->getTotalDonationForLastYearDuration($data['StartDate'],$data['EndDate']);
+         $totalDonationsCurrentYear = $this->getTotalDonationYear();
+         $totalDonationsLastYear = $this->getTotalDonationLastYear();
+         $currentYearCumulativeDonation = $this->getCurrentYearCumulativeDonations();
+         $lastYearCumulativeDonation = $this->getLastYearCumulativeDonations();
 
 
-//report Data
-//New Callers
-         $pdf->SetFont('Arial','B',11);
-         $pdf->Cell(60,0,'New Callers :',0,'0','L');
-         $pdf->SetFont('Arial','',11);
-         foreach($newCallers as $data){
-         $pdf->Cell(32 ,0,$data['Count'],0,'0','L');}
-         $pdf->Ln(5);
+//-----Volunteer-------------------------------------------------------------------------------------------
+         $allVolEvents = $this->getAllVolEvent($data['StartDate'],$data['EndDate']);
 
-// Sessions
-         $pdf->SetFont('Arial','B',11);
-         $pdf->Cell(60,0,'Sessions Conducted :',0,'0','L');
-         $pdf->SetFont('Arial','',11);
-         foreach($sessionCount as $row){
-         $pdf->Cell(32 ,0,$row['Count'],0,'0','L');}
-         $pdf->Ln(5);
+         $sqlStatement6 = "SELECT id From volunteer_event WHERE startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) AND volunteer_event.type = 0";
+         $allExclusiveVolEvents = $volunteerEvent->customSqlQuery($sqlStatement6,DatabaseService::FETCH_COUNT);
 
- // Donations
-         $pdf->SetFont('Arial','B',11);
-         $pdf->Cell(60,0,'Donations Received :',0,'0','L');
-         $pdf->SetFont('Arial','',11);
-         foreach($donations as $row){
-         $pdf->Cell(32 ,0,'Rs. '.$row['Total'],0,'0','L');}
-         $pdf->Ln(5);
 
-         // SupportGroups
-         $pdf->SetFont('Arial','B',11);
-         $pdf->Cell(60,0,'SUpport Groups :',0,'0','L');
-         $pdf->SetFont('Arial','',11);
-             $pdf->Cell(32 ,0,$SupportGroupCount,0,'0','L');
-         $pdf->Ln(5);
+         $sqlStatement7 = "SELECT id From volunteer_event WHERE startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) AND volunteer_event.type = 1";
+         $allopenVolEvents = $volunteerEvent->customSqlQuery($sqlStatement7,DatabaseService::FETCH_COUNT);
 
-//         if condition to display caller problems
-         if ($sessionProblemAmount==0){
-         }else{
+         $sqlStatement8 = "SELECT COUNT(vp.volunteerId)/COUNT(*) AS Average FROM volunteer_event
+                                    inner join volunteer_participate vp on volunteer_event.id = vp.eventId
+                                    WHERE volunteer_event.startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)";
+         $avgParticipation = $volunteerEvent->customSqlQuery($sqlStatement8,DatabaseService::FETCH_ALL);
 
-//         Caller problem overview
-             $pdf->SetFont('Arial','B',12);
-             $pdf->Cell(0,10,'Caller Problem Overview',0,0,'L');
-             $pdf->Ln(10);
+         $sqlStatement9 = "SELECT COUNT(volunteer_participate.volunteerId) AS highest FROM volunteer_participate
+                                join volunteer_event ve on volunteer_participate.eventId = ve.id 
+                                WHERE ve.startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)
+                                GROUP BY volunteer_participate.volunteerId ORDER BY highest DESC  LIMIT 1";
 
-             //         Report data
-             $pdf->SetFont('Arial','',11);
-             $w = array(32, 35, 40, 45);
-             $header = array('problem Name','Count');
-             $pdf->BasicTable($header,$sessionProblemCount);
-             $pdf->SetFont('Arial','B',12);
-         }
-         $pdf->Ln(5);
+         $HighestParticipation = $volunteerEvent->customSqlQuery($sqlStatement9,DatabaseService::FETCH_ALL);
 
-//         Display Support groups
-         if ($SupportGroupTypeCount==0){
-         }else{
+         $sqlStatement10 = "SELECT ve.*, s.fname as modFname, s.lname as modLname FROM volunteer_event ve join staff s on s.id = ve.moderator
+                            WHERE ve.startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) ORDER BY ve.startDate DESC;";
 
-//         Caller problem overview
-             $pdf->SetFont('Arial','B',12);
-             $pdf->Cell(0,10,'Support Group Overview',0,0,'L');
-             $pdf->Ln(10);
+         $volEvents = $volunteerEvent->customSqlQuery($sqlStatement10, DatabaseService::FETCH_ALL);
 
-             //         Report data
-             $pdf->SetFont('Arial','',11);
-             $w = array(32, 35, 40, 45);
-             $header = array('Support Group Type','Count');
-             $pdf->BasicTable($header,$SupportGroupTypes);
-         }
+         $sqlStatement11 = "SELECT type, COUNT(volunteer_event.type) AS Data FROM volunteer_event       
+                            WHERE startDate BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE) GROUP BY type";
+         $volEventGraphData = $volunteerEvent->customSqlQuery($sqlStatement11, DatabaseService::FETCH_ALL);
 
-//pdf output
-         $pdf->Output();
+
+         $params = [
+             'data' => $data,
+             'allVolEvents' => $allVolEvents,
+             'allExclusiveVolEvents' => $allExclusiveVolEvents,
+             'allopenVolEvents' => $allopenVolEvents,
+             'avgParticipation' => $avgParticipation,
+             'HighestParticipation' => $HighestParticipation,
+             'volEvents' => $volEvents,
+             'volEventGraphData' => $volEventGraphData,
+             'newCallers' => $newCallers,
+             'newvolunteers' => $newvolunteers,
+             'newbefrienders' => $newbefrienders,
+             'meetingsForDuration' => $meetingsForDuration,
+             'numBefrienderForAllMeeting' => $numBefrienderForAllMeeting,
+             'sessionProblemAmount' => $sessionProblemAmount,
+             'sessionProblemCount' => $sessionProblemCount,
+             'totalDonationsDuration' => $totalDonationsDuration,
+             'totalDonationLastYearDuration' => $totalDonationLastYearDuration,
+             'totalDonationsCurrentYear' => $totalDonationsCurrentYear,
+             'totalDonationsLastYear' => $totalDonationsLastYear,
+             'currentYearCumulativeDonation' => $currentYearCumulativeDonation,
+             'lastYearCumulativeDonation' => $lastYearCumulativeDonation,
+             'meetingTypes' => $meetingTypes,
+             'meetingTypesCount' => $meetingTypesCount
+
+         ];
+
+         $this->setLayout('reportLayout');
+         return $this->render('Admin/Report_overview', 'Overview Report',$params);
+
      }
      return $this->render('Admin/Report_Form_Overview', 'Generate Overview Reports');
  }
 
- public function befrienderReportForm(Request $request){
+
+
+    public function befrienderReportForm(Request $request){
 
      if ($request->isPost()) {
 
@@ -593,7 +553,7 @@ class ReportGenerationController extends Controller
      return $this->render('Admin/Report_Form_Befriender','Befriender Report Generation', $params);
  }
 
- public function donationReportForm(Request $request){
+    public function donationReportForm(Request $request){
         if ($request->isPost()){
             $data = $request->getBody();
            $donate = new donate();
@@ -601,63 +561,33 @@ class ReportGenerationController extends Controller
            $donateData = $donate->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
            $donateDataCount = $donate->customSqlQuery($sqlStatement,DatabaseService::FETCH_COUNT);
 
-           $sqlStatement2 = "SELECT SUM(amount) AS Total FROM donate WHERE date BETWEEN CAST('$data[StartDate]' AS DATE) AND CAST('$data[EndDate]' AS DATE)";
-           $totalDonation = $donate->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
-//           Create Pdf
-            $pdf = new FPDF();
-            $pdf->AliasNbPages();
-            $pdf->AddPage();
-            $pdf->SetFont('Arial','BU',16);
 
-            // Set title and header
-            $pdf->Image('./assets/img/icon.png',170,6,30);
-            $pdf->SetFont('Arial','B',16);
-            $pdf->Ln(5);
-            $pdf->Cell(20,5,'Donation Report',0,1,'L');
-            $pdf->Ln(5);
+            $totalDonationsDuration = $this->getTotalDonationDuration($data['StartDate'],$data['EndDate']);
+            $totalDonationLastYearDuration = $this->getTotalDonationForLastYearDuration($data['StartDate'],$data['EndDate']);
+            $totalDonationsCurrentYear = $this->getTotalDonationYear();
+            $totalDonationsLastYear = $this->getTotalDonationLastYear();
+            $currentYearCumulativeDonation = $this->getCurrentYearCumulativeDonations();
+            $lastYearCumulativeDonation = $this->getLastYearCumulativeDonations();
 
-            $pdf->SetFont('Arial','B',14);
-            $pdf->Cell(0, 0, 'Duration : ' . $data['StartDate'] . ' - ' . $data['EndDate'], '');
-            $pdf->Ln(10);
+            $params = [
+                'data' => $data,
+                'totalDonationsDuration' => $totalDonationsDuration,
+                'totalDonationLastYearDuration' => $totalDonationLastYearDuration,
+                'totalDonationsCurrentYear' => $totalDonationsCurrentYear,
+                'totalDonationsLastYear' => $totalDonationsLastYear,
+                'currentYearCumulativeDonation' => $currentYearCumulativeDonation,
+                'lastYearCumulativeDonation' => $lastYearCumulativeDonation,
+                'donateData' => $donateData
+            ];
 
-//         add horizontal line
-            $pdf->SetLineWidth(0.8);
-            $pdf->Line(10,31,200,31);
-            $pdf->SetLineWidth(0);
-            $pdf->Ln(5);
-
-// Sessions
-            $pdf->SetFont('Arial','B',12);
-            $pdf->Cell(40,0,'Total Donations :',0,'0','L');
-            $pdf->SetFont('Arial','',12);
-            foreach($totalDonation as $row){
-                $pdf->Cell(32 ,0,'Rs.'.$row['Total'],0,'0','L');}
-            $pdf->Ln(5);
-
-            if ($donateDataCount==0){
-                $pdf->Cell(0,10,'No donations made for the duration',0,0,'C');
-            }else{
-
-//         Donations for duration
-                $pdf->SetFont('Arial','B',12);
-                $pdf->Cell(0,10,'Donor Information',0,0,'L');
-                $pdf->Ln(10);
-
-                //         Report data
-                $pdf->SetFont('Arial','',11);
-                $w = array(32, 35, 40, 45);
-                $header = array('Transaction ID','Email','Date','Amount (Rs.)');
-                $pdf->BasicTable($header,$donateData);
-                $pdf->SetFont('Arial','B',12);
-            }
-            $pdf->Ln(5);
-
-            $pdf->Output();
+            $this->setLayout('reportLayout');
+            return $this->render('Admin/Report_donation','Donation Report Generation',$params);
 
         }
 
      return $this->render('Admin/Report_Form_Donations','Donation Report Generation');
  }
+
 
 
     public function volParticipateReport(Request $request){

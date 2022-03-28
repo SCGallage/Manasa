@@ -22,7 +22,7 @@ class modScheduleController extends Controller
     {
 
         $scheduleData = new schedule();
-        $sqlStatement1 = "select * from schedule where week(startDate)=week(now())";
+        $sqlStatement1 = "select * from schedule where DATE(now()) BETWEEN startDate and endDate";
         $scheduleInfo =  $scheduleData->customSqlQuery($sqlStatement1,DatabaseService::FETCH_ALL);
 
 
@@ -144,7 +144,7 @@ class modScheduleController extends Controller
 
         $shift = new shift();
         $data = $request->getBody();
-        $sqlStatement = "SELECT shift.* FROM shift WHERE scheduleId='$data[scheduleId]' AND num_of_befrienders<5";
+        $sqlStatement = "SELECT shift.* FROM shift WHERE scheduleId='$data[scheduleId]' AND num_of_befrienders< $_ENV[bef_limit]";
         $emptySlots = $shift->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
 
         $params = [
@@ -166,13 +166,14 @@ class modScheduleController extends Controller
         $befrienderData = new reserve();
         $sqlStatement = "SELECT r.*, s.fname, s.lname FROM reserve r left join staff s on s.id = r.befrienderId WHERE r.shiftId='$data[id]'";
         $befrienderParticipate = $befrienderData->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
+        $befrienderParticipateCount = $befrienderData->customSqlQuery($sqlStatement,DatabaseService::FETCH_COUNT);
 
 
 //        setting shift id to session
         SessionManagement::set_session_data('shiftID',$data['id']);
 
         $availableBefrienderData = new Staff();
-        $sqlStatement2 = "select s.* from staff s where s.type = 'befriender'
+        $sqlStatement2 = "select s.* from staff s where s.type = 'befriender' AND s.state = 1
                           AND s.id not in (SELECT r.befrienderId FROM reserve r left join staff s on s.id = r.befrienderId WHERE r.shiftId= '$data[id]')
                             AND s.id not in (SELECT s.id FROM reserve r left join staff s on s.id = r.befrienderId JOIN shift s2 on s2.shiftId = r.shiftId
                             WHERE s2.scheduleId= $data[scheduleId] GROUP BY r.befrienderId having COUNT(r.befrienderId) >= 4);";
@@ -183,6 +184,7 @@ class modScheduleController extends Controller
             'availableBefriender' => $availableBefriender,
             'data' => $data,
             'shiftData' => $shiftData,
+            'befrienderParticipateCount' => $befrienderParticipateCount
         ];
         $this->setLayout('modNav');
         return $this->render('Moderator/ScheduleSelect','Select Participants',$params);
@@ -202,7 +204,6 @@ class modScheduleController extends Controller
     public function assignBefriender(Request $request){
         if ($request->isPost()) {
             $data = $request->getBody();
-            print_r($data);
             $assignSchedule = new schedule();
             $AssignBefriender = $assignSchedule->executeStoredProcedure("call assignBefriender(".$data['befrienderId'].",".$data['shiftId'].")");
             header("location:/mod/ScheduleSelect?id=".SessionManagement::get_session_data('shiftID')."&scheduleId=".$data['scheduleId']); // redirects to user requests page
@@ -216,6 +217,13 @@ class modScheduleController extends Controller
             $data = $request->getBody();
 
             $closeSlot = $shiftData->update('shift', ["state" => '1'], ["shiftId" => $data["shiftId"]]);
+            $befrienderData = new reserve();
+            $sqlStatement = "SELECT r.befrienderId FROM reserve r left join staff s on s.id = r.befrienderId WHERE r.shiftId='$data[shiftId]'";
+            $befrienderParticipate = $befrienderData->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
+            foreach ($befrienderParticipate as $key){
+                $befrienderData->delete('reserve',['befrienderId' => $key["befrienderId"]]);
+            }
+
             header("location:/mod/ScheduleSelect?id=".SessionManagement::get_session_data('shiftID')."&scheduleId=".$data['scheduleId']);
         }
 

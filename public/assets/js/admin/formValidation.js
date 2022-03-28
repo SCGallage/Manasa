@@ -27,13 +27,25 @@ function createVolEventForm(){
     dateOfEvent = new Date(dateOfEvent);
     var today = new Date();
 
-    var todayDate = today.setHours(0,0,0,0);
-    if (dateOfEvent<todayDate) {
+    const startDuration = startTime.split(':');
+    const endDuration = endTime.split(':');
+
+    var hours = ((endDuration[0]-startDuration[0])*60);
+    var minutes = (endDuration[0]-startDuration[0]);
+    var duration = hours+minutes;
+
+    // var todayDate = today.setHours(0,0,0,0);
+    if (dateOfEvent<today) {
         alert("Please enter valid future date");
         return false;
     }
     else if(endTime===startTime || endTime<startTime){
         alert("Please enter valid time period");
+
+        return false;
+    }
+    else if(duration < 60){
+        alert("Events must be minimum one hour");
 
         return false;
     }else if (!/^[0-9]+$/.test(capacity)){
@@ -75,8 +87,43 @@ function reportGenValidation(){
     var startDate = document.reportGenForm.StartDate.value;
     var endDate = document.reportGenForm.EndDate.value;
 
+    var CurrentDate = new Date();
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
+
     if (startDate>endDate){
         alert("Please enter valid duration");
+        return false;
+    }else if(startDate>CurrentDate){
+        alert("Reports can only be created for past time period");
+        return false;
+    }else if(endDate>CurrentDate){
+        alert("Reports can only be created for past time period");
+        return false;
+    }else if(startDate===endDate){
+        alert("Same day reports cannot be created");
+        return false;
+    }
+}
+
+function validatePhone(){
+    var number = document.phoneReg.contact_number.value;
+
+    if (number.length<10 || number.length>10 ){
+        alert("Invalid phone number");
+        return false;
+    }
+    else if (!/^[0-9]+$/.test(number)){
+        alert("Invalid phone number");
+        return false;
+    }
+}
+
+function validateConfig(){
+    var value = document.limitations.val.value;
+
+    if (!/^[0-9]+$/.test(value)){
+        alert("Invalid phone number");
         return false;
     }
 }

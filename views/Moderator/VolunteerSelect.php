@@ -52,7 +52,7 @@
                     <?php foreach ($participants as $key => $selectedParticipants){?>
                     <div class="upper-box-details card1 margin-top">
                         <div class="col-l-12 col-m-12 col-s-12">
-                            <span><?php echo $selectedParticipants['fname']." ".$selectedParticipants['lname'];?></span><br>
+                            <span class="select-text"><a href="/mod/viewVolunteerInformation?id=<?php echo $selectedParticipants['volunteerId'] ?>"><?php echo $selectedParticipants['fname']." ".$selectedParticipants['lname'];?></a></span><br>
                             <td> <a href="/mod/rejectVolunteer?id=<?php echo $selectedParticipants['volunteerId'] ?>" class="cancel-button-1">Reject</a></td>
                         </div>
                     </div>
@@ -85,7 +85,8 @@
                     foreach ($participantRequests as $req) {
                         ?>
                         <tr>
-                            <td><?php echo $req['fname']." ".$req['lname']?></td>
+                            <td><a href="/mod/viewVolunteerInformation?id=<?php echo $req['volunteerId'] ?>"><?php echo $req['fname']." ".$req['lname']?></a></td>
+
 
                             <!--                                    Hide accept button if participant capacity is filled -->
                             <?php  if ($participantsCount == $data['capacity'] ){ ?>

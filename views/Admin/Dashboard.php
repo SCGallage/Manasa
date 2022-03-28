@@ -114,18 +114,21 @@
                         <tr><td class="no-record">No meetings for the Date</td></tr>
                     <?php }else{ ?>
                     <tr>
+
+                        <th>Meeting ID</th>
                         <th>Date</th>
                         <th>Duration</th>
                         <th>Meeting Type</th>
-                        <th>No of Befrienders</th>
+                        <th>Befriender</th>
                     </tr>
                     <?php
                     foreach ($meetingDetails as $row) { ?>
                     <tr>
+                        <td><?php echo $row['id']?></td>
                         <td><?php echo $row['date']?></td>
                         <td><?php echo $row['startTime']." - ".$row['endTime']?></td>
                         <td><?php echo $row['meeting_type']?></td>
-                        <td><?php echo $row['num_of_befrienders']?></td>
+                        <td><?php echo $row['fname']."  ".$row['lname']?></td>
                     </tr>
                     <?php }?>
                     <?php } ?>

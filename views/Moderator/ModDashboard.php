@@ -76,77 +76,34 @@
 
     <div class="row row-style flex-container">
         <div class="col-l-12 col-m-12 col-s-12 primary-card flex-gap ">
-            <div class="col-l-12 col-m-12 col-s-12 card-content">
-                <span class="head-text">Active Befrienders</span>
+            <div class="col-l-12 col-m-12 col-s-12 flex-container2 padding1">
+                <span class="head-text">Meetings</span>
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 table-overflow">
                 <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Contact</th>
-                        <th>Start Date</th>
-                        <th>Type</th>
-                        <th> </th>
-                        <th> </th>
-                    </tr>
-                    <tr>
-                        <td>Ben Affleck</td>
-                        <td>BenAffleck@gmail.com</td>
-                        <td>0771268920</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                    </tr>
-                    <tr>
-                        <td>Peter Griffin</td>
-                        <td>PeterGriffin@gmail.com</td>
-                        <td>077229667</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                    </tr>
-                    <tr>
-                        <td>Carla Bruni</td>
-                        <td>CarlaBruni@gmail.com</td>
-                        <td>077146278</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                    </tr>
-                    <tr>
-                        <td>David Arquette</td>
-                        <td>DavidArquette@gmail.com</td>
-                        <td>0772678924</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                    </tr>
-                    <tr>
-                        <td>Ben Affleck</td>
-                        <td>BenAffleck@gmail.com</td>
-                        <td>0771268920</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                    </tr>
-                    <tr>
-                        <td>Peter Griffin</td>
-                        <td>PeterGriffin@gmail.com</td>
-                        <td>077229667</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                    </tr>
-                    <tr>
-                        <td>Carla Bruni</td>
-                        <td>CarlaBruni@gmail.com</td>
-                        <td>077146278</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                    </tr>
-                    <tr>
-                        <td>David Arquette</td>
-                        <td>DavidArquette@gmail.com</td>
-                        <td>0772678924</td>
-                        <td>2017/09/10</td>
-                        <td>Befrinder</td>
-                    </tr>
+                    <?php if ($meetingCount==0){?>
+                        <tr><td class="no-record">No meetings for the Date</td></tr>
+                    <?php }else{ ?>
+                        <tr>
+
+                            <th>Meeting ID</th>
+                            <th>Date</th>
+                            <th>Duration</th>
+                            <th>Meeting Type</th>
+                            <th>Befriender</th>
+                        </tr>
+                        <?php
+                        foreach ($meetingDetails as $row) { ?>
+                            <tr>
+                                <td><?php echo $row['id']?></td>
+                                <td><?php echo $row['date']?></td>
+                                <td><?php echo $row['startTime']." - ".$row['endTime']?></td>
+                                <td><?php echo $row['meeting_type']?></td>
+                                <td><?php echo $row['fname']."  ".$row['lname']?></td>
+                            </tr>
+                        <?php }?>
+                    <?php } ?>
                 </table>
             </div>
         </div>

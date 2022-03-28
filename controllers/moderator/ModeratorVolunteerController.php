@@ -211,6 +211,35 @@ class ModeratorVolunteerController extends Controller
 
     }
 
+    public function viewVolunteer(Request $request){
+
+        $data = $request->getBody();
+        $volunteer = new Staff();
+        $volunteerEvent = new volEvents();
+        $volunteerEvent->overrideTableName('volunteer_event');
+
+
+        $sqlStatement = "SELECT ve.*, s2.fname as modFname, s2.lname as modLname
+                           FROM volunteer_participate JOIN volunteer_event ve on ve.id = volunteer_participate.eventId
+                           JOIN staff s on s.id = volunteer_participate.volunteerId
+                           JOIN staff s2 on s2.id = ve.moderator
+                           WHERE volunteer_participate.volunteerId ='$data[id]' AND ve.startDate < DATE(now()) AND volunteer_participate.state = 1 ORDER BY ve.startDate DESC;";
+
+        $viewVolunteerParticipate = $volunteerEvent->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
+        $viewVolunteerParticipateCount = $volunteerEvent->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
+
+        $sqlStatement2 = "SELECT s.fname, s.lname, u.email, u.gender, u.profile_pic FROM staff s join user u on s.id = u.id where s.id ='$data[id]'";
+        $volunteerData = $volunteer->customSqlQuery($sqlStatement2, DatabaseService::FETCH_ALL);
+
+        $params = [
+            'viewVolunteerParticipate' => $viewVolunteerParticipate,
+            'viewVolunteerParticipateCount' => $viewVolunteerParticipateCount,
+            'volunteerData' => $volunteerData
+        ];
+        $this->setLayout('modNav');
+        return $this->render('Admin/VolunteerProfileView','View Volunteer',$params);
+    }
+
     public function volunteerRequestsUpdate(Request $request)
     {
 

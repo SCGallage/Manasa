@@ -41,6 +41,8 @@
                                         <option value="<?php echo $staffData['type']?>" class="custom-font"><?php echo $staffData['type']?></option>
                                         <option value="Moderator" class="custom-font">Moderator</option>
                                         <option value="Administrator" class="custom-font">Administrator</option>
+                                        <option value="Befriender" class="custom-font">Befriender</option>
+                                        <option value="Volunteer" class="custom-font">Volunteer</option>
                                     </select>
                                 </div>
                             </div>
@@ -96,13 +98,13 @@
                                     <div class="col-l-12 col-m-12 col-s-12">
                                         <select name="state" id="reportType" class="select2 custom-font">
                                             <option value="1" class="custom-font">Active</option>
-                                            <option value="0" class="custom-font">Inactive</option>
+                                            <option value="2" class="custom-font">Inactive</option>
                                             <option value="<?php echo $staffData['state'] ?>" selected>
                                                 <?php
                                                 if ($staffData['state'] == 1) {
                                                     echo 'Active';
                                                 }
-                                                elseif ($staffData['state'] == 0){
+                                                elseif ($staffData['state'] == 2){
                                                     echo 'Inactive';
                                                 }
                                                 ?>

@@ -69,7 +69,7 @@ cors();
 $app = new Application(dirname(__DIR__), $config);
 
 $settings = new Settings();
-$settings->addSettingToDatabase("bef_limit", 10);
+//$settings->addSettingToDatabase("bef_limit", 10);
 $settings->loadSettingsToEnv();
 
 
@@ -224,14 +224,21 @@ $app->router->post('/admin/addUsers', [AdminController::class, 'createUser']);
 $app->router->get('/admin/updateUser', [AdminController::class, 'updateUser']);
 $app->router->post('/admin/updateUser', [AdminController::class, 'updateUser']);
 
-$app->router->get('/admin/deleteUser', [AdminController::class, 'deleteUser']);
+$app->router->post('/admin/deleteUser', [AdminController::class, 'deleteUser']);
+
+$app->router->get('/admin/updateUserWorkPhone', [AdminController::class, 'userWorkPhoneAllocrion']);
+$app->router->post('/admin/updateUserWorkPhone', [AdminController::class, 'userWorkPhoneAllocrion']);
 
 //User requests
 $app->router->get('/admin/UserRequests', [AdminController::class, 'UserRequests']);
 $app->router->post('/admin/UserRequests', [AdminController::class, 'UserRequestsUpdate']);
 $app->router->get('/admin/UserRequestsDelete', [AdminController::class, 'UserRequestsDelete']);
 
-$app->router->get('/cvdownload', [AdminController::class, 'cvDownload']);
+//limitations
+$app->router->get('/admin/limitations',[AdminController::class, 'limits']);
+$app->router->post('/admin/limitations',[AdminController::class, 'limits']);
+
+//$app->router->get('/cvdownload', [AdminController::class, 'cvDownload']);
 
 //moderator views
 //moderator landing page
@@ -277,7 +284,8 @@ $app->router->get('/mod/deleteVolunteerEvent', [ModeratorVolunteerController::cl
 
 $app->router->get('/mod/selectVolunteer', [ModeratorVolunteerController::class, 'selectVolunteers']);
 $app->router->post('/mod/selectVolunteer', [ModeratorVolunteerController::class, 'selectVolunteers']);
-
+//mod view volunteer details
+$app->router->get('/mod/viewVolunteerInformation', [ModeratorVolunteerController::class, 'viewVolunteer']);
 //accept volunteers
 $app->router->get('/mod/acceptVolunteer', [ModeratorVolunteerController::class, 'volunteerRequestsUpdate']);
 $app->router->post('/mod/acceptVolunteer', [ModeratorVolunteerController::class, 'volunteerRequestsUpdate']);

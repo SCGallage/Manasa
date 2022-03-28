@@ -22,7 +22,7 @@ class AdminScheduleController extends Controller
     {
 
         $scheduleData = new schedule();
-        $sqlStatement1 = "select * from schedule where week(startDate)=week(now())";
+        $sqlStatement1 = "select * from schedule where DATE(now()) BETWEEN startDate and endDate ";
         $scheduleInfo =  $scheduleData->customSqlQuery($sqlStatement1,DatabaseService::FETCH_ALL);
 
 
@@ -82,9 +82,15 @@ class AdminScheduleController extends Controller
     {
 
         $scheduleData = new schedule();
-        $sqlStatement = "SELECT * FROM schedule ORDER BY scheduleId DESC LIMIT 1";
-        $scheduleInfo = $scheduleData->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
+//        Get start date current schedule
+        $sqlStatement = "SELECT startDate from schedule where DATE(now()) BETWEEN startDate and endDate";
+        $schedulestart = $scheduleData->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
+        foreach ($schedulestart as $startDate){
 
+        }
+//        select upcoming schedule
+        $sqlStatement = "SELECT * FROM schedule WHERE scheduleId = (SELECT scheduleId FROM schedule WHERE DATE_ADD(CAST('$startDate[startDate]' AS DATE), INTERVAL 14 DAY) = startDate)";
+        $scheduleInfo = $scheduleData->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
 
         foreach ($scheduleInfo as $data) {
             $period = new DatePeriod(
@@ -142,7 +148,7 @@ class AdminScheduleController extends Controller
 
         $shift = new shift();
         $data = $request->getBody();
-        $sqlStatement = "SELECT shift.* FROM shift WHERE scheduleId='$data[scheduleId]' AND num_of_befrienders<5";
+        $sqlStatement = "SELECT shift.* FROM shift WHERE scheduleId='$data[scheduleId]' AND num_of_befrienders< $_ENV[bef_limit]";
         $emptySlots = $shift->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
         $emptySlotsCount = $shift->customSqlQuery($sqlStatement,DatabaseService::FETCH_COUNT);
 
@@ -175,7 +181,7 @@ class AdminScheduleController extends Controller
         $sqlStatement2 = "select s.* from staff s where s.type = 'befriender' AND s.state = 1
                           AND s.id not in (SELECT r.befrienderId FROM reserve r left join staff s on s.id = r.befrienderId WHERE r.shiftId= '$data[id]')
                             AND s.id not in (SELECT s.id FROM reserve r left join staff s on s.id = r.befrienderId JOIN shift s2 on s2.shiftId = r.shiftId
-                            WHERE s2.scheduleId= $data[scheduleId] GROUP BY r.befrienderId having COUNT(r.befrienderId) >= 4);";
+                            WHERE s2.scheduleId= $data[scheduleId] GROUP BY r.befrienderId having COUNT(r.befrienderId) >= 4)";
         $availableBefriender = $availableBefrienderData->customSqlQuery($sqlStatement2,DatabaseService::FETCH_ALL);
 
         $params =[
@@ -202,7 +208,6 @@ class AdminScheduleController extends Controller
     public function assignBefriender(Request $request){
         if ($request->isPost()) {
             $data = $request->getBody();
-            print_r($data);
             $assignSchedule = new schedule();
             $AssignBefriender = $assignSchedule->executeStoredProcedure("call assignBefriender(".$data['befrienderId'].",".$data['shiftId'].")");
             header("location:/admin/ScheduleSelect?id=".SessionManagement::get_session_data('shiftID')."&scheduleId=".$data['scheduleId']); // redirects to user requests page
@@ -216,6 +221,12 @@ class AdminScheduleController extends Controller
             $data = $request->getBody();
 
             $closeSlot = $shiftData->update('shift', ["state" => '1'], ["shiftId" => $data["shiftId"]]);
+            $befrienderData = new reserve();
+            $sqlStatement = "SELECT r.befrienderId FROM reserve r left join staff s on s.id = r.befrienderId WHERE r.shiftId='$data[shiftId]'";
+            $befrienderParticipate = $befrienderData->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
+            foreach ($befrienderParticipate as $key){
+                $befrienderData->delete('reserve',['befrienderId' => $key["befrienderId"]]);
+            }
             header("location:/admin/ScheduleSelect?id=".SessionManagement::get_session_data('shiftID')."&scheduleId=".$data['scheduleId']);
         }
 

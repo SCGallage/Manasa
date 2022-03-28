@@ -15,6 +15,18 @@
   box-sizing: border-box;
 }
 
+@media print {
+  .noprint {
+    visibility: hidden;
+    display: block;
+  }
+
+  .main {
+    margin-left: 0rem;
+    padding: 0rem;
+  }
+}
+
 body {
   font-family: "Josefin Sans", sans-serif;
   color: black;
@@ -23,23 +35,15 @@ body {
   /* background-color: #EFEFEFEF; */
 }
 
-/*body::-webkit-scrollbar {*/
-/*    width: 0.25rem;*/
+
+/*main {*/
+/*  margin-left: 5rem;*/
+/*  padding: 1rem;*/
 /*}*/
 
-/*body::-webkit-scrollbar-track {*/
-/*    background: #1e1e24;*/
-/*}*/
-
-/*body::-webkit-scrollbar-thumb {*/
-/*    background: #6649b8;*/
-/*}*/
-
-main {
-  margin-left: 5rem;
-  padding: 1rem;
+.config-icon{
+  color: white !important;
 }
-
 .navbar {
   position: fixed;
   transition: width 400ms ease;

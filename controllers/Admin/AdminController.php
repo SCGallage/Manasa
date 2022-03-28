@@ -8,6 +8,7 @@ use core\DatabaseService;
 use core\Request;
 use core\Model;
 use core\sessions\SessionManagement;
+use core\Settings;
 use models\donate;
 use models\meeting;
 use models\session_report;
@@ -34,11 +35,12 @@ class AdminController extends Controller
         $sessionReport = new session_report();
         $donationData = new donate();
 
-        $sqlStatement = "SELECT meeting.*,t.startTime,t.endTime,t.num_reservations,s.num_of_befrienders
+        $sqlStatement = "SELECT meeting.id,meeting.meeting_type,t.startTime,t.endTime, s.date, s2.fname, s2.lname
                             FROM meeting
                             JOIN timeslot t on meeting.timeslotId = t.timeslotId
                             JOIN shift s on s.shiftId = t.shiftId
-                            WHERE meeting.date = CURRENT_DATE";
+                            left join staff s2 on s2.id = meeting.befrienderId
+                            WHERE s.date = CURRENT_DATE";
         $meetingDetails = $meeting->customSqlQuery($sqlStatement,DatabaseService::FETCH_ALL);
         $meetingCount = $meeting->customSqlQuery($sqlStatement,DatabaseService::FETCH_COUNT);
 
@@ -82,7 +84,25 @@ class AdminController extends Controller
         return $this->render('Admin/Dashboard', 'Admin Dashboard',$params);
 
     }
+//  Limits table----------------------------------------------------------------------------------------------
 
+    public function limits(Request $request){
+
+        if ($request->isPost()){
+            $limits = new Settings();
+            $data = $request->getBody();
+            $limit = $limits->addSettingToDatabase("$data[name]", "$data[val]");
+        }
+
+        $limits = new User();
+        $limit =$limits->select("settings", "*", null, DatabaseService::FETCH_ALL);
+
+        $params = [
+           'limit' => $limit
+        ];
+
+        return $this->render('Admin/limitations', 'Update configurations',$params);
+    }
 //  Support Group  -------------------------------------------------------------------------------------------------------------------------------
     public function supportGroup(Request $request)
     {
@@ -445,7 +465,7 @@ class AdminController extends Controller
                                u.username,
                                u.id
                                 FROM staff
-                                JOIN user u on staff.id = u.id  WHERE staff.state='0' AND (staff.type = 'Moderator' OR staff.type = 'Administrator')";
+                                JOIN user u on staff.id = u.id  WHERE staff.state='2'";
             $viewUser = $userView->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
 
             $params = [
@@ -479,7 +499,7 @@ class AdminController extends Controller
             }
             else{
 //                $staffAccount->save($data);
-                $data['lastId'] =  $userAccount ->save($data);
+                $data['lastId'] =  $userAccount->register($data);
                 $staffAccount ->saveAdmin($data);
             }
         }
@@ -511,6 +531,7 @@ class AdminController extends Controller
             else{
                 $userAccount->update("user", ["gender" => $data["gender"], "username" => $data["username"], "email" => $data["email"]], [ 'id' => $data['StaffId'] ]);
                 $staffAccount ->update("staff", ["fname" => $data['fname'], "lname" => $data['lname'], "type" => $data["type"], "state" => $data["state"]], [ 'id' => $data['StaffId'] ]);
+                header("location:/admin/SearchUsers");
             }
         }
 
@@ -532,13 +553,31 @@ class AdminController extends Controller
 
     public function deleteUser(Request $request)
     {
-        if ($request->isGet()) {
-            $deleteReqStaff = new staff();
-            $deleteReqUser = new User();
+        //        update request state
+        if ($request->isPost()) {
+            $updateUserReq = new Staff();
             $data = $request->getBody();
-            $del = $deleteReqStaff->delete('staff',[ 'id' => $data['id'] ]);
-            $delUser = $deleteReqUser->delete('user',[ 'id' => $data['id'] ]);
+            $updateReq = $updateUserReq->update("staff", ["state" => '2'], [ 'id' => $data['id'] ]);
         }
+
+        if($updateReq)
+        {
+            header("location:/admin/SearchUsers"); // redirects to user page
+        }
+        else
+        {
+            echo '<script>';
+            echo 'alert("Error Updating Record")';
+            echo '</script>';
+        }
+
+//        if ($request->isGet()) {
+//            $deleteReqStaff = new staff();
+//            $deleteReqUser = new User();
+//            $data = $request->getBody();
+//            $del = $deleteReqStaff->delete('staff',[ 'id' => $data['id'] ]);
+//            $delUser = $deleteReqUser->delete('user',[ 'id' => $data['id'] ]);
+//        }
 
 //        if($del)
 //        {
@@ -579,20 +618,36 @@ class AdminController extends Controller
 
     }
 
+    public function userWorkPhoneAllocrion(Request $request){
+        if ($request->isPost()) {
+            $UserReq = new Staff();
+            $data = $request->getBody();
+            $UserReq->insert("staff_contacts", ["staff_id" => $data['id'], "contact_type" => "phone", "contact_number" => $data['contact_number']]);
+            header("location:/admin/UserRequests"); // redirects to all records page
+        }else{
+
+            $data = $request->getBody();
+            $params = [
+                'data' => $data
+            ];
+        return $this->render('Admin/UserPhoneRegister', 'User verification',$params);
+        }
+    }
     public function UserRequestsUpdate(Request $request)
     {
         //        update request state
         if ($request->isPost()) {
             $updateUserReq = new Staff();
             $data = $request->getBody();
+
             $updateReq = $updateUserReq->update("staff", ["state" => '1'], [ 'id' => $data['id'] ]);
-            $data = $updateUserReq->select('user', [ 'email','username' ], [ 'id' => $data['id'] ], DatabaseService::FETCH_ALL);
-            $updateUserReq->sendApprovedMail($data[0]['username'], $data[0]['email']);
+            $details = $updateUserReq->select('user', [ 'email','username' ], [ 'id' => $data['id'] ], DatabaseService::FETCH_ALL);
+            $updateUserReq->sendApprovedMail($details[0]['username'], $details[0]['email']);
         }
 
         if($updateReq)
         {
-            header("location:/admin/UserRequests"); // redirects to user requests page
+            header("location:/admin/updateUserWorkPhone?id=$data[id]"); // redirects to user requests page
         }
         else
         {

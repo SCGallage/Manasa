@@ -82,7 +82,14 @@
                                 ?></td>
                             <td><a href="/file_storage/cv/<?php echo $row['cv']?>" download>Download CV</a></td>
                             <td><a href="/admin/updateUser?StaffId=<?php echo $row['id'] ?>"><span class="material-icons" id="updateUser" >edit</span></a> </td>
-<!--                            <td><a href="/admin/deleteUser?id=--><?php //echo $row['id'] ?><!--" ><span class="material-icons">delete</span></a></td>-->
+                            <td><a href="/admin/deleteUser?id=<?php echo $row['id'] ?>" >
+                                   <form method="post" action="/admin/deleteUser">
+                                    <button type="submit">
+                                        <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                                        <span class="material-icons">delete</span></a>
+                                </button>
+                                </form>
+                            </td>
                         </tr>
                     <?php } }?>
                 </table>

@@ -83,7 +83,7 @@
 
                                 <div class="col-l-12 col-m-12 col-s-12 ">
                                     <select name="moderator" class="select2 custom-font" required>
-                                        <option value="0" class="custom-font">Please select Moderator</option>
+                                        <option value="0" class="custom-font" disabled selected>Please select Moderator</option>
                                         <?php
                                         foreach ($viewModerator as $select) {?>
                                             <option class="custom-font" value="<?php echo $select['id'] ?>" ><?php echo $select['fname']." ".$select['lname']?> </option>
@@ -131,7 +131,7 @@
                                             </div>
                                         </div>
                                         <div class="col-l-12 col-m-12 col-s-12">
-                                            <input type="time" name="endTime" value="" min="05:00" max="20:00" required>
+                                            <input type="time" name="endTime" value="" min="05:00" max="22:00" required>
                                             <span class="required-text">*Required</span>
                                         </div>
                                     </div>
