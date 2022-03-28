@@ -36,9 +36,14 @@ class Schedule extends Model
 
     public function getReservedSlotsByBefriender($befrienderId)
     {
-        $sqlStatement = "SELECT reserve.shiftId
+        $sqlStatement = "SELECT reserve.shiftId, shift.scheduleId
             FROM reserve, shift
-            WHERE befrienderId = {$befrienderId} AND shift.shiftId = reserve.shiftId AND shift.scheduleId = 1";
+            WHERE befrienderId = {$befrienderId} AND shift.shiftId = reserve.shiftId AND shift.scheduleId = (
+                select scheduleId
+                from schedule
+                order by scheduleId desc
+                limit 1
+            )";
         return json_encode($this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL), JSON_NUMERIC_CHECK);
     }
 
@@ -115,23 +120,24 @@ class Schedule extends Model
                 'exchange_shiftId' => $transferRequestData['reservedShift'],
                 'requested_shiftId' => $transferRequestData['availableShift']
             ], false);
-            echo $trBefId;
+            //echo $trBefId;
         }
+        return 1;
         //return $this->insert('transfer_shift', [], false);
     }
 
     public function loadTransfersForBefriender(mixed $befrienderId)
     {
-        $sqlStatement = "select shift.shiftId, transfer_shift.transferBefriender, shift.date, shift.startTime, shift.endTime, staff.fname, staff.lname
+        $sqlStatement = "select transfer_shift.id, shift.shiftId, transfer_shift.transferBefriender, shift.date, shift.startTime, shift.endTime, staff.fname, staff.lname
             from transfer_shift, shift, staff
             where befrienderId = $befrienderId and transfer_shift.requested_shiftId = shift.shiftId and staff.id = transfer_shift.transferBefriender";
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
     public function loadPendingTransfersForBefriender($befrienderId) {
-        $sqlStatement = "select transfer_shift.id, shift.date, shift.startTime, shift.endTime, staff.fname, staff.lname
+        $sqlStatement = "select transfer_shift.id, shift.date, shift.startTime, shift.endTime, staff.fname, staff.lname, transfer_shift.exchange_shiftId
             from staff, shift, transfer_shift
-            where transfer_shift.transferBefriender = $befrienderId and staff.id = transfer_shift.befrienderId and transfer_shift.requested_shiftId = shift.shiftId";
+            where transfer_shift.state = 0 and transfer_shift.transferBefriender = $befrienderId and staff.id = transfer_shift.befrienderId and transfer_shift.requested_shiftId = shift.shiftId";
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
@@ -148,9 +154,14 @@ class Schedule extends Model
 
     public function loadShiftsAvailableForTransfer($befrienderId)
     {
-        $sqlStatementOne = "select shiftId
-            from reserve
-            where befrienderId = $befrienderId";
+        $sqlStatementOne = "select shift.shiftId
+            from reserve, shift
+            where reserve.shiftId = shift.shiftId and befrienderId = $befrienderId and shift.scheduleId = (
+                select scheduleId
+                from schedule
+                order by scheduleId desc
+                limit 1
+            )";
 
         $shiftData = $this->customSqlQuery($sqlStatementOne, DatabaseService::FETCH_ALL);
 
@@ -171,9 +182,10 @@ class Schedule extends Model
         $sqlStatement = "select distinct(shift.shiftId), startTime, endTime, date
             from reserve, shift
             where reserve.shiftId = shift.shiftId and reserve.shiftId not in ($shiftList) 
+            and reserve.shiftId not in (select requested_shiftId from transfer_shift)
             and shift.scheduleId = (select scheduleId
                                     from (select * from schedule order by scheduleId desc limit 2) lastTwo
-                                    order by scheduleId
+                                    order by scheduleId desc
                                     limit 1)";
 
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
@@ -181,17 +193,37 @@ class Schedule extends Model
 
     public function getShiftReservedByBefriender($befrienderId)
     {
+        /*$sqlStatement = "select shift.shiftId, date, startTime, endTime
+            from reserve, shift
+            where reserve.shiftId = shift.shiftId and reserve.befrienderId = $befrienderId";*/
+
         $sqlStatement = "select shift.shiftId, date, startTime, endTime
             from reserve, shift
-            where reserve.shiftId = shift.shiftId and reserve.befrienderId = $befrienderId";
+            where reserve.shiftId = shift.shiftId and befrienderId = {$befrienderId} and shift.scheduleId = (
+            select scheduleId
+                from schedule
+                order by scheduleId desc
+                limit 1
+            ) and shift.shiftId not in (
+                select exchange_shiftId
+                from transfer_shift
+                where befrienderId = {$befrienderId}
+            )";
 
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
 
     public function makeDecisionForTransferRequest($transferId)
     {
-        $sqlStatement = "call accept_transfer($transferId)";
+        $sqlStatement = "call newAcceptTransfer($transferId)";
         return $this->executeStoredProcedure($sqlStatement);
+    }
+
+    public function cancelShiftTransferRequest($transferId): bool|int
+    {
+        return $this->delete("transfer_shift", [
+            "id" => $transferId
+        ]);
     }
 
 }

@@ -198,6 +198,9 @@ class SupportGroupEvent extends Model
         $this->supportGroupId = $supportGroupId;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function createSupportGroupEvent()
     {
         $meetingId = null;
@@ -210,9 +213,19 @@ class SupportGroupEvent extends Model
                 $timeDifference->i, $this->getAgenda());
             $meetingData = $virtualMeeting->createMeeting();
             $meetingId = $meetingData['meetingId'];
-            $supportGroup = new SupportGroup();
-            $emailList = $supportGroup->getSupportGroupMemberEmails($this->getSupportGroupId());
-            $this->sendBulkMail($meetingData, $emailList);
+            $sqlStatement = "INSERT INTO virtual_meeting 
+                        VALUES ({$meetingData['id']}, '{$meetingData['password']}', '{$meetingData['start_time']}', '{$meetingData['created_at']}', '{$meetingData['join_url']}', '{$meetingData['topic']}')";
+            //$this->customSqlQuery($sqlStatement, DatabaseService::RETURN_LAST_ID);
+            $this->insert("virtual_meeting", [
+                "meetingId" => $meetingData['meetingId'],
+                "password" => $meetingData['password'],
+                "startTime" => $meetingData['startTime'],
+                "join_url" => $meetingData['join_url'],
+                "topic" => $meetingData['topic']
+            ]);
+            //$supportGroup = new SupportGroup();
+            //$emailList = $supportGroup->getSupportGroupMemberEmails($this->getSupportGroupId());
+            //$this->sendBulkMail($meetingData, $emailList);
             //$meetingId = 7657567;
         }
 //        print_r($meetingDetails);
@@ -222,18 +235,26 @@ class SupportGroupEvent extends Model
                 "lat" => $this->location->getLat(),
                 "lng" => $this->location->getLng(),
                 "place_id" => $this->location->getPlaceId()
-            ]);
+            ], DatabaseService::RETURN_LAST_ID);
         }
 
-        $this->insert('sg_event', [
+        ($meetingId == null) ? $this->insert('sg_event', [
             "topic" => $this->getTopic(),
             "agenda" => $this->getAgenda(),
             "eventDate" => $this->getDate(),
             "startTime" => $this->getStartTime(),
             "endTime" => $this->getEndTime(),
             "type" => $this->getType(),
-            "virtualMeetingId" => ($meetingId != null) ? $meetingId : null,
-            "locationId" => ($locationId != null) ? $locationId : 0,
+            "locationId" => $locationId,
+            "supportGroupId" => $this->getSupportGroupId()
+        ]): $this->insert('sg_event', [
+            "topic" => $this->getTopic(),
+            "agenda" => $this->getAgenda(),
+            "eventDate" => $this->getDate(),
+            "startTime" => $this->getStartTime(),
+            "endTime" => $this->getEndTime(),
+            "type" => $this->getType(),
+            "virtualMeetingId" => $meetingId,
             "supportGroupId" => $this->getSupportGroupId()
         ]);
 
@@ -256,11 +277,9 @@ class SupportGroupEvent extends Model
 
     public function getUpcomingEvents()
     {
-        $sqlStatement = "SELECT se.*
-                            FROM sg_event se
-                                     JOIN supportgroup sg on se.supportGroupId = sg.id
-                            WHERE se.supportGroupId = 1 AND se.eventDate >= CURRENT_DATE()
-                            ORDER BY se.eventDate , se.startTime";
+        $sqlStatement = "select *
+            from sg_event
+            where supportGroupId = 1 and eventDate >= CURRENT_DATE()";
         //print_r($upcomingEvents);
         return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
     }
@@ -281,5 +300,26 @@ class SupportGroupEvent extends Model
         //print_r($eventList);
         return $eventList;
         //$timeDifference = date_diff(date_create($this->getEndTime()), date_create($this->getStartTime()));
+    }
+
+    public function getMeetingTypeDetails(mixed $meetingType, $eventId)
+    {
+        if ($meetingType === "physical") {
+            $sqlStatement = "select location.*
+                from sg_event, location
+                where sg_event.id = {$eventId} and sg_event.locationId = location.id";
+        } else {
+            $sqlStatement = "select virtual_meeting.*
+                from sg_event, virtual_meeting
+                where sg_event.id = {$eventId} and sg_event.virtualMeetingId = virtual_meeting.meetingId";
+        }
+        return $this->customSqlQuery($sqlStatement, DatabaseService::FETCH_FIRST);
+    }
+
+    public function deleteSupportGroupEvent(mixed $eventId)
+    {
+        return $this->delete("sg_event", [
+            "id" => $eventId
+        ]);
     }
 }

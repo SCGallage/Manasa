@@ -2,7 +2,10 @@
 
 namespace models\supportgroup;
 
-class Location
+use core\DatabaseService;
+use core\Model;
+
+class Location extends Model
 {
     private int $locationId;
     private float $lat;
@@ -105,6 +108,11 @@ class Location
     public function setAddress(string $address): void
     {
         $this->address = $address;
+    }
+
+    public function getLocationDetails($locationId)
+    {
+        return $this->select("location", "*", [], DatabaseService::FETCH_FIRST);
     }
 
 

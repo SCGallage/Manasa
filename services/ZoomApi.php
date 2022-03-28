@@ -2,6 +2,7 @@
 
 namespace services;
 
+use core\Model;
 use Firebase\JWT\JWT;
 //use ZoomApi\Database;
 
@@ -13,16 +14,17 @@ class ZoomApi
     const API_KEY = "dwx4Y06jQTWeGgDAhyBaXg";
     const API_SECRET = "8eQQA70VpXP0y0m7ZcgNgMU6vNaDmye3SvTI";
 
+
     /**
      * ZoomApi constructor.
      */
-    /*public function __construct()
+    public function __construct()
     {
         $this->PDO = new \PDO(
             'mysql:host=localhost;port=3306;dbname=manasa_db',
             'root',
             'root');
-    }*/
+    }
 
     public static function createZoomToken(): string
     {
@@ -80,7 +82,6 @@ class ZoomApi
                 "created_at" => $response['created_at'],
                 "duration" => $response['duration']
             ];
-            //$this->PDO->exec($sqlStatement);
         }
 
         return $response;

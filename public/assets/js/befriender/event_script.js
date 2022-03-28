@@ -14,12 +14,15 @@ events.forEach((event) => {
 });
 
 console.log(pixelValues[14]);
-
+let eve = document.getElementById("eventName");
 const cardList = document.querySelector(".cards-list");
 let formState = false;
 let dateValidationState = false;
 let timeValidationState = false;
 let timeDiffValidationState = false;
+let timeStartValidation = false;
+let timeEndValidation = false;
+let eventTopicValidation = true;
 // let card = document.createElement("div");
 // card.classList.add("pixel");
 
@@ -65,7 +68,7 @@ const loadEventList = (eventList) => {
 
 let eventStart = document.getElementById("event-start");
 let eventEnd = document.getElementById("event-end");
-
+const errorMsg = document.getElementById("error");
 let logTime = () => console.log(eventStart.value);
 
 // const timeDifferenceInMinutes = (firstTime, secondTime) => {
@@ -158,28 +161,86 @@ const validateEventTime = () => {
 
 }
 
+const eventNameValidation = () => {
+    console.log("called");
+    if (eve.value == "" || eve.value == null){
+        const errorMsg = document.getElementById("error");
+        errorMsg.innerHTML = "Event Topic Not Given";
+        document.getElementById('submit-btn').style.backgroundColor = "#607F8D";
+        eventTopicValidation = false;
+        return;
+    }
+
+    errorMsg.innerHTML = "";
+    eventTopicValidation = true;
+}
+
 const validateStartTime = () => {
-    const errorMsg = document.getElementById("error");
+    console.log("called");
     let eventStartArray = eventStart.value.split(":");
     let startStartTimeMinutes = (parseInt(eventStartArray[0])*60) + parseInt(eventStartArray[1]);
     if ((9*60) > startStartTimeMinutes || (17*60) < startStartTimeMinutes) {
-        errorMsg.innerHTML = "Start Time Invalid."
-        timeValidationState = false;
+        errorMsg.innerHTML = "Start Time Invalid.";
+        document.getElementById('submit-btn').style.backgroundColor = "#607F8D";
+        timeStartValidation = false;
         return;
     }
-    timeValidationState = true;
+    timeStartValidation = true;
+    if (validateFields())
+        document.getElementById('submit-btn').style.backgroundColor = "#003249";
+
     eventEnd.disabled = false;
 }
 
-//eventStart.disabled = true;
-//eventStart.addEventListener("change", validateStartTime);
+const validateEndTime = () => {
+    console.log("called");
+    let eventStartArray = eventStart.value.split(":");
+    let startStartTimeMinutes = (parseInt(eventStartArray[0])*60) + parseInt(eventStartArray[1]);
+    let eventEndArray = eventEnd.value.split(":");
+    let endTimeMinutes = (parseInt(eventEndArray[0])*60) + parseInt(eventEndArray[1]);
+    if ((17*60) < endTimeMinutes || (9*60) > endTimeMinutes || (startStartTimeMinutes+60) > endTimeMinutes) {
+        errorMsg.innerHTML = "End Time Invalid.";
+        timeEndValidation = false;
+        document.getElementById('submit-btn').style.backgroundColor = "#607F8D";
+        return;
+    }
+    if (validateFields())
+        document.getElementById('submit-btn').style.backgroundColor = "#003249";
+    timeEndValidation = true;
+}
+
+const validateDate = () => {
+    let selectedDateString = sessionStorage.getItem("event-date");
+    let currentDate = new Date();
+    const error = document.getElementById("error");
+    const selectedDate = new Date(selectedDateString);
+    const diffTime = Math.abs(currentDate - selectedDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    console.log("Curr Date: " + currentDate);
+    console.log("Time Diff.: " + (currentDate >= selectedDate));
+    if (currentDate >= selectedDate) {
+        error.innerHTML = "Error: Invalid Date or Time";
+        dateValidationState = false;
+    }
+    else {
+        error.innerHTML = "";
+        dateValidationState = true;
+    }
+}
 
 const openLocationModal = () => {
     console.log("Class", document.querySelector(".modal-secondary-bg").classList.add("open-modal"));
 };
 
+const validateFields = () => {
+    return (dateValidationState && timeStartValidation && timeEndValidation && eventTopicValidation);
+}
+
 const submitEventDetails = () => {
-    let eventName = document.getElementById("event-name").value;
+
+    if (validateFields())
+        return;
+
     let eventStart = document.getElementById("event-start").value;
     let eventEnd = document.getElementById("event-end").value;
     let eventAgenda = document.getElementById("event-agenda").value;
@@ -230,17 +291,7 @@ const submitEventDetails = () => {
     //console.log(JSON.stringify(meetingObject));
 };
 
-const validateDate = () => {
-    let selectedDateString = sessionStorage.getItem("event-date");
-    let currentDate = new Date();
-    const error = document.getElementById("error");
-    const selectedDate = new Date(selectedDateString);
-    const diffTime = Math.abs(currentDate - selectedDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    console.log("Curr Date: " + currentDate);
-    console.log("Time Diff.: " + (currentDate >= selectedDate));
-    (currentDate >= selectedDate ? error.innerHTML = "Error: Invalid Date or Time" : error.innerHTML = "" );
-}
-
 console.log(document.getElementById("submit-btn"));
 document.getElementById("submit-btn").addEventListener("click", submitEventDetails);
+eve.addEventListener("keyup", eventNameValidation);
+console.log(eventName.value);

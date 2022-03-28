@@ -96,7 +96,10 @@ class ScheduleController extends Controller
     public function createTransferRequest(Request $request)
     {
         $requestData = $request->getJsonBody();
-        $this->schedule->creteTransferRequest($requestData);
+        Application::$app->response->setContentTypeJson();
+        return json_encode([
+            "result" => $this->schedule->creteTransferRequest($requestData)
+        ]);
     }
 
     public function deleteTransferRequest(Request $request)
@@ -117,6 +120,14 @@ class ScheduleController extends Controller
     public function makeDecisionForTransferRequest(Request $request)
     {
         $this->schedule->makeDecisionForTransferRequest($request->getJsonBody()['transferId']);
+    }
+
+    public function cancelShiftTransferRequest(Request $request)
+    {
+        Application::$app->response->setContentTypeJson();
+        return json_encode([
+            "result" => $this->schedule->cancelShiftTransferRequest($request->getJsonBody()['id'])
+        ], JSON_NUMERIC_CHECK);
     }
 
 }
