@@ -20,6 +20,7 @@
     font-family: 'Josefin Sans', sans-serif;
     /*margin: 0;*/
     margin-bottom: 5rem !important;
+    padding: 1rem;
   }
 
   a {
@@ -136,7 +137,7 @@
   .flex-container3{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    /*justify-content: center;*/
   }
 
   .flex-container4{
@@ -191,6 +192,12 @@
   .margin-top-2{
     margin-top: 2rem;
   }
+  .margin-top-4{
+    margin-top: 4rem;
+  }
+  .margin-bottom-2{
+    margin-top: 2rem;
+  }
 
   .padding1{
     padding: 1rem;
@@ -215,11 +222,18 @@
   .padding-top-1{
     padding-top: 0.8rem;
   }
+  .padding-top-2{
+    padding-top: 2.5rem;
+  }
   .padding-bottom{
     padding-bottom: 0.8rem;
   }
   .positionR{
     float: right !important;
+  }
+  .position-bottom{
+    float: bottom !important;
+    margin-top: 4rem;
   }
 
   /*Align items*/
@@ -260,10 +274,21 @@
   height: 250px;
 }
 
+  .bar-report{
+    width: 600px;
+    height: 400px;
+  }
+
 .line{
   width: 450px;
   height: 250px;
 }
+
+  .line-report{
+    width: 600px;
+    height: 400px;
+  }
+
 
 .doughnut{
   width: 300px;
@@ -282,6 +307,83 @@
     background-size: cover;
   }
 
+  hr {
+    height: 0.5rem;
+    width: 100%;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    font-weight: bolder;
+    background: black;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .report_margin{
+    padding-top: 0.8rem;
+    padding-left: 1.8rem;
+  }
+
+  .report-table-margin{
+    margin-top: 2rem;
+  }
+
+ .margin-right{
+    margin-right: 3rem;
+  }
+
+
+  /*print button style*/
+  .print-button{
+    width: 4rem;
+    height: 4rem;
+    background-color: grey;
+    float: right;
+    font-size: 2rem;
+    margin-right: 2rem;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+  }
+
+  /*.material-icons{*/
+  /*  font-size: 2.3rem !important;*/
+  /*  margin-right: 0.5rem;*/
+  /*}*/
+  .printer-card{
+    width: 100%;
+    height: auto;
+    background-color: white;
+  }
+  /*Page print style*/
+  @media print {
+    @page {
+      size: 210mm 297mm ; /* landscape */
+      margin-right: 0.5in; /* for compatibility with both A4 and Letter */
+    }
+    .noprint {
+      visibility: hidden;
+      display: block;
+    }
+
+    .primary-card{
+      width: 100%;
+      margin: 0px !important;
+      padding: 0px !important;
+    }
+    .flex-gap {
+      margin: 0rem !important;
+      justify-self: left;
+      margin-left: 0 !important;
+    }
+
+    .main {
+      margin-left: 0rem;
+      margin-bottom: 0rem !important;
+    }
+
+
+
+  }
 
 
   @media only screen and (max-width: 600px) {
@@ -302,9 +404,6 @@
       .nav-link {
         justify-content: center;
       }
-    
-
-
 
       .padding-left{
         padding-left: 0rem;

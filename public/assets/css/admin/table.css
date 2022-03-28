@@ -31,3 +31,22 @@ table {
     color: #0f191d;
   }
 
+  .report-table tr{
+    border-bottom-style: none;
+    background-color:;
+  }
+
+  .report-table th{
+    background-color: grey;
+  }
+
+.report-table td{
+  border-bottom-style: none;
+  width: 10%;
+}
+
+  .
+
+
+
+

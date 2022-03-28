@@ -273,7 +273,7 @@ class AdminVolunteerController extends Controller{
                            FROM volunteer_participate JOIN volunteer_event ve on ve.id = volunteer_participate.eventId
                            JOIN staff s on s.id = volunteer_participate.volunteerId
                            JOIN staff s2 on s2.id = ve.moderator
-                           WHERE volunteer_participate.volunteerId =14 AND ve.startDate < DATE(now()) AND volunteer_participate.state = 1 ORDER BY ve.startDate DESC;";
+                           WHERE volunteer_participate.volunteerId ='$data[id]' AND ve.startDate < DATE(now()) AND volunteer_participate.state = 1 ORDER BY ve.startDate DESC;";
 
         $viewVolunteerParticipate = $volunteerEvent->customSqlQuery($sqlStatement, DatabaseService::FETCH_ALL);
         $viewVolunteerParticipateCount = $volunteerEvent->customSqlQuery($sqlStatement, DatabaseService::FETCH_COUNT);
@@ -298,6 +298,10 @@ class AdminVolunteerController extends Controller{
             $data = $request->getBody();
 
             $stateChange = $updateReq->update("volunteer_participate", ["state" => '1'], [ 'volunteerId' => $data['id'] ]);
+
+            //            Send approve email
+            $data = $updateReq->select('user', [ 'email','username' ], [ 'id' => $data['id'] ], DatabaseService::FETCH_ALL);
+            $updateReq->sendApprovedMail($data[0]['username'], $data[0]['email']);
         }
 
         if($stateChange)

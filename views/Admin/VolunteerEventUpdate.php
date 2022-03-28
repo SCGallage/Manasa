@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="col-l-12 col-m-12 col-s-12 ">
-                                <input type="text" name="name" value="<?php echo $data['name']?>" required>
+                                <input type="text" name="val" value="<?php echo $data['name']?>" required>
                                 <span class="required-text">*Required</span>
                             </div>
 

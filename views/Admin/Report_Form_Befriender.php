@@ -20,7 +20,7 @@
             <span class="head-text2">Generate Reports</span>
         </div>
         <div class="col-l-8">
-            <ul class="RG-nav" style="list-style-type:none;">
+            <ul class="RG-nav">
                 <li class="RG-nav"><a href="/admin/GenReport">Overview Report</a></li>
                 <li class="RG-nav"><a class="" href="/admin/volReport">Volunteer Report</a></li>
                 <li class="RG-nav"><a href="/admin/befrienderReport">Befriender Report</a></li>

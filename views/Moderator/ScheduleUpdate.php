@@ -32,7 +32,7 @@
                             <td><span class="select-text">Shift ID: <?php echo $emptySlot['shiftId']?></span></td>
                             <td><span class="select-text">Date: <?php echo $emptySlot['date']?></span></td>
                             <td> <span class="select-text">Time: <?php echo $emptySlot['startTime']." - ".$emptySlot['endTime']?> </span></td>
-                            <td><span class="select-text">No. of empty slots: <?php echo (5-$emptySlot['num_of_befrienders'])?></span></td>
+                            <td><span class="select-text">No. of empty slots: <?php echo ($_ENV['bef_limit']-$emptySlot['num_of_befrienders'])?></span></td>
                             <td><a href="/mod/ScheduleSelect?id=<?php echo $emptySlot['shiftId']?>&scheduleId=<?php echo $data['scheduleId']?>"><input type="button" class="button1" value="Assign" name="state"> </a></td>
                         <tr>
                 </div>

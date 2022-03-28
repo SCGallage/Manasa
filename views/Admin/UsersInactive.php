@@ -54,7 +54,6 @@
                             <td><?php echo $row['role']?></td>
                             <td><a href="/file_storage/cv/<?php echo $row['cv']?>" download>Download CV</a></td>
                             <td><a href="/admin/updateUser?StaffId=<?php echo $row['id'] ?>"><span class="material-icons" id="updateUser" >edit</span></a> </td>
-                            <td><a onclick="document.getElementById('deleteUser').style.display='block'"" ><span class="material-icons">delete</span></a></td>
                         </tr>
                     <?php } }?>
                 </table>

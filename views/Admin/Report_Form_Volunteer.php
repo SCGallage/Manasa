@@ -22,10 +22,10 @@
             <span class="head-text2">Generate Reports</span>
         </div>
         <div class="col-l-8">
-            <ul class="RG-nav" style="list-style-type:none;">
+            <ul class="RG-nav">
                 <li class="RG-nav"><a href="/admin/GenReport">Overview Report</a></li>
                 <li class="RG-nav"><a class="" href="/admin/volReport">Volunteer Report</a></li>
-                <li class="RG-nav"><a href="/admin/befrienderReport">Befriender Report</a></li>
+<!--                <li class="RG-nav"><a href="/admin/befrienderReport">Befriender Report</a></li>-->
                 <li class="RG-nav"><a href="/admin/donationReport">Donation Report</a></li>
             </ul>
         </div>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 card2">
-                <form class="form1" method="post" name="reportGenForm" onsubmit="return reportGenValidation()">
+                <form class="form1" method="post" name="reportGenForm" target="_blank" onsubmit="return reportGenValidation()">
 
                     <div class="col-l-12 col-m-12 col-s-12 ">
                         <p class="text-style3">
@@ -51,12 +51,12 @@
                         <label for="name" class="text-style3">Volunteer Name:</label>
                     </div>
                     <div class="col-l-12 col-m-12 col-s-12 ">
-                        <select class="js-example-basic-single js-select" name="username" required>
+                        <select class="js-example-basic-single js-select" name="id" required>
 
                             <option value="" class="custom-font" disabled selected>Please select Volunteer</option>
                             <?php
                             foreach ($viewVolunteer as $select) {?>
-                                <option class="custom-font" value="<?php echo $select['username'] ?>" ><?php echo $select['fname']." ".$select['lname']?> </option>
+                                <option class="custom-font" value="<?php echo $select['id'] ?>" ><?php echo $select['fname']." ".$select['lname']?> </option>
                             <?php } ?>
                         </select>
                         <span class="required-text">*Required</span>
@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="col-l-12 col-m-12 col-s-12 padding-top">
-                        <button type="submit" formaction="/admin/volReportPDF" class="button2">
+                        <button type="submit" formaction="/admin/volReport" class="button2">
                            Submit
                         </button>
                     </div>

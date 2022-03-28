@@ -18,10 +18,10 @@
             <span class="head-text2">Generate Reports</span>
         </div>
         <div class="col-l-8">
-            <ul class="RG-nav" style="list-style-type:none;">
+            <ul class="RG-nav">
                 <li class="RG-nav"><a href="/admin/GenReport">Overview Report</a></li>
                 <li class="RG-nav"><a class="" href="/admin/volReport">Volunteer Report</a></li>
-                <li class="RG-nav"><a href="/admin/befrienderReport">Befriender Report</a></li>
+<!--                <li class="RG-nav"><a href="/admin/befrienderReport">Befriender Report</a></li>-->
                 <li class="RG-nav"><a href="/admin/donationReport">Donation Report</a></li>
             </ul>
         </div>
@@ -34,7 +34,7 @@
             </div>
 
             <div class="col-l-12 col-m-12 col-s-12 card2">
-                <form action="/admin/donationReport" class="form1" method="post" name="reportGenForm" onsubmit="return reportGenValidation()">
+                <form action="/admin/donationReport" class="form1" method="post" name="reportGenForm" target="_blank" onsubmit="return reportGenValidation()">
                     <div class="col-l-12 col-m-12 col-s-12 ">
                         <p class="text-style3">
                         Donation report displays the total amount received in donations and the donors for the entered time duration

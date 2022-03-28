@@ -146,7 +146,7 @@
                             </div>
                         </div>
                         <div class="col-l-12 col-m-12 col-s-12 ">
-                            <textarea id="description" name="description" rows="4" cols="50" value="<?php echo $data['description'] ?>"></textarea>
+                            <textarea id="description" name="description" rows="4" cols="50" value=""><?php echo $data['description'] ?></textarea>
                         </div>
 
                         <div class="col-l-12 col-m-12 col-s-12 padding-top">
